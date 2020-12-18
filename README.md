@@ -36,6 +36,7 @@ TODO:
     
 - Server
     - Split into seperate python files and classes
+    - Reimplement Queues for sending and receiving
     - Functions
       - Help/usage screen cmd
       - ClearScreen cmd
