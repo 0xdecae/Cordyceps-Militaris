@@ -1,6 +1,6 @@
 # C2-Research
 
-![alt text](https://github.com/0xdecae/Cordyceps-Militaris/blob/main/Cordyceps-Militaris.png?raw=true)
+![alt text](https://github.com/0xdecae/Cordyceps-Militaris/blob/main/Cordyceps Militaris.png?raw=true)
 
 Command and Control server plus agents. The project is something I've been wanting to write for a very long time. I've had the idea in my mind to try and rewrite the wheel to not only educate myself on languages such as Python3, C/C++, C#, .NET, but the respective Linux and Windows operating systems, and the wonderful WinAPI that comes with. I took inspiration from many blogs and basic tutorials before me, so credit to all those who want to see the InfoSec community grow, and red team ops succeed. Salud.
 
