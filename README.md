@@ -1,4 +1,4 @@
-# C2-Research
+# Cordyceps Militaris
 
 ![alt text](https://github.com/0xdecae/Cordyceps-Militaris/blob/main/Cordyceps-Militaris.png?raw=true)
 
