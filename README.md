@@ -32,6 +32,7 @@ TODO:
       - Encrypt traffic going to and from
     
 - Server
+    - Split into seperate python files and classes
     - Functions
       - Help/usage screen cmd
       - ClearScreen cmd
