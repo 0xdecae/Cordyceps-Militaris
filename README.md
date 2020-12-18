@@ -35,13 +35,13 @@ TODO:
       - Encrypt traffic going to and from
     
 - Server
-    - Split into seperate python files and classes
-    - Reimplement Queues for sending and receiving
+    - Split into seperate python files and classes [FIN]
     - Functions
+      - Multi-Listener capabilities
       - Help/usage screen cmd
+      - CMD History
       - ClearScreen cmd
       - Profiles : establishment and storage
-      - Look into using Dictionaries for conneciton stroage, accessible by key
       - Upload/Download
       - Authentication
       - Certification and Encrypted Traffic
