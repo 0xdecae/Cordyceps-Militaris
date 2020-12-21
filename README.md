@@ -39,7 +39,10 @@ TODO:
     - Functions
       - Multi-Listener capabilities
       - Help/usage screen cmd
-      - CMD History
+      - Logging
+	- CMD History
+	- Connection Init/Loss 
+	- JSON? DB? txt?
       - ClearScreen cmd
       - Profiles : establishment and storage
       - Upload/Download

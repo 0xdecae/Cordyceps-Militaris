@@ -192,16 +192,17 @@ class Interpreter(threading.Thread):
         os._exit(0)
 #------------------------------------------------------------------------------------------------------------------------------
     def listAgents(self): # Change to listAlive(self)
-        print("       .------------------.")
-        print("       |  LIST OF AGENTS  |")
-        print(":------:------------------:-------.")
-        print(":  ID  :  IP ADDRESS (v4) :  PORT :")
-        print(":------:------------------:-------:")
+        print("       .------------------.        ")
+        print("       |  LIST OF AGENTS  |        ")
+        print(".------:------------------:-------.-------------.-------------.")
+        print(":  ID  :  IP ADDRESS (v4) :  PORT : HOST-STATUS : CONN-STATUS :")
+        print(":------:------------------:-------:-------------:-------------:")
 
         for agent in self.agentList:
-            print("| %4d | %16s | %5d |"% (agent.getID(), agent.getIP(), agent.getPort()))  # , agent.getStatus()))
-            print(":------:------------------:-------:")
+            print("| %4d | %16s | %5d | %6s |"% (agent.getID(), agent.getIP(), agent.getPort(), agent.getStatus()))
+            print(":------:------------------:-------:--------:")
 #------------------------------------------------------------------------------------------------------------------------------
+
     # def listDead(self):
     #     print(".-------------------------.")
     #     print("| List of Dead Sessions   |")

