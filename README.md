@@ -48,15 +48,17 @@ TODO:
       - Upload/Download
       - Authentication
       - Certification and Encrypted Traffic
+      - Turn the listeners into a class and pass information between them as objects
+      - Reimplement functional queues for Agent handling and passing information to and fro
     - Improve error handling
        - Fix Ctrl-C 
        - Ensure that nothing can go wrong in Batch-mode or Interaction-mode : if it does, resolve...
+       - Clean your goddamn room
     - Transport Mechanisms
       - HTTP
       - DNS
       - ICMP
       - FTP
-      
-    
-      
-      
+      - SMTP?
+      - SNMP?
+      - Whatever else Andrew can come up with and implement
