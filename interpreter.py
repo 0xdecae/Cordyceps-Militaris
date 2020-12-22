@@ -7,14 +7,8 @@ import threading
 import queue
 import time
 
-# Project imports
-# import handler
-# from server import agentList
-# from handler import Handler
-# from server import batchList, aliveConnections, deadConnections, clientAddressList
-
 class Interpreter(threading.Thread):
-    def __init__(self, agentList, listeners, responseQueue):
+    def __init__(self, agentList, listeners):
         threading.Thread.__init__(self)     # Spawn a new thread for itself
         self.agentList = agentList
         self.listeners = listeners

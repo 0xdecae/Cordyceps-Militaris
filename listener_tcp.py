@@ -10,12 +10,11 @@ import time
 from handler import Handler
 
 class Listener_TCP(threading.Thread):
-    def __init__(self, lhost, lport, agentList, respQueue):
+    def __init__(self, lhost, lport, agentList):
         threading.Thread.__init__(self)
         self.lhost = lhost
         self.lport = lport
         self.agentList = agentList
-        self.respQueue = respQueue
 
     def run(self):
 
@@ -35,10 +34,8 @@ class Listener_TCP(threading.Thread):
             (client, client_address) = server.accept()  # start listening
             print(f"\n[* Listener-Msg] Connection received from {str(client_address[0])}\n")
 
-            sendQueue = queue.Queue()
-
             # BotHandler = Multiconn, a new BotHandler is spawned for each incoming connection
-            newConn = Handler(client, client_address, connRecord, sendQueue, self.respQueue)
+            newConn = Handler(client, client_address, connRecord)
             newConn.start()
 
             self.agentList.append(newConn)

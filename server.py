@@ -39,13 +39,6 @@ responseQueue = queue.Queue()   # Single queue for handling all responses sent f
 
 def main():
 
-    # batchList = []              # List for systems that are being interacted with in BatchMode
-    # allConnections = []        # Stores all BotHandler instances
-    # aliveConnections = []       # Stores all currently alive BotHandler sessions
-    # deadConnections = []        # Records the dead-instance's information
-                                # This may be an odd thing to implement. 
-                                # Do we simply want to store the IP address + Port + ID?
-
     if (len(sys.argv) < 3):
         print(f"[* Interpreter-Msg] Usage:\n  [+] python3 {sys.argv[0]} <LHOST> <LPORT>\n  [+] Eg.: python3 {sys.argv[0]} 0.0.0.0 1337\n")
     else:
@@ -53,10 +46,10 @@ def main():
             lhost = sys.argv[1]
             lport = int(sys.argv[2])
 
-            TCP_Thread = Listener_TCP(lhost, lport, agentList, responseQueue)
+            TCP_Thread = Listener_TCP(lhost, lport, agentList)
             TCP_Thread.start()
 
-            InterpreterThread = Interpreter(agentList, listeners, responseQueue)          # Handles interface, queue is for commands
+            InterpreterThread = Interpreter(agentList, listeners)          # Handles interface, queue is for commands
             InterpreterThread.start()
         except Exception as ex:
             print(f"[* Interpreter-Msg] Unable to establish the Handler. Error: {str(ex)}\n")

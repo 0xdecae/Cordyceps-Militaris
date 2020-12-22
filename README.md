@@ -13,7 +13,7 @@ TODO:
     - Functions
       - Retrieve pid of agent
       - [Proper] Beaconing
-      - Re-evaluate and clean up shell interaction
+      - Re-evaluate and clean up shell interaction [INITIATED]
       - Upload and Download files
     - Formats
       - Create Linux agent
@@ -30,7 +30,7 @@ TODO:
       - [L] Module: Basic BASHRC, PROFILE, or CRON Persistence
       - insert more ideas here...
     - Size
-      - Monitor, keep it small
+      - Monitor, keep it small - Remove C++ elements, reduce to strictly C
     - Certification/Authentication
       - Encrypt traffic going to and from
     
@@ -48,8 +48,8 @@ TODO:
       - Upload/Download
       - Authentication
       - Certification and Encrypted Traffic
-      - Turn the listeners into a class and pass information between them as objects
-      - Reimplement functional queues for Agent handling and passing information to and fro
+      - Turn the listeners into a class and pass information between them as objects [DONE]
+      
     - Improve error handling
        - Fix Ctrl-C 
        - Ensure that nothing can go wrong in Batch-mode or Interaction-mode : if it does, resolve...
