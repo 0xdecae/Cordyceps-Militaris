@@ -39,12 +39,9 @@ class Interpreter(threading.Thread):
             elif (cmd == "exit"):
                 self.exit()
             elif (cmd == "clear"):
-                self.clearScreen()
-            
+                os.system("clear")            
             elif (cmd == "list-agents"):
                 self.listAgents()
-            # elif (cmd == "list-dead"):
-            #     self.listDead()
             elif (cmd == "batch-mode"):
                 self.batchMode()
             elif (cmd.startswith("kill")):
@@ -61,6 +58,7 @@ class Interpreter(threading.Thread):
                     except Exception as ex: 
                         print(f"[* Interpreter-Msg] Unable to kill connection with bot {arg_id}...")
                         print(f"[* Interpreter-Msg] Error: {ex}")
+
             elif (cmd.startswith("interact")):
                 try:
                     print(cmd)
@@ -88,7 +86,7 @@ class Interpreter(threading.Thread):
  
         batchList = []
 
-        self.clearScreen()
+        os.system("clear")
 
         print("[* Interpreter-Msg] Entering Batch-Mode execution.\n")
         print("[* Interpreter-Msg] Systems in use under this mode will each receive the same command each time you enter.")
@@ -120,7 +118,7 @@ class Interpreter(threading.Thread):
         time.sleep(1)
 
         if(bm_success):
-            self.clearScreen()
+            os.system("clear")
             print("[* Interpreter-Msg] Batch-Mode execution confirmed: ")
             print(f"[* Interpreter-Msg] The commands entered here will be sent to these Bots {idlist}")
             print("[* Interpreter-Msg] Note that this mode will not allow for individual shell environment interaction\n")
@@ -156,40 +154,6 @@ class Interpreter(threading.Thread):
 
         print(f"[* Interpreter-Msg] Exiting Batch-Mode... Returning to main-menu...")
 
-# #------------------------------------------------------------------------------------------------------------------------------
-
-#     # Obsolete
-#     def activate(self):
-#         try:
-#             selectedIDs = [int(n) for n in input('[+ Activation] Enter ID list to activate (seperated by spaces): ').split()]
-#             print(f"[+ Activation] ID list obtained: {str(selectedIDs)}")
-#         except Exception as ex:
-#             print(f"[* Interpreter-Msg] Error with activation list: {ex}")
-#             print(f"[* Interpreter-Msg] Error: {ex}")
-#         else:
-#             for conn in allConnections:
-#                 #print("Handler: ", str(conn))
-
-#                 if conn.getID() in selectedIDs:
-#                     print("Activating Bot " + str(conn.getID()))
-#                     conn.activate()
-#                     activeConnections.append(conn)
-# #------------------------------------------------------------------------------------------------------------------------------
-
-#     # Obsolete  
-#     def deactivate(self):
-#         try:
-#             deselectedIDs = [int(n) for n in input('[- Deactivation] Enter IDs to deactivate (seperated by spaces): ').split()]
-#             print(f"[- Deactivation] ID list obtained: {str(deselectedIDs)}")
-#         except Exception as ex:
-#             print(f"[* Interpreter-Msg] Error with deactivation list: {ex}")
-            
-#         else:
-#             for conn in allConnections:
-#                 if conn.getID() in deselectedIDs and conn.isActivated():
-#                     print(f"[* Deactivation] Deactivating Bot {str(conn.getID())}")
-#                     conn.deactivate()
-#                     activeConnections.remove(conn)
 #------------------------------------------------------------------------------------------------------------------------------
     def exit(self):
         print(f"[* Interpreter-Msg] Closing connection to {str(len(self.agentList))} bots")
@@ -211,28 +175,6 @@ class Interpreter(threading.Thread):
         for agent in self.agentList:
             print("| %4d | %16s | %5d | %6s |"% (agent.getID(), agent.getIP(), agent.getPort(), agent.getStatus()))
             print(":------:------------------:-------:--------:")
-#------------------------------------------------------------------------------------------------------------------------------
-
-    # def listDead(self):
-    #     print(".-------------------------.")
-    #     print("| List of Dead Sessions   |")
-    #     print(":--------------------------------.")
-
-    #     for session in server.deadConnections:
-    #         print("| %4d | %16s | %5d |"% (session[0], session[1], session[2]))
-    #         print(":--------------------------------:")
-#------------------------------------------------------------------------------------------------------------------------------
-    # def listAll(self):
-    #     print("---------------------------")
-    #     print("| List of All Connections |")
-    #     print("---------------------------")
-
-    #     for conn in allConnections:
-    #         print("| %4d | %16s |"% (conn.getID(), conn.getIP()))
-    #         print("---------------------------")
-#------------------------------------------------------------------------------------------------------------------------------
-    def clearScreen(self):
-        os.system("clear")
 #------------------------------------------------------------------------------------------------------------------------------
     def interact(self, id):
         # print("Shell function entry point")
@@ -265,3 +207,5 @@ class Interpreter(threading.Thread):
                     break
         else:
             print(f"[* Interpreter-Msg] Bot #{id} was killed with errors...\n")
+#------------------------------------------------------------------------------------------------------------------------------
+

