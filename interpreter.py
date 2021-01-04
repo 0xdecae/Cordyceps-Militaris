@@ -173,8 +173,8 @@ class Interpreter(threading.Thread):
         print(":------:------------------:-------:-------------:-------------:")
 
         for agent in self.agentList:
-            print("| %4d | %16s | %5d | %6s |"% (agent.getID(), agent.getIP(), agent.getPort(), agent.getStatus()))
-            print(":------:------------------:-------:--------:")
+            print("| %4d | %16s | %5d | %6s |"% (agent.getID(), agent.getIP(), agent.getPort(), agent.isAlive(), agent.getStatus()))
+            print(":------:------------------:-------:-------------:-------------:")
 #------------------------------------------------------------------------------------------------------------------------------
     def interact(self, id):
         # print("Shell function entry point")

