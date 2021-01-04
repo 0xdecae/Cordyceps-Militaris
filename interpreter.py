@@ -165,18 +165,17 @@ class Interpreter(threading.Thread):
         print("[* Interpreter-Msg] Exiting connections for all bots. Please wait...")
         time.sleep(5)
         os._exit(0)
-
 #------------------------------------------------------------------------------------------------------------------------------
     def listAgents(self): # Change to listAlive(self)
-        print("       .------------------.                                    ")
-        print("       |  LIST OF AGENTS  |                                    ")
-        print(".------:------------------:-------.-------------.-------------.")
-        print(":  ID  :  IP ADDRESS (v4) :  PORT : HOST-STATUS : CONN-STATUS :")
-        print(":------:------------------:-------:-------------:-------------:")
+        print("       .------------------.                         ")
+        print("       |  LIST OF AGENTS  |                         ")
+        print(".------:------------------:--------.------.--------.")
+        print("|  ID  |  IP ADDRESS (v4) |  PORT  | PING | BEACON |")
+        print(":------:------------------:--------:------:--------:")
 
         for agent in self.agentList:
-            print("| %4d | %16s | %5d | %6s |"% (agent.getID(), agent.getIP(), agent.getPort(), agent.ping(), agent.beacon()))
-            print(":------:------------------:-------:--------:")
+            print("| %4d | %16s | %6d | %4s | %6s |"% (agent.getID(), agent.getIP(), agent.getPort(), agent.status[0], agent.status[1]))
+            print(":------:------------------:--------:------:--------:")
 #------------------------------------------------------------------------------------------------------------------------------
     def interact(self, id):
         # print("Shell function entry point")
@@ -210,8 +209,5 @@ class Interpreter(threading.Thread):
         else:
             print(f"[* Interpreter-Msg] Bot #{id} was killed with errors...\n")
 #------------------------------------------------------------------------------------------------------------------------------
-
-    def beacon(self, id):
-        print("hi i'z beekan")
 
 
