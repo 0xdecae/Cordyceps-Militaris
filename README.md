@@ -11,9 +11,9 @@ As for the goal of this hot steamy pile of collegiate angst, we're here. I wante
 TODO:
  - Agent
     - Functions
-      - Retrieve pid of agent
-      - [Proper] Beaconing
-      - Re-evaluate and clean up shell interaction [INITIATED]
+      - Retrieve pid of agent [FIN]
+      - Beaconing [WIP]
+      - Re-evaluate and clean up shell interaction [WIP]
       - Upload and Download files
     - Formats
       - Create Linux agent
@@ -22,13 +22,15 @@ TODO:
     - Module Framework
       - Build
         - Cmds:
+	  - load <module>
+          - set options?
+          - fire
       - [L/W] Module: Move/Copy agent to be executed at startup (research ways to do so)
       - [W] Module: Use the WinAPI to return information and create a profile for a target (See https://github.com/fdiskyou/hunter)
       - [L/W] Module: Evasion implementation and tactics
       - [L/W] Module: Upload and hide Supervisor script which will surveil the agent to recreate and re-execute upon deletion (after a random time period)
       - [L] Module: Transfer and implement Diamorphine
       - [L] Module: Basic BASHRC, PROFILE, or CRON Persistence
-      - insert more ideas here...
     - Size
       - Monitor, keep it small - Remove C++ elements, reduce to strictly C
     - Certification/Authentication
@@ -40,21 +42,21 @@ TODO:
       - Multi-Listener capabilities
       - Help/usage screen cmd
       - Logging
-	- CMD History
-	- Connection Init/Loss 
-	- JSON? DB? txt?
-      - ClearScreen cmd
+        - CMD History
+        - Connection Init/Loss
+        - JSON? DB? txt?
+      - ClearScreen cmd [FIN]
       - Profiles : establishment and storage
       - Upload/Download
       - Authentication
       - Certification and Encrypted Traffic
-      - Turn the listeners into a class and pass information between them as objects [DONE]
+      - Turn the listeners into a class [FIN]
       
     - Improve error handling
-       - Fix Ctrl-C 
-       - Ensure that nothing can go wrong in Batch-mode or Interaction-mode : if it does, resolve...
-       - Clean your goddamn room
+       - Fix Ctrl-C [WIP]
+       - Ensure that nothing can go wrong in Batch-mode or Interaction-mode : if it does, resolve... [FIN]
     - Transport Mechanisms
+      - TCP [WIP]
       - HTTP
       - DNS
       - ICMP

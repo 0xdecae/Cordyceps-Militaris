@@ -51,6 +51,10 @@ Notes and Questions:
 
 // Functions, individual actions, and commands
 
+// TODO:
+// - ls
+// - sleep (lie dormant for x amount of time: close socket, stop beaconing, etc.)
+
 void whoami(char *returnval, int returnsize)
 {
     DWORD bufferlen = 257;

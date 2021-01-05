@@ -1,0 +1,30 @@
+The purpose of this document is to record progress and work done towards the Cordyceps Militaris project.
+The README doc is more for descriptions and TODO's, so this will be event based records.
+
+20210105 - Tuesday
+Not much to say besides I have an essential shell or skeleton of the C2. 
+The CLI is starting to really come along.
+Last major improvement was that of adding Beaconing.
+With this, we have a simple ping relay which returns up ordown depending on the return value of the system ping command.
+The other function of the function then will send a 'beacon' signal to the rat to see if the connection is still valid and active.
+The main issue I see here is the cross contaminating of tunnels and streams, and may require a seperate 'manager/beacon' socket to be created for it as to not mix the comm channels.
+I'll have to read more on how this works. 
+
+Update:
+Decided to use a 'wait' variable in the handler so that way if the user is currently interacting with the shell/client/rat then it will not beacon through the socket. Debating on whether to do the same thing with the ping records as well, but that may be useful in recording uptime (over long periods? useful?? :D ).
+
+This may be the init of profiles and the logging associated. Have to check how permissions are handed out on linux systems to see if we can just put them in /var/log/ or if we should create our own directory for it.
+
+Profiles:
+I think that the right idea would be to use JSON for basic profile compilation. 
+For example, the JSON would list the IP, Port, OS, currentDir, Modules activated, etc.
+
+Logs:
+Logs would not need to be edited, and therefore can be simple txt files.
+With this, there should be a set of logs for each Profile/RAT that joins, or to make things aggregated and simpler we could simply put all the information in one log, with rotation.
+I don't really see a difference besides a secondary layer of parsing (with the aggregated file). 
+Could make the info easier to find too if it was in it's own seperate directory/location. 
+
+Not 100% sure.
+
+

