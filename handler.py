@@ -21,7 +21,10 @@ class Handler(threading.Thread):
         self.bot_id = bot_id
         self.info = [self.bot_id,self.ip,self.port]
         self.beacon_wait = False
-        self.status = ["UP","UP"]                         # <--UP - DOWN - ERR
+        self.status = ["UP","UP"]                           # <--UP - DOWN - ERR 
+                                                            # [0] = PING, [1] = BEACON
+
+        # Log by
 
 
 
