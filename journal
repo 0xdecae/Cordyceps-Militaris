@@ -1,7 +1,7 @@
 The purpose of this document is to record progress and work done towards the Cordyceps Militaris project.
 The README doc is more for descriptions and TODO's, so this will be event based records.
 
-20210105 - Tuesday
+20210105 - Tuesday 2:00pm
 Not much to say besides I have an essential shell or skeleton of the C2. 
 The CLI is starting to really come along.
 Last major improvement was that of adding Beaconing.
@@ -11,9 +11,11 @@ The main issue I see here is the cross contaminating of tunnels and streams, and
 I'll have to read more on how this works. 
 
 Update:
-Decided to use a 'wait' variable in the handler so that way if the user is currently interacting with the shell/client/rat then it will not beacon through the socket. Debating on whether to do the same thing with the ping records as well, but that may be useful in recording uptime (over long periods? useful?? :D ).
+Decided to use a 'wait' variable in the handler so that way if the user is currently interacting with the shell/client/rat then it will not beacon through the socket.
+Debating on whether to do the same thing with the ping records as well, but that may be useful in recording uptime (over long periods? useful?? :D ).
 
-This may be the init of profiles and the logging associated. Have to check how permissions are handed out on linux systems to see if we can just put them in /var/log/ or if we should create our own directory for it.
+This may be the init of profiles and the logging associated.
+Have to check how permissions are handed out on linux systems to see if we can just put them in /var/log/ or if we should create our own directory for it.
 
 Profiles:
 I think that the right idea would be to use JSON for basic profile compilation. 
@@ -28,3 +30,26 @@ Could make the info easier to find too if it was in it's own seperate directory/
 Not 100% sure.
 
 
+20210106 - Wednesday 1:53am
+So I've decided that profiling and the associated logging will be the next thing to tackle.
+Shouldnt be too terrible, just a bunch of writing to files and ensuring that there isn't any memory being access by multiple threads.
+Lets start by outlining what we want from each of the ideas.
+
+In order to have a valid profile, we need to discern what makes a connection special across multiple instannces and uses of the C2.
+I think these include:
+	- IP Address
+	- Client Port
+	- Current Working Directory
+	- base64 ID (Different for each rat instance when it starts) -  more or less RNG? See below...
+
+(Quick thought) What if on every startip of a RAT is self assigns it's own hexdecimal or base64 id?
+This would ensure that just because the RAT gets disconnected from the C2 the actual information retrieved from the RAT will not be seperate from the earlier instance.
+With this, I think we can also expand on the 'sleep' function, which can put the RAT in a non-active state, while maintaining it's id and information. 
+Maybe we could have the C2 assign this and keep track of them. As in, when a client connects we assign them an ID then create their profile in the 'profiles' dir. 
+Then, as more and more clients connect the Directory grows with IDs.
+
+In contrast this could get out of hand... The idea of using IDs is alright, but how will the RATs know what ID it is? Do they need to know? What if the RAT gets disconnected completely.
+Would it be simpler to have the C2 organize by IP address and just seperate the connections by timestamps and Client ports? Will definitely need to think about this more.
+Also, if that is the road to take (storage by IP address) than something tells me I'm gonna need somewhat of a better storage allocation that a simple txt. 
+I could be wrong though. Simple aggregated logging might just do that trick. 
+		

@@ -74,7 +74,6 @@ class Handler(threading.Thread):
                         self.status[1] = "DOWN"
                 except:
                     self.status[1] = "ERR"
-
                     
             # Write to beacon log file to record status
 
