@@ -41,3 +41,6 @@ class Listener_TCP(threading.Thread):
             self.agentList.append(newConn)
             # print(agentList)
             connRecord += 1
+    
+    def log(self, msg):
+        # Write msg to tcp_listener.log

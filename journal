@@ -1,7 +1,7 @@
 The purpose of this document is to record progress and work done towards the Cordyceps Militaris project.
 The README doc is more for descriptions and TODO's, so this will be event based records.
 
-20210105 - Tuesday 2:00pm
+20210105 - Tuesday 14:00
 Not much to say besides I have an essential shell or skeleton of the C2. 
 The CLI is starting to really come along.
 Last major improvement was that of adding Beaconing.
@@ -29,8 +29,9 @@ Could make the info easier to find too if it was in it's own seperate directory/
 
 Not 100% sure.
 
+$$$
 
-20210106 - Wednesday 1:53am
+20210106 - Wednesday 01:53
 So I've decided that profiling and the associated logging will be the next thing to tackle.
 Shouldnt be too terrible, just a bunch of writing to files and ensuring that there isn't any memory being access by multiple threads.
 Lets start by outlining what we want from each of the ideas.
@@ -52,4 +53,30 @@ In contrast this could get out of hand... The idea of using IDs is alright, but 
 Would it be simpler to have the C2 organize by IP address and just seperate the connections by timestamps and Client ports? Will definitely need to think about this more.
 Also, if that is the road to take (storage by IP address) than something tells me I'm gonna need somewhat of a better storage allocation that a simple txt. 
 I could be wrong though. Simple aggregated logging might just do that trick. 
-		
+
+$$$
+
+20210106 - Wednesday 21:56
+So JSON is totally off the table I think. If anything, a CSV would be a better option for storage of information, or even a txt with line association.
+Reading online it seems like the format is most definitly not meant to be updated often with information, which is what were looking to do (i think).
+With that, logging is the focus and priority for the next week. Going to outline a structure here:
+
+server.log:
+ - STATUS
+ - ERROR
+
+listener.log:
+ - STATUS
+ - INIT-CONNECTION
+ - DISCONNECTION
+ - ERROR
+
+interpreter.log:
+ - STATUS
+ - MODE-INIT
+ - MODE-EXIT
+ - CMD
+  - History...
+ - ERROR
+
+handler.log

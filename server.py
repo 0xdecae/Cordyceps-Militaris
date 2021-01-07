@@ -53,10 +53,8 @@ def catchSIGINT(signum, frame):
         print(f"[* Server-Msg] HEATHEN!!!\n")
 
     signal.signal(signal.SIGINT, catchSIGINT)
-
-    
         
-
+def logger()
 
 def main():
 

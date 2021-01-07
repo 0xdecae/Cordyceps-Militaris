@@ -257,3 +257,14 @@ class Handler(threading.Thread):
 
     def upload(self, localfile, remotepath):
         print("TBC")
+
+    def log(self, type, msg, ):
+
+        if type == ping:
+            # write to uptime log
+        elif type == beacon:
+            # write to beacon log
+        elif type == error:
+            # write to error log
+        elif type == status:
+            # 

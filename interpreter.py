@@ -209,5 +209,10 @@ class Interpreter(threading.Thread):
         else:
             print(f"[* Interpreter-Msg] Bot #{id} was killed with errors...\n")
 #------------------------------------------------------------------------------------------------------------------------------
+    def logCMD(self, cmd):
+        # Write cmds to history file .history
+    
+    def 
+    
 
 
