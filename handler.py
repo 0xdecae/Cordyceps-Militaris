@@ -7,7 +7,6 @@ import signal
 import threading
 import queue
 import time
-import subprocess
 import random
 
 class Handler(threading.Thread):

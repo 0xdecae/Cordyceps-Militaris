@@ -54,8 +54,6 @@ def catchSIGINT(signum, frame):
 
     signal.signal(signal.SIGINT, catchSIGINT)
         
-def logger()
-
 def main():
 
     if (len(sys.argv) < 3):
