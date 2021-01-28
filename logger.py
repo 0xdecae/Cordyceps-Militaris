@@ -36,7 +36,7 @@ class Logger(threading.Thread):
             if not os.path.exists('./log/server.log') or not os.path.isfile('./log/server.log'):
                 os.mknod('./log/server.log')
         except Exception as ex:
-            print(f"Could not create log file because of {ex}")
+            print(f"Could not create server.log file because of {ex}")
 
         # Check if uptime.log file exists
         # if not create ./log/uptime.log
@@ -44,21 +44,33 @@ class Logger(threading.Thread):
             if not os.path.exists('./log/uptime.log') or not os.path.isfile('./log/uptime.log'):
                 os.mknod('./log/uptime.log')
         except Exception as ex:
-            print(f"Could not create log file because of {ex}")
+            print(f"Could not create uptime.log file because of {ex}")
 
         # Check if uptime.log file exists
-        # if not create ./log/.log
+        # if not create ./log/conn.log
         try:
             if not os.path.exists('./log/uptime.log') or not os.path.isfile('./log/uptime.log'):
-                os.mknod('./log/uptime.log')
+                os.mknod('./log/conn.log')
         except Exception as ex:
-            print(f"Could not create log file because of {ex}")
+            print(f"Could not create conn.log file because of {ex}")
 
+    def monitorQueue(self):
 
+        while True:
+            obj = self.jobs.get()
+            print(obj)
+            print(obj[0])
+            print(obj[1])
 
+            log = obj[0]
+            msg = obj[1]
+
+            self.log(log, msg)
 
     def log(self, log, msg):
+
         # Log msg in appropriate file
+        
 
 
 

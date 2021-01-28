@@ -120,7 +120,7 @@ A few ideas pop to mind:
 
 I'm thinking that I simply just pass a tuple object as a parameter. So the structure is as follows:
 
-{ LOGTYPE, MSG}    < Part of me feels that this could be expanded based on other information we would want to throw to the function with the log, but I'm not sure right now. 
+{ LOGTYPE, MSG }    < Part of me feels that this could be expanded based on other information we would want to throw to the function with the log, but I'm not sure right now. 
 
 
 ---
@@ -132,5 +132,10 @@ Other than the topic of logging development, we had our first major (and product
 I have a good feeling about this semester.
 I think we're going to get a lot done, and produce something that is not only useful to the world and our successors but beautiful in it's own right and makes us proud to have worked on it. 
 
+
+20210127 - Wednesday 14:32
+Started to continue the Logging work today and implement the queues, but then started to realize that python3 has an immense amount of documentation and modules directly for this purpose. 
+So I'm gonna look into using the logger modules and see if that ensure that I don't have to use something completely formulated by myself.
+The threading and shared-information between them is the main issue I'm worried about, but I'm sure that the given python3 modules have handled that quite well.
 
 
