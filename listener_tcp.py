@@ -42,5 +42,5 @@ class Listener_TCP(threading.Thread):
             # print(agentList)
             connRecord += 1
     
-    def log(self, msg):
-        # Write msg to tcp_listener.log
+    # def log(self, msg):
+    #     # Write msg to tcp_listener.log

