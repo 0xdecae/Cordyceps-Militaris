@@ -139,3 +139,32 @@ So I'm gonna look into using the logger modules and see if that ensure that I do
 The threading and shared-information between them is the main issue I'm worried about, but I'm sure that the given python3 modules have handled that quite well.
 
 
+20210202 - Tuesday 15:17
+Logging must be put off until a proper agent for the *Nix side of systems is built. Currently in the process of transforming the Win version to Linux.
+One issue I've come across is the idea of command execution versus the agent itself handling pseudo-commands like in the WinVer. 
+In the Windows agent, a connection is initiated and the C2 then sends instructions or basic-winapi commands to the agent for execution or CMD-shell return. 
+In Linux I'm not sure how much of this is easy to directly replicate. We can possibly try to use different functions in equating the getpid, whoami, pwd, etc. functions to something similar in Linux C code.
+With that, I think we can use the same sort of function structure by just executing commands and capturing output, then sending it back to the user.
+On linux there is less[?] of a disconnect between the shell process and the socket descriptors, so the transfer of information should be easy.
+Hell, the functions may not even be needed and/or we can look for other 'quieter' means of obtains information were looking for.
+Will have to think more about how this plays between batch and interaction modes. 
+
+
+
+20210210 - Wednesday 23:43
+Currently working on converting the Windows agent into the Linux one. The concern now is between the agent processing it's own command structure and executed commands then returning output, or only allowing the user to do so through the bash/shell prompt. 
+Whats more confusing is how the agent will get past the shell-execution stage of interaction and move on to reset the file descriptors. 
+I worry that this may be more complicated than it needs to be, but I guess thats what testing will doe to reassure. 
+
+So far, the TODO's before Friday are:
+- Get a working shell execution mode
+- Get a working out of shell agent execution mode working, ie. getpid, whoami, pwd, etc... Don't really care how its done. Good luck.
+- Get a start on logging done,. For the love of god use Pythons logger libraries, as they'll make everything so much easier PLUS THEY HANDLE MULTITHREADING WAY BETTER
+
+TODOs for after Friday and into Q2:
+- Finish logging
+- Get started on Module implmentation and handling
+- Rework the UI
+- Ensure that the HTTP and DNS can fit nicely into the available listeners; specify the functions that each will be capable of
+
+
