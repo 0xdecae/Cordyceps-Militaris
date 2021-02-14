@@ -154,7 +154,7 @@ Will have to think more about how this plays between batch and interaction modes
 20210210 - Wednesday 23:43
 Currently working on converting the Windows agent into the Linux one. The concern now is between the agent processing it's own command structure and executed commands then returning output, or only allowing the user to do so through the bash/shell prompt. 
 Whats more confusing is how the agent will get past the shell-execution stage of interaction and move on to reset the file descriptors. 
-I worry that this may be more complicated than it needs to be, but I guess thats what testing will doe to reassure. 
+I worry that this may be more complicated than it needs to be, but I guess thats what testing will do to reassure. 
 
 So far, the TODO's before Friday are:
 - Get a working shell execution mode
@@ -166,5 +166,24 @@ TODOs for after Friday and into Q2:
 - Get started on Module implmentation and handling
 - Rework the UI
 - Ensure that the HTTP and DNS can fit nicely into the available listeners; specify the functions that each will be capable of
+
+
+2021 - Saturday 01:37
+Solution found to problems. Forking the processs and handling the bash shell execution within the child works like a charm.
+Basically we just fork, parents waits on child to finish, child runs shell, exit command received and exits process, then returns to parent.
+Parents resets and closes duplicate file descriptors, handling memory cleaning and goes back to main loop. Thank god this was easier than I thought. 
+
+So that can be kicked off the list for now. It works well enough to carry us into our next phase.
+I think I'm gonna ditch logging for now and work on Download and upload functions for each agent.
+'dtrizna' on github has a solid function built into something like what were doing, and seems to handle it with base64 encoding and transfer.
+I think we can implement something similar, if not just importing the built functions directly into the project. 
+
+On the side I've tried to see if anyone is doing something similar to what were doing.
+Besides the occasional C/++/Py3 Rat/Serv combo out there for windows and Linux, it doesnt appear to be too popular.
+The DTRIZNA guy seems to have followed the same 'paranoidninja' tutorial as I did when I first built the first rendition. 
+I think what were doing is special though. Maybe we can do something that gets attention. 
+
+On another note I hope these functions were implementing for each agent (in tcp) are gonna be easy to port over to the other mechanisms.
+I feel it'll take a bit of research and elbow-grease, but definitely possible and well-documented. Good luck you two...
 
 

