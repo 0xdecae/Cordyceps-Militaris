@@ -168,7 +168,7 @@ TODOs for after Friday and into Q2:
 - Ensure that the HTTP and DNS can fit nicely into the available listeners; specify the functions that each will be capable of
 
 
-2021 - Saturday 01:37
+20210213 - Saturday 01:37
 Solution found to problems. Forking the processs and handling the bash shell execution within the child works like a charm.
 Basically we just fork, parents waits on child to finish, child runs shell, exit command received and exits process, then returns to parent.
 Parents resets and closes duplicate file descriptors, handling memory cleaning and goes back to main loop. Thank god this was easier than I thought. 
@@ -187,3 +187,14 @@ On another note I hope these functions were implementing for each agent (in tcp)
 I feel it'll take a bit of research and elbow-grease, but definitely possible and well-documented. Good luck you two...
 
 
+2021 - Tuesday 02:47
+Had our meeting earlier today. We are to present a working prototype for each of the mechanisms by nect meeting (Monday).
+With this, lets set out exactly what that means, or what we'll be presenting:
+
+ - The interface: Display the start of the C2. Make it flashy, present a beautiful ascii art picture of something cool.
+   + Issue the help command; show functions from start
+     - Clear
+	 - list-agents
+	 - batch-mode
+	 - kill <id>
+	 - interact <id>

