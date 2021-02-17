@@ -6,6 +6,10 @@ import queue
 import time
 import random
 
+## NOT IN USE : USING PYTHON3 BUILT-IN LOGGER ##
+
+
+
 class Logger(threading.Thread):
 
     def __init__(self):

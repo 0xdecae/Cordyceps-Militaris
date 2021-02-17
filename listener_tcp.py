@@ -23,7 +23,7 @@ class Listener_TCP(threading.Thread):
         server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         server_address = (self.lhost, self.lport)
         server.bind(server_address)
-        server.listen(100)
+        server.listen(1000)
 
         print(f"[* Listener-Msg] Starting Botnet listener on tcp://{self.lhost}:{str(self.lport)}\n")
 
