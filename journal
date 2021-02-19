@@ -187,14 +187,24 @@ On another note I hope these functions were implementing for each agent (in tcp)
 I feel it'll take a bit of research and elbow-grease, but definitely possible and well-documented. Good luck you two...
 
 
-2021 - Tuesday 02:47
+20210216 - Tuesday 02:47
 Had our meeting earlier today. We are to present a working prototype for each of the mechanisms by nect meeting (Monday).
 With this, lets set out exactly what that means, or what we'll be presenting:
 
  - The interface: Display the start of the C2. Make it flashy, present a beautiful ascii art picture of something cool.
+   + Display ascii and opening messages
    + Issue the help command; show functions from start
      - Clear
 	 - list-agents
 	 - batch-mode
 	 - kill <id>
 	 - interact <id>
+	 - help
+	 - info <id>
+	 - exit
+   + Present the prompt:
+     - Take command
+	 - Log command to .history
+     - Process command and arguments
+
+

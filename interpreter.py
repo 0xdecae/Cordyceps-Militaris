@@ -90,13 +90,13 @@ class Interpreter(threading.Thread):
     def printUsage(self):
         print("[* Interpreter-Msg] Usage information:\n")
         print("[+ COMMANDS +]")
-        print("                    - exit          : Exits the program; Causes agents to sleep and retry every 10-45 seconds")
-        print("                    - clear         : Clears the screen; Presents a fresh terminal")
-        print("                    - list-agents   : Lists all active agents in use")
-        print("                    - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot")
-        print("                    - kill <id>     : Kill a connection to a specific bot. Causes bot process to exit. Will not recur. ")
-        print("                    - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot")
-        print("                    - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot")
+        print("               - exit          : Exits the program; Causes agents to sleep and retry every 10-45 seconds")
+        print("               - clear         : Clears the screen; Presents a fresh terminal")
+        print("               - list-agents   : Lists all active agents in use")
+        print("               - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot")
+        print("               - kill <id>     : Kill a connection to a specific bot. Causes bot process to exit. Will not recur. ")
+        print("               - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot")
+        print("               - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot")
         
 
 

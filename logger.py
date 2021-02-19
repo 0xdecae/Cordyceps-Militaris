@@ -1,82 +1,113 @@
 # Main imports
-import sys
-import os
-import threading
-import queue
-import time
+import logging
+import logging.config
+import logging.handlers
+from multiprocessing import Process, Queue
 import random
-
-## NOT IN USE : USING PYTHON3 BUILT-IN LOGGER ##
-
-
+import threading
+import time
 
 class Logger(threading.Thread):
-
     def __init__(self):
         threading.Thread.__init__(self)
 
-        self.serverLogPath = "./log/server.log"
-        self.connLogPath = "./log/conn.log"
-        self.uptimeLogPath = "./log/uptime.log"
-
-        self.jobs = queue.Queue()
-        
     def run(self):
-        initLogs()
-        monitorQueue()
+            q = Queue()
 
-    def initLogs():
-        # Check if log Directory exists
-        # if not create ./log/
-        try:
-            if not os.path.exists('./log') or not os.path.isdir('./log'):
-                os.makedirs('log')
-        except Exception as ex:
-            print(f"Could not create log dir because of {ex}")
+            log_dict = {
+                'version': 1,
+                'formatters': {
+                    'detailed': {
+                        'class': 'logging.Formatter',
+                        'format': '[%(asctime)s-%(name)-15s %(levelname)-8s  %(message)s'
+                    }
+                },
+                'handlers': {
+                    'server': {
+                        'class': 'logging.FileHandler',
+                        'filename': 'log/server-msg.log',
+                        'mode': 'w',
+                        'formatter': 'detailed',
+                    },
+                    'connection': {
+                        'class': 'logging.FileHandler',
+                        'filename':  'log/connection.log',
+                        'mode': 'w',
+                        'formatter': 'detailed',
+                    },
+                    'uptime': {
+                        'class': 'logging.FileHandler',
+                        'filename': 'log/uptime.log',
+                        'mode': 'w',
+                        'formatter': 'detailed',
+                    },
+                    'history': {
+                        'class': 'logging.FileHandler',
+                        'filename': 'log/.history',
+                        'mode': 'w',
+                        'formatter': 'detailed',
+                    }
+                },
+                'loggers': {
+                    'serv': {
+                        'handlers': ['server']
+                    }
+                    'conn': {
+                        'handlers': ['connection']
+                    }
+                    'up': {
+                        'handlers': ['uptime']
+                    }
+                    'hist': {
+                        'handlers': ['history']
+                    }
+                },
+                'root': {
+                    'level': 'DEBUG',
+                    'handlers': ['server', 'handler','uptime']
+                },
+            }
+            workers = []
+            for i in range(4):
+                wp = Process(target=worker_process, name='CM-LOGGER %d' % (i + 1), args=(q,))
+                workers.append(wp)
+                wp.start()
+            logging.config.dictConfig(log_dict)
+            lp = threading.Thread(target=logger_thread, args=(q,))
+            lp.start()
+            # At this point, the main process could do some useful work of its own
+            # Once it's done that, it can wait for the workers to terminate...
+            # for wp in workers:
+            #     wp.join()
+            # And now tell the logging thread to finish up, too
+            # q.put(None)
+            # lp.join()
 
-        # Check if server.log file exists
-        # if not create ./log/server.log
-        try:
-            if not os.path.exists('./log/server.log') or not os.path.isfile('./log/server.log'):
-                os.mknod('./log/server.log')
-        except Exception as ex:
-            print(f"Could not create server.log file because of {ex}")
-
-        # Check if uptime.log file exists
-        # if not create ./log/uptime.log
-        try:
-            if not os.path.exists('./log/uptime.log') or not os.path.isfile('./log/uptime.log'):
-                os.mknod('./log/uptime.log')
-        except Exception as ex:
-            print(f"Could not create uptime.log file because of {ex}")
-
-        # Check if uptime.log file exists
-        # if not create ./log/conn.log
-        try:
-            if not os.path.exists('./log/uptime.log') or not os.path.isfile('./log/uptime.log'):
-                os.mknod('./log/conn.log')
-        except Exception as ex:
-            print(f"Could not create conn.log file because of {ex}")
-
-    def monitorQueue(self):
-
+    def logger_thread(self, q):
         while True:
-            obj = self.jobs.get()
-            print(obj)
-            print(obj[0])
-            print(obj[1])
+            record = q.get()
+            if record is None:
+                break
+            logger = logging.getLogger(record.name)
+            logger.handle(record)
 
-            log = obj[0]
-            msg = obj[1]
+    # Change to log()?
+    def worker_process(self, q):
+        qh = logging.handlers.QueueHandler(q)
+        root = logging.getLogger()
+        root.setLevel(logging.DEBUG)
+        root.addHandler(qh)
+        levels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR,
+                logging.CRITICAL]
+        loggers = ['foo', 'foo.bar', 'foo.bar.baz',
+                'spam', 'spam.ham', 'spam.ham.eggs']
+        for i in range(100):
+            lvl = random.choice(levels)
+            logger = logging.getLogger(random.choice(loggers))
+            logger.log(lvl, 'Message no. %d', i)
 
-            self.log(log, msg)
-
-    def log(self, log, msg):
-
-        # Log msg in appropriate file
-        
+    def log(self, type, msg):
 
 
-
-
+    
 

