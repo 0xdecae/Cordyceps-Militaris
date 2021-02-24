@@ -12,8 +12,9 @@ import time
 # Project imports
 from interpreter import Interpreter
 from listener_tcp import Listener_TCP
+from logger import Logger
 # from listener_http import Listener_HTTP
-
+# from listener_dns import Listener_DNS
 
 agentList = []                  # Stores client_address[] info (IP, Port): IP is stored in string format, port is not
 
@@ -22,6 +23,8 @@ agentList = []                  # Stores client_address[] info (IP, Port): IP is
                                 #            L-[CMD_Queue]
 
 interpreters = []               # Literally only here to access outside of MAIN
+
+loggers = []                    # List of Loggers from easier access across modules
 
 listeners = []                  # Handles all listening threads (TCP, HTTP, DNS, etc...)
                                 # Ensuring that information can be passed between them and allowing for easier management
@@ -99,7 +102,18 @@ def main():
 
     print("\n\n\n\t[Welcome to the Cordyceps-Militaris command and control framework]\n")
 
-
+    # LOG ALL (WIP) << Not included in demo
+    try:
+        print("[* Server-Msg] Initializing Logger module...")
+        LoggerThread = Logger()                                 # Handles interface, queue is for commands
+        LoggerThread.start()
+        loggers.append(LoggerThread)
+        print("[* Server-Msg] Logger initialization complete...")
+        loggers[0].q_log('serv','info','Logger initialization complete')                  # << WIP
+    except Exception as ex:
+        print(f"[* Server-Msg] Unable to start logging service...")
+        print(f"[* Server-Msg] Error: {ex}")
+        os._exit(0)
 
 #### ADDRESS ENTRY ####
 
@@ -142,7 +156,7 @@ def main():
                     print(f"[* Server-Msg] Address set to {address_entry}...")
                     address_entry_success = True
 
-                # Anything else?
+                # Anything else? - Maybe take this out... Seems useless
                 else: 
                     continue
 

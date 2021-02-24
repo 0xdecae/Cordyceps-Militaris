@@ -10,11 +10,12 @@ import time
 from handler import Handler
 
 class Listener_TCP(threading.Thread):
-    def __init__(self, lhost, lport, agentList):
+    def __init__(self, lhost, lport, agentList, logger):
         threading.Thread.__init__(self)
         self.lhost = lhost
         self.lport = lport
         self.agentList = agentList
+        self.logger = logger
 
     def run(self):
 

