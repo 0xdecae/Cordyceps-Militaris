@@ -8,11 +8,11 @@ import queue
 import time
 
 class Interpreter(threading.Thread):
-    def __init__(self, agentList, listeners, logger):
+    def __init__(self, agentList, listeners):
         threading.Thread.__init__(self)     # Spawn a new thread for itself
         self.agentList = agentList
         self.listeners = listeners
-        self.logger = logger
+        # self.logger = logger
 
     def run(self):
         # Start of a command history implementation, put on hold by stuff
@@ -96,10 +96,6 @@ class Interpreter(threading.Thread):
         print("               - list-agents   : Lists all active agents in use")
         print("               - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot")
         print("               - kill <id>     : Kill a connection to a specific bot. Causes bot process to exit. [* Will not recur *] ")
-
-        print("                       + Commands:")
-
-        print("[* Interpreter-Msg] Enter QUIT into the terminal to exit batch-mode \n\n")
 
 #------------------------------------------------------------------------------------------------------------------------------
     def batchMode(self):

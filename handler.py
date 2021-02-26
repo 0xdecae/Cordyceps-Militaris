@@ -11,9 +11,9 @@ import random
 
 class Handler(threading.Thread):
 
-    def __init__(self, client, client_address, bot_id, logger):
+    def __init__(self, client, client_address, bot_id):
         threading.Thread.__init__(self)
-        self.logger = logger
+        # self.logger = logger
         self.client = client
         self.client_address = client_address
         self.ip = client_address[0]
