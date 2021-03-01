@@ -5,6 +5,8 @@ from flask import Flask
 from flask_restful import Api
 from database.db import initialize_db
 
+
+# Initializes new Flask object
 app = Flask(__name__)
 
 # Configure our database on localhost
@@ -15,6 +17,7 @@ app.config['MONGODB_SETTINGS'] = {
 # Initialize our database
 initialize_db(app)
 
+# Initialize api
 api = Api(app)
 
 # Define the routes for each of our resources

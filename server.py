@@ -103,17 +103,17 @@ def main():
     print("\n\n\n\t[Welcome to the Cordyceps-Militaris command and control framework]\n")
 
     # LOG ALL (WIP) << Not included in demo
-    # try:
-    #     print("[* Server-Msg] Initializing Logger module...")
-    #     LoggerThread = Logger()                                 # Handles interface, queue is for commands
-    #     LoggerThread.start()
-    #     loggers.append(LoggerThread)
-    #     print("[* Server-Msg] Logger initialization complete...")
-    #     loggers[0].q_log('serv','info','Logger initialization complete')                  # << WIP
-    # except Exception as ex:
-    #     print(f"[* Server-Msg] Unable to start logging service...")
-    #     print(f"[* Server-Msg] Error: {ex}")
-    #     os._exit(0)
+    try:
+        print("[* Server-Msg] Initializing Logger module...")
+        LoggerThread = Logger()                                 # Handles interface, queue is for commands
+        LoggerThread.start()
+        loggers.append(LoggerThread)
+        print("[* Server-Msg] Logger initialization complete...")
+        loggers[0].q_log('serv','info','Logger initialization complete')                  # << WIP
+    except Exception as ex:
+        print(f"[* Server-Msg] Unable to start logging service...")
+        print(f"[* Server-Msg] Error: {ex}")
+        os._exit(0)
 
 #### ADDRESS ENTRY ####
 
@@ -265,7 +265,7 @@ def main():
     print("[* Server-Msg] Initializing Interpreter session...")
 
     try:
-        InterpreterThread = Interpreter(agentList, listeners)          # Handles interface, queue is for commands
+        InterpreterThread = Interpreter(agentList, listeners, loggers)          # Handles interface, queue is for commands
         InterpreterThread.start()
         interpreters.append(InterpreterThread)
         # print("[* Server-Msg] Interpreter initialization complete...")

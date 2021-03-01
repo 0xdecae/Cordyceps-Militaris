@@ -8,11 +8,11 @@ import queue
 import time
 
 class Interpreter(threading.Thread):
-    def __init__(self, agentList, listeners):
+    def __init__(self, agentList, listeners, loggers):
         threading.Thread.__init__(self)     # Spawn a new thread for itself
         self.agentList = agentList
         self.listeners = listeners
-        # self.logger = logger
+        self.loggers = loggers
 
     def run(self):
         # Start of a command history implementation, put on hold by stuff

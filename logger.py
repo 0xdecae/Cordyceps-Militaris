@@ -7,13 +7,21 @@ import random
 import threading
 import time
 
+# Noted:
 # self.levels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR, logging.CRITICAL]
-
 
 class Logger(threading.Thread):
 
     def __init__(self):
         threading.Thread.__init__(self)
+
+        self.log_level = {
+            'debug': logging.DEBUG, 
+            'info': logging.INFO, 
+            'warning': logging.WARNING,
+            'error': logging.ERROR,
+            'critical': logging.CRITICAL
+        }
 
         self.log_q = Queue(-1)
 
@@ -84,53 +92,41 @@ class Logger(threading.Thread):
     def logger_thread(self, q):
 
 
-        qh = logging.handlers.QueueHandler(q)
         root = logging.getLogger()
         root.setLevel(logging.DEBUG)
-        root.addHandler(qh)
 
+        # Monitor for record additions
         while True:
 
             print(f'Queue before .get(): {str(q)}')
-            record = q.pop()
-            record2 = q.pop()
-            # q.dequeue()
+            record = q.get()
             print(f'Queue after .get(): {str(q)}')
 
             print(f'Record: {str(record)}')                 # Currently this is not engaging < Before moving chunk of preq-code to q_log
                                                             # Now, we are getting a continuously loop of the same message, spawned from one call to q_log in Server
                                                             # This is the current suspect of the recursion.
 
-            print(f'Record name: {str(record.name)}') 
+            print(f'Record name: {str(record['msg'])}') 
 
             if record is None:
                 break
 
             print("Calling handle : record")
 
-            logger = logging.getLogger(record.name)
-            logger.handle(record)
+            logger = logging.getLogger(record['log'])        
+            print("Calling log from function q_log")            # Executed once
+            logger.log(self.log_level.get(record['lvl'], logging.DEBUG), record['msg'])
 
     # Change to log()?
     def q_log(self, lg, lvl, msg):
 
-        self.qh = logging.handlers.QueueHandler(self.log_q)
-        self.root = logging.getLogger()
-        self.root.setLevel(logging.DEBUG)
-        self.root.addHandler(self.qh)
-
-        logger = logging.getLogger(lg)
-
-        log_level = {
-            'debug': logging.DEBUG, 
-            'info': logging.INFO, 
-            'warning': logging.WARNING,
-            'error': logging.ERROR,
-            'critical': logging.CRITICAL
+        temp_dict = {
+            'log': lg,
+            'level': lvl,
+            'message': msg
         }
-        
-        print("Calling log from function q_log")            # Executed once
-        logger.log(log_level.get(lvl, logging.DEBUG), msg)
+        self.log_q.enqueue(temp_dict)
+
 
     
 

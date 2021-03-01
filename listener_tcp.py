@@ -10,12 +10,12 @@ import time
 from handler import Handler
 
 class Listener_TCP(threading.Thread):
-    def __init__(self, lhost, lport, agentList):
+    def __init__(self, lhost, lport, agentList, loggers):
         threading.Thread.__init__(self)
         self.lhost = lhost
         self.lport = lport
         self.agentList = agentList
-        # self.logger = logger
+        self.loggers = loggers
 
     def run(self):
 
@@ -27,9 +27,9 @@ class Listener_TCP(threading.Thread):
             server.bind(server_address)
             server.listen(1000)
         except Exception as ex:
-                print("[* Server-Msg] Fatal error with listener initialization. Exiting...")
-                print(f"[* Server-Msg] Error: {ex}")
-                os._exit(0)
+            print("[* Server-Msg] Fatal error with listener initialization. Exiting...")
+            print(f"[* Server-Msg] Error: {ex}")
+            os._exit(0)
 
         print(f"[* Listener-Msg] Starting Botnet listener on tcp://{self.lhost}:{str(self.lport)}\n")
 
