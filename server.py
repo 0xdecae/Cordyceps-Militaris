@@ -66,6 +66,27 @@ def main():
     #     print(f"[* Server-Msg] Usage:\n  [+] python3 {sys.argv[0]} <LHOST> <LPORT>\n  [+] Eg.: python3 {sys.argv[0]} 0.0.0.0 1337\n")
     # else:
 
+    os.system("clear")
+    print("\n<=[Starting the C2]=>")
+
+    try:
+        print("[* Server-Msg] Initializing Logger module...")
+        LoggerThread = Logger()                                 # Handles interface, queue is for commands
+        LoggerThread.start()
+        loggers.append(LoggerThread)
+        print("[* Server-Msg] Logger initialization complete...")
+        loggers[0].q_log('serv','info','[* Server-Msg] Logger initialization complete')                  # Working
+    except Exception as ex:
+        print(f"[* Server-Msg] Unable to start logging service. Exiting...")
+        loggers[0].q_log('serv','critical','[* Server-Msg] Unable to start logging service. Exiting...')                  # << WIP
+        print(f"[* Server-Msg] Error: {ex}")
+        loggers[0].q_log('serv','critical',('[* Server-Msg] ' + str(ex)))
+
+        os._exit(0)
+    
+    loggers[0].q_log('serv','info','[* Server-Msg] Initializing server...')                  # << WIP
+    time.sleep(1)
+
     print('''
 /\______________________________________________________________________/\\
 |                                                                        |
@@ -102,19 +123,6 @@ def main():
 
     print("\n\n\n\t[Welcome to the Cordyceps-Militaris command and control framework]\n")
 
-    # LOG ALL (WIP) << Not included in demo
-    try:
-        print("[* Server-Msg] Initializing Logger module...")
-        LoggerThread = Logger()                                 # Handles interface, queue is for commands
-        LoggerThread.start()
-        loggers.append(LoggerThread)
-        print("[* Server-Msg] Logger initialization complete...")
-        loggers[0].q_log('serv','info','Logger initialization complete')                  # << WIP
-    except Exception as ex:
-        print(f"[* Server-Msg] Unable to start logging service...")
-        print(f"[* Server-Msg] Error: {ex}")
-        os._exit(0)
-
 #### ADDRESS ENTRY ####
 
     address_entry_success = False
@@ -125,12 +133,16 @@ def main():
         # Input error
         except Exception as ex:
             print(f"[* Server-Msg] Unable to process address entered...")
+            loggers[0].q_log('serv','error','[* Server-Msg] Unable to process address entered. Retrying...')
             print(f"[* Server-Msg] Error: {ex}")
+            loggers[0].q_log('serv','error',('[* Server-Msg] ' + str(ex)))
             continue
 
         # No input
         if not address_entry:
             print("[* Server-Msg] No input received. Please retry...\n")
+            loggers[0].q_log('serv','warning','[* Server-Msg] No input received. Retrying...')
+
         else:
             # Test if valid address
             try:
@@ -138,6 +150,8 @@ def main():
             # Invalid format
             except socket.error:
                 print("[* Server-Msg] Invalid address received. Please retry...\n")
+                loggers[0].q_log('serv','warning','[* Server-Msg] Invalid address received. Retrying...')
+                
                 continue
             
             # Confirm
@@ -147,7 +161,10 @@ def main():
             # Input error
             except Exception as ex:
                 print(f"[* Server-Msg] Unable to process confirmation..")
+                loggers[0].q_log('serv','error','[* Server-Msg] Unable to process confirmation...')
                 print(f"[* Server-Msg] Error: {ex}")
+                loggers[0].q_log('serv','error',('[* Server-Msg] ' + str(ex)))
+
                 continue
             else:
                 # Yes?
@@ -159,6 +176,9 @@ def main():
                 # Anything else? - Maybe take this out... Seems useless
                 else: 
                     continue
+    
+    loggers[0].q_log('serv','info','[* Server-Msg] Unable to process address entered...')
+
 
 
 #### LISTENER SELECTION ####
@@ -168,23 +188,27 @@ def main():
     listener_entry_success = False
 
     while not listener_entry_success:
-        print("[* Server-Msg] Please type them in as a space-seperated list, ie. '0 1 2', without apostrophes.") 
-        print("[* Server-Msg] Or, type 'quit' to exit.\n")
-        print("\t\t[0] Standard TCP")
-        print("\t\t[1] HTTP")
-        print("\t\t[2] DNS\n")
+        print('''
+        [* Server-Msg] Please type them as a space-seperated list, ie. '0 1 2', without apostrophes.
+        [* Server-Msg] Or, type 'quit' to exit.\n
+        \t\t[0] Standard TCP
+        \t\t[1] HTTP
+        \t\t[2] DNS\n
+        ''')
 
         try:
             listener_entry_list = input('[* Select Listeners]% ').split()
         except Exception as ex:
-            print("[* Server-Msg] Fatal error with input. Exiting...")
+            print(f"[* Server-Msg] Fatal error with input. Exiting...")
+            loggers[0].q_log('serv','critical','[* Server-Msg] Fatal error with input. Exiting...')
             print(f"[* Server-Msg] Error: {ex}")
-            # entry_success = False
+            loggers[0].q_log('serv','critical',('[* Server-Msg] ' + str(ex)))
             os._exit(0)
         else:
 
             if(not listener_entry_list):
                 print("[* Server-Msg] No input received. Please retry...\n")
+                loggers[0].q_log('serv','error','No input received. Please retry...')
                 listener_entry_success = False
                 continue
 

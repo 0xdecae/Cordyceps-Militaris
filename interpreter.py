@@ -87,15 +87,17 @@ class Interpreter(threading.Thread):
                 #     conn.execute(cmd)
 #------------------------------------------------------------------------------------------------------------------------------
     def printUsage(self):
-        print("[* Interpreter-Msg] Usage information:\n")
-        print("[+ COMMANDS +]")
-        print("               - help          : Print this message")
-        print("               - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot")
-        print("               - exit          : Exits the program; Causes agents to sleep and retry every 10-45 seconds")
-        print("               - clear         : Clears the screen; Presents a fresh terminal")
-        print("               - list-agents   : Lists all active agents in use")
-        print("               - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot")
-        print("               - kill <id>     : Kill a connection to a specific bot. Causes bot process to exit. [* Will not recur *] ")
+        print('''
+        [* Interpreter-Msg] Usage information:\n")
+        [+ COMMANDS +]")
+                       - help          : Print this message
+                       - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot
+                       - exit          : Exits the program; Causes agents to sleep and retry every 10-45 seconds
+                       - clear         : Clears the screen; Presents a fresh terminal
+                       - list-agents   : Lists all active agents in use
+                       - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot
+                       - kill <id>     : Kill a connection to a specific bot. Causes bot process to exit. [* Will not recur *]
+        ''')
 
 #------------------------------------------------------------------------------------------------------------------------------
     def batchMode(self):
@@ -104,9 +106,11 @@ class Interpreter(threading.Thread):
 
         os.system("clear")
 
-        print("[* Interpreter-Msg] Entering Batch-Mode execution.\n")
-        print("[* Interpreter-Msg] Systems in use under this mode will each receive the same command each time you enter.")
-        print("[* Interpreter-Msg] Enter QUIT into the terminal to exit batch-mode \n\n")
+        print('''
+        [* Interpreter-Msg] Entering Batch-Mode execution...\n
+        [* Interpreter-Msg] Systems in use under this mode will each receive the same command each time you enter.
+        [* Interpreter-Msg] Enter QUIT into the terminal to exit batch-mode \n\n
+        ''')
 
 
 
