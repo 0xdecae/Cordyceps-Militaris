@@ -88,15 +88,15 @@ class Interpreter(threading.Thread):
 #------------------------------------------------------------------------------------------------------------------------------
     def printUsage(self):
         print('''
-        [* Interpreter-Msg] Usage information:\n")
-        [+ COMMANDS +]")
-                       - help          : Print this message
-                       - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot
-                       - exit          : Exits the program; Causes agents to sleep and retry every 10-45 seconds
-                       - clear         : Clears the screen; Presents a fresh terminal
-                       - list-agents   : Lists all active agents in use
-                       - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot
-                       - kill <id>     : Kill a connection to a specific bot. Causes bot process to exit. [* Will not recur *]
+[* Interpreter-Msg] Usage information:\n")
+[+ COMMANDS +]")
+        - help          : Print this message
+        - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot
+        - exit          : Exits the program; Causes agents to sleep and retry every 10-45 seconds
+        - clear         : Clears the screen; Presents a fresh terminal
+        - list-agents   : Lists all active agents in use
+        - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot
+        - kill <id>     : Kill a connection to a specific bot. Causes bot process to exit. [* Will not recur *]
         ''')
 
 #------------------------------------------------------------------------------------------------------------------------------
@@ -105,11 +105,13 @@ class Interpreter(threading.Thread):
         batchList = []
 
         os.system("clear")
+        loggers[0].q_log('serv','info','[* Interpreter-Msg] Entering batch-mode, prompting for bot-list')
+
 
         print('''
-        [* Interpreter-Msg] Entering Batch-Mode execution...\n
-        [* Interpreter-Msg] Systems in use under this mode will each receive the same command each time you enter.
-        [* Interpreter-Msg] Enter QUIT into the terminal to exit batch-mode \n\n
+[* Interpreter-Msg] Entering Batch-Mode execution...\n
+[* Interpreter-Msg] Systems in use under this mode will each receive the same command each time you enter.
+[* Interpreter-Msg] Enter QUIT into the terminal to exit batch-mode \n\n
         ''')
 
 
@@ -128,7 +130,10 @@ class Interpreter(threading.Thread):
                     print(f"[* Interpreter-Msg] ID list obtained: {str(idlist)}")
                 except Exception as ex:
                     print(f"[* Interpreter-Msg] Unable to form list of IDs to add to BatchMode-list")
+                    loggers[0].q_log('serv','error',('[* Interpreter-Msg] Unable to form list of IDs to add to BatchMode-list: ' + str(bm_entry)))
                     print(f"[* Interpreter-Msg] Error: {ex}")
+                    loggers[0].q_log('serv','error',('[* Interpreter-Msg] Error: ' + str(ex)))
+
                     bm_success = False
                 else:
                     for conn in self.agentList:
@@ -141,11 +146,13 @@ class Interpreter(threading.Thread):
 
         if(bm_success):
             os.system("clear")
-            print("[* Interpreter-Msg] Batch-Mode execution confirmed: ")
-            print(f"[* Interpreter-Msg] The commands entered here will be sent to these Bots {idlist}")
-            print("[* Interpreter-Msg] Note that this mode will not allow for individual shell environment interaction\n")
-            print("[* Interpreter-Msg] Enter Q or QUIT at any time to exit this mode")
-            print("[* Interpreter-Msg] Enter EXIT at any time to exit the C2\n\n")
+            print(f'''
+[* Interpreter-Msg] Batch-Mode execution confirmed: 
+[* Interpreter-Msg] The commands entered here will be sent to these Bots {idlist}
+[* Interpreter-Msg] Note that this mode will not allow for individual shell environment interaction\n
+[* Interpreter-Msg] Enter Q or QUIT at any time to exit this mode
+[* Interpreter-Msg] Enter EXIT at any time to exit the C2\n\n
+            ''')
 
             batch_cmd = ""
 
@@ -168,6 +175,7 @@ class Interpreter(threading.Thread):
                 elif (batch_cmd.casefold().strip(" ") == "shell"):
                     print("[* Interpreter-Msg] Can't interact with individual shells in this environment")
                     print("[* Interpreter-Msg] Please exit if that is the desired result\n")
+                    loggers[0].q_log('serv','warning','[* Interpreter-Msg] Attempted shell execution in batch-mode')
                     continue
                 elif (batch_cmd.casefold().strip(" ") == "clear"):
                     os.system("clear")

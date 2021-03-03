@@ -189,11 +189,11 @@ def main():
 
     while not listener_entry_success:
         print('''
-        [* Server-Msg] Please type them as a space-seperated list, ie. '0 1 2', without apostrophes.
-        [* Server-Msg] Or, type 'quit' to exit.\n
-        \t\t[0] Standard TCP
-        \t\t[1] HTTP
-        \t\t[2] DNS\n
+[* Server-Msg] Please type them as a space-seperated list, ie. '0 1 2', without apostrophes.
+[* Server-Msg] Or, type 'quit' to exit.\n
+\t\t[0] Standard TCP
+\t\t[1] HTTP
+\t\t[2] DNS\n
         ''')
 
         try:
