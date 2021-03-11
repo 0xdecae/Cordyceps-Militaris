@@ -125,6 +125,8 @@ def main():
 
 #### ADDRESS ENTRY ####
 
+    loggers[0].q_log('serv','info','[* Server-Msg] Address entry initiated')
+
     address_entry_success = False
     while not address_entry_success:
         try:
@@ -163,7 +165,7 @@ def main():
                 print(f"[* Server-Msg] Unable to process confirmation..")
                 loggers[0].q_log('serv','error','[* Server-Msg] Unable to process confirmation...')
                 print(f"[* Server-Msg] Error: {ex}")
-                loggers[0].q_log('serv','error',('[* Server-Msg] ' + str(ex)))
+                loggers[0].q_log('serv','error',('[* Server-Msg] Error: ' + str(ex)))
 
                 continue
             else:
@@ -171,6 +173,8 @@ def main():
                 if confirm_entry.casefold().strip(" ") == 'y' or confirm_entry.casefold().strip(" ") == '':
                     lhost = address_entry
                     print(f"[* Server-Msg] Address set to {address_entry}...")
+                    loggers[0].q_log('serv','info',('[* Server-Msg] Server address set to:' + str(address_entry)))
+
                     address_entry_success = True
 
                 # Anything else? - Maybe take this out... Seems useless
@@ -184,6 +188,7 @@ def main():
 #### LISTENER SELECTION ####
 
     print("[* Server-Msg] Select which type of listeners you would like to use. You may choose more than one.")
+    loggers[0].q_log('serv','info','[* Server-Msg] Listener prompt initiated')
 
     listener_entry_success = False
 
@@ -202,7 +207,7 @@ def main():
             print(f"[* Server-Msg] Fatal error with input. Exiting...")
             loggers[0].q_log('serv','critical','[* Server-Msg] Fatal error with input. Exiting...')
             print(f"[* Server-Msg] Error: {ex}")
-            loggers[0].q_log('serv','critical',('[* Server-Msg] ' + str(ex)))
+            loggers[0].q_log('serv','critical',('[* Server-Msg] Error: ' + str(ex)))
             os._exit(0)
         else:
 
@@ -228,42 +233,52 @@ def main():
                             port_entry = int(input('[* Port-Entry]% '))
                         # Input error
                         except Exception as ex:
-                            print(f"[* Server-Msg] Unable to process port entered...")
+                            print(f"[* Server-Msg] Unable to process port entry")
+                            loggers[0].q_log('serv','warning','[* Server-Msg] Unable to process port entry')
                             print(f"[* Server-Msg] Error: {ex}")
+                            loggers[0].q_log('serv','warning',('[* Server-Msg] Error: ' + str(ex)))
                             continue
 
                         # No input
                         if not port_entry:
                             print("[* Server-Msg] No input received. Please retry...\n")
+                            loggers[0].q_log('serv','warning',('[* Server-Msg] No port number entered')
                         else:
-                            
                             # Confirm
                             print(f"[* Server-Msg] Is the port entered correct [Y/n]: {port_entry}")
                             try:
                                 confirm_entry = input('[* Confirm]% ')
                             # Input error
                             except Exception as ex:
-                                print(f"[* Server-Msg] Unable to process confirmation..")
+                                print(f"[* Server-Msg] Unable to process confirmation. Retry...")
+                                loggers[0].q_log('serv','warning','[* Server-Msg] Unable to process confirmation')
                                 print(f"[* Server-Msg] Error: {ex}")
+                                loggers[0].q_log('serv','warning',('[* Server-Msg] Error: ' + str(ex)))
                                 continue
                             else:
                                 # Yes?
                                 if confirm_entry.casefold().strip(" ") == 'y' or confirm_entry.casefold().strip(" ") == '':
                                     lport = port_entry
                                     print(f"[* Server-Msg] Port set to {port_entry}...")
+                                    loggers[0].q_log('serv','info',('[* Server-Msg] TCP Listener port set to: ' + str(port_entry)))
                                     port_entry_success = True
                                 # Anything else?
                                 else: 
                                     continue
                     
+                    # Initiate TCP Listener thread
+                    print("[* Server-Msg] Initiating TCP Listener thread...")
                     try:
+                        loggers[0].q_log('serv','info',f'[* Server-Msg] Initiating TCP Listener Thread with address {lhost} and port {lport}')
                         TCP_Thread = Listener_TCP(lhost, lport, agentList)
                         TCP_Thread.start()
                         listeners.append(TCP_Thread)
                         listener_entry_success = True
                     except Exception as ex:
-                        print("[* Server-Msg] Fatal error with listener selection and initialization. Exiting...")
+                        print("[* Server-Msg] Fatal error with TCP listener initialization. Exiting...")
+                        loggers[0].q_log('serv','warning','[* Server-Msg] Fatal error with TCP listener initialization')
                         print(f"[* Server-Msg] Error: {ex}")
+                        loggers[0].q_log('serv','warning',f'[* Server-Msg] Error: {ex}'))
                         os._exit(0)
 
                 if("1" in listener_entry_list):
@@ -282,7 +297,9 @@ def main():
 
             except Exception as ex:
                 print("[* Server-Msg] Fatal error with listener selection and initialization. Exiting...")
+                loggers[0].q_log('serv','critical','[* Server-Msg] Fatal error with listener selection and initialization')
                 print(f"[* Server-Msg] Error: {ex}")
+                loggers[0].q_log('serv','critical',('[* Server-Msg] Error: ' + str(ex)))
                 os._exit(0)
 
     time.sleep(2)
@@ -295,7 +312,7 @@ def main():
         # print("[* Server-Msg] Interpreter initialization complete...")
 
     except Exception as ex:
-        print(f"[* Server-Msg] Unable to initialize Interpreter Session. Error: {str(ex)}\n")
+        print(f"[* Server-Msg] Failed to initialize Interpreter Session. Error: {str(ex)}\n")
         os._exit(0)
 
 if __name__ == '__main__':
