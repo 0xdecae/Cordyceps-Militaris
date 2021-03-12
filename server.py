@@ -80,7 +80,7 @@ def main():
         print(f"[* Server-Msg] Unable to start logging service. Exiting...")
         loggers[0].q_log('serv','critical','[* Server-Msg] Unable to start logging service. Exiting...')                  # << WIP
         print(f"[* Server-Msg] Error: {ex}")
-        loggers[0].q_log('serv','critical',('[* Server-Msg] ' + str(ex)))
+        loggers[0].q_log('serv','critical',f'[* Server-Msg] Error: {str(ex)}')
 
         os._exit(0)
     
@@ -267,20 +267,22 @@ def main():
                                     continue
                     
                     # Initiate TCP Listener thread
-                    print("[* Server-Msg] Initiating TCP Listener thread...")
+                    print("[* Server-Msg] Creating TCP Listener thread...")
                     try:
-                        loggers[0].q_log('serv','info',f'[* Server-Msg] Initiating TCP Listener Thread with address {lhost} and port {lport}')
+                        loggers[0].q_log('serv','info',f'[* Server-Msg] Creating TCP Listener Thread with address {lhost} and port {lport}')
                         TCP_Thread = Listener_TCP(lhost, lport, agentList)
                         TCP_Thread.start()
                         listeners.append(TCP_Thread)
                         listener_entry_success = True
                     except Exception as ex:
-                        print("[* Server-Msg] Fatal error with TCP listener initialization. Exiting...")
-                        loggers[0].q_log('serv','warning','[* Server-Msg] Fatal error with TCP listener initialization')
+                        print("[* Server-Msg] Fatal error with TCP listener creation. Exiting...")
+                        loggers[0].q_log('serv','critical','[* Server-Msg] Fatal error with TCP listener creation')
                         print(f"[* Server-Msg] Error: {ex}")
-                        loggers[0].q_log('serv','warning',f'[* Server-Msg] Error: {ex}'))
+                        loggers[0].q_log('serv','critical',f'[* Server-Msg] Error: {ex}'))
                         os._exit(0)
 
+
+                ## FUTURE IMPLEMENTATION - socket for thread init
                 if("1" in listener_entry_list):
                     # HTTP_Thread = Listener_HTTP(lhost, lport, agentList)
                     # HTTP_Thread.start()
@@ -296,10 +298,10 @@ def main():
                     # entry_success = False
 
             except Exception as ex:
-                print("[* Server-Msg] Fatal error with listener selection and initialization. Exiting...")
-                loggers[0].q_log('serv','critical','[* Server-Msg] Fatal error with listener selection and initialization')
+                print("[* Server-Msg] Fatal error with listener selection and thread creation. Exiting...")
+                loggers[0].q_log('serv','critical','[* Server-Msg] Fatal error with listener selection and thread creation')
                 print(f"[* Server-Msg] Error: {ex}")
-                loggers[0].q_log('serv','critical',('[* Server-Msg] Error: ' + str(ex)))
+                loggers[0].q_log('serv','critical',f'[* Server-Msg] Error: {str(ex)}')
                 os._exit(0)
 
     time.sleep(2)
@@ -309,10 +311,15 @@ def main():
         InterpreterThread = Interpreter(agentList, listeners, loggers)          # Handles interface, queue is for commands
         InterpreterThread.start()
         interpreters.append(InterpreterThread)
-        # print("[* Server-Msg] Interpreter initialization complete...")
+        print("[* Server-Msg] Interpreter thread initialization complete...")
+        loggers[0].q_log('serv','info','[* Server-Msg] Interpreter thread initialization complete')
+
 
     except Exception as ex:
-        print(f"[* Server-Msg] Failed to initialize Interpreter Session. Error: {str(ex)}\n")
+        print(f"[* Server-Msg] Failed to initialize Interpreter thread")
+        loggers[0].q_log('serv','critical','[* Server-Msg] Failed to initialize Interpreter thread')
+        print(f"[* Server-Msg] Error: {ex}")
+        loggers[0].q_log('serv','critical',f'[* Server-Msg] Error: {str(ex)}')
         os._exit(0)
 
 if __name__ == '__main__':
