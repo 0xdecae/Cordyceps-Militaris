@@ -7,3 +7,85 @@
 [2021-03-03 12:39:05,926-serv            INFO      [* Server-Msg] Logger initialization complete
 [2021-03-03 12:39:05,926-serv            INFO      [* Server-Msg] Initializing server...
 [2021-03-03 12:42:42,372-serv            INFO      [* Server-Msg] Unable to process address entered...
+[2021-03-12 12:33:05,024-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-03-12 12:33:05,025-serv            INFO      [* Server-Msg] Initializing server...
+[2021-03-12 12:33:06,026-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-03-12 12:33:46,537-serv            INFO      [* Server-Msg] Server address set to:0.0.0.0
+[2021-03-12 12:33:46,537-serv            INFO      [* Server-Msg] Unable to process address entered...
+[2021-03-12 12:33:46,537-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-03-12 12:33:54,997-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-03-16 01:00:19,370-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-03-16 01:00:19,371-serv            INFO      [* Server-Msg] Initializing server...
+[2021-03-16 01:00:20,371-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-03-16 01:00:36,674-serv            INFO      [* Server-Msg] Server address set to:0.0.0.0
+[2021-03-16 01:00:36,674-serv            INFO      [* Server-Msg] Unable to process address entered...
+[2021-03-16 01:00:36,674-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-03-16 01:02:57,530-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-03-16 01:02:57,530-serv            INFO      [* Server-Msg] Initializing server...
+[2021-03-16 01:02:58,530-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-03-16 01:03:03,455-serv            INFO      [* Server-Msg] Server address set to:0.0.0.0
+[2021-03-16 01:03:03,455-serv            INFO      [* Server-Msg] Unable to process address entered...
+[2021-03-16 01:03:03,455-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-03-16 01:08:09,031-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-03-16 01:08:09,031-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-03-16 01:08:09,031-serv            CRITICAL  [* Server-Msg] Fatal error with TCP listener creation
+[2021-03-16 01:09:24,525-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-03-16 01:09:24,526-serv            INFO      [* Server-Msg] Initializing server...
+[2021-03-16 01:09:25,527-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-03-16 01:12:22,577-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-03-16 01:12:22,577-serv            INFO      [* Server-Msg] Initializing server...
+[2021-03-16 01:12:23,578-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-03-16 01:12:29,053-serv            INFO      [* Server-Msg] Server address set to:0.0.0.0
+[2021-03-16 01:12:29,053-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-03-16 01:15:20,043-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-03-16 01:15:20,044-serv            INFO      [* Server-Msg] Initializing server...
+[2021-03-16 01:15:21,045-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-03-16 01:15:25,841-serv            INFO      [* Server-Msg] Server address set to:0.0.0.0
+[2021-03-16 01:15:25,841-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-03-16 01:17:37,478-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-03-16 01:17:37,478-serv            INFO      [* Server-Msg] Initializing server...
+[2021-03-16 01:17:38,479-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-03-16 01:17:42,111-serv            INFO      [* Server-Msg] Server address set to:0.0.0.0
+[2021-03-16 01:17:42,111-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-03-16 01:19:25,317-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-03-16 01:19:25,317-serv            INFO      [* Server-Msg] Initializing server...
+[2021-03-16 01:19:26,318-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-03-16 01:19:28,364-serv            WARNING   [* Server-Msg] Invalid address received. Retrying...
+[2021-03-16 01:19:35,390-serv            WARNING   [* Server-Msg] Invalid address received. Retrying...
+[2021-03-16 01:20:43,923-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-03-16 01:20:43,923-serv            INFO      [* Server-Msg] Initializing server...
+[2021-03-16 01:20:44,924-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-03-16 01:20:46,492-serv            WARNING   [* Server-Msg] Invalid address asdasd received. Retrying...
+[2021-03-16 01:21:11,413-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-03-16 01:21:11,413-serv            INFO      [* Server-Msg] Initializing server...
+[2021-03-16 01:21:12,414-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-03-16 01:21:14,184-serv            WARNING   [* Server-Msg] Invalid address "asdasd" received. Retrying...
+[2021-03-16 01:29:27,791-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-03-16 01:29:27,791-serv            INFO      [* Server-Msg] Initializing server...
+[2021-03-16 01:29:28,792-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-03-16 01:29:32,295-serv            INFO      [* Server-Msg] Server address set to:0.0.0.0
+[2021-03-16 01:29:32,295-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-03-16 01:30:16,209-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-03-16 01:30:16,210-serv            INFO      [* Server-Msg] Initializing server...
+[2021-03-16 01:30:17,211-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-03-16 01:30:20,381-serv            INFO      [* Server-Msg] Server address set to:0.0.0.0
+[2021-03-16 01:30:20,381-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-03-16 01:30:22,033-serv            WARNING   [* Server-Msg] Unable to process port entry
+[2021-03-16 01:30:22,033-serv            WARNING   [* Server-Msg] Error: invalid literal for int() with base 10: ''
+[2021-03-16 01:30:31,697-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-03-16 01:30:31,697-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-03-16 01:30:33,700-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-03-17 00:52:19,411-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-03-17 00:52:19,412-serv            INFO      [* Server-Msg] Initializing server...
+[2021-03-17 00:52:20,412-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-03-17 00:52:25,346-serv            WARNING   [* Server-Msg] Invalid address "00/0/0/0" received. Retrying...
+[2021-03-17 00:52:30,634-serv            INFO      [* Server-Msg] Server address set to:0.0.0.0
+[2021-03-17 00:52:30,634-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-03-17 00:53:34,790-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-03-17 00:53:34,790-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-03-17 00:53:34,791-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-03-17 00:53:34,791-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-03-17 00:53:34,792-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-03-17 00:53:34,792-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-03-17 00:53:34,792-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-03-17 00:53:36,794-serv            INFO      [* Server-Msg] Interpreter thread initialization complete

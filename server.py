@@ -80,7 +80,7 @@ def main():
         print(f"[* Server-Msg] Unable to start logging service. Exiting...")
         loggers[0].q_log('serv','critical','[* Server-Msg] Unable to start logging service. Exiting...')                  # << WIP
         print(f"[* Server-Msg] Error: {ex}")
-        loggers[0].q_log('serv','critical',f'[* Server-Msg] Error: {str(ex)}')
+        loggers[0].q_log('serv','critical','[* Server-Msg] Error: ' + str(ex))
 
         os._exit(0)
     
@@ -116,10 +116,7 @@ def main():
 |          Josh Robertson    Andrew Linscott     Dalton Brown            |
 | ______________________________________________________________________ |
 \/                                                                      \/
-        ''') 
-
-        # lhost = sys.argv[1]
-        # lport = int(sys.argv[2])
+    ''') 
 
     print("\n\n\n\t[Welcome to the Cordyceps-Militaris command and control framework]\n")
 
@@ -137,7 +134,7 @@ def main():
             print(f"[* Server-Msg] Unable to process address entered...")
             loggers[0].q_log('serv','error','[* Server-Msg] Unable to process address entered. Retrying...')
             print(f"[* Server-Msg] Error: {ex}")
-            loggers[0].q_log('serv','error',('[* Server-Msg] ' + str(ex)))
+            loggers[0].q_log('serv','error','[* Server-Msg] Error: ' + str(ex))
             continue
 
         # No input
@@ -152,8 +149,7 @@ def main():
             # Invalid format
             except socket.error:
                 print("[* Server-Msg] Invalid address received. Please retry...\n")
-                loggers[0].q_log('serv','warning','[* Server-Msg] Invalid address received. Retrying...')
-                
+                loggers[0].q_log('serv','warning','[* Server-Msg] Invalid address "'+str(address_entry)+'" received. Retrying...')
                 continue
             
             # Confirm
@@ -169,19 +165,16 @@ def main():
 
                 continue
             else:
-                # Yes?
+                # Yes
                 if confirm_entry.casefold().strip(" ") == 'y' or confirm_entry.casefold().strip(" ") == '':
                     lhost = address_entry
                     print(f"[* Server-Msg] Address set to {address_entry}...")
-                    loggers[0].q_log('serv','info',('[* Server-Msg] Server address set to:' + str(address_entry)))
-
+                    loggers[0].q_log('serv','info',('[* Server-Msg] Server address set to: ' + str(address_entry)))
                     address_entry_success = True
-
-                # Anything else? - Maybe take this out... Seems useless
-                else: 
-                    continue
-    
-    loggers[0].q_log('serv','info','[* Server-Msg] Unable to process address entered...')
+                # Anything else
+                else:
+                    print(f"[* Server-Msg] Unable to confirm address...")
+                    loggers[0].q_log('serv','info','[* Server-Msg] Unable to confirm address')
 
 
 
@@ -242,7 +235,7 @@ def main():
                         # No input
                         if not port_entry:
                             print("[* Server-Msg] No input received. Please retry...\n")
-                            loggers[0].q_log('serv','warning',('[* Server-Msg] No port number entered')
+                            loggers[0].q_log('serv','warning',('[* Server-Msg] No port number entered'))
                         else:
                             # Confirm
                             print(f"[* Server-Msg] Is the port entered correct [Y/n]: {port_entry}")
@@ -260,7 +253,7 @@ def main():
                                 if confirm_entry.casefold().strip(" ") == 'y' or confirm_entry.casefold().strip(" ") == '':
                                     lport = port_entry
                                     print(f"[* Server-Msg] Port set to {port_entry}...")
-                                    loggers[0].q_log('serv','info',('[* Server-Msg] TCP Listener port set to: ' + str(port_entry)))
+                                    loggers[0].q_log('serv','info','[* Server-Msg] TCP Listener port set to: '+str(port_entry))
                                     port_entry_success = True
                                 # Anything else?
                                 else: 
@@ -269,8 +262,8 @@ def main():
                     # Initiate TCP Listener thread
                     print("[* Server-Msg] Creating TCP Listener thread...")
                     try:
-                        loggers[0].q_log('serv','info',f'[* Server-Msg] Creating TCP Listener Thread with address {lhost} and port {lport}')
-                        TCP_Thread = Listener_TCP(lhost, lport, agentList)
+                        loggers[0].q_log('serv','info','[* Server-Msg] Creating TCP Listener Thread with address '+str(lhost)+' and port '+str(lport))
+                        TCP_Thread = Listener_TCP(lhost, lport, agentList, loggers)
                         TCP_Thread.start()
                         listeners.append(TCP_Thread)
                         listener_entry_success = True
@@ -278,20 +271,20 @@ def main():
                         print("[* Server-Msg] Fatal error with TCP listener creation. Exiting...")
                         loggers[0].q_log('serv','critical','[* Server-Msg] Fatal error with TCP listener creation')
                         print(f"[* Server-Msg] Error: {ex}")
-                        loggers[0].q_log('serv','critical',f'[* Server-Msg] Error: {ex}'))
+                        loggers[0].q_log('serv','critical','[* Server-Msg] Error: ' + str(ex))
                         os._exit(0)
 
 
                 ## FUTURE IMPLEMENTATION - socket for thread init
                 if("1" in listener_entry_list):
-                    # HTTP_Thread = Listener_HTTP(lhost, lport, agentList)
+                    # HTTP_Thread = Listener_HTTP(lhost, lport, agentList, loggers)
                     # HTTP_Thread.start()
                     # listeners.append(HTTP_Thread)
                     print("[* Server-Msg] Function yet to be included")
                     # entry_success = False
 
                 if("2" in listener_entry_list):
-                    # DNS_Thread = Listener_DNS(lhost, lport, agentList)
+                    # DNS_Thread = Listener_DNS(lhost, lport, agentList, loggers)
                     # DNS_Thread.start()
                     # listeners.append(DNS_Thread)
                     print("[* Server-Msg] Function yet to be included")
@@ -301,7 +294,7 @@ def main():
                 print("[* Server-Msg] Fatal error with listener selection and thread creation. Exiting...")
                 loggers[0].q_log('serv','critical','[* Server-Msg] Fatal error with listener selection and thread creation')
                 print(f"[* Server-Msg] Error: {ex}")
-                loggers[0].q_log('serv','critical',f'[* Server-Msg] Error: {str(ex)}')
+                loggers[0].q_log('serv','critical','[* Server-Msg] Error: ' + str(ex))
                 os._exit(0)
 
     time.sleep(2)
@@ -319,7 +312,7 @@ def main():
         print(f"[* Server-Msg] Failed to initialize Interpreter thread")
         loggers[0].q_log('serv','critical','[* Server-Msg] Failed to initialize Interpreter thread')
         print(f"[* Server-Msg] Error: {ex}")
-        loggers[0].q_log('serv','critical',f'[* Server-Msg] Error: {str(ex)}')
+        loggers[0].q_log('serv','critical',f'[* Server-Msg] Error: ' + str(ex))
         os._exit(0)
 
 if __name__ == '__main__':
