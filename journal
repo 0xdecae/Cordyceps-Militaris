@@ -208,3 +208,26 @@ With this, lets set out exactly what that means, or what we'll be presenting:
      - Process command and arguments
 
 
+
+
+
+$$$
+
+20210303 - 01:51
+
+It's been awhile since I've written or updated to this doc.
+To recap over the past couple weeks...
+ - Logging is fully implemented (the class) with a rewrite and manual position to the queue function
+ - Demo was good, O'Leary seemed to be surprised with how much we got done. Cool.
+ - Dalton is coming along with his end of the http_listener + agent. He has a objective implementation for combining his into the C2 structure I have.
+
+This last Monday (1st) we had a meeting to discuss progress, red teaming, and other things. 
+We're going to have a demo the monday immediately after spring break.
+
+With this, we have goals in mind that we need to get done, and standards I want to exceed:
+ - Logging needs to be a complete implementation; All modules need to have their current level of diagnostics conform to it
+ - Some sort of module framework needs to be started/implemented, ideally including a UI and test-case for passing to agent.
+	+ This capitolizes off of a upload/download function, whcih is a prerequisite
+	+ Other implementations involve the Agent executing the code itself through the shell, or in memory directly[?] who knows... Think about it...
+
+

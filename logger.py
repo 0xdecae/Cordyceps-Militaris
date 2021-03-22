@@ -7,13 +7,23 @@ import random
 import threading
 import time
 
+# Noted:
 # self.levels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR, logging.CRITICAL]
 
+# Had to reimplement logging queues myself reather than using the queuehandler modules
 
 class Logger(threading.Thread):
 
     def __init__(self):
         threading.Thread.__init__(self)
+
+        self.log_level = {
+            'debug': logging.DEBUG, 
+            'info': logging.INFO, 
+            'warning': logging.WARNING,
+            'error': logging.ERROR,
+            'critical': logging.CRITICAL
+        }
 
         self.log_q = Queue(-1)
 
@@ -72,7 +82,7 @@ class Logger(threading.Thread):
         }
 
         logging.config.dictConfig(self.log_dict)
-        print('logging-running')
+        # print('logging-running')
 
         lp = threading.Thread(target=self.logger_thread, args=(self.log_q,))
         lp.start()
@@ -84,53 +94,42 @@ class Logger(threading.Thread):
     def logger_thread(self, q):
 
 
-        qh = logging.handlers.QueueHandler(q)
         root = logging.getLogger()
         root.setLevel(logging.DEBUG)
-        root.addHandler(qh)
 
+        # Monitor for record additions
         while True:
 
-            print(f'Queue before .get(): {str(q)}')
-            record = q.pop()
-            record2 = q.pop()
-            # q.dequeue()
-            print(f'Queue after .get(): {str(q)}')
+            # print(f'Queue before .get(): {str(q)}')
+            record = q.get()
+            # print(f'Queue after .get(): {str(q)}')
 
-            print(f'Record: {str(record)}')                 # Currently this is not engaging < Before moving chunk of preq-code to q_log
+            # print(f'Record: {str(record)}')                 # Currently this is not engaging < Before moving chunk of preq-code to q_log
                                                             # Now, we are getting a continuously loop of the same message, spawned from one call to q_log in Server
                                                             # This is the current suspect of the recursion.
 
-            print(f'Record name: {str(record.name)}') 
+            # print(f"Record msg: {str(record['msg'])}") 
 
             if record is None:
                 break
 
-            print("Calling handle : record")
+            # print("Calling handle : record")
 
-            logger = logging.getLogger(record.name)
-            logger.handle(record)
+            logger = logging.getLogger(record['log'])        
+            # print("Calling log from function q_log")            # Executed once
+            logger.log(self.log_level.get(record['lvl'], logging.DEBUG), record['msg'])
 
-    # Change to log()?
+    # Function simply creates a template-dict object and stores the information to be logged inside of it. Then throws it in the queue to be handled.
     def q_log(self, lg, lvl, msg):
 
-        self.qh = logging.handlers.QueueHandler(self.log_q)
-        self.root = logging.getLogger()
-        self.root.setLevel(logging.DEBUG)
-        self.root.addHandler(self.qh)
-
-        logger = logging.getLogger(lg)
-
-        log_level = {
-            'debug': logging.DEBUG, 
-            'info': logging.INFO, 
-            'warning': logging.WARNING,
-            'error': logging.ERROR,
-            'critical': logging.CRITICAL
-        }
         
-        print("Calling log from function q_log")            # Executed once
-        logger.log(log_level.get(lvl, logging.DEBUG), msg)
+        temp_dict = {
+            'log': lg,
+            'lvl': lvl,
+            'msg': msg
+        }
+        self.log_q.put(temp_dict)
+
 
     
 
