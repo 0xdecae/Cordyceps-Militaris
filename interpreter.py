@@ -24,13 +24,15 @@ class Interpreter(threading.Thread):
 
         while True:
             cmd = str(input("[TU-C2:CONSOLE]$ "))
-            self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Received command: "'+cmd)            
+            self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Received command: "'+cmd+'"')            
             self.log_history(cmd)
 
             # TODO:
             # commands:
             #   - list-mods
             #   - info <bot-id>
+
+            # Change this to case/switch statements; probs look cleaner
 
 
             if (cmd == "".strip(" ")):
@@ -39,6 +41,8 @@ class Interpreter(threading.Thread):
                 pass
             elif (cmd.strip(" ") == "exit"):
                 self.exit()
+            elif (cmd.strip(" ") == "history"):
+                self.printHistory()
             elif (cmd.strip(" ") == "clear"):
                 os.system("clear")
                 self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Screen cleared')
@@ -50,30 +54,42 @@ class Interpreter(threading.Thread):
                 self.printUsage()
             elif (cmd.startswith("kill")):
                 try:
-                    print(cmd)
+                    # print(cmd)
                     arg_id = int(cmd.split()[1])
-                    print(arg_id)
+                    # print(arg_id)
                 except Exception as ex:
-                    print(f"[* Interpreter-Msg] Unable to process Bot ID entered...")
-                    self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Unable to process Bot ID for kill')            
+                    print(f"[* Interpreter-Msg] Unable to process Agent ID entered...")
+                    self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Unable to process Agent ID for kill')            
                     print(f"[* Interpreter-Msg] Error: {ex}")
                     self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Error: '+str(ex))            
 
                 else:
-                    try:
-                        self.kill(arg_id)
-                    except Exception as ex: 
-                        print(f"[* Interpreter-Msg] Unable to kill connection with bot {arg_id}...")
-                        self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Unable to kill connection for Bot '+arg_id)            
-                        print(f"[* Interpreter-Msg] Error: {ex}")
-                        self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Error: '+str(ex))            
+                    # Check if exists
+                    agentFound = False
+                    for agent in self.agentList:
+                        if agent.getID == arg_id:
+                            agentFound = True
+                            self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Agent '+str(arg_id)+' exists')
 
+                    if agentFound:
+                        try:
+                            self.kill(arg_id)
+                        except Exception as ex: 
+                            print(f"[* Interpreter-Msg] Unable to kill connection with bot {arg_id}...")
+                            self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Unable to kill connection for Bot '+arg_id)            
+                            print(f"[* Interpreter-Msg] Error: {ex}")
+                            self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Error: '+str(ex))            
+                    else:
+                        print(f"[* Interpreter-Msg] Unable to kill connection with bot {arg_id}...")                        
+                        print(f"[* Interpreter-Msg] Agent {arg_id} does not exist...\n")
+                        self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Unable to kill connection with Agent '+str(arg_id))
+                        self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Agent '+str(arg_id)+' does not exist') 
 
             elif (cmd.startswith("interact")):
                 try:
-                    print(cmd)
+                    # print(cmd)
                     arg_id = int(cmd.split()[1])
-                    print(arg_id)
+                    # print(arg_id)
                 except Exception as ex:
                     print(f"[* Interpreter-Msg] Unable to process Bot ID entered...")
                     self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Unable to process Bot ID entry')            
@@ -81,13 +97,26 @@ class Interpreter(threading.Thread):
                     self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Error: '+str(ex))            
 
                 else:
-                    try:
-                        self.interact(arg_id)
-                    except Exception as ex: 
-                        print(f"[* Interpreter-Msg] Unable to initiate interaction with bot {arg_id}...")
-                        self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Unable to initiate interaction with Bot '+str(arg_id))            
-                        print(f"[* Interpreter-Msg] Error: {ex}")
-                        self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Error: '+str(ex))
+                    # Check if exists
+                    agentFound = False
+                    for agent in self.agentList:
+                        if agent.getID == arg_id:
+                            agentFound = True
+                            self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Agent '+str(arg_id)+' exists')
+
+                    if agentFound:
+                        try:
+                            self.interact(arg_id)
+                        except Exception as ex: 
+                            print(f"[* Interpreter-Msg] Unable to initiate interaction with bot {arg_id}...")
+                            self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Unable to initiate interaction with Bot '+str(arg_id))            
+                            print(f"[* Interpreter-Msg] Error: {ex}")
+                            self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Error: '+str(ex))
+                    else:
+                        print(f"[* Interpreter-Msg] Unable to initiate interaction with bot {arg_id}...")                        
+                        print(f"[* Interpreter-Msg] Agent {arg_id} does not exist...\n")
+                        self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Unable to initiate interaction with Agent '+str(arg_id))
+                        self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Agent '+str(arg_id)+' does not exist')            
 
             else:
                 print("[* Interpreter-Msg] Unable to process command. Try again...")
@@ -96,8 +125,8 @@ class Interpreter(threading.Thread):
 #------------------------------------------------------------------------------------------------------------------------------
     def printUsage(self):
         print('''
-[* Interpreter-Msg] Usage information:\n")
-[+ COMMANDS +]")
+[* Interpreter-Msg] Usage information:\n
+[+ COMMANDS +]
         SERVER:
         - help                          : Print this message
         - exit                          : Exits the program; Causes agents to sleep and retry every 10-45 seconds
@@ -112,7 +141,6 @@ class Interpreter(threading.Thread):
 
         ''')
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Help message printed')
-
 
 #------------------------------------------------------------------------------------------------------------------------------
     def batchMode(self):
@@ -132,8 +160,8 @@ class Interpreter(threading.Thread):
         bm_entry = ''
 
         # This loop is not good fix it << but it works
-        while ('quit'.casefold().strip(" ") not in bm_entry):
-            if(bm_success):
+        while (not bm_success):
+            if('quit'.casefold().strip(" ") in bm_entry):
                 break
             else:    
                 try:
@@ -177,26 +205,15 @@ class Interpreter(threading.Thread):
                 batch_cmd = str(input("[TU-C2:BATCH-CMD]% "))
                 self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Batch-Mode command received: '+batch_cmd)
 
-                if(batch_cmd.casefold().strip(" ") == "quit" or batch_cmd.casefold().strip(" ") == "q"):
+                if(batch_cmd.casefold().strip(" ") == "quit" or batch_cmd.casefold().strip(" ") == "q" or batch_cmd.casefold().strip(" ") == "exit"):
 
                     # Reset beacon variable to continue
-
                     for conn in batchList:
                         conn.startBeacon()
                     self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Restarting beacons')
-
                     batchList.clear()
                     self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Cleaning Batch list')
-
                     break
-                elif (batch_cmd.casefold().strip(" ") == "exit"):
-                    for conn in batchList:
-                        conn.startBeacon()
-                    self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Restarting beacons')
-
-                    batchList.clear()
-                    self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Cleaning Batch list')
-                    self.exit()
                 elif (batch_cmd.casefold().strip(" ") == "shell"):
                     print("[* Interpreter-Msg] Can't interact with individual shells in this environment")
                     print("[* Interpreter-Msg] Please exit if that is the desired result\n")
@@ -220,10 +237,7 @@ class Interpreter(threading.Thread):
                         self.loggers[0].q_log('serv','warning',('[* Interpreter-Msg] Error: ' + str(ex)))
 
 
-
-
         # RESET BEACON
-
         print(f"[* Interpreter-Msg] Exiting Batch-Mode... Returning to main-menu...")
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Exiting Batch-Mode... Returning to main-menu...')
 
@@ -277,7 +291,10 @@ class Interpreter(threading.Thread):
         else:
             print("[* Interpreter-Msg] Shell exited with errors...\n")
             self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Individual shell interaction mode for Bot '+str(id)+' exited unsuccessfully')
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7e354d2f43f880a8a68a9502b2ebccc05c5e0d3d
 #------------------------------------------------------------------------------------------------------------------------------
     def kill(self, id):
         print(f"[* Interpreter-Msg] Killing connection with Bot #{id}.\n")
@@ -300,8 +317,17 @@ class Interpreter(threading.Thread):
         else:
             print(f"[* Interpreter-Msg] Bot #{id} was killed with errors...\n")
             self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Bot '+str(id)+' was killed unsuccessfully')
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7e354d2f43f880a8a68a9502b2ebccc05c5e0d3d
 #------------------------------------------------------------------------------------------------------------------------------
     def log_history(self, cmd):
         with open("log/.history", "a") as history:
             history.write(cmd+'\n')
+#------------------------------------------------------------------------------------------------------------------------------ 
+    def printHistory(self):
+        with open("log/.history", 'r') as f:
+            print(f.read())
+        self.loggers[0].q_log('serv','info','[* Interpreter-Msg] History printed')
+#------------------------------------------------------------------------------------------------------------------------------

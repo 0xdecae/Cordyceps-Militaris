@@ -1,4 +1,25 @@
 
+<<<<<<< HEAD
 listlist-agentsexit
 list-agents
+=======
+listlist-agentsexithello
+list-agents
+interact 0
+history
+list-agents
+help
+history
+hello
+hi
+this is a command
+sorta
+history
+interact 0
+list-agents
+interact 0
+
+interact 0
+kill 0
+>>>>>>> 7e354d2f43f880a8a68a9502b2ebccc05c5e0d3d
 exit

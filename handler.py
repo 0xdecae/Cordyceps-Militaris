@@ -25,6 +25,7 @@ class Handler(threading.Thread):
             self.beacon_wait = False
             self.os = ''
             self.interactive = False
+            self.transport_type = "tcp"
 
             self.status = ["UP","UP"]                       # <--UP - DOWN - ERR 
                                                             # [0] = PING, [1] = BEACON
@@ -39,6 +40,7 @@ class Handler(threading.Thread):
             self.beacon_wait = False
             self.os = ''
             self.interactive = False
+            self.transport_type = "http"
             
             self.status = ["UP","UP"]                       # <--UP - DOWN - ERR 
                                                             # [0] = PING, [1] = BEACON
