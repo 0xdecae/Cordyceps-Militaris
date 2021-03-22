@@ -89,3 +89,36 @@
 [2021-03-17 00:53:34,792-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
 [2021-03-17 00:53:34,792-serv            INFO      [* Listener-Msg] Initializing TCP connection record
 [2021-03-17 00:53:36,794-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-03-22 14:05:46,081-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-03-22 14:05:46,082-serv            INFO      [* Server-Msg] Initializing server...
+[2021-03-22 14:05:47,083-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-03-22 14:06:07,304-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-03-22 14:06:07,304-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-03-22 14:06:10,525-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-03-22 14:06:10,526-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-03-22 14:07:18,779-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-03-22 14:07:18,779-serv            INFO      [* Server-Msg] Initializing server...
+[2021-03-22 14:07:19,781-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-03-22 14:07:25,185-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-03-22 14:07:25,185-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-03-22 14:07:28,694-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-03-22 14:07:28,711-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-03-22 14:12:37,828-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-03-22 14:12:37,831-serv            INFO      [* Server-Msg] Initializing server...
+[2021-03-22 14:12:38,822-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-03-22 14:12:43,171-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-03-22 14:12:43,171-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-03-22 14:12:46,486-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-03-22 14:12:46,492-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-03-22 14:15:20,456-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-03-22 14:15:20,458-serv            INFO      [* Server-Msg] Initializing server...
+[2021-03-22 14:15:21,457-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-03-22 14:15:24,928-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-03-22 14:15:24,929-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-03-22 14:15:28,198-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-03-22 14:15:28,199-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-03-22 14:15:28,199-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-03-22 14:15:32,827-serv            INFO      [* Interpreter-Msg] Received command: "
+[2021-03-22 14:15:32,827-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-03-22 14:17:51,907-serv            INFO      [* Interpreter-Msg] Received command: "list-agents
+[2021-03-22 14:19:43,647-serv            INFO      [* Interpreter-Msg] Received command: "exit
