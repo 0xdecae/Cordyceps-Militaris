@@ -26,9 +26,9 @@ class Listener_HTTP(threading.Thread):
         api.add_resource(resources.History, '/history')
 
         # Disable Flask's default logger
-        log = logging.getLogger('werkzeug')
-        log.disabled = True
-        app.logger.disabled = True
+        #log = logging.getLogger('werkzeug')
+        #log.disabled = True
+        #app.logger.disabled = True
 
         print(f"[* Listener-Msg] Starting Botnet listener on http://0.0.0.0:5000\n")
         app.run(host="0.0.0.0", port=5000)

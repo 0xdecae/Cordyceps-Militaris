@@ -22,6 +22,8 @@ class Interpreter(threading.Thread):
         # PRINT ALL AVAILABLE COMMANDS AND FUNCTIONS HERE
         self.printUsage()
 
+        print("[* Server-Msg] Interpreter thread initialization complete...")
+
         while True:
             cmd = str(input("[TU-C2:CONSOLE]$ "))
             self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Received command: "'+cmd+'"')            
@@ -291,10 +293,7 @@ class Interpreter(threading.Thread):
         else:
             print("[* Interpreter-Msg] Shell exited with errors...\n")
             self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Individual shell interaction mode for Bot '+str(id)+' exited unsuccessfully')
-<<<<<<< HEAD
 
-=======
->>>>>>> 7e354d2f43f880a8a68a9502b2ebccc05c5e0d3d
 #------------------------------------------------------------------------------------------------------------------------------
     def kill(self, id):
         print(f"[* Interpreter-Msg] Killing connection with Bot #{id}.\n")
@@ -317,10 +316,7 @@ class Interpreter(threading.Thread):
         else:
             print(f"[* Interpreter-Msg] Bot #{id} was killed with errors...\n")
             self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Bot '+str(id)+' was killed unsuccessfully')
-<<<<<<< HEAD
 
-=======
->>>>>>> 7e354d2f43f880a8a68a9502b2ebccc05c5e0d3d
 #------------------------------------------------------------------------------------------------------------------------------
     def log_history(self, cmd):
         with open("log/.history", "a") as history:

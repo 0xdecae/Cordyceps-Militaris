@@ -4,16 +4,16 @@ import pprint
 import json
 
 # Configuration Settings
-listening_post_addr = "http://127.0.0.1:5000"
+self.address = "http://127.0.0.1:5000"
 
 # Helper functions
 def api_get_request(endpoint):
-    response_raw = requests.get(listening_post_addr + endpoint).text
+    response_raw = requests.get(self.address + endpoint).text
     response_json = json.loads(response_raw)
     return response_json
 
 def api_post_request(endpoint, payload):
-    response_raw = requests.post(listening_post_addr + endpoint, json=payload).text
+    response_raw = requests.post(self.address + endpoint, json=payload).text
     response_json = json.loads(response_raw)
     return response_json
 

@@ -308,7 +308,6 @@ def main():
         InterpreterThread = Interpreter(agentList, listeners, loggers)          # Handles interface, queue is for commands
         InterpreterThread.start()
         interpreters.append(InterpreterThread)
-        print("[* Server-Msg] Interpreter thread initialization complete...")
         loggers[0].q_log('serv','info','[* Server-Msg] Interpreter thread initialization complete')
 
 

