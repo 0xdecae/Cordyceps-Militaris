@@ -219,3 +219,38 @@
 [2021-03-22 14:21:12,532-serv            INFO      [* Interpreter-Msg] Received command: "exit"
 [2021-03-22 14:21:12,533-serv            INFO      [* Interpreter-Msg] Closing connection to all bots
 [2021-03-22 14:21:12,534-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-03-22 16:14:03,109-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-03-22 16:14:03,109-serv            INFO      [* Server-Msg] Initializing server...
+[2021-03-22 16:14:04,111-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-03-22 16:14:07,261-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-03-22 16:14:07,262-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-03-22 16:14:10,671-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-03-22 16:14:10,672-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-03-22 16:14:10,672-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-03-22 16:14:10,672-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-03-22 16:14:10,672-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-03-22 16:14:10,672-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-03-22 16:14:10,673-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-03-22 16:14:12,674-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-03-22 16:14:12,675-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-03-22 16:14:12,675-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-03-22 16:14:17,339-serv            INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-03-22 16:14:21,446-serv            INFO      [* Interpreter-Msg] Received command: "interact 0"
+[2021-03-22 16:14:21,446-serv            ERROR     [* Interpreter-Msg] Unable to initiate interaction with Agent 0
+[2021-03-22 16:14:21,446-serv            ERROR     [* Interpreter-Msg] Agent 0 does not exist
+[2021-03-22 16:14:25,669-serv            INFO      [* Interpreter-Msg] Received command: "kill 0"
+[2021-03-22 16:14:25,669-serv            ERROR     [* Interpreter-Msg] Unable to kill connection with Agent 0
+[2021-03-22 16:14:25,669-serv            ERROR     [* Interpreter-Msg] Agent 0 does not exist
+[2021-03-22 16:14:30,200-serv            INFO      [* Interpreter-Msg] Received command: "history"
+[2021-03-22 16:14:30,201-serv            INFO      [* Interpreter-Msg] History printed
+[2021-03-22 16:14:44,346-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-03-22 16:14:44,347-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-03-22 16:14:44,461-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-03-22 16:14:44,461-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-03-22 16:14:44,587-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-03-22 16:14:44,588-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-03-22 16:14:46,878-serv            INFO      [* Interpreter-Msg] Received command: "history"
+[2021-03-22 16:14:46,878-serv            INFO      [* Interpreter-Msg] History printed
+[2021-03-22 18:02:11,381-serv            INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-03-22 18:02:11,382-serv            INFO      [* Interpreter-Msg] Closing connection to all bots
+[2021-03-22 18:02:11,382-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents

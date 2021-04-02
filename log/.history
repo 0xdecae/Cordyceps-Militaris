@@ -18,3 +18,12 @@ interact 0
 interact 0
 kill 0
 exit
+list-agents
+interact 0
+kill 0
+history
+
+
+
+history
+exit
