@@ -23,6 +23,8 @@ class Interpreter(threading.Thread):
         # PRINT ALL AVAILABLE COMMANDS AND FUNCTIONS HERE
         self.printUsage()
 
+        print("[* Server-Msg] Interpreter thread initialization complete...")
+
         while True:
             cmd = str(input("[TU-C2:CONSOLE]$ "))
             self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Received command: "'+cmd+'"')            
@@ -46,7 +48,7 @@ class Interpreter(threading.Thread):
                 self.printHistory()
             elif (cmd.strip(" ") == "clear"):
                 os.system("clear")
-                self.logger[0].q_log('serv','info','[* Interpreter-Msg] Screen cleared')
+                self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Screen cleared')
             elif (cmd.strip(" ") == "list-agents"):
                 self.listAgents()
             elif (cmd.strip(" ") == "batch-mode"):
@@ -179,6 +181,7 @@ class Interpreter(threading.Thread):
 
         ''')
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Help message printed')
+
 #------------------------------------------------------------------------------------------------------------------------------
     def batchMode(self):
  
@@ -271,6 +274,7 @@ class Interpreter(threading.Thread):
                         self.loggers[0].q_log('serv','warning','[* Interpreter-Msg] Error with sending command or receiving output')
                         print(f"[* Interpreter-Msg] Error: {ex}")
                         self.loggers[0].q_log('serv','warning',('[* Interpreter-Msg] Error: ' + str(ex)))
+
 
         # RESET BEACON
         print(f"[* Interpreter-Msg] Exiting Batch-Mode... Returning to main-menu...")

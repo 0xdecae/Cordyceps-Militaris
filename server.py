@@ -280,7 +280,6 @@ def main():
                     try:
                         HTTP_flask_app = Listener_HTTP()
                         HTTP_flask_app.start()
-                        #HTTP_Thread = http_bus(lhost, 5000, agentList)
                         listeners.append(HTTP_flask_app)
                         listener_entry_success = True
                     except Exception as ex:
@@ -309,7 +308,6 @@ def main():
         InterpreterThread = Interpreter(agentList, listeners, loggers)          # Handles interface, queue is for commands
         InterpreterThread.start()
         interpreters.append(InterpreterThread)
-        print("[* Server-Msg] Interpreter thread initialization complete...")
         loggers[0].q_log('serv','info','[* Server-Msg] Interpreter thread initialization complete')
 
 
