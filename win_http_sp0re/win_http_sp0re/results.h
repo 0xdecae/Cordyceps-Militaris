@@ -15,9 +15,11 @@
 // Define our Result object
 struct Result {
 	Result(const boost::uuids::uuid& id,
+		std::string agent_id,
 		std::string contents,
 		bool success);
 	const boost::uuids::uuid id;
+	const std::string agent_id;
 	const std::string contents;
 	const bool success;
 };
