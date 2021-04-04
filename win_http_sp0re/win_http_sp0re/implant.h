@@ -31,7 +31,6 @@ struct Implant {
 	void setMeanDwell(double meanDwell);
 	void setRunning(bool isRunning);
 	void setAgentID(std::string agent_id);
-	std::string getAgentID();
 	void serviceTasks();
 
 private:
