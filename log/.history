@@ -35,3 +35,12 @@ exit
 exit
 \
 exit
+list-agents
+interact 0
+kill 0
+history
+
+
+
+history
+exit
