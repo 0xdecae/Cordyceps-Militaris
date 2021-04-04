@@ -72,7 +72,7 @@ class Logger(threading.Thread):
                     'handlers': ['uptime']
                 },
                 'hist': {
-                    'handlers': ['history']
+                    'handlers': ['history']     # Not being used. Alternative is basic file record.
                 }
             },
             'root': {
@@ -100,15 +100,7 @@ class Logger(threading.Thread):
         # Monitor for record additions
         while True:
 
-            # print(f'Queue before .get(): {str(q)}')
             record = q.get()
-            # print(f'Queue after .get(): {str(q)}')
-
-            # print(f'Record: {str(record)}')                 # Currently this is not engaging < Before moving chunk of preq-code to q_log
-                                                            # Now, we are getting a continuously loop of the same message, spawned from one call to q_log in Server
-                                                            # This is the current suspect of the recursion.
-
-            # print(f"Record msg: {str(record['msg'])}") 
 
             if record is None:
                 break
@@ -122,7 +114,6 @@ class Logger(threading.Thread):
     # Function simply creates a template-dict object and stores the information to be logged inside of it. Then throws it in the queue to be handled.
     def q_log(self, lg, lvl, msg):
 
-        
         temp_dict = {
             'log': lg,
             'lvl': lvl,
