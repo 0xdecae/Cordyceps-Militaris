@@ -10,7 +10,7 @@ import time
 # Noted:
 # self.levels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR, logging.CRITICAL]
 
-# Had to reimplement logging queues myself reather than using the queuehandler modules
+# Had to reimplement logging queues myself rather than using the queuehandler modules
 
 class Logger(threading.Thread):
 

