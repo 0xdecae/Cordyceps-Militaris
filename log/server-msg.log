@@ -89,7 +89,6 @@
 [2021-03-17 00:53:34,792-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
 [2021-03-17 00:53:34,792-serv            INFO      [* Listener-Msg] Initializing TCP connection record
 [2021-03-17 00:53:36,794-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
-<<<<<<< HEAD
 [2021-03-22 14:05:46,081-serv            INFO      [* Server-Msg] Logger initialization complete
 [2021-03-22 14:05:46,082-serv            INFO      [* Server-Msg] Initializing server...
 [2021-03-22 14:05:47,083-serv            INFO      [* Server-Msg] Address entry initiated
@@ -123,7 +122,6 @@
 [2021-03-22 14:15:32,827-serv            WARNING   [* Interpreter-Msg] Error: No command received
 [2021-03-22 14:17:51,907-serv            INFO      [* Interpreter-Msg] Received command: "list-agents
 [2021-03-22 14:19:43,647-serv            INFO      [* Interpreter-Msg] Received command: "exit
-=======
 [2021-03-22 02:55:11,204-serv            INFO      [* Server-Msg] Logger initialization complete
 [2021-03-22 02:55:11,204-serv            INFO      [* Server-Msg] Initializing server...
 [2021-03-22 02:55:12,205-serv            INFO      [* Server-Msg] Address entry initiated
@@ -254,7 +252,6 @@
 [2021-03-22 14:21:12,532-serv            INFO      [* Interpreter-Msg] Received command: "exit"
 [2021-03-22 14:21:12,533-serv            INFO      [* Interpreter-Msg] Closing connection to all bots
 [2021-03-22 14:21:12,534-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
-<<<<<<< HEAD
 [2021-03-22 16:14:03,109-serv            INFO      [* Server-Msg] Logger initialization complete
 [2021-03-22 16:14:03,109-serv            INFO      [* Server-Msg] Initializing server...
 [2021-03-22 16:14:04,111-serv            INFO      [* Server-Msg] Address entry initiated
@@ -290,8 +287,6 @@
 [2021-03-22 18:02:11,381-serv            INFO      [* Interpreter-Msg] Received command: "exit"
 [2021-03-22 18:02:11,382-serv            INFO      [* Interpreter-Msg] Closing connection to all bots
 [2021-03-22 18:02:11,382-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
-=======
->>>>>>> 7e354d2f43f880a8a68a9502b2ebccc05c5e0d3d
 [2021-03-22 17:03:20,874-serv            INFO      [* Server-Msg] Logger initialization complete
 [2021-03-22 17:03:20,875-serv            INFO      [* Server-Msg] Initializing server...
 [2021-03-22 17:03:21,876-serv            INFO      [* Server-Msg] Address entry initiated
@@ -362,4 +357,5 @@
 [2021-03-22 19:43:48,364-serv            INFO      [* Interpreter-Msg] Received command: "exit"
 [2021-03-22 19:43:48,370-serv            INFO      [* Interpreter-Msg] Closing connection to all bots
 [2021-03-22 19:43:48,370-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
->>>>>>> 7ba4babe40363a9dc0a8f2437aab57dda27400c4
+[2021-03-22 19:46:09,303-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-03-22 19:46:09,303-serv            INFO      [* Server-Msg] Initializing server...
