@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 [2021-03-03 02:49:01,338-serv            INFO      [* Server-Msg] Logger initialization complete
 [2021-03-03 02:49:04,320-serv            WARNING   [* Server-Msg] No input received. Retrying...
@@ -1997,3 +1998,5 @@
 [2021-04-09 13:23:29,504-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
 [2021-04-09 13:23:29,505-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
 [2021-04-09 13:23:29,710-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+=======
+>>>>>>> ad8aa8b5b4f635b6a66ae7cdc777ffbae5b8b008

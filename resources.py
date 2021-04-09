@@ -83,7 +83,7 @@ class Results(Resource):
                 json_obj['dwell'] = "5.0"
                 json_obj['running'] = "true"
                 # Create new handler for connection
-                newConn = Handler(agent_id, self.loggers)
+                newConn = Handler(agent_id, self.loggers, "HTTP")
                 newConn.start()
                 # Save Task object to database
                 Task(**json_obj).save()

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 [2021-04-08 18:49:20,400-up              INFO      [* BotHandler-Msg] Agent 0 beacon started
 [2021-04-08 18:49:20,646-up              INFO      [* BotHandler-Msg] Agent 1 beacon started
@@ -1335,3 +1336,5 @@
 [2021-04-09 13:23:13,255-up             ] INFO      [* BotHandler-Msg] Agent 9c2fdf71-664e-4559-b0af-35ea2d63b53c - BEACON : DOWN
 [2021-04-09 13:23:26,276-up             ] INFO      [* BotHandler-Msg] Agent 9c2fdf71-664e-4559-b0af-35ea2d63b53c - BEACON : DOWN
 [2021-04-09 13:23:29,092-up             ] INFO      [* BotHandler-Msg] Agent e4105859-1590-49f7-a010-ee99ddd84a94 - BEACON : UP
+=======
+>>>>>>> ad8aa8b5b4f635b6a66ae7cdc777ffbae5b8b008

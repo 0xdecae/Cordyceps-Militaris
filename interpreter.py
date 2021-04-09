@@ -173,7 +173,7 @@ class Interpreter(threading.Thread):
                     for agent in self.agentList:
                         if agent.getID() == arg_id:
                             agentFound = True
-                            shell_agent = agent
+                            # shell_agent = agent
                             self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Shell] Agent '+str(arg_id)+' exists')
 
                     if agentFound:
