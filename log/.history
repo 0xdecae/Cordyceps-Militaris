@@ -187,3 +187,9 @@ exit
 exit
 exit
 >>>>>>> 10b56a0b51f9ba00ef2a1b22b0302dc9c71e9840
+
+
+list-agents
+kill 0
+kill 1
+exit

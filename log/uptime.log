@@ -1116,3 +1116,9 @@
 [2021-04-09 00:02:46,362-up              INFO      [* BotHandler-Msg] Agent 1 - BEACON : DOWN
 [2021-04-09 00:03:05,414-up              INFO      [* BotHandler-Msg] Agent 0 - BEACON : DOWN
 [2021-04-09 00:03:12,378-up              INFO      [* BotHandler-Msg] Agent 1 - BEACON : DOWN
+[2021-04-09 01:27:01,095-up             ] INFO      [* BotHandler-Msg] Agent 0 beacon started
+[2021-04-09 01:27:03,193-up             ] INFO      [* BotHandler-Msg] Agent 1 beacon started
+[2021-04-09 01:27:33,144-up             ] INFO      [* BotHandler-Msg] Agent 0 - BEACON : UP
+[2021-04-09 01:27:39,221-up             ] INFO      [* BotHandler-Msg] Agent 1 - BEACON : UP
+[2021-04-09 01:28:06,279-up             ] INFO      [* BotHandler-Msg] Agent 1 - BEACON : UP
+[2021-04-09 01:28:10,202-up             ] INFO      [* BotHandler-Msg] Agent 0 - BEACON : DOWN

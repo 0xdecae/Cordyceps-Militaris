@@ -55,14 +55,14 @@ class Handler(threading.Thread):
         #self.BotName = threading.current_thread().getName()
 
         print(f"[*BotHandler-Msg] Bot {self.ip}:{str(self.port)} connected with Session ID of {str(self.agent_id)}")
-        self.loggers[0].q_log('conn','info','[* BotHandler-Msg] Bot '+self.ip+':'+str(self.port)+' connected with Session ID of '+str(self.agent_id))
-        self.loggers[0].q_log('serv','info','[* BotHandler-Msg] Bot handler object created for: '+self.ip+':'+str(self.port)+'; Session ID of '+str(self.agent_id))
+        self.loggers[0].q_log('conn','info','[* BotHandler-Msg] Agent '+self.ip+':'+str(self.port)+' connected with Session ID of '+str(self.agent_id))
+        self.loggers[0].q_log('serv','info','[* BotHandler-Msg] Agent handler object created for: '+self.ip+':'+str(self.port)+'; Session ID of '+str(self.agent_id))
 
         #Not working for http currently (delete if statement once working)
         # Grab operating system : Linux/Windows
         if(self.transport_type == "TCP"):
             self.setOS()
-            self.loggers[0].q_log('serv','info','[* BotHandler-Msg] Bot '+str(self.agent_id)+' operating system set: '+str(self.os))
+            self.loggers[0].q_log('serv','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' operating system set: '+str(self.os))
             self.loggers[0].q_log('conn','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' operating system set: '+str(self.os))
 
 
