@@ -358,6 +358,774 @@
 [2021-03-22 19:43:48,370-serv            INFO      [* Interpreter-Msg] Closing connection to all bots
 [2021-03-22 19:43:48,370-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
 [2021-03-22 19:46:09,303-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-03-22 19:46:09,303-serv            INFO      [* Server-Msg] Initializing server...[2021-04-05 01:33:27,628-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-04-05 01:33:27,629-serv            INFO      [* Server-Msg] Initializing server...
+[2021-04-05 01:33:28,630-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-04-05 01:33:32,680-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-05 01:33:32,680-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-05 01:33:39,391-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-05 01:33:39,392-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-05 01:33:39,392-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-05 01:33:39,392-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-05 01:33:39,392-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-05 01:33:39,393-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-05 01:33:39,393-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-05 01:33:41,395-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-05 01:33:41,395-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-05 01:33:41,395-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-04-05 01:33:58,596-serv            INFO      [* Interpreter-Msg] Received command: "upload"
+[2021-04-05 01:33:58,598-serv            ERROR     [* Interpreter-Msg:Upload] Unable to process filename/agent-id for upload procedure
+[2021-04-05 01:33:58,598-serv            ERROR     [* Interpreter-Msg:Upload] Error: list index out of range
+[2021-04-05 01:34:18,549-serv            INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-05 01:34:24,201-serv            INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-05 01:34:24,202-serv            INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-05 01:34:24,202-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-05 14:24:53,121-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-04-05 14:24:53,121-serv            INFO      [* Server-Msg] Initializing server...
+[2021-04-05 14:24:54,123-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-04-05 14:25:57,591-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-05 14:25:57,591-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-05 14:25:58,604-serv            ERROR     No input received. Please retry...
+[2021-04-05 14:26:03,999-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-05 14:26:04,000-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-05 14:26:04,000-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-05 14:26:04,000-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-05 14:26:04,001-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-05 14:26:04,001-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-05 14:26:04,001-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-05 14:26:06,003-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-05 14:26:06,004-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-05 14:26:06,004-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-04-05 23:32:04,673-serv            INFO      [* Interpreter-Msg] Received command: "list agents"
+[2021-04-05 23:32:04,675-serv            WARNING   [* Interpreter-Msg] Unable to process command. Retrying...
+[2021-04-05 23:32:08,842-serv            INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-05 23:37:26,295-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.154
+[2021-04-05 23:37:26,296-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.154
+[2021-04-05 23:43:15,450-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-05 23:43:15,450-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-05 23:43:19,912-serv            INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-05 23:43:19,912-serv            INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-05 23:43:19,912-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-05 23:43:32,184-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-04-05 23:43:32,184-serv            INFO      [* Server-Msg] Initializing server...
+[2021-04-05 23:43:33,185-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-04-05 23:44:01,000-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-05 23:44:01,000-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-05 23:44:06,184-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-05 23:44:06,184-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-05 23:44:06,185-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-05 23:44:06,185-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-05 23:44:06,185-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-05 23:44:06,185-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-05 23:44:06,185-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-05 23:44:08,188-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-05 23:44:08,188-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-05 23:44:08,189-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-04-05 23:44:08,807-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.154
+[2021-04-05 23:44:08,808-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.154
+[2021-04-05 23:44:24,437-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-05 23:44:24,437-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-05 23:44:25,612-serv            INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-05 23:44:25,612-serv            INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-05 23:44:25,612-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-08 18:40:59,905-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-04-08 18:40:59,906-serv            INFO      [* Server-Msg] Initializing server...
+[2021-04-08 18:41:00,907-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-04-08 18:41:04,717-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-08 18:41:04,718-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-08 18:41:08,109-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-08 18:41:08,110-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-08 18:41:08,110-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-08 18:41:08,110-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-08 18:41:08,111-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-08 18:41:08,111-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-08 18:41:08,111-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-08 18:41:10,113-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-08 18:41:10,113-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-08 18:41:10,113-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-04-08 18:43:13,243-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-08 18:43:13,245-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-08 18:44:57,044-serv            INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-08 18:45:01,277-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-04-08 18:45:01,277-serv            INFO      [* Server-Msg] Initializing server...
+[2021-04-08 18:45:02,279-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-04-08 18:46:03,027-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-08 18:46:03,028-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-08 18:46:05,550-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-08 18:46:05,550-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-08 18:46:05,550-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-08 18:46:05,552-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-08 18:46:05,553-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-08 18:46:05,553-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-08 18:46:05,553-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-08 18:46:07,554-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-08 18:46:07,555-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-08 18:46:07,555-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-04-08 18:46:27,743-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-08 18:46:27,744-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-08 18:46:45,143-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.154
+[2021-04-08 18:46:45,144-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.154
+[2021-04-08 18:48:30,667-serv            INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-08 18:48:37,942-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-04-08 18:48:37,942-serv            INFO      [* Server-Msg] Initializing server...
+[2021-04-08 18:48:38,944-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-04-08 18:48:42,252-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-08 18:48:42,252-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-08 18:48:46,205-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-08 18:48:46,206-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-08 18:48:46,206-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-08 18:48:46,206-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-08 18:48:46,206-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-08 18:48:46,207-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-08 18:48:46,207-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-08 18:48:48,209-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-08 18:48:48,209-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-08 18:48:48,210-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-04-08 18:49:17,391-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.154
+[2021-04-08 18:49:17,391-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.154
+[2021-04-08 18:49:17,392-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.154:53738; Session ID of 0
+[2021-04-08 18:49:17,642-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-08 18:49:17,643-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-08 18:49:17,644-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.145:43840; Session ID of 1
+[2021-04-08 18:49:19,776-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 18:49:19,777-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 18:49:20,399-serv            INFO      [* BotHandler-Msg] Bot 0 operating system set: Windows 
+[2021-04-08 18:49:20,400-serv            INFO      [* BotHandler-Msg] Agent 0 beacon started
+[2021-04-08 18:49:20,645-serv            INFO      [* BotHandler-Msg] Bot 1 operating system set: Linux 
+[2021-04-08 18:49:20,646-serv            INFO      [* BotHandler-Msg] Agent 1 beacon started
+[2021-04-08 18:49:22,558-serv            INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-08 18:50:57,240-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 0"
+[2021-04-08 18:50:57,241-serv            ERROR     [* Interpreter-Msg:Upload] Unable to upload file with Agent 0
+[2021-04-08 18:50:57,241-serv            ERROR     [* Interpreter-Msg:Upload] Agent 0 does not exist
+[2021-04-08 19:12:49,403-serv            INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-08 19:12:54,672-serv            INFO      [* Interpreter-Msg] Received command: "history"
+[2021-04-08 19:12:54,673-serv            INFO      [* Interpreter-Msg] History printed
+[2021-04-08 19:13:18,001-serv            INFO      [* Interpreter-Msg] Received command: "clear"
+[2021-04-08 19:13:18,003-serv            INFO      [* Interpreter-Msg] Screen cleared
+[2021-04-08 19:16:02,734-serv            INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-08 19:16:02,734-serv            INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-08 19:16:02,939-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-08 19:16:15,123-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-04-08 19:16:15,124-serv            INFO      [* Server-Msg] Initializing server...
+[2021-04-08 19:16:16,125-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-04-08 19:16:19,936-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-08 19:16:19,937-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-08 19:16:24,598-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-08 19:16:24,598-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-08 19:16:24,598-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-08 19:16:24,598-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-08 19:16:24,598-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-08 19:16:24,598-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-08 19:16:24,598-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-08 19:16:26,602-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-08 19:16:26,602-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-08 19:16:26,603-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-04-08 19:16:42,941-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-08 19:16:42,942-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-08 19:16:42,942-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.145:43842; Session ID of 0
+[2021-04-08 19:16:45,922-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.154
+[2021-04-08 19:16:45,923-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.154
+[2021-04-08 19:16:45,924-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.154:53753; Session ID of 1
+[2021-04-08 19:16:45,945-serv            INFO      [* BotHandler-Msg] Bot 0 operating system set: Linux 
+[2021-04-08 19:16:45,946-serv            INFO      [* BotHandler-Msg] Agent 0 beacon started
+[2021-04-08 19:16:48,080-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 19:16:48,080-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 19:16:48,929-serv            INFO      [* BotHandler-Msg] Bot 1 operating system set: Windows 
+[2021-04-08 19:16:48,929-serv            INFO      [* BotHandler-Msg] Agent 1 beacon started
+[2021-04-08 19:16:50,663-serv            INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-08 19:16:55,238-serv            INFO      [* Interpreter-Msg] Received command: "history"
+[2021-04-08 19:16:55,238-serv            INFO      [* Interpreter-Msg] History printed
+[2021-04-08 19:17:04,436-serv            INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-08 19:17:10,742-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 1"
+[2021-04-08 19:17:10,743-serv            ERROR     [* Interpreter-Msg:Upload] Unable to upload file with Agent 1
+[2021-04-08 19:17:10,743-serv            ERROR     [* Interpreter-Msg:Upload] Agent 1 does not exist
+[2021-04-08 19:18:22,487-serv            INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-08 19:18:22,487-serv            INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-08 19:18:22,691-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-08 19:18:32,440-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-04-08 19:18:32,440-serv            INFO      [* Server-Msg] Initializing server...
+[2021-04-08 19:18:33,441-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-04-08 19:18:35,967-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-08 19:18:35,967-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-08 19:18:39,364-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-08 19:18:39,365-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-08 19:18:39,365-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-08 19:18:39,365-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-08 19:18:39,365-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-08 19:18:39,366-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-08 19:18:39,366-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-08 19:18:41,367-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-08 19:18:41,368-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-08 19:18:41,368-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-04-08 19:18:59,074-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.154
+[2021-04-08 19:18:59,074-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.154
+[2021-04-08 19:18:59,075-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.154:53757; Session ID of 0
+[2021-04-08 19:19:02,081-serv            INFO      [* BotHandler-Msg] Bot 0 operating system set: Windows 
+[2021-04-08 19:19:02,081-serv            INFO      [* BotHandler-Msg] Agent 0 beacon started
+[2021-04-08 19:19:11,589-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-08 19:19:11,590-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-08 19:19:11,590-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.145:43844; Session ID of 1
+[2021-04-08 19:19:14,594-serv            INFO      [* BotHandler-Msg] Bot 1 operating system set: Linux 
+[2021-04-08 19:19:14,594-serv            INFO      [* BotHandler-Msg] Agent 1 beacon started
+[2021-04-08 19:19:36,326-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 19:19:36,326-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 19:19:39,047-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 0"
+[2021-04-08 19:19:39,047-serv            ERROR     [* Interpreter-Msg:Upload] Unable to upload file with Agent 0
+[2021-04-08 19:19:39,047-serv            ERROR     [* Interpreter-Msg:Upload] Agent 0 does not exist
+[2021-04-08 19:19:49,748-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 1"
+[2021-04-08 19:19:49,750-serv            ERROR     [* Interpreter-Msg:Upload] Unable to upload file with Agent 1
+[2021-04-08 19:19:49,750-serv            ERROR     [* Interpreter-Msg:Upload] Agent 1 does not exist
+[2021-04-08 19:19:54,770-serv            INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-08 19:21:14,123-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 0"
+[2021-04-08 19:21:14,123-serv            ERROR     [* Interpreter-Msg:Upload] Unable to upload file with Agent 0
+[2021-04-08 19:21:14,123-serv            ERROR     [* Interpreter-Msg:Upload] Agent 0 does not exist
+[2021-04-08 19:23:05,517-serv            INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-08 19:23:05,517-serv            INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-08 19:23:05,721-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-08 19:23:14,700-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-04-08 19:23:14,700-serv            INFO      [* Server-Msg] Initializing server...
+[2021-04-08 19:23:15,701-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-04-08 19:23:19,471-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-08 19:23:19,471-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-08 19:23:25,659-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-08 19:23:25,659-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-08 19:23:25,660-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-08 19:23:25,661-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-08 19:23:25,661-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-08 19:23:25,662-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-08 19:23:25,662-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-08 19:23:27,662-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-08 19:23:27,663-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-08 19:23:27,663-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-04-08 19:23:28,613-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.154
+[2021-04-08 19:23:28,613-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.154
+[2021-04-08 19:23:28,613-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.154:53768; Session ID of 0
+[2021-04-08 19:23:29,917-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 19:23:29,918-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 19:23:31,619-serv            INFO      [* BotHandler-Msg] Bot 0 operating system set: Windows 
+[2021-04-08 19:23:31,619-serv            INFO      [* BotHandler-Msg] Agent 0 beacon started
+[2021-04-08 19:23:34,826-serv            INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-08 19:23:38,173-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 0"
+[2021-04-08 19:23:38,173-serv            ERROR     [* Interpreter-Msg:Upload] Unable to process filename/agent-id for upload procedure
+[2021-04-08 19:23:38,173-serv            ERROR     [* Interpreter-Msg:Upload] Error: can only concatenate str (not "int") to str
+[2021-04-08 19:23:40,722-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-08 19:23:40,723-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-08 19:23:40,723-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.145:43846; Session ID of 1
+[2021-04-08 19:23:43,727-serv            INFO      [* BotHandler-Msg] Bot 1 operating system set: Linux 
+[2021-04-08 19:23:43,727-serv            INFO      [* BotHandler-Msg] Agent 1 beacon started
+[2021-04-08 19:24:11,893-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 19:24:11,893-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 19:24:29,595-serv            INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-08 19:24:29,595-serv            INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-08 19:24:29,800-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-08 19:24:42,032-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-04-08 19:24:42,032-serv            INFO      [* Server-Msg] Initializing server...
+[2021-04-08 19:24:43,034-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-04-08 19:54:36,351-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-08 19:54:36,351-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-08 19:54:39,358-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-08 19:54:39,361-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-08 19:54:39,361-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-08 19:54:39,361-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-08 19:54:39,361-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-08 19:54:39,361-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-08 19:54:39,361-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-08 19:54:41,364-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-08 19:54:41,365-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-08 19:54:41,366-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-04-08 19:54:47,833-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-08 19:54:47,833-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-08 19:54:47,834-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.145:43974; Session ID of 0
+[2021-04-08 19:54:50,837-serv            INFO      [* BotHandler-Msg] Bot 0 operating system set: Linux 
+[2021-04-08 19:54:50,838-serv            INFO      [* BotHandler-Msg] Agent 0 beacon started
+[2021-04-08 19:54:54,001-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 19:54:54,002-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 19:54:57,511-serv            INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-08 19:55:03,559-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.154
+[2021-04-08 19:55:03,559-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.154
+[2021-04-08 19:55:03,559-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.154:53853; Session ID of 1
+[2021-04-08 19:55:06,566-serv            INFO      [* BotHandler-Msg] Bot 1 operating system set: Windows 
+[2021-04-08 19:55:06,566-serv            INFO      [* BotHandler-Msg] Agent 1 beacon started
+[2021-04-08 19:55:08,500-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 0[D[D"
+[2021-04-08 19:55:08,500-serv            ERROR     [* Interpreter-Msg:Upload] Unable to process filename/agent-id for upload procedure
+[2021-04-08 19:55:08,500-serv            ERROR     [* Interpreter-Msg:Upload] Error: invalid literal for int() with base 10: '0\x1b[D\x1b[D'
+[2021-04-08 19:55:26,441-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 1"
+[2021-04-08 19:56:03,504-serv            INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-08 19:56:03,708-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-08 19:56:10,798-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-04-08 19:56:10,798-serv            INFO      [* Server-Msg] Initializing server...
+[2021-04-08 19:56:11,799-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-04-08 19:56:14,370-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-08 19:56:14,371-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-08 19:56:18,512-serv            WARNING   [* Server-Msg] Unable to process port entry
+[2021-04-08 19:56:18,512-serv            WARNING   [* Server-Msg] Error: invalid literal for int() with base 10: ''
+[2021-04-08 19:56:20,554-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-08 19:56:20,555-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-08 19:56:20,556-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-08 19:56:20,556-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-08 19:56:20,556-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-08 19:56:20,556-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-08 19:56:20,556-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-08 19:56:22,558-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-08 19:56:22,559-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-08 19:56:22,559-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-04-08 19:56:45,701-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.154
+[2021-04-08 19:56:45,702-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.154
+[2021-04-08 19:56:45,702-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.154:53856; Session ID of 0
+[2021-04-08 19:56:48,708-serv            INFO      [* BotHandler-Msg] Bot 0 operating system set: Windows 
+[2021-04-08 19:56:48,708-serv            INFO      [* BotHandler-Msg] Agent 0 beacon started
+[2021-04-08 19:56:49,607-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-08 19:56:49,608-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-08 19:56:49,608-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.145:43978; Session ID of 1
+[2021-04-08 19:56:52,612-serv            INFO      [* BotHandler-Msg] Bot 1 operating system set: Linux 
+[2021-04-08 19:56:52,613-serv            INFO      [* BotHandler-Msg] Agent 1 beacon started
+[2021-04-08 21:15:27,305-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 21:15:27,305-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 21:15:27,453-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 21:15:27,454-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 21:15:52,094-serv            INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-08 21:15:52,296-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-08 21:16:30,834-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-04-08 21:16:30,834-serv            INFO      [* Server-Msg] Initializing server...
+[2021-04-08 21:16:31,835-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-04-08 21:16:38,805-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-08 21:16:38,805-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-08 21:16:42,445-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-08 21:16:42,446-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-08 21:16:42,446-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-08 21:16:42,446-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-08 21:16:42,446-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-08 21:16:42,447-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-08 21:16:42,447-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-08 21:16:44,449-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-08 21:16:44,449-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-08 21:16:44,450-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-04-08 21:16:46,298-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-08 21:16:46,298-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-08 21:16:46,298-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.145:43984; Session ID of 0
+[2021-04-08 21:16:49,302-serv            INFO      [* BotHandler-Msg] Bot 0 operating system set: Linux 
+[2021-04-08 21:16:49,303-serv            INFO      [* BotHandler-Msg] Agent 0 beacon started
+[2021-04-08 21:16:59,363-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 21:16:59,364-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 21:29:08,823-serv            INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-08 21:29:23,225-serv            INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-08 21:29:28,801-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.154
+[2021-04-08 21:29:28,802-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.154
+[2021-04-08 21:29:28,802-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.154:53890; Session ID of 1
+[2021-04-08 21:29:30,482-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 21:29:30,482-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 21:29:31,806-serv            INFO      [* BotHandler-Msg] Bot 1 operating system set: 
+[2021-04-08 21:29:31,806-serv            INFO      [* BotHandler-Msg] Agent 1 beacon started
+[2021-04-08 21:29:43,350-serv            INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-08 21:30:02,750-serv            INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-08 21:30:18,425-serv            INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-08 21:30:18,426-serv            INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-08 21:30:21,631-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-08 21:31:36,201-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-04-08 21:31:36,201-serv            INFO      [* Server-Msg] Initializing server...
+[2021-04-08 21:31:37,203-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-04-08 21:31:42,963-serv            WARNING   [* Server-Msg] Invalid address "0.0.0.0." received. Retrying...
+[2021-04-08 21:31:51,132-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-08 21:31:51,132-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-08 21:32:13,751-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-08 21:32:13,751-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-08 21:32:13,752-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-08 21:32:13,752-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-08 21:32:13,752-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-08 21:32:13,752-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-08 21:32:13,752-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-08 21:32:15,754-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-08 21:32:15,755-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-08 21:32:15,756-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-04-08 21:32:42,529-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-08 21:32:42,529-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-08 21:32:42,530-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.145:43996; Session ID of 0
+[2021-04-08 21:32:45,533-serv            INFO      [* BotHandler-Msg] Bot 0 operating system set: Linux 
+[2021-04-08 21:32:45,533-serv            INFO      [* BotHandler-Msg] Agent 0 beacon started
+[2021-04-08 21:32:45,608-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 21:32:45,608-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 21:32:52,185-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.154
+[2021-04-08 21:32:52,190-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.154
+[2021-04-08 21:32:52,191-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.154:53892; Session ID of 1
+[2021-04-08 21:32:55,197-serv            INFO      [* BotHandler-Msg] Bot 1 operating system set: Windows 
+[2021-04-08 21:32:55,198-serv            INFO      [* BotHandler-Msg] Agent 1 beacon started
+[2021-04-08 21:33:11,431-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 21:33:11,431-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 21:33:14,008-serv            INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-08 21:35:21,406-serv            INFO      [* Interpreter-Msg] Received command: "https://www.heritage.org/crime-and-justice/commentary/h"
+[2021-04-08 21:35:21,406-serv            WARNING   [* Interpreter-Msg] Unable to process command. Retrying...
+[2021-04-08 21:35:25,707-serv            INFO      [* Interpreter-Msg] Received command: "history"
+[2021-04-08 21:35:25,708-serv            INFO      [* Interpreter-Msg] History printed
+[2021-04-08 21:35:31,826-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 1"
+[2021-04-08 21:35:31,826-serv            ERROR     [* Interpreter-Msg:Upload] Unable to upload file with Agent 1
+[2021-04-08 21:35:31,826-serv            ERROR     [* Interpreter-Msg:Upload] Agent 1 does not exist
+[2021-04-08 21:36:30,262-serv            INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-08 21:36:30,262-serv            INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-08 21:36:30,466-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-08 21:36:37,275-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-04-08 21:36:37,275-serv            INFO      [* Server-Msg] Initializing server...
+[2021-04-08 21:36:38,277-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-04-08 21:36:41,093-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-08 21:36:41,093-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-08 21:36:45,971-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-08 21:36:45,972-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-08 21:36:45,972-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-08 21:36:45,972-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-08 21:36:45,972-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-08 21:36:45,972-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-08 21:36:45,973-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-08 21:36:47,976-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-08 21:36:47,976-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-08 21:36:47,977-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-04-08 21:37:01,364-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-08 21:37:01,365-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-08 21:37:01,366-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.145:43998; Session ID of 0
+[2021-04-08 21:37:04,074-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.154
+[2021-04-08 21:37:04,075-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.154
+[2021-04-08 21:37:04,075-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.154:53896; Session ID of 1
+[2021-04-08 21:37:04,367-serv            INFO      [* BotHandler-Msg] Bot 0 operating system set: Linux 
+[2021-04-08 21:37:04,367-serv            INFO      [* BotHandler-Msg] Agent 0 beacon started
+[2021-04-08 21:37:05,538-serv            INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-08 21:37:07,081-serv            INFO      [* BotHandler-Msg] Bot 1 operating system set: Windows 
+[2021-04-08 21:37:07,081-serv            INFO      [* BotHandler-Msg] Agent 1 beacon started
+[2021-04-08 21:37:17,148-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 1"
+[2021-04-08 21:37:17,148-serv            ERROR     [* Interpreter-Msg:Upload] Unable to upload file with Agent 1
+[2021-04-08 21:37:17,148-serv            ERROR     [* Interpreter-Msg:Upload] Agent 1 does not exist
+[2021-04-08 21:38:32,983-serv            INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-08 21:38:32,984-serv            INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-08 21:38:33,187-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-08 21:38:54,478-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-04-08 21:38:54,479-serv            INFO      [* Server-Msg] Initializing server...
+[2021-04-08 21:38:55,480-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-04-08 21:38:59,220-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-08 21:38:59,220-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-08 21:39:02,687-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-08 21:39:02,687-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-08 21:39:02,687-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-08 21:39:02,687-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-08 21:39:02,687-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-08 21:39:02,687-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-08 21:39:02,687-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-08 21:39:04,689-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-08 21:39:04,689-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-08 21:39:04,690-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-04-08 21:39:14,086-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-08 21:39:14,086-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-08 21:39:14,087-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.145:44000; Session ID of 0
+[2021-04-08 21:39:17,091-serv            INFO      [* BotHandler-Msg] Bot 0 operating system set: Linux 
+[2021-04-08 21:39:17,092-serv            INFO      [* BotHandler-Msg] Agent 0 beacon started
+[2021-04-08 21:39:19,038-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 21:39:19,039-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 21:39:19,415-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.154
+[2021-04-08 21:39:19,416-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.154
+[2021-04-08 21:39:19,416-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.154:53898; Session ID of 1
+[2021-04-08 21:39:20,418-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 21:39:20,418-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 21:39:22,422-serv            INFO      [* BotHandler-Msg] Bot 1 operating system set: Windows 
+[2021-04-08 21:39:22,422-serv            INFO      [* BotHandler-Msg] Agent 1 beacon started
+[2021-04-08 21:39:23,513-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 1"
+[2021-04-08 21:39:23,513-serv            ERROR     [* Interpreter-Msg:Upload] Unable to upload file with Agent 1
+[2021-04-08 21:39:23,513-serv            ERROR     [* Interpreter-Msg:Upload] Agent 1 does not exist
+[2021-04-08 21:40:50,360-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/"
+[2021-04-08 21:40:50,361-serv            ERROR     [* Interpreter-Msg:Upload] Unable to process filename/agent-id for upload procedure
+[2021-04-08 21:40:50,361-serv            ERROR     [* Interpreter-Msg:Upload] Error: list index out of range
+[2021-04-08 21:40:54,878-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/"
+[2021-04-08 21:40:54,879-serv            ERROR     [* Interpreter-Msg:Upload] Unable to process filename/agent-id for upload procedure
+[2021-04-08 21:40:54,880-serv            ERROR     [* Interpreter-Msg:Upload] Error: list index out of range
+[2021-04-08 21:41:03,462-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 1"
+[2021-04-08 21:41:03,462-serv            ERROR     [* Interpreter-Msg:Upload] Unable to upload file with Agent 1
+[2021-04-08 21:41:03,462-serv            ERROR     [* Interpreter-Msg:Upload] Agent 1 does not exist
+[2021-04-08 21:42:44,457-serv            INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-08 21:42:44,458-serv            INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-08 21:42:44,662-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-08 21:43:03,548-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-04-08 21:43:03,548-serv            INFO      [* Server-Msg] Initializing server...
+[2021-04-08 21:43:04,549-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-04-08 21:43:06,640-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-08 21:43:06,640-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-08 21:43:08,986-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-08 21:43:08,986-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-08 21:43:08,987-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-08 21:43:08,987-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-08 21:43:08,987-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-08 21:43:08,987-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-08 21:43:08,988-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-08 21:43:10,990-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-08 21:43:10,991-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-08 21:43:10,992-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-04-08 21:43:10,992-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 21:43:10,992-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 21:43:13,639-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 21:43:13,640-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 21:43:24,837-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.154
+[2021-04-08 21:43:24,838-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.154
+[2021-04-08 21:43:24,838-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.154:53902; Session ID of 0
+[2021-04-08 21:43:27,844-serv            INFO      [* BotHandler-Msg] Bot 0 operating system set: Windows 
+[2021-04-08 21:43:27,844-serv            INFO      [* BotHandler-Msg] Agent 0 beacon started
+[2021-04-08 21:43:28,320-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 21:43:28,320-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 21:43:31,238-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 1"
+[2021-04-08 21:43:38,560-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-08 21:43:38,560-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-08 21:43:38,560-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.145:44002; Session ID of 1
+[2021-04-08 21:43:41,562-serv            INFO      [* BotHandler-Msg] Bot 1 operating system set: Linux 
+[2021-04-08 21:43:41,562-serv            INFO      [* BotHandler-Msg] Agent 1 beacon started
+[2021-04-08 21:44:21,271-serv            INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-08 21:44:21,437-serv            INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-08 21:44:21,639-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-08 21:44:26,739-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-04-08 21:44:26,739-serv            INFO      [* Server-Msg] Initializing server...
+[2021-04-08 21:44:27,741-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-04-08 21:44:30,680-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-08 21:44:30,680-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-08 21:44:34,936-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-08 21:44:34,936-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-08 21:44:34,937-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-08 21:44:34,938-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-08 21:44:34,938-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-08 21:44:34,938-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-08 21:44:34,938-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-08 21:44:36,940-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-08 21:44:36,941-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-04-08 21:44:36,941-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-08 21:44:56,342-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.154
+[2021-04-08 21:44:56,342-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.154
+[2021-04-08 21:44:56,343-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.154:53903; Session ID of 0
+[2021-04-08 21:44:59,349-serv            INFO      [* BotHandler-Msg] Bot 0 operating system set: Windows 
+[2021-04-08 21:44:59,350-serv            INFO      [* BotHandler-Msg] Agent 0 beacon started
+[2021-04-08 21:45:08,016-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 21:45:08,016-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 21:45:16,639-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-08 21:45:16,640-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-08 21:45:16,641-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.145:44004; Session ID of 1
+[2021-04-08 21:45:18,851-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 21:45:18,851-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 21:45:19,646-serv            INFO      [* BotHandler-Msg] Bot 1 operating system set: Linux 
+[2021-04-08 21:45:19,647-serv            INFO      [* BotHandler-Msg] Agent 1 beacon started
+[2021-04-08 21:45:20,122-serv            INFO      [* Interpreter-Msg] Received command: ": 1"
+[2021-04-08 21:45:20,122-serv            WARNING   [* Interpreter-Msg] Unable to process command. Retrying...
+[2021-04-08 21:45:20,122-serv            INFO      [* Interpreter-Msg] Received command: "Loop-AgentID: 0"
+[2021-04-08 21:45:20,122-serv            WARNING   [* Interpreter-Msg] Unable to process command. Retrying...
+[2021-04-08 21:45:20,122-serv            INFO      [* Interpreter-Msg] Received command: "Loop-AgentID: 1"
+[2021-04-08 21:45:20,122-serv            WARNING   [* Interpreter-Msg] Unable to process command. Retrying...
+[2021-04-08 21:45:20,122-serv            INFO      [* Interpreter-Msg] Received command: "AF: False"
+[2021-04-08 21:45:20,122-serv            WARNING   [* Interpreter-Msg] Unable to process command. Retrying...
+[2021-04-08 21:45:25,256-serv            INFO      [* Interpreter-Msg] Received command: "history"
+[2021-04-08 21:45:25,256-serv            INFO      [* Interpreter-Msg] History printed
+[2021-04-08 21:45:31,974-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 1"
+[2021-04-08 21:45:31,974-serv            INFO      [* Interpreter-Msg:Upload] Agent 1 exists
+[2021-04-08 21:45:31,974-serv            INFO      [* Interpreter-Msg:Upload] Attempting to upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /Users/test/ on agent 1
+[2021-04-08 21:45:31,974-serv            INFO      [* Interpreter-Msg:Upload] Unable to read file /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI
+[2021-04-08 21:47:20,951-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-04-08 21:47:20,951-serv            INFO      [* Server-Msg] Initializing server...
+[2021-04-08 21:47:21,952-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-04-08 21:47:26,376-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-08 21:47:26,376-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-08 21:47:31,498-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-08 21:47:31,500-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-08 21:47:31,500-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-08 21:47:31,500-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-08 21:47:31,500-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-08 21:47:31,500-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-08 21:47:31,500-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-08 21:47:33,501-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-08 21:47:33,502-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-08 21:47:33,503-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-04-08 21:47:45,890-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-08 21:47:45,891-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-08 21:47:45,891-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.145:44006; Session ID of 0
+[2021-04-08 21:47:48,895-serv            INFO      [* BotHandler-Msg] Bot 0 operating system set: Linux 
+[2021-04-08 21:47:48,896-serv            INFO      [* BotHandler-Msg] Agent 0 beacon started
+[2021-04-08 21:47:49,042-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 21:47:49,042-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 21:47:55,807-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.154
+[2021-04-08 21:47:55,808-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.154
+[2021-04-08 21:47:55,809-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.154:53907; Session ID of 1
+[2021-04-08 21:47:58,813-serv            INFO      [* BotHandler-Msg] Bot 1 operating system set: Windows 
+[2021-04-08 21:47:58,813-serv            INFO      [* BotHandler-Msg] Agent 1 beacon started
+[2021-04-08 21:48:03,080-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 21:48:03,080-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 21:48:24,938-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 1"
+[2021-04-08 21:48:24,938-serv            INFO      [* Interpreter-Msg:Upload] Agent 1 exists
+[2021-04-08 21:48:24,939-serv            INFO      [* Interpreter-Msg:Upload] Attempting to upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /Users/test/ on agent 1
+[2021-04-08 21:48:24,939-serv            INFO      [* Interpreter-Msg:Upload] Unable to read file /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI
+[2021-04-08 21:48:24,939-serv            ERROR     [* Interpreter-Msg:Upload] Upload of /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to agent 1 unsuccessful
+[2021-04-08 21:51:32,667-serv            INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-08 21:51:32,668-serv            INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-08 21:51:32,872-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-08 21:51:47,106-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-04-08 21:51:47,106-serv            INFO      [* Server-Msg] Initializing server...
+[2021-04-08 21:51:48,107-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-04-08 21:51:50,295-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-08 21:51:50,295-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-08 21:51:53,138-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-08 21:51:53,139-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-08 21:51:53,139-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-08 21:51:53,139-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-08 21:51:53,139-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-08 21:51:53,139-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-08 21:51:53,139-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-08 21:51:53,531-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.154
+[2021-04-08 21:51:53,531-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.154
+[2021-04-08 21:51:53,531-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.154:53909; Session ID of 0
+[2021-04-08 21:51:55,142-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-08 21:51:55,143-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-08 21:51:55,143-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-04-08 21:51:56,537-serv            INFO      [* BotHandler-Msg] Bot 0 operating system set: Windows 
+[2021-04-08 21:51:56,537-serv            INFO      [* BotHandler-Msg] Agent 0 beacon started
+[2021-04-08 21:52:10,790-serv            INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-08 21:52:18,026-serv            INFO      [* Interpreter-Msg] Received command: "history"
+[2021-04-08 21:52:18,027-serv            INFO      [* Interpreter-Msg] History printed
+[2021-04-08 21:52:23,770-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-08 21:52:23,770-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-08 21:52:23,771-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.145:44008; Session ID of 1
+[2021-04-08 21:52:26,776-serv            INFO      [* BotHandler-Msg] Bot 1 operating system set: Linux 
+[2021-04-08 21:52:26,776-serv            INFO      [* BotHandler-Msg] Agent 1 beacon started
+[2021-04-08 21:52:27,211-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 21:52:27,211-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 21:52:31,322-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 0"
+[2021-04-08 21:52:31,322-serv            INFO      [* Interpreter-Msg:Upload] Agent 0 exists
+[2021-04-08 21:52:31,322-serv            INFO      [* BotHandler-Msg:Upload] Attempting to upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /Users/test/ on agent 0
+[2021-04-08 21:52:31,322-serv            INFO      [* BotHandler-Msg:Upload] Unable to read file /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI
+[2021-04-08 21:52:31,322-serv            ERROR     [* BotHandler-Msg:Upload] Error: name 'lf' is not defined
+[2021-04-08 21:52:31,322-serv            ERROR     [* Interpreter-Msg:Upload] Upload of /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to agent 0 unsuccessful
+[2021-04-08 21:53:05,876-serv            INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-08 21:53:05,876-serv            INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-08 21:53:06,080-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-08 21:53:17,040-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-04-08 21:53:17,040-serv            INFO      [* Server-Msg] Initializing server...
+[2021-04-08 21:53:18,041-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-04-08 21:53:21,809-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-08 21:53:21,809-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-08 21:53:32,987-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-08 21:53:32,988-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-08 21:53:32,989-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-08 21:53:32,989-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-08 21:53:32,989-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-08 21:53:32,989-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-08 21:53:32,989-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-08 21:53:33,146-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.154
+[2021-04-08 21:53:33,146-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.154
+[2021-04-08 21:53:33,147-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.154:53912; Session ID of 0
+[2021-04-08 21:53:34,990-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-08 21:53:34,991-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-08 21:53:34,992-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-04-08 21:53:36,152-serv            INFO      [* BotHandler-Msg] Bot 0 operating system set: Windows 
+[2021-04-08 21:53:36,153-serv            INFO      [* BotHandler-Msg] Agent 0 beacon started
+[2021-04-08 21:54:10,082-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-08 21:54:10,082-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-08 21:54:10,082-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.145:44012; Session ID of 1
+[2021-04-08 21:54:13,086-serv            INFO      [* BotHandler-Msg] Bot 1 operating system set: Linux 
+[2021-04-08 21:54:13,086-serv            INFO      [* BotHandler-Msg] Agent 1 beacon started
+[2021-04-08 21:54:14,575-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 21:54:14,576-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 21:54:27,577-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 21:54:27,577-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 21:54:30,213-serv            INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-08 21:55:19,718-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test 0"
+[2021-04-08 21:55:19,719-serv            INFO      [* Interpreter-Msg:Upload] Agent 0 exists
+[2021-04-08 21:55:19,719-serv            INFO      [* BotHandler-Msg:Upload] Attempting to upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /Users/test on agent 0
+[2021-04-08 21:55:19,720-serv            INFO      [* BotHandler-Msg:Upload] Encoding /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to send to agent 0
+[2021-04-08 22:02:35,836-serv            INFO      [* Server-Msg] Logger initialization complete
+[2021-04-08 22:02:35,837-serv            INFO      [* Server-Msg] Initializing server...
+[2021-04-08 22:02:36,838-serv            INFO      [* Server-Msg] Address entry initiated
+[2021-04-08 22:02:39,553-serv            INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-08 22:02:39,553-serv            INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-08 22:02:42,901-serv            INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-08 22:02:42,901-serv            INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-08 22:02:42,902-serv            INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-08 22:02:42,902-serv            INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-08 22:02:42,902-serv            INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-08 22:02:42,902-serv            INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-08 22:02:42,902-serv            INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-08 22:02:44,905-serv            INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-08 22:02:44,905-serv            INFO      [* Interpreter-Msg] Help message printed
+[2021-04-08 22:02:44,905-serv            INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-08 22:03:09,292-serv            INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-08 22:05:10,200-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.154
+[2021-04-08 22:05:10,201-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.154
+[2021-04-08 22:05:10,201-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.154:53929; Session ID of 0
+[2021-04-08 22:05:13,206-serv            INFO      [* BotHandler-Msg] Bot 0 operating system set: Windows 
+[2021-04-08 22:05:13,206-serv            INFO      [* BotHandler-Msg] Agent 0 beacon started
+[2021-04-08 22:05:43,886-serv            INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-08 22:05:43,887-serv            INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-08 22:05:43,888-serv            INFO      [* BotHandler-Msg] Bot handler object created for: 192.168.75.145:44014; Session ID of 1
+[2021-04-08 22:05:46,892-serv            INFO      [* BotHandler-Msg] Bot 1 operating system set: Linux 
+[2021-04-08 22:05:46,892-serv            INFO      [* BotHandler-Msg] Agent 1 beacon started
+[2021-04-08 22:05:48,718-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 22:05:48,718-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 22:05:52,627-serv            INFO      [* Interpreter-Msg] Received command: "history"
+[2021-04-08 22:05:52,627-serv            INFO      [* Interpreter-Msg] History printed
+[2021-04-08 22:06:01,416-serv            INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-08 22:06:13,145-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test 0"
+[2021-04-08 22:06:13,145-serv            INFO      [* Interpreter-Msg:Upload] Agent 0 exists
+[2021-04-08 22:06:13,145-serv            INFO      [* BotHandler-Msg:Upload] Attempting to upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /Users/test on agent 0
+[2021-04-08 22:06:13,145-serv            INFO      [* BotHandler-Msg:Upload] Encoding /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to send to agent 0
+[2021-04-08 22:06:16,151-serv            INFO      [* BotHandler-Msg:Upload] Upload of file /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /Users/test initiated on agent 0
+[2021-04-08 22:06:16,853-serv            INFO      [* BotHandler-Msg:Upload] Attempting to send base64 encoded filedata of /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /Users/test on agent 0
+[2021-04-08 22:06:21,361-serv            INFO      [* BotHandler-Msg:Upload] Upload of /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /Users/test on agent 0 determined successfule. Please verify with agent.
+[2021-04-08 22:06:21,361-serv            ERROR     [* Interpreter-Msg:Upload] Upload of /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to agent 0 successful
+[2021-04-08 22:07:49,019-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/asc"
+[2021-04-08 22:07:49,020-serv            ERROR     [* Interpreter-Msg:Upload] Unable to process filename/agent-id for upload procedure
+[2021-04-08 22:07:49,020-serv            ERROR     [* Interpreter-Msg:Upload] Error: list index out of range
+[2021-04-08 22:08:07,143-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /home/test/ 1"
+[2021-04-08 22:08:07,144-serv            INFO      [* Interpreter-Msg:Upload] Agent 1 exists
+[2021-04-08 22:08:07,144-serv            INFO      [* BotHandler-Msg:Upload] Attempting to upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /home/test/ on agent 1
+[2021-04-08 22:08:07,144-serv            INFO      [* BotHandler-Msg:Upload] Encoding /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to send to agent 1
+[2021-04-08 22:08:10,148-serv            INFO      [* BotHandler-Msg:Upload] Upload of file /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /home/test/ initiated on agent 1
+[2021-04-08 22:08:10,849-serv            INFO      [* BotHandler-Msg:Upload] Attempting to send base64 encoded filedata of /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /home/test/ on agent 1
+[2021-04-08 22:08:15,356-serv            INFO      [* BotHandler-Msg:Upload] Upload of /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /home/test/ on agent 1 determined successfule. Please verify with agent.
+[2021-04-08 22:08:15,356-serv            ERROR     [* Interpreter-Msg:Upload] Upload of /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to agent 1 successful
+[2021-04-08 22:08:53,037-serv            INFO      [* Interpreter-Msg] Received command: "-----:--------:"
+[2021-04-08 22:08:53,038-serv            WARNING   [* Interpreter-Msg] Unable to process command. Retrying...
+[2021-04-08 22:08:53,038-serv            INFO      [* Interpreter-Msg] Received command: "[TU-C2:CONSOLE]$   "
+[2021-04-08 22:08:53,038-serv            WARNING   [* Interpreter-Msg] Unable to process command. Retrying...
+[2021-04-08 22:09:01,864-serv            INFO      [* Interpreter-Msg] Received command: "-----:--------:"
+[2021-04-08 22:09:01,865-serv            WARNING   [* Interpreter-Msg] Unable to process command. Retrying...
+[2021-04-08 22:09:01,865-serv            INFO      [* Interpreter-Msg] Received command: "[TU-C2:CONSOLE]$   "
+[2021-04-08 22:09:01,865-serv            WARNING   [* Interpreter-Msg] Unable to process command. Retrying...
+[2021-04-08 22:09:05,711-serv            INFO      [* Interpreter-Msg] Received command: "history"
+[2021-04-08 22:09:05,712-serv            INFO      [* Interpreter-Msg] History printed
+[2021-04-08 22:09:21,186-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /home/test/ascii_test 1"
+[2021-04-08 22:09:21,187-serv            INFO      [* Interpreter-Msg:Upload] Agent 1 exists
+[2021-04-08 22:09:21,187-serv            INFO      [* BotHandler-Msg:Upload] Attempting to upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /home/test/ascii_test on agent 1
+[2021-04-08 22:09:21,187-serv            INFO      [* BotHandler-Msg:Upload] Encoding /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to send to agent 1
+[2021-04-08 22:09:24,191-serv            INFO      [* BotHandler-Msg:Upload] Upload of file /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /home/test/ascii_test initiated on agent 1
+[2021-04-08 22:09:24,893-serv            INFO      [* BotHandler-Msg:Upload] Attempting to send base64 encoded filedata of /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /home/test/ascii_test on agent 1
+[2021-04-08 22:09:29,399-serv            INFO      [* BotHandler-Msg:Upload] Upload of /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /home/test/ascii_test on agent 1 determined successfule. Please verify with agent.
+[2021-04-08 22:09:29,399-serv            ERROR     [* Interpreter-Msg:Upload] Upload of /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to agent 1 successful
+[2021-04-08 22:14:20,996-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/Desktop/ascii_64_test 1"
+[2021-04-08 22:14:20,996-serv            INFO      [* Interpreter-Msg:Upload] Agent 1 exists
+[2021-04-08 22:14:20,996-serv            INFO      [* BotHandler-Msg:Upload] Attempting to upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /Users/test/Desktop/ascii_64_test on agent 1
+[2021-04-08 22:14:20,996-serv            INFO      [* BotHandler-Msg:Upload] Encoding /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to send to agent 1
+[2021-04-08 22:14:24,000-serv            INFO      [* BotHandler-Msg:Upload] Upload of file /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /Users/test/Desktop/ascii_64_test initiated on agent 1
+[2021-04-08 22:14:24,701-serv            INFO      [* BotHandler-Msg:Upload] Attempting to send base64 encoded filedata of /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /Users/test/Desktop/ascii_64_test on agent 1
+[2021-04-08 22:14:29,208-serv            INFO      [* BotHandler-Msg:Upload] Upload of /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /Users/test/Desktop/ascii_64_test on agent 1 determined successfule. Please verify with agent.
+[2021-04-08 22:14:29,209-serv            ERROR     [* Interpreter-Msg:Upload] Upload of /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to agent 1 successful
+[2021-04-08 22:15:01,186-serv            INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-08 22:15:01,187-serv            WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-08 22:15:17,706-serv            INFO      [* Interpreter-Msg] Received command: "upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/Desktop/ascii_64 0"
+[2021-04-08 22:15:17,707-serv            INFO      [* Interpreter-Msg:Upload] Agent 0 exists
+[2021-04-08 22:15:17,707-serv            INFO      [* BotHandler-Msg:Upload] Attempting to upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /Users/test/Desktop/ascii_64 on agent 0
+[2021-04-08 22:15:17,707-serv            INFO      [* BotHandler-Msg:Upload] Encoding /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to send to agent 0
+[2021-04-08 22:15:20,712-serv            INFO      [* BotHandler-Msg:Upload] Upload of file /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /Users/test/Desktop/ascii_64 initiated on agent 0
+[2021-04-08 22:15:21,414-serv            INFO      [* BotHandler-Msg:Upload] Attempting to send base64 encoded filedata of /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /Users/test/Desktop/ascii_64 on agent 0
+[2021-04-08 22:15:25,921-serv            INFO      [* BotHandler-Msg:Upload] Upload of /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to remote file /Users/test/Desktop/ascii_64 on agent 0 determined successfule. Please verify with agent.
+[2021-04-08 22:15:25,921-serv            ERROR     [* Interpreter-Msg:Upload] Upload of /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI to agent 0 successful
+[2021-04-08 22:44:14,135-serv            INFO      [* Interpreter-Msg] Received command: "kill 0"
+[2021-04-08 22:44:14,136-serv            INFO      [* Interpreter-Msg:Kill] Agent 0 exists
+[2021-04-08 22:44:14,136-serv            INFO      [* Interpreter-Msg:Kill] Killing connection with agent 0
+[2021-04-08 22:44:14,136-serv            INFO      [* BotHandler-Msg] Killing connection for agent 0
+[2021-04-08 22:44:14,137-serv            INFO      [* BotHandler-Msg] Killing connection for agent 0
+[2021-04-08 22:44:14,137-serv            INFO      [* Interpreter-Msg:Kill] agent 0 was killed unsuccessfully
+[2021-04-08 22:44:33,648-serv            INFO      [* Interpreter-Msg] Received command: "kill 1"
+[2021-04-08 22:44:33,648-serv            INFO      [* Interpreter-Msg:Kill] Agent 1 exists
+[2021-04-08 22:44:33,648-serv            INFO      [* Interpreter-Msg:Kill] Killing connection with agent 1
+[2021-04-08 22:44:33,649-serv            INFO      [* BotHandler-Msg] Killing connection for agent 1
+[2021-04-08 22:44:33,649-serv            INFO      [* BotHandler-Msg] Killing connection for agent 1
+[2021-04-08 22:44:33,649-serv            INFO      [* Interpreter-Msg:Kill] agent 1 was killed unsuccessfully
+[2021-04-09 00:03:09,106-serv            INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-09 00:03:09,308-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
 [2021-03-22 19:46:09,303-serv            INFO      [* Server-Msg] Initializing server...[2021-04-04 21:36:39,965-serv            INFO      [* Server-Msg] Logger initialization complete
 [2021-04-04 21:36:39,966-serv            INFO      [* Server-Msg] Initializing server...
 [2021-04-04 21:36:40,968-serv            INFO      [* Server-Msg] Address entry initiated
@@ -630,3 +1398,6 @@
 [2021-04-08 21:24:40,095-serv            INFO      [* Interpreter-Msg] Received command: "exit"
 [2021-04-08 21:24:40,103-serv            INFO      [* Interpreter-Msg] Closing connection to all agents
 [2021-04-08 21:24:40,103-serv            INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-09 01:14:01,775-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-09 01:14:01,775-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-09 01:14:02,777-serv           ] INFO      [* Server-Msg] Address entry initiated

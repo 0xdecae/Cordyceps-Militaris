@@ -1,8 +1,6 @@
 
-<<<<<<< HEAD
 listlist-agentsexit
 list-agents
-=======
 listlist-agentsexithello
 list-agents
 interact 0
@@ -21,7 +19,6 @@ interact 0
 
 interact 0
 kill 0
->>>>>>> 7e354d2f43f880a8a68a9502b2ebccc05c5e0d3d
 exit
 
 exit
@@ -44,11 +41,114 @@ history
 
 history
 exit
+upload
+list-agents
+exit
+list agents
+list-agents
 
 exit
 
 exit
 
+<<<<<<< HEAD
+list-agents
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 0
+list-agents
+history
+clear
+exit
+
+list-agents
+history
+list-agents
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 1
+exit
+
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 0
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 1
+list-agents
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 0
+exit
+
+list-agents
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 0
+
+exit
+
+list-agents
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 0[D[D
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 1
+
+
+
+list-agents
+list-agents
+
+list-agents
+list-agents
+exit
+
+
+list-agents
+https://www.heritage.org/crime-and-justice/commentary/h
+history
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 1
+exit
+list-agents
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 1
+exit
+
+
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 1
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 1
+exit
+
+
+
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 1
+
+
+: 1
+Loop-AgentID: 0
+Loop-AgentID: 1
+AF: False
+history
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 1
+
+
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 1
+exit
+list-agents
+history
+
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 0
+exit
+
+
+list-agents
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test 0
+list-agents
+
+history
+list-agents
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test 0
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/asc
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /home/test/ 1
+-----:--------:
+[TU-C2:CONSOLE]$   
+-----:--------:
+[TU-C2:CONSOLE]$   
+history
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /home/test/ascii_test 1
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/Desktop/ascii_64_test 1
+
+upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/Desktop/ascii_64 0
+kill 0
+kill 1
+=======
 exit
 
 exit
@@ -80,5 +180,9 @@ exit
 exit
 exit
 exit
+<<<<<<< HEAD
 
 exit
+=======
+>>>>>>> 10b56a0b51f9ba00ef2a1b22b0302dc9c71e9840
+>>>>>>> d42e6576bcab581c2587d2533842bf40604cab2c
