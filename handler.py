@@ -12,14 +12,21 @@ import base64
 
 class Handler(threading.Thread):
 
-    def __init__(self,client, client_address, agent_id, loggers, transport_type):
-        #tcp signature
+    def __init__(self, agent_id, loggers, transport_type, client=None, client_address=None):
         threading.Thread.__init__(self)
+
+        if transport_type == "TCP":
+            self.client_address = client_address
+            self.client = client
+            self.ip = self.client_address[0]
+            self.port = self.client_address[1]
+        elif transport_type == "HTTP":
+            self.ip = '127.0.0.1'
+            self.port = 5000
+            self.address = "http://127.0.0.1:5000"
+
+
         self.loggers = loggers
-        self.client = client
-        self.client_address = client_address
-        self.ip = self.client_address[0]
-        self.port = self.client_address[1]
         self.agent_id = agent_id
         self.info = [self.agent_id,self.ip,self.port]
         self.beacon_wait = False
@@ -29,23 +36,6 @@ class Handler(threading.Thread):
 
         self.status = ["UP","UP"]                       # <--UP - DOWN - ERR 
                                                         # [0] = PING, [1] = BEACON
-        # #http signature
-        # elif len(args) == 1:
-        #     threading.Thread.__init__(self)
-        #     self.loggers = args[3]
-        #     self.ip = '127.0.0.1'
-        #     self.port = 5000
-        #     self.address = "http://127.0.0.1:5000"
-        #     self.agent_id = args[0]
-        #     self.info = [self.agent_id,self.ip,self.port]
-        #     self.beacon_wait = False
-        #     self.os = ''
-        #     self.interactive = False
-        #     self.transport_type = "http"
-            
-        #     self.status = ["UP","UP"]                       # <--UP - DOWN - ERR 
-        #                                                     # [0] = PING, [1] = BEACON
-        # Log by
 
     # HTTP helper functions
     def api_get_request(endpoint):
@@ -78,9 +68,6 @@ class Handler(threading.Thread):
 
         # Beacon indefinitely??
         self.beacon()
-
-
-
                                 
     def setStatus(self, index0, index1):
         self.status[0] = index0

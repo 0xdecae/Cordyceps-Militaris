@@ -10,7 +10,7 @@ import time
 # Noted:
 # self.levels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR, logging.CRITICAL]
 
-# Had to reimplement logging queues myself reather than using the queuehandler modules
+# Had to reimplement logging queues myself rather than using the queuehandler modules
 
 class Logger(threading.Thread):
 
@@ -32,7 +32,7 @@ class Logger(threading.Thread):
             'formatters': {
                 'detailed': {
                     'class': 'logging.Formatter',
-                    'format': '[%(asctime)s-%(name)-15s %(levelname)-8s  %(message)s'
+                    'format': '[%(asctime)s-%(name)-15s] %(levelname)-8s  %(message)s'
                 }
             },
             'handlers': {
@@ -87,12 +87,7 @@ class Logger(threading.Thread):
         lp = threading.Thread(target=self.logger_thread, args=(self.log_q,))
         lp.start()
 
-
-
-    # def run(self):
-
     def logger_thread(self, q):
-
 
         root = logging.getLogger()
         root.setLevel(logging.DEBUG)

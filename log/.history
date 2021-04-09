@@ -44,16 +44,20 @@ history
 
 history
 exit
+<<<<<<< HEAD
 upload
 list-agents
 exit
 list agents
 list-agents
+=======
+>>>>>>> 10b56a0b51f9ba00ef2a1b22b0302dc9c71e9840
 
 exit
 
 exit
 
+<<<<<<< HEAD
 list-agents
 upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/ 0
 list-agents
@@ -150,3 +154,36 @@ upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/
 upload /home/decae/Documents/github/0xdecae/Cordyceps-Militaris/ascii_UI /Users/test/Desktop/ascii_64 0
 kill 0
 kill 1
+=======
+exit
+
+exit
+[A
+exit
+
+exit
+
+exit
+
+
+exit
+exit
+exit
+exit
+
+exit
+
+exit
+
+exit
+
+exit
+
+exit
+
+
+exit
+exit
+exit
+exit
+>>>>>>> 10b56a0b51f9ba00ef2a1b22b0302dc9c71e9840
