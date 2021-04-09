@@ -225,7 +225,10 @@ class Interpreter(threading.Thread):
 [* Interpreter-Msg:BatchMode] Entering Batch-Mode execution...\n
 [* Interpreter-Msg:BatchMode] Systems in use under this mode will all receive the same command that you enter
 [* Interpreter-Msg:BatchMode] Enter QUIT into the terminal to exit batch-mode \n\n
+
         ''')
+        self.listAgents()
+
 
         bm_success = False
         bm_entry = ''
@@ -237,7 +240,7 @@ class Interpreter(threading.Thread):
             else:    
                 try:
                     bm_entry = input('[* Interpreter-Msg:BatchMode] Enter list of agent-IDs to interact with (seperated by spaces): ')
-                    idlist = [int(n) for n in bm_entry.split()]
+                    idlist = [str(n) for n in bm_entry.split()]
                     print(f"[* Interpreter-Msg:BatchMode] ID list obtained: {str(idlist)}")
                     self.loggers[0].q_log('serv','error','[* Interpreter-Msg:BatchMode] Batch-mode ID list obtained: '+str(idlist))            
 
@@ -351,6 +354,8 @@ class Interpreter(threading.Thread):
 
 [* Interpreter-Msg:SingleMode] Enter QUIT into the terminal at any time to exit single-mode \n\n
         ''')
+
+        self.listAgents()
 
         sm_success = False
         sm_entry = ''
@@ -474,15 +479,15 @@ class Interpreter(threading.Thread):
         os._exit(0)
 #------------------------------------------------------------------------------------------------------------------------------
     def listAgents(self): # Change to listAlive(self)
-        print("       .------------------.                                    ")
-        print("       |  LIST OF AGENTS  |                                    ")
-        print(".------:------------------:--------.----------.------.--------.")
-        print("|  ID  |  IP ADDRESS (v4) |  PORT  |    OS    | PING | BEACON |")
-        print(":------:------------------:--------:----------:------:--------:")
+        print(".---------------------------------------------------------------------------------------------.")
+        print("|                                      LIST OF AGENTS                                         |")
+        print(".--------------------------------------v------------------v--------v----------v------v--------.")
+        print("|                   ID                 |  IP ADDRESS (v4) |  PORT  |    OS    | PING | BEACON |")
+        print(":--------------------------------------:------------------:--------:----------:------:--------:")
 
         for agent in self.agentList:
-            print("| %4d | %16s | %6d | %9s | %4s | %6s |"% (agent.getID(), agent.getIP(), agent.getPort(), agent.getOS(), agent.status[0], agent.status[1]))
-            print(":------:------------------:--------:----------:------:--------:")
+            print("| %30s | %16s | %6d | %9s | %4s | %6s |"% (agent.getID(), agent.getIP(), agent.getPort(), agent.getOS(), agent.status[0], agent.status[1]))
+            print(":--------------------------------------:------------------:--------:----------:------:--------:")
 #------------------------------------------------------------------------------------------------------------------------------
     def shell(self, id):
         # print("Shell function entry point")
