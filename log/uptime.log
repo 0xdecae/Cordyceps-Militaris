@@ -1122,3 +1122,85 @@
 [2021-04-09 01:27:39,221-up             ] INFO      [* BotHandler-Msg] Agent 1 - BEACON : UP
 [2021-04-09 01:28:06,279-up             ] INFO      [* BotHandler-Msg] Agent 1 - BEACON : UP
 [2021-04-09 01:28:10,202-up             ] INFO      [* BotHandler-Msg] Agent 0 - BEACON : DOWN
+[2021-04-09 01:33:34,559-up             ] INFO      [* BotHandler-Msg] Agent c62b91fa-561a-4f6a-adb2-94a1ba84b02d beacon started
+[2021-04-09 01:33:41,182-up             ] INFO      [* BotHandler-Msg] Agent 272c290f-792b-4661-904d-1a4835fac403 beacon started
+[2021-04-09 01:40:02,272-up             ] INFO      [* BotHandler-Msg] Agent 71ebed40-fe37-4c80-83c8-ea61b2826191 beacon started
+[2021-04-09 01:40:13,732-up             ] INFO      [* BotHandler-Msg] Agent 139529f9-ded4-4cba-b11c-324b3a8a0061 beacon started
+[2021-04-09 01:40:31,768-up             ] INFO      [* BotHandler-Msg] Agent 139529f9-ded4-4cba-b11c-324b3a8a0061 - BEACON : UP
+[2021-04-09 01:40:34,325-up             ] INFO      [* BotHandler-Msg] Agent 71ebed40-fe37-4c80-83c8-ea61b2826191 - BEACON : UP
+[2021-04-09 01:41:02,356-up             ] INFO      [* BotHandler-Msg] Agent 71ebed40-fe37-4c80-83c8-ea61b2826191 - BEACON : UP
+[2021-04-09 01:41:03,800-up             ] INFO      [* BotHandler-Msg] Agent 139529f9-ded4-4cba-b11c-324b3a8a0061 - BEACON : UP
+[2021-04-09 01:41:26,840-up             ] INFO      [* BotHandler-Msg] Agent 139529f9-ded4-4cba-b11c-324b3a8a0061 - BEACON : UP
+[2021-04-09 01:41:34,153-up             ] INFO      [* BotHandler-Msg] Agent 71ebed40-fe37-4c80-83c8-ea61b2826191 - BEACON : UP
+[2021-04-09 01:41:58,161-up             ] INFO      [* BotHandler-Msg] Agent 30dca755-3191-4d63-8ab4-b9a655d840c2 beacon started
+[2021-04-09 01:41:59,711-up             ] INFO      [* BotHandler-Msg] Agent fbd9da9d-aadc-48b5-a23c-599fdc064a5c beacon started
+[2021-04-09 01:42:18,743-up             ] INFO      [* BotHandler-Msg] Agent fbd9da9d-aadc-48b5-a23c-599fdc064a5c - BEACON : UP
+[2021-04-09 01:42:30,198-up             ] INFO      [* BotHandler-Msg] Agent 30dca755-3191-4d63-8ab4-b9a655d840c2 - BEACON : UP
+[2021-04-09 01:43:02,225-up             ] INFO      [* BotHandler-Msg] Agent 30dca755-3191-4d63-8ab4-b9a655d840c2 - BEACON : UP
+[2021-04-09 01:43:02,787-up             ] INFO      [* BotHandler-Msg] Agent fbd9da9d-aadc-48b5-a23c-599fdc064a5c - BEACON : UP
+[2021-04-09 01:43:25,815-up             ] INFO      [* BotHandler-Msg] Agent fbd9da9d-aadc-48b5-a23c-599fdc064a5c - BEACON : UP
+[2021-04-09 01:43:27,252-up             ] INFO      [* BotHandler-Msg] Agent 30dca755-3191-4d63-8ab4-b9a655d840c2 - BEACON : UP
+[2021-04-09 01:43:49,848-up             ] INFO      [* BotHandler-Msg] Agent fbd9da9d-aadc-48b5-a23c-599fdc064a5c - BEACON : UP
+[2021-04-09 01:43:57,301-up             ] INFO      [* BotHandler-Msg] Agent 30dca755-3191-4d63-8ab4-b9a655d840c2 - BEACON : UP
+[2021-04-09 01:44:07,895-up             ] INFO      [* BotHandler-Msg] Agent fbd9da9d-aadc-48b5-a23c-599fdc064a5c - BEACON : UP
+[2021-04-09 01:44:22,357-up             ] INFO      [* BotHandler-Msg] Agent 30dca755-3191-4d63-8ab4-b9a655d840c2 - BEACON : UP
+[2021-04-09 01:44:25,911-up             ] INFO      [* BotHandler-Msg] Agent fbd9da9d-aadc-48b5-a23c-599fdc064a5c - BEACON : UP
+[2021-04-09 01:45:02,390-up             ] INFO      [* BotHandler-Msg] Agent 30dca755-3191-4d63-8ab4-b9a655d840c2 - BEACON : UP
+[2021-04-09 01:45:08,982-up             ] INFO      [* BotHandler-Msg] Agent fbd9da9d-aadc-48b5-a23c-599fdc064a5c - BEACON : UP
+[2021-04-09 01:45:45,818-up             ] INFO      [* BotHandler-Msg] Agent ccfa03b3-fe0e-4564-917c-46c1abfb6b2e beacon started
+[2021-04-09 01:46:03,474-up             ] INFO      [* BotHandler-Msg] Agent 93392c74-ab7a-4058-995e-abf5db46e863 beacon started
+[2021-04-09 01:48:34,497-up             ] INFO      [* BotHandler-Msg] Agent 14545e2b-0b3f-4f82-94b2-681278a15e65 beacon started
+[2021-04-09 01:48:35,761-up             ] INFO      [* BotHandler-Msg] Agent cf9719ba-13c3-4a80-8334-aceedf522315 beacon started
+[2021-04-09 01:54:26,813-up             ] INFO      [* BotHandler-Msg] Agent 9967d1da-a21c-4fa7-8c43-2353d0184383 beacon started
+[2021-04-09 01:54:42,836-up             ] INFO      [* BotHandler-Msg] Agent 9967d1da-a21c-4fa7-8c43-2353d0184383 - BEACON : UP
+[2021-04-09 01:54:50,095-up             ] INFO      [* BotHandler-Msg] Agent 7fe34b5b-8911-4ccb-93e2-76d655381cdf beacon started
+[2021-04-09 01:54:59,864-up             ] INFO      [* BotHandler-Msg] Agent 9967d1da-a21c-4fa7-8c43-2353d0184383 - BEACON : UP
+[2021-04-09 01:55:13,110-up             ] INFO      [* BotHandler-Msg] Agent 7fe34b5b-8911-4ccb-93e2-76d655381cdf - BEACON : UP
+[2021-04-09 01:55:36,893-up             ] INFO      [* BotHandler-Msg] Agent 9967d1da-a21c-4fa7-8c43-2353d0184383 - BEACON : UP
+[2021-04-09 01:55:37,138-up             ] INFO      [* BotHandler-Msg] Agent 7fe34b5b-8911-4ccb-93e2-76d655381cdf - BEACON : UP
+[2021-04-09 01:55:51,927-up             ] INFO      [* BotHandler-Msg] Agent 9967d1da-a21c-4fa7-8c43-2353d0184383 - BEACON : UP
+[2021-04-09 01:55:59,157-up             ] INFO      [* BotHandler-Msg] Agent 7fe34b5b-8911-4ccb-93e2-76d655381cdf - BEACON : UP
+[2021-04-09 01:56:07,959-up             ] INFO      [* BotHandler-Msg] Agent 9967d1da-a21c-4fa7-8c43-2353d0184383 - BEACON : UP
+[2021-04-09 01:56:30,999-up             ] INFO      [* BotHandler-Msg] Agent 9967d1da-a21c-4fa7-8c43-2353d0184383 - BEACON : UP
+[2021-04-09 01:56:38,197-up             ] INFO      [* BotHandler-Msg] Agent 7fe34b5b-8911-4ccb-93e2-76d655381cdf - BEACON : UP
+[2021-04-09 01:56:57,016-up             ] INFO      [* BotHandler-Msg] Agent 9967d1da-a21c-4fa7-8c43-2353d0184383 - BEACON : UP
+[2021-04-09 01:57:06,230-up             ] INFO      [* BotHandler-Msg] Agent 7fe34b5b-8911-4ccb-93e2-76d655381cdf - BEACON : UP
+[2021-04-09 01:57:37,047-up             ] INFO      [* BotHandler-Msg] Agent 9967d1da-a21c-4fa7-8c43-2353d0184383 - BEACON : UP
+[2021-04-09 01:57:39,284-up             ] INFO      [* BotHandler-Msg] Agent 7fe34b5b-8911-4ccb-93e2-76d655381cdf - BEACON : UP
+[2021-04-09 01:57:53,079-up             ] INFO      [* BotHandler-Msg] Agent 9967d1da-a21c-4fa7-8c43-2353d0184383 - BEACON : UP
+[2021-04-09 01:58:18,321-up             ] INFO      [* BotHandler-Msg] Agent 7fe34b5b-8911-4ccb-93e2-76d655381cdf - BEACON : UP
+[2021-04-09 01:58:19,108-up             ] INFO      [* BotHandler-Msg] Agent 9967d1da-a21c-4fa7-8c43-2353d0184383 - BEACON : UP
+[2021-04-09 01:58:37,140-up             ] INFO      [* BotHandler-Msg] Agent 9967d1da-a21c-4fa7-8c43-2353d0184383 - BEACON : UP
+[2021-04-09 01:58:45,366-up             ] INFO      [* BotHandler-Msg] Agent 7fe34b5b-8911-4ccb-93e2-76d655381cdf - BEACON : UP
+[2021-04-09 01:59:00,159-up             ] INFO      [* BotHandler-Msg] Agent 9967d1da-a21c-4fa7-8c43-2353d0184383 - BEACON : UP
+[2021-04-09 01:59:15,192-up             ] INFO      [* BotHandler-Msg] Agent 9967d1da-a21c-4fa7-8c43-2353d0184383 - BEACON : UP
+[2021-04-09 01:59:20,406-up             ] INFO      [* BotHandler-Msg] Agent 7fe34b5b-8911-4ccb-93e2-76d655381cdf - BEACON : UP
+[2021-04-09 02:00:21,599-up             ] INFO      [* BotHandler-Msg] Agent 4bfd88cf-e393-4e49-a973-a2e1fc434b20 beacon started
+[2021-04-09 02:00:23,140-up             ] INFO      [* BotHandler-Msg] Agent 3c7bf316-2f17-42ee-931c-c61a4e2c08c9 beacon started
+[2021-04-09 02:00:44,629-up             ] INFO      [* BotHandler-Msg] Agent 4bfd88cf-e393-4e49-a973-a2e1fc434b20 - BEACON : UP
+[2021-04-09 02:01:03,193-up             ] INFO      [* BotHandler-Msg] Agent 3c7bf316-2f17-42ee-931c-c61a4e2c08c9 - BEACON : UP
+[2021-04-09 02:01:13,653-up             ] INFO      [* BotHandler-Msg] Agent 4bfd88cf-e393-4e49-a973-a2e1fc434b20 - BEACON : UP
+[2021-04-09 02:01:37,686-up             ] INFO      [* BotHandler-Msg] Agent 4bfd88cf-e393-4e49-a973-a2e1fc434b20 - BEACON : UP
+[2021-04-09 02:01:42,260-up             ] INFO      [* BotHandler-Msg] Agent 3c7bf316-2f17-42ee-931c-c61a4e2c08c9 - BEACON : UP
+[2021-04-09 02:01:54,708-up             ] INFO      [* BotHandler-Msg] Agent 4bfd88cf-e393-4e49-a973-a2e1fc434b20 - BEACON : UP
+[2021-04-09 02:01:58,292-up             ] INFO      [* BotHandler-Msg] Agent 3c7bf316-2f17-42ee-931c-c61a4e2c08c9 - BEACON : UP
+[2021-04-09 02:02:14,328-up             ] INFO      [* BotHandler-Msg] Agent 3c7bf316-2f17-42ee-931c-c61a4e2c08c9 - BEACON : UP
+[2021-04-09 02:03:13,227-up             ] INFO      [* BotHandler-Msg] Agent d4b4ed22-b050-489e-b85a-f8de62b92390 beacon started
+[2021-04-09 02:03:14,841-up             ] INFO      [* BotHandler-Msg] Agent 2ab223c4-b848-4310-b883-cbe40b49a03d beacon started
+[2021-04-09 02:03:41,255-up             ] INFO      [* BotHandler-Msg] Agent d4b4ed22-b050-489e-b85a-f8de62b92390 - BEACON : DOWN
+[2021-04-09 02:03:41,878-up             ] INFO      [* BotHandler-Msg] Agent 2ab223c4-b848-4310-b883-cbe40b49a03d - BEACON : UP
+[2021-04-09 02:04:06,279-up             ] INFO      [* BotHandler-Msg] Agent d4b4ed22-b050-489e-b85a-f8de62b92390 - BEACON : DOWN
+[2021-04-09 02:04:13,912-up             ] INFO      [* BotHandler-Msg] Agent 2ab223c4-b848-4310-b883-cbe40b49a03d - BEACON : UP
+[2021-04-09 02:04:36,299-up             ] INFO      [* BotHandler-Msg] Agent d4b4ed22-b050-489e-b85a-f8de62b92390 - BEACON : UP
+[2021-04-09 02:04:36,935-up             ] INFO      [* BotHandler-Msg] Agent 2ab223c4-b848-4310-b883-cbe40b49a03d - BEACON : UP
+[2021-04-09 02:05:15,990-up             ] INFO      [* BotHandler-Msg] Agent 2ab223c4-b848-4310-b883-cbe40b49a03d - BEACON : UP
+[2021-04-09 02:05:20,343-up             ] INFO      [* BotHandler-Msg] Agent d4b4ed22-b050-489e-b85a-f8de62b92390 - BEACON : UP
+[2021-04-09 02:05:46,391-up             ] INFO      [* BotHandler-Msg] Agent d4b4ed22-b050-489e-b85a-f8de62b92390 - BEACON : UP
+[2021-04-09 02:06:12,051-up             ] INFO      [* BotHandler-Msg] Agent 2ab223c4-b848-4310-b883-cbe40b49a03d - BEACON : UP
+[2021-04-09 02:06:21,428-up             ] INFO      [* BotHandler-Msg] Agent d4b4ed22-b050-489e-b85a-f8de62b92390 - BEACON : UP
+[2021-04-09 02:06:35,094-up             ] INFO      [* BotHandler-Msg] Agent 2ab223c4-b848-4310-b883-cbe40b49a03d - BEACON : UP
+[2021-04-09 02:06:51,479-up             ] INFO      [* BotHandler-Msg] Agent d4b4ed22-b050-489e-b85a-f8de62b92390 - BEACON : UP
+[2021-04-09 02:07:06,133-up             ] INFO      [* BotHandler-Msg] Agent 2ab223c4-b848-4310-b883-cbe40b49a03d - BEACON : UP
+[2021-04-09 02:07:28,181-up             ] INFO      [* BotHandler-Msg] Agent 2ab223c4-b848-4310-b883-cbe40b49a03d - BEACON : UP
+[2021-04-09 02:07:35,543-up             ] INFO      [* BotHandler-Msg] Agent d4b4ed22-b050-489e-b85a-f8de62b92390 - BEACON : UP
+[2021-04-09 02:07:54,229-up             ] INFO      [* BotHandler-Msg] Agent 2ab223c4-b848-4310-b883-cbe40b49a03d - BEACON : UP

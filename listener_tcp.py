@@ -1,4 +1,5 @@
 # Main imports
+import uuid
 import socket
 import sys
 import os
@@ -58,7 +59,7 @@ class Listener_TCP(threading.Thread):
             print(f"\n[* Listener-Msg] Connection received from {str(client_address[0])}\n")
             self.loggers[0].q_log('serv','info','[* Listener-Msg] Connection received from '+str(client_address[0]))            
             self.loggers[0].q_log('serv','info','[* Listener-Msg] Creating a new Handler thread for '+str(client_address[0]))            
-            newConn = Handler(connRecord, self.loggers, "TCP", client, client_address)
+            newConn = Handler(str(uuid.uuid4()), self.loggers, "TCP", client, client_address)
             newConn.start()
 
             self.agentList.append(newConn)

