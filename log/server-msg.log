@@ -1401,3 +1401,57 @@
 [2021-04-09 01:14:01,775-serv           ] INFO      [* Server-Msg] Logger initialization complete
 [2021-04-09 01:14:01,775-serv           ] INFO      [* Server-Msg] Initializing server...
 [2021-04-09 01:14:02,777-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-09 01:22:46,313-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-09 01:22:46,313-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-09 01:22:47,315-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-09 01:22:52,037-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-09 01:22:52,037-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-09 01:22:55,635-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-09 01:22:55,635-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-09 01:22:55,635-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-09 01:23:30,194-serv           ] INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-09 01:35:56,595-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-09 01:35:56,596-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-09 01:35:56,596-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-09 01:36:11,304-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-09 01:36:11,304-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-09 01:36:12,305-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-09 01:36:15,143-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-09 01:36:15,143-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-09 01:36:18,103-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-09 01:36:18,103-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-09 01:36:18,104-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-09 01:37:20,066-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-09 01:37:20,066-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-09 01:37:20,066-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-09 01:37:32,661-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-09 01:37:32,662-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-09 01:37:33,663-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-09 01:37:37,897-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-09 01:37:37,897-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-09 01:37:40,992-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-09 01:37:40,992-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-09 01:37:40,993-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-09 01:39:20,266-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-09 01:39:20,267-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-09 01:39:20,267-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-09 01:39:29,009-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-09 01:39:29,010-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-09 01:39:30,010-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-09 01:39:35,743-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-09 01:39:35,744-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-09 01:39:38,920-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-09 01:39:38,922-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-09 01:39:38,922-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-09 01:39:53,262-serv           ] INFO      [* BotHandler-Msg] Bot handler object created for: 127.0.0.1:5000; Session ID of 31c8ab1b-2d4a-4758-9407-588a4382ced0
+[2021-04-09 01:39:53,262-serv           ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 beacon started
+[2021-04-09 01:40:06,017-serv           ] INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-09 01:40:06,018-serv           ] WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-09 01:40:12,722-serv           ] INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-09 01:40:36,658-serv           ] INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-09 01:40:36,658-serv           ] WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-09 01:40:38,843-serv           ] INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-09 01:40:38,843-serv           ] WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-09 01:45:37,727-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-09 01:45:37,727-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-09 01:45:37,727-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents

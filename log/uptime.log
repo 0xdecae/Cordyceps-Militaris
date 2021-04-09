@@ -1116,3 +1116,32 @@
 [2021-04-09 00:02:46,362-up              INFO      [* BotHandler-Msg] Agent 1 - BEACON : DOWN
 [2021-04-09 00:03:05,414-up              INFO      [* BotHandler-Msg] Agent 0 - BEACON : DOWN
 [2021-04-09 00:03:12,378-up              INFO      [* BotHandler-Msg] Agent 1 - BEACON : DOWN
+[2021-04-09 01:39:53,262-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 beacon started
+[2021-04-09 01:40:17,266-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - PING : ERROR
+[2021-04-09 01:40:17,266-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - BEACON : DOWN
+[2021-04-09 01:40:37,275-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - PING : ERROR
+[2021-04-09 01:40:37,276-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - BEACON : DOWN
+[2021-04-09 01:40:54,292-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - PING : ERROR
+[2021-04-09 01:40:54,292-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - BEACON : DOWN
+[2021-04-09 01:41:25,322-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - PING : ERROR
+[2021-04-09 01:41:25,322-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - BEACON : DOWN
+[2021-04-09 01:41:35,327-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - PING : ERROR
+[2021-04-09 01:41:35,328-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - BEACON : DOWN
+[2021-04-09 01:42:04,351-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - PING : ERROR
+[2021-04-09 01:42:04,352-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - BEACON : DOWN
+[2021-04-09 01:42:21,369-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - PING : ERROR
+[2021-04-09 01:42:21,369-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - BEACON : DOWN
+[2021-04-09 01:42:33,381-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - PING : ERROR
+[2021-04-09 01:42:33,382-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - BEACON : DOWN
+[2021-04-09 01:43:13,409-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - PING : ERROR
+[2021-04-09 01:43:13,409-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - BEACON : DOWN
+[2021-04-09 01:43:36,425-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - PING : ERROR
+[2021-04-09 01:43:36,425-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - BEACON : DOWN
+[2021-04-09 01:43:50,436-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - PING : ERROR
+[2021-04-09 01:43:50,436-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - BEACON : DOWN
+[2021-04-09 01:44:26,447-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - PING : ERROR
+[2021-04-09 01:44:26,447-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - BEACON : DOWN
+[2021-04-09 01:44:56,477-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - PING : ERROR
+[2021-04-09 01:44:56,477-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - BEACON : DOWN
+[2021-04-09 01:45:25,505-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - PING : ERROR
+[2021-04-09 01:45:25,506-up             ] INFO      [* BotHandler-Msg] Agent 31c8ab1b-2d4a-4758-9407-588a4382ced0 - BEACON : DOWN
