@@ -90,20 +90,6 @@ class Results(Resource):
                 self.agentList.append(newConn)
                 # Save Task object to database
                 Task(**json_obj).save()
-                # Load the options provided for the task into an array for tracking in history
-                task_options = []
-                for key in json_obj.keys():
-                    # Anything that comes after task_type and task_id is treated as an option
-                    if (key != "task_type" and key != "task_id"):
-                        task_options.append(key + ": " + json_obj[key])
-                # Add to task history
-                TaskHistory(
-                    task_id=json_obj['task_id'],
-                    task_type=json_obj['task_type'],
-                    task_object=json.dumps(json_obj),
-                    task_options=task_options,
-                    task_results=""
-                ).save()
             
             else:
                 # Add a result UUID to each result object for tracking

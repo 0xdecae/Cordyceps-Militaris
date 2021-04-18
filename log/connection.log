@@ -41,3 +41,109 @@
 [2021-04-09 13:35:12,258-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: exit for agent f4c7667a-1df2-46b5-8d47-d6bffebc5e64 at 127.0.0.1
 [2021-04-09 13:35:12,258-conn           ] INFO      [* BotHandler-Msg:StdExec] Unable to execute command on agent f4c7667a-1df2-46b5-8d47-d6bffebc5e64
 [2021-04-09 13:35:12,258-conn           ] INFO      [* BotHandler-Msg:StdExec] Error 'Handler' object has no attribute 'client'
+[2021-04-18 14:59:18,087-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 4febb40b-c4d1-4eb1-889e-d56d2aa67048
+[2021-04-18 14:59:18,087-conn           ] INFO      [* BotHandler-Msg] Agent 4febb40b-c4d1-4eb1-889e-d56d2aa67048 beacon started
+[2021-04-18 14:59:45,014-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 231ff8fb-f04f-4b1c-994f-3e45f25ec307
+[2021-04-18 14:59:45,015-conn           ] INFO      [* BotHandler-Msg] Agent 231ff8fb-f04f-4b1c-994f-3e45f25ec307 beacon started
+[2021-04-18 15:02:12,952-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: exit for agent 4febb40b-c4d1-4eb1-889e-d56d2aa67048 at 127.0.0.1
+[2021-04-18 15:02:12,952-conn           ] INFO      [* BotHandler-Msg:StdExec] Unable to execute command on agent 4febb40b-c4d1-4eb1-889e-d56d2aa67048
+[2021-04-18 15:02:12,952-conn           ] INFO      [* BotHandler-Msg:StdExec] Error 'Handler' object has no attribute 'client'
+[2021-04-18 15:02:13,052-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: exit for agent 231ff8fb-f04f-4b1c-994f-3e45f25ec307 at 127.0.0.1
+[2021-04-18 15:02:13,053-conn           ] INFO      [* BotHandler-Msg:StdExec] Unable to execute command on agent 231ff8fb-f04f-4b1c-994f-3e45f25ec307
+[2021-04-18 15:02:13,053-conn           ] INFO      [* BotHandler-Msg:StdExec] Error 'Handler' object has no attribute 'client'
+[2021-04-18 15:33:18,162-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 12e5cf85-a2bf-4d57-97ac-8228c806eff0
+[2021-04-18 15:33:18,163-conn           ] INFO      [* BotHandler-Msg] Agent 12e5cf85-a2bf-4d57-97ac-8228c806eff0 beacon started
+[2021-04-18 15:33:31,224-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","agent_id":"12e5cf85-a2bf-4d57-97ac-8228c806eff0"}] for agent 12e5cf85-a2bf-4d57-97ac-8228c806eff0 at 127.0.0.1
+[2021-04-18 15:33:31,252-conn           ] INFO      [* BotHandler-Msg:StdExec] Unable to process received data from agent 12e5cf85-a2bf-4d57-97ac-8228c806eff0
+[2021-04-18 15:33:31,253-conn           ] INFO      [* BotHandler-Msg:StdExec] Error 'Handler' object has no attribute 'client'
+[2021-04-18 16:10:27,469-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 72fd163b-8b65-4afc-9654-325f6a9c4cdb
+[2021-04-18 16:10:27,469-conn           ] INFO      [* BotHandler-Msg] Agent 72fd163b-8b65-4afc-9654-325f6a9c4cdb beacon started
+[2021-04-18 16:11:23,974-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","agent_id":"72fd163b-8b65-4afc-9654-325f6a9c4cdb"}] for agent 72fd163b-8b65-4afc-9654-325f6a9c4cdb at 127.0.0.1
+[2021-04-18 16:24:26,392-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","agent_id":"72fd163b-8b65-4afc-9654-325f6a9c4cdb"}] for agent 72fd163b-8b65-4afc-9654-325f6a9c4cdb at 127.0.0.1
+[2021-04-18 16:24:55,753-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 3196b55b-0867-4fd4-b2e7-0677864edea8
+[2021-04-18 16:24:55,754-conn           ] INFO      [* BotHandler-Msg] Agent 3196b55b-0867-4fd4-b2e7-0677864edea8 beacon started
+[2021-04-18 16:24:57,804-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 2a9bcee5-98b0-478e-837e-75ddd2e25e2b
+[2021-04-18 16:24:57,804-conn           ] INFO      [* BotHandler-Msg] Agent 2a9bcee5-98b0-478e-837e-75ddd2e25e2b beacon started
+[2021-04-18 16:25:18,537-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of babe1dd4-611e-4e2a-b931-f11ea38e8268
+[2021-04-18 16:25:18,537-conn           ] INFO      [* BotHandler-Msg] Agent babe1dd4-611e-4e2a-b931-f11ea38e8268 beacon started
+[2021-04-18 16:25:44,034-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","agent_id":"3196b55b-0867-4fd4-b2e7-0677864edea8"}] for agent 3196b55b-0867-4fd4-b2e7-0677864edea8 at 127.0.0.1
+[2021-04-18 16:26:45,262-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","agent_id":"3196b55b-0867-4fd4-b2e7-0677864edea8"}] for agent 3196b55b-0867-4fd4-b2e7-0677864edea8 at 127.0.0.1
+[2021-04-18 16:27:15,764-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","agent_id":"3196b55b-0867-4fd4-b2e7-0677864edea8"}] for agent 3196b55b-0867-4fd4-b2e7-0677864edea8 at 127.0.0.1
+[2021-04-18 16:29:19,068-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of f0c9e5dd-1cad-4b07-b7d3-6e77389128e4
+[2021-04-18 16:29:19,068-conn           ] INFO      [* BotHandler-Msg] Agent f0c9e5dd-1cad-4b07-b7d3-6e77389128e4 beacon started
+[2021-04-18 16:29:23,114-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 7c81ef6a-29d4-42db-8d0e-58b813cffc9f
+[2021-04-18 16:29:23,115-conn           ] INFO      [* BotHandler-Msg] Agent 7c81ef6a-29d4-42db-8d0e-58b813cffc9f beacon started
+[2021-04-18 16:29:32,285-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","agent_id":"f0c9e5dd-1cad-4b07-b7d3-6e77389128e4"}] for agent f0c9e5dd-1cad-4b07-b7d3-6e77389128e4 at 127.0.0.1
+[2021-04-18 16:52:16,005-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 9a9d17e0-00c7-4967-9a9a-7e67059591da
+[2021-04-18 16:52:16,005-conn           ] INFO      [* BotHandler-Msg] Agent 9a9d17e0-00c7-4967-9a9a-7e67059591da beacon started
+[2021-04-18 16:52:29,477-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","agent_id":"9a9d17e0-00c7-4967-9a9a-7e67059591da"}] for agent 9a9d17e0-00c7-4967-9a9a-7e67059591da at 127.0.0.1
+[2021-04-18 16:52:37,200-conn           ] INFO      [* BotHandler-Msg:StdExec] Unable to process received data from agent 9a9d17e0-00c7-4967-9a9a-7e67059591da
+[2021-04-18 16:52:37,200-conn           ] INFO      [* BotHandler-Msg:StdExec] Error list index out of range
+[2021-04-18 17:40:38,051-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 6de47d9c-c185-4e51-b2be-8a8f3dfc725e
+[2021-04-18 17:40:38,052-conn           ] INFO      [* BotHandler-Msg] Agent 6de47d9c-c185-4e51-b2be-8a8f3dfc725e beacon started
+[2021-04-18 17:40:46,162-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"6de47d9c-c185-4e51-b2be-8a8f3dfc725e"}] for agent 6de47d9c-c185-4e51-b2be-8a8f3dfc725e at 127.0.0.1
+[2021-04-18 17:41:35,307-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"6de47d9c-c185-4e51-b2be-8a8f3dfc725e"}] for agent 6de47d9c-c185-4e51-b2be-8a8f3dfc725e at 127.0.0.1
+[2021-04-18 17:44:58,920-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"6de47d9c-c185-4e51-b2be-8a8f3dfc725e"}] for agent 6de47d9c-c185-4e51-b2be-8a8f3dfc725e at 127.0.0.1
+[2021-04-18 17:45:13,438-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 53943647-3c27-4d34-9e82-c1ee8e3c6e56
+[2021-04-18 17:45:13,439-conn           ] INFO      [* BotHandler-Msg] Agent 53943647-3c27-4d34-9e82-c1ee8e3c6e56 beacon started
+[2021-04-18 17:45:28,876-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"53943647-3c27-4d34-9e82-c1ee8e3c6e56"}] for agent 53943647-3c27-4d34-9e82-c1ee8e3c6e56 at 127.0.0.1
+[2021-04-18 17:46:21,468-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"53943647-3c27-4d34-9e82-c1ee8e3c6e56"}] for agent 53943647-3c27-4d34-9e82-c1ee8e3c6e56 at 127.0.0.1
+[2021-04-18 17:46:21,654-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"53943647-3c27-4d34-9e82-c1ee8e3c6e56"}] for agent 53943647-3c27-4d34-9e82-c1ee8e3c6e56 at 127.0.0.1
+[2021-04-18 17:50:56,117-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of b23c5c98-3413-4c29-ba33-bb36c4dceee7
+[2021-04-18 17:50:56,117-conn           ] INFO      [* BotHandler-Msg] Agent b23c5c98-3413-4c29-ba33-bb36c4dceee7 beacon started
+[2021-04-18 17:51:04,236-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"b23c5c98-3413-4c29-ba33-bb36c4dceee7"}] for agent b23c5c98-3413-4c29-ba33-bb36c4dceee7 at 127.0.0.1
+[2021-04-18 17:55:44,930-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"b23c5c98-3413-4c29-ba33-bb36c4dceee7"}] for agent b23c5c98-3413-4c29-ba33-bb36c4dceee7 at 127.0.0.1
+[2021-04-18 17:55:48,872-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"b23c5c98-3413-4c29-ba33-bb36c4dceee7"}] for agent b23c5c98-3413-4c29-ba33-bb36c4dceee7 at 127.0.0.1
+[2021-04-18 17:56:14,508-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of fe94ad8e-5a3d-4431-8cc9-a57add2aa570
+[2021-04-18 17:56:14,508-conn           ] INFO      [* BotHandler-Msg] Agent fe94ad8e-5a3d-4431-8cc9-a57add2aa570 beacon started
+[2021-04-18 17:57:06,735-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"fe94ad8e-5a3d-4431-8cc9-a57add2aa570"}] for agent fe94ad8e-5a3d-4431-8cc9-a57add2aa570 at 127.0.0.1
+[2021-04-18 17:58:16,501-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"fe94ad8e-5a3d-4431-8cc9-a57add2aa570"}] for agent fe94ad8e-5a3d-4431-8cc9-a57add2aa570 at 127.0.0.1
+[2021-04-18 17:58:18,294-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"fe94ad8e-5a3d-4431-8cc9-a57add2aa570"}] for agent fe94ad8e-5a3d-4431-8cc9-a57add2aa570 at 127.0.0.1
+[2021-04-18 17:59:13,238-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 1af80152-10af-47ae-829c-582431ffe808
+[2021-04-18 17:59:13,238-conn           ] INFO      [* BotHandler-Msg] Agent 1af80152-10af-47ae-829c-582431ffe808 beacon started
+[2021-04-18 17:59:27,550-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"1af80152-10af-47ae-829c-582431ffe808"}] for agent 1af80152-10af-47ae-829c-582431ffe808 at 127.0.0.1
+[2021-04-18 18:00:12,695-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 76208091-b12c-4483-b877-f739af86e74f
+[2021-04-18 18:00:12,695-conn           ] INFO      [* BotHandler-Msg] Agent 76208091-b12c-4483-b877-f739af86e74f beacon started
+[2021-04-18 18:00:19,417-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"76208091-b12c-4483-b877-f739af86e74f"}] for agent 76208091-b12c-4483-b877-f739af86e74f at 127.0.0.1
+[2021-04-18 18:09:41,131-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 214ace75-e917-449c-9c16-62fcd0c7514c
+[2021-04-18 18:09:41,131-conn           ] INFO      [* BotHandler-Msg] Agent 214ace75-e917-449c-9c16-62fcd0c7514c beacon started
+[2021-04-18 18:09:49,988-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"214ace75-e917-449c-9c16-62fcd0c7514c"}] for agent 214ace75-e917-449c-9c16-62fcd0c7514c at 127.0.0.1
+[2021-04-18 18:09:50,038-conn           ] INFO      [* BotHandler-Msg:StdExec] Unable to process received data from agent 214ace75-e917-449c-9c16-62fcd0c7514c
+[2021-04-18 18:09:50,038-conn           ] INFO      [* BotHandler-Msg:StdExec] Error string indices must be integers
+[2021-04-18 18:11:52,312-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of c852030f-d370-4151-a317-a640207eb0a0
+[2021-04-18 18:11:52,312-conn           ] INFO      [* BotHandler-Msg] Agent c852030f-d370-4151-a317-a640207eb0a0 beacon started
+[2021-04-18 18:11:57,896-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"c852030f-d370-4151-a317-a640207eb0a0"}] for agent c852030f-d370-4151-a317-a640207eb0a0 at 127.0.0.1
+[2021-04-18 18:11:57,946-conn           ] INFO      [* BotHandler-Msg:StdExec] Unable to process received data from agent c852030f-d370-4151-a317-a640207eb0a0
+[2021-04-18 18:11:57,946-conn           ] INFO      [* BotHandler-Msg:StdExec] Error list index out of range
+[2021-04-18 18:17:19,789-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of d78fa278-5fd7-4d5b-a38d-7ca8605304cc
+[2021-04-18 18:17:19,790-conn           ] INFO      [* BotHandler-Msg] Agent d78fa278-5fd7-4d5b-a38d-7ca8605304cc beacon started
+[2021-04-18 18:17:25,833-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"d78fa278-5fd7-4d5b-a38d-7ca8605304cc"}] for agent d78fa278-5fd7-4d5b-a38d-7ca8605304cc at 127.0.0.1
+[2021-04-18 18:17:25,880-conn           ] INFO      [* BotHandler-Msg:StdExec] Unable to process received data from agent d78fa278-5fd7-4d5b-a38d-7ca8605304cc
+[2021-04-18 18:17:25,881-conn           ] INFO      [* BotHandler-Msg:StdExec] Error string indices must be integers
+[2021-04-18 18:20:14,824-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 631827e2-8336-45e4-94d1-3bb132072285
+[2021-04-18 18:20:14,824-conn           ] INFO      [* BotHandler-Msg] Agent 631827e2-8336-45e4-94d1-3bb132072285 beacon started
+[2021-04-18 18:20:22,488-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"631827e2-8336-45e4-94d1-3bb132072285"}] for agent 631827e2-8336-45e4-94d1-3bb132072285 at 127.0.0.1
+[2021-04-18 18:20:22,520-conn           ] INFO      [* BotHandler-Msg:StdExec] Unable to process received data from agent 631827e2-8336-45e4-94d1-3bb132072285
+[2021-04-18 18:20:22,520-conn           ] INFO      [* BotHandler-Msg:StdExec] Error string indices must be integers
+[2021-04-18 18:23:44,980-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 7dbc33a4-2eb4-4600-a98a-ab4d74123f27
+[2021-04-18 18:23:44,980-conn           ] INFO      [* BotHandler-Msg] Agent 7dbc33a4-2eb4-4600-a98a-ab4d74123f27 beacon started
+[2021-04-18 18:23:50,042-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"7dbc33a4-2eb4-4600-a98a-ab4d74123f27"}] for agent 7dbc33a4-2eb4-4600-a98a-ab4d74123f27 at 127.0.0.1
+[2021-04-18 18:23:50,096-conn           ] INFO      [* BotHandler-Msg:StdExec] Unable to process received data from agent 7dbc33a4-2eb4-4600-a98a-ab4d74123f27
+[2021-04-18 18:23:50,097-conn           ] INFO      [* BotHandler-Msg:StdExec] Error string indices must be integers
+[2021-04-18 18:24:29,222-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 17a4c93d-6578-4e8f-9da7-d2fae2dd16e2
+[2021-04-18 18:24:29,223-conn           ] INFO      [* BotHandler-Msg] Agent 17a4c93d-6578-4e8f-9da7-d2fae2dd16e2 beacon started
+[2021-04-18 18:24:37,999-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"17a4c93d-6578-4e8f-9da7-d2fae2dd16e2"}] for agent 17a4c93d-6578-4e8f-9da7-d2fae2dd16e2 at 127.0.0.1
+[2021-04-18 18:24:38,053-conn           ] INFO      [* BotHandler-Msg:StdExec] Unable to process received data from agent 17a4c93d-6578-4e8f-9da7-d2fae2dd16e2
+[2021-04-18 18:24:38,053-conn           ] INFO      [* BotHandler-Msg:StdExec] Error string indices must be integers
+[2021-04-18 18:26:31,235-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 1b21dc98-f3b2-4a46-90ce-3cc96bef82c5
+[2021-04-18 18:26:31,235-conn           ] INFO      [* BotHandler-Msg] Agent 1b21dc98-f3b2-4a46-90ce-3cc96bef82c5 beacon started
+[2021-04-18 18:26:40,957-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"1b21dc98-f3b2-4a46-90ce-3cc96bef82c5"}] for agent 1b21dc98-f3b2-4a46-90ce-3cc96bef82c5 at 127.0.0.1
+[2021-04-18 18:34:52,172-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of e3386b91-ec0f-4b43-9bfd-e577316e4a89
+[2021-04-18 18:34:52,172-conn           ] INFO      [* BotHandler-Msg] Agent e3386b91-ec0f-4b43-9bfd-e577316e4a89 beacon started
+[2021-04-18 18:34:59,050-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"e3386b91-ec0f-4b43-9bfd-e577316e4a89"}] for agent e3386b91-ec0f-4b43-9bfd-e577316e4a89 at 127.0.0.1
+[2021-04-18 18:38:40,338-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of dc6ea079-f74f-419b-bafa-e2e9cce20603
+[2021-04-18 18:38:40,339-conn           ] INFO      [* BotHandler-Msg] Agent dc6ea079-f74f-419b-bafa-e2e9cce20603 beacon started
+[2021-04-18 18:38:46,140-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"dc6ea079-f74f-419b-bafa-e2e9cce20603"}] for agent dc6ea079-f74f-419b-bafa-e2e9cce20603 at 127.0.0.1
+[2021-04-18 18:40:00,579-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of a2029969-3d3c-43f0-a728-904c70dce624
+[2021-04-18 18:40:00,580-conn           ] INFO      [* BotHandler-Msg] Agent a2029969-3d3c-43f0-a728-904c70dce624 beacon started
+[2021-04-18 18:40:06,180-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"a2029969-3d3c-43f0-a728-904c70dce624"}] for agent a2029969-3d3c-43f0-a728-904c70dce624 at 127.0.0.1

