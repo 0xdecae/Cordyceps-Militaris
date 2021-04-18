@@ -52,7 +52,8 @@ class Tasks(Resource):
 
 
 class Results(Resource):
-    def __init__(self,logger):
+    def __init__(self,agentList,logger):
+        self.agentList = agentList
         self.loggers = logger
 
     # ListResults
@@ -85,6 +86,8 @@ class Results(Resource):
                 # Create new handler for connection
                 newConn = Handler(agent_id, self.loggers, "HTTP")
                 newConn.start()
+                # Update agent list
+                self.agentList.append(newConn)
                 # Save Task object to database
                 Task(**json_obj).save()
                 # Load the options provided for the task into an array for tracking in history

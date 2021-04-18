@@ -1,0 +1,43 @@
+[2021-04-09 12:32:40,442-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 6dcbfcd1-fc21-45cd-9e08-940bfbc6ed94
+[2021-04-09 12:32:40,442-conn           ] INFO      [* BotHandler-Msg] Agent 6dcbfcd1-fc21-45cd-9e08-940bfbc6ed94 beacon started
+[2021-04-09 12:34:46,336-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of ca8541f2-3490-42e9-92f7-19a0221386ed
+[2021-04-09 12:34:46,336-conn           ] INFO      [* BotHandler-Msg] Agent ca8541f2-3490-42e9-92f7-19a0221386ed beacon started
+[2021-04-09 12:36:09,008-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of d7276040-8118-4733-8815-7a34ca33a893
+[2021-04-09 12:36:09,008-conn           ] INFO      [* BotHandler-Msg] Agent d7276040-8118-4733-8815-7a34ca33a893 beacon started
+[2021-04-09 12:40:58,617-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 5ad4bd7c-393a-4bd4-8405-28e6c4fd7d3f
+[2021-04-09 12:40:58,618-conn           ] INFO      [* BotHandler-Msg] Agent 5ad4bd7c-393a-4bd4-8405-28e6c4fd7d3f beacon started
+[2021-04-09 12:42:39,260-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 32720320-2ee0-4e03-888e-27454d3c92c4
+[2021-04-09 12:42:39,260-conn           ] INFO      [* BotHandler-Msg] Agent 32720320-2ee0-4e03-888e-27454d3c92c4 beacon started
+[2021-04-09 12:48:34,527-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 8a330b4b-4e91-4d92-a37c-fc7ba8b6cdf2
+[2021-04-09 12:48:34,527-conn           ] INFO      [* BotHandler-Msg] Agent 8a330b4b-4e91-4d92-a37c-fc7ba8b6cdf2 beacon started
+[2021-04-09 12:49:54,770-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 9e8b19ce-2117-4caf-aef6-fc4c7311ee92
+[2021-04-09 12:49:54,771-conn           ] INFO      [* BotHandler-Msg] Agent 9e8b19ce-2117-4caf-aef6-fc4c7311ee92 beacon started
+[2021-04-09 12:55:07,049-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 887db05a-b9b8-4311-be09-828f3afac0e8
+[2021-04-09 12:55:07,049-conn           ] INFO      [* BotHandler-Msg] Agent 887db05a-b9b8-4311-be09-828f3afac0e8 beacon started
+[2021-04-09 12:56:14,127-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 6feee37d-20df-4aa9-9bdc-6e818b9737a3
+[2021-04-09 12:56:14,128-conn           ] INFO      [* BotHandler-Msg] Agent 6feee37d-20df-4aa9-9bdc-6e818b9737a3 beacon started
+[2021-04-09 12:59:17,059-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of b459d011-142d-4673-a030-ef5b088279b9
+[2021-04-09 12:59:17,059-conn           ] INFO      [* BotHandler-Msg] Agent b459d011-142d-4673-a030-ef5b088279b9 beacon started
+[2021-04-09 13:00:32,731-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 7cadfca8-c39c-4eea-9254-5d54a258ec67
+[2021-04-09 13:00:32,731-conn           ] INFO      [* BotHandler-Msg] Agent 7cadfca8-c39c-4eea-9254-5d54a258ec67 beacon started
+[2021-04-09 13:02:53,889-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of faac4b6d-047e-41be-a53b-849deb7e1ff5
+[2021-04-09 13:02:53,889-conn           ] INFO      [* BotHandler-Msg] Agent faac4b6d-047e-41be-a53b-849deb7e1ff5 beacon started
+[2021-04-09 13:04:11,969-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 64651109-fdc8-4e57-8882-31673f2effff
+[2021-04-09 13:04:11,970-conn           ] INFO      [* BotHandler-Msg] Agent 64651109-fdc8-4e57-8882-31673f2effff beacon started
+[2021-04-09 13:04:27,283-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 56c6d4cd-4781-4248-8c5d-0f93dc2c9c7f
+[2021-04-09 13:04:27,283-conn           ] INFO      [* BotHandler-Msg] Agent 56c6d4cd-4781-4248-8c5d-0f93dc2c9c7f beacon started
+[2021-04-09 13:05:43,983-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of e42d972b-96b1-478d-a4c7-6cae6d9c2ad4
+[2021-04-09 13:05:43,984-conn           ] INFO      [* BotHandler-Msg] Agent e42d972b-96b1-478d-a4c7-6cae6d9c2ad4 beacon started
+[2021-04-09 13:17:51,627-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of 85d71773-5d00-4033-a005-61a6ebe9ab8e
+[2021-04-09 13:17:51,628-conn           ] INFO      [* BotHandler-Msg] Agent 85d71773-5d00-4033-a005-61a6ebe9ab8e beacon started
+[2021-04-09 13:18:30,083-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: ping for agent 85d71773-5d00-4033-a005-61a6ebe9ab8e at 127.0.0.1
+[2021-04-09 13:18:30,084-conn           ] INFO      [* BotHandler-Msg:StdExec] Unable to execute command on agent 85d71773-5d00-4033-a005-61a6ebe9ab8e
+[2021-04-09 13:18:30,084-conn           ] INFO      [* BotHandler-Msg:StdExec] Error 'Handler' object has no attribute 'client'
+[2021-04-09 13:18:59,467-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: exit for agent 85d71773-5d00-4033-a005-61a6ebe9ab8e at 127.0.0.1
+[2021-04-09 13:18:59,467-conn           ] INFO      [* BotHandler-Msg:StdExec] Unable to execute command on agent 85d71773-5d00-4033-a005-61a6ebe9ab8e
+[2021-04-09 13:18:59,467-conn           ] INFO      [* BotHandler-Msg:StdExec] Error 'Handler' object has no attribute 'client'
+[2021-04-09 13:26:01,800-conn           ] INFO      [* BotHandler-Msg] Agent 127.0.0.1:5000 connected with Session ID of f4c7667a-1df2-46b5-8d47-d6bffebc5e64
+[2021-04-09 13:26:01,800-conn           ] INFO      [* BotHandler-Msg] Agent f4c7667a-1df2-46b5-8d47-d6bffebc5e64 beacon started
+[2021-04-09 13:35:12,258-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: exit for agent f4c7667a-1df2-46b5-8d47-d6bffebc5e64 at 127.0.0.1
+[2021-04-09 13:35:12,258-conn           ] INFO      [* BotHandler-Msg:StdExec] Unable to execute command on agent f4c7667a-1df2-46b5-8d47-d6bffebc5e64
+[2021-04-09 13:35:12,258-conn           ] INFO      [* BotHandler-Msg:StdExec] Error 'Handler' object has no attribute 'client'
