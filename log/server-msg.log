@@ -2000,3 +2000,64 @@
 [2021-04-09 13:23:29,710-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
 =======
 >>>>>>> ad8aa8b5b4f635b6a66ae7cdc777ffbae5b8b008
+[2021-04-10 14:00:28,716-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-10 14:00:28,716-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-10 14:00:29,717-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-10 14:01:28,458-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-10 14:01:28,458-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-10 14:01:29,459-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-10 14:01:48,743-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-10 14:01:48,743-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-10 14:01:51,368-serv           ] INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-10 14:01:51,369-serv           ] INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-10 14:01:51,369-serv           ] INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-10 14:01:51,370-serv           ] INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-10 14:01:51,370-serv           ] INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-10 14:01:51,370-serv           ] INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-10 14:01:51,370-serv           ] INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-10 14:01:53,373-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-10 14:01:53,373-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-10 14:01:53,374-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-10 14:01:53,704-serv           ] INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-10 14:01:53,704-serv           ] INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-10 14:01:53,705-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.75.145:44410; Session ID of efc645b4-2179-480b-94a6-2cc67eee0e7e
+[2021-04-10 14:02:16,602-serv           ] INFO      [* Listener-Msg] Connection received from 192.168.75.154
+[2021-04-10 14:02:16,603-serv           ] INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.154
+[2021-04-10 14:02:16,603-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.75.154:58919; Session ID of 7cdb52b3-c75e-491f-bdac-4b65254fa272
+[2021-04-10 14:03:13,665-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-10 14:03:13,869-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-10 14:11:55,158-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-10 14:11:55,158-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-10 14:11:56,159-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-10 14:12:11,421-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-10 14:12:11,421-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-10 14:12:17,239-serv           ] INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-10 14:12:17,240-serv           ] INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-10 14:12:17,241-serv           ] INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-10 14:12:17,241-serv           ] INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-10 14:12:17,241-serv           ] INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-10 14:12:17,241-serv           ] INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-10 14:12:17,241-serv           ] INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-10 14:12:19,244-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-10 14:12:19,245-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-10 14:12:19,245-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-10 14:12:33,368-serv           ] INFO      [* Listener-Msg] Connection received from 192.168.75.154
+[2021-04-10 14:12:33,369-serv           ] INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.154
+[2021-04-10 14:12:33,370-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.75.154:58932; Session ID of 2a2f7385-c8c8-45b7-93e3-327498851f1f
+[2021-04-10 14:12:35,685-serv           ] INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-10 14:12:35,686-serv           ] WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-10 14:12:36,375-serv           ] ERROR     [* BotHandler-Msg] Agent 2a2f7385-c8c8-45b7-93e3-327498851f1f: unable to set operating system
+[2021-04-10 14:12:36,375-serv           ] INFO      [* BotHandler-Msg] Agent 2a2f7385-c8c8-45b7-93e3-327498851f1f operating system set: Error
+[2021-04-10 14:12:36,375-serv           ] INFO      [* BotHandler-Msg] Agent 2a2f7385-c8c8-45b7-93e3-327498851f1f beacon started
+[2021-04-10 14:12:38,141-serv           ] INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-10 14:12:38,142-serv           ] INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-10 14:12:38,143-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.75.145:44414; Session ID of 322453ea-e9fb-4554-86e5-a242674e4417
+[2021-04-10 14:12:41,146-serv           ] ERROR     [* BotHandler-Msg] Agent 322453ea-e9fb-4554-86e5-a242674e4417: unable to set operating system
+[2021-04-10 14:12:41,147-serv           ] INFO      [* BotHandler-Msg] Agent 322453ea-e9fb-4554-86e5-a242674e4417 operating system set: Error
+[2021-04-10 14:12:41,147-serv           ] INFO      [* BotHandler-Msg] Agent 322453ea-e9fb-4554-86e5-a242674e4417 beacon started
+[2021-04-10 14:12:47,623-serv           ] INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-10 14:12:47,623-serv           ] WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-10 14:12:50,830-serv           ] INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-10 14:17:28,816-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-10 14:17:28,817-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-10 14:17:29,021-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents

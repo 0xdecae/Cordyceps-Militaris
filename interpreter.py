@@ -473,7 +473,8 @@ class Interpreter(threading.Thread):
 
         for agent in self.agentList:                                         
             time.sleep(0.1)
-            agent.execute("exit")
+            if agent.execute("exit") == agent.getReply("exit"):
+                self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Successfully exited connection for agent '+str(agent.getID()))
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg] "exit" command sent to all active agents')
 
         print("[* Interpreter-Msg] Exiting connections for all agents. Please wait...")
