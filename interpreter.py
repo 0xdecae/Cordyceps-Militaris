@@ -474,8 +474,12 @@ class Interpreter(threading.Thread):
 
         for agent in self.agentList:                                         
             time.sleep(0.1)
+            if agent.execute("exit") == agent.getReply("exit"):
+                self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Successfully exited connection for agent '+str(agent.getID()))
+
             if agent.getTT() == "TCP":
-                agent.execute("exit")
+                if agent.execute("exit") == agent.getReply("exit"):
+                    self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Successfully exited connection for agent '+str(agent.getID()))
             elif agent.getTT() == "HTTP":
                 agent.execute(f'[{{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"{str(agent.getID())}"}}]')
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg] "exit" command sent to all active agents')
