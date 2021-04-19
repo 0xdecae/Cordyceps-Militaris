@@ -7,6 +7,7 @@ import threading
 import queue
 import time
 import base64
+import pymongo
 
 class Interpreter(threading.Thread):
     def __init__(self, agentList, listeners, loggers):
@@ -475,10 +476,19 @@ class Interpreter(threading.Thread):
             time.sleep(0.1)
             if agent.execute("exit") == agent.getReply("exit"):
                 self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Successfully exited connection for agent '+str(agent.getID()))
+
+            if agent.getTT() == "TCP":
+                if agent.execute("exit") == agent.getReply("exit"):
+                    self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Successfully exited connection for agent '+str(agent.getID()))
+            elif agent.getTT() == "HTTP":
+                agent.execute(f'[{{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"{str(agent.getID())}"}}]')
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg] "exit" command sent to all active agents')
 
         print("[* Interpreter-Msg] Exiting connections for all agents. Please wait...")
         time.sleep(5)
+        print("[* Interpreter-Msg] Cleaning up database...")
+        pymongo.MongoClient("mongodb://localhost:27017/")["skytree"]["result"].remove({})
+        pymongo.MongoClient("mongodb://localhost:27017/")["skytree"]["task"].remove({})
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Exiting C2')       
         os._exit(0)
 #------------------------------------------------------------------------------------------------------------------------------
