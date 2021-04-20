@@ -469,39 +469,42 @@ class Interpreter(threading.Thread):
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Exiting Single-Mode... Returning to main-menu...')
 #------------------------------------------------------------------------------------------------------------------------------
     def exit(self):
-        print(f"[* Interpreter-Msg] Closing connection to {str(len(self.agentList))} agents")
-        self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Closing connection to all agents')
+        print(f"[* Interpreter-Msg:Exit] Closing connection to {str(len(self.agentList))} agents")
+        self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Exit] Closing connection to all agents')
 
         for agent in self.agentList:                                         
             time.sleep(0.1)
             if agent.execute("exit") == agent.getReply("exit"):
-                self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Successfully exited connection for agent '+str(agent.getID()))
+                self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Exit] Successfully exited connection for agent '+str(agent.getID()))
 
             if agent.getTT() == "TCP":
                 if agent.execute("exit") == agent.getReply("exit"):
-                    self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Successfully exited connection for agent '+str(agent.getID()))
+                    self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Exit] Successfully exited connection for agent '+str(agent.getID()))
             elif agent.getTT() == "HTTP":
                 agent.execute(f'[{{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"{str(agent.getID())}"}}]')
-        self.loggers[0].q_log('serv','info','[* Interpreter-Msg] "exit" command sent to all active agents')
+        self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Exit] "exit" command sent to all active agents')
 
-        print("[* Interpreter-Msg] Exiting connections for all agents. Please wait...")
-        time.sleep(5)
-        print("[* Interpreter-Msg] Cleaning up database...")
-        pymongo.MongoClient("mongodb://localhost:27017/")["skytree"]["result"].remove({})
-        pymongo.MongoClient("mongodb://localhost:27017/")["skytree"]["task"].remove({})
-        self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Exiting C2')       
+        print("[* Interpreter-Msg:Exit] Exiting connections for all agents. Please wait...")
+        time.sleep(3)
+
+        if agent.getTT() == "HTTP":
+            print("[* Interpreter-Msg:Exit] Cleaning up database...")
+            pymongo.MongoClient("mongodb://localhost:27017/")["skytree"]["result"].remove({})
+            pymongo.MongoClient("mongodb://localhost:27017/")["skytree"]["task"].remove({})
+
+        self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Exit] Exiting C2')       
         os._exit(0)
 #------------------------------------------------------------------------------------------------------------------------------
     def listAgents(self): # Change to listAlive(self)
-        print(".---------------------------------------------------------------------------------------------.")
-        print("|                                      LIST OF AGENTS                                         |")
-        print(".--------------------------------------v------------------v--------v----------v------v--------.")
-        print("|                   ID                 |  IP ADDRESS (v4) |  PORT  |    OS    | PING | BEACON |")
-        print(":--------------------------------------:------------------:--------:----------:------:--------:")
+        print(".----------------------------------------------------------------------------------------------.")
+        print("|                                      LIST OF AGENTS                                          |")
+        print(".--------------------------------------v------------------v--------v-----------v------v--------.")
+        print("|                   ID                 |  IP ADDRESS (v4) |  PORT  |    OS     | PING | BEACON |")
+        print(":--------------------------------------:------------------:--------:-----------:------:--------:")
 
         for agent in self.agentList:
             print("| %30s | %16s | %6d | %9s | %4s | %6s |"% (agent.getID(), agent.getIP(), agent.getPort(), agent.getOS(), agent.status[0], agent.status[1]))
-            print(":--------------------------------------:------------------:--------:----------:------:--------:")
+            print(":--------------------------------------:------------------:--------:-----------:------:--------:")
 #------------------------------------------------------------------------------------------------------------------------------
     def shell(self, id):
         # print("Shell function entry point")
@@ -518,14 +521,14 @@ class Interpreter(threading.Thread):
                 shellExecStatus = agent.shell()
 
         if shellExecStatus:
-            print("[* Interpreter-Msg] Shell exited gracefully...\n")
-            self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Individual shell interaction mode for agent '+str(id)+' exited successfully')
+            print("[* Interpreter-Msg:Shell] Shell exited gracefully...\n")
+            self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Shell] Individual shell interaction mode for agent '+str(id)+' exited successfully')
         else:
-            print("[* Interpreter-Msg] Shell exited with errors...\n")
-            self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Individual shell interaction mode for agent '+str(id)+' exited unsuccessfully')
+            print("[* Interpreter-Msg:Shell] Shell exited with errors...\n")
+            self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Shell] Individual shell interaction mode for agent '+str(id)+' exited unsuccessfully')
 #------------------------------------------------------------------------------------------------------------------------------
     def kill(self, id):
-        print(f"[* Interpreter-Msg:Kill] Killing connection with agent #{id}.\n")
+        print(f"[* Interpreter-Msg:Kill] Killing connection with agent {id}.\n")
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Kill] Killing connection with agent '+str(id))
         # self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Kill] Calling handler .kill() function')
 
@@ -539,11 +542,11 @@ class Interpreter(threading.Thread):
                 if agent.getID() == id:
                     self.agentList.remove(agent)
                     break
-            print(f"[* Interpreter-Msg:Kill] Agent #{id} was killed peacefully...\n")
+            print(f"[* Interpreter-Msg:Kill] Agent {id} was killed peacefully...\n")
             self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Kill] agent '+str(id)+' was killed successfully')
 
         else:
-            print(f"[* Interpreter-Msg:Kill] Agent #{id} was killed with errors...\n")
+            print(f"[* Interpreter-Msg:Kill] Agent {id} was killed with errors...\n")
             self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Kill] agent '+str(id)+' was killed unsuccessfully')
 #------------------------------------------------------------------------------------------------------------------------------
     def log_history(self, cmd):

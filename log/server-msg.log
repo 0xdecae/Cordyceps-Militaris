@@ -2642,3 +2642,204 @@
 [2021-04-18 18:40:06,077-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
 [2021-04-18 18:40:09,717-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
 >>>>>>> 2a0941608423bfcdb86307d25c124185e4ff4e35
+[2021-04-19 01:17:44,089-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-19 01:17:44,089-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-19 01:17:45,091-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-19 01:17:52,606-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-19 01:17:52,606-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-19 01:17:52,939-serv           ] ERROR     No input received. Please retry...
+[2021-04-19 01:17:54,794-serv           ] WARNING   [* Server-Msg] Unable to process port entry
+[2021-04-19 01:17:54,794-serv           ] WARNING   [* Server-Msg] Error: invalid literal for int() with base 10: ''
+[2021-04-19 01:17:56,618-serv           ] INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-19 01:17:56,620-serv           ] INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-19 01:17:56,620-serv           ] INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-19 01:17:56,620-serv           ] INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-19 01:17:56,620-serv           ] INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-19 01:17:56,620-serv           ] INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-19 01:17:56,620-serv           ] INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-19 01:17:58,621-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-19 01:17:58,621-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-19 01:17:58,622-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-19 01:22:29,783-serv           ] INFO      [* Listener-Msg] Connection received from 192.168.75.154
+[2021-04-19 01:22:29,784-serv           ] INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.154
+[2021-04-19 01:22:29,784-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.75.154:54718; Session ID of 3bed178c-df5a-45fa-8f36-33a69e52e145
+[2021-04-19 01:22:32,798-serv           ] ERROR     [* BotHandler-Msg] Agent 3bed178c-df5a-45fa-8f36-33a69e52e145: unable to set operating system
+[2021-04-19 01:22:32,799-serv           ] INFO      [* BotHandler-Msg] Agent 3bed178c-df5a-45fa-8f36-33a69e52e145 operating system set: Error
+[2021-04-19 01:22:32,799-serv           ] INFO      [* BotHandler-Msg] Agent 3bed178c-df5a-45fa-8f36-33a69e52e145 beacon started
+[2021-04-19 01:22:58,400-serv           ] INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-19 01:22:58,400-serv           ] INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-19 01:22:58,402-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.75.145:46162; Session ID of 4d55e956-ac6c-4e42-8975-66172180a5d8
+[2021-04-19 01:23:01,405-serv           ] ERROR     [* BotHandler-Msg] Agent 4d55e956-ac6c-4e42-8975-66172180a5d8: unable to set operating system
+[2021-04-19 01:23:01,405-serv           ] INFO      [* BotHandler-Msg] Agent 4d55e956-ac6c-4e42-8975-66172180a5d8 operating system set: Error
+[2021-04-19 01:23:01,405-serv           ] INFO      [* BotHandler-Msg] Agent 4d55e956-ac6c-4e42-8975-66172180a5d8 beacon started
+[2021-04-19 01:36:32,950-serv           ] INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-19 01:36:32,951-serv           ] WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-19 01:36:53,984-serv           ] INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-19 01:38:23,939-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-19 01:38:23,939-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 01:39:41,647-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 01:39:58,275-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-19 01:39:58,275-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-19 01:39:59,277-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-19 01:40:00,981-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-19 01:40:00,981-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-19 01:40:03,424-serv           ] WARNING   [* Server-Msg] Unable to process port entry
+[2021-04-19 01:40:03,424-serv           ] WARNING   [* Server-Msg] Error: invalid literal for int() with base 10: '1337\\'
+[2021-04-19 01:40:06,464-serv           ] INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-19 01:40:06,465-serv           ] INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-19 01:40:06,465-serv           ] INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-19 01:40:06,465-serv           ] INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-19 01:40:06,465-serv           ] INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-19 01:40:06,465-serv           ] INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-19 01:40:06,465-serv           ] INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-19 01:40:08,467-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-19 01:40:08,468-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-19 01:40:08,469-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-19 01:40:18,841-serv           ] INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-19 01:40:22,688-serv           ] INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-19 01:40:22,689-serv           ] INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-19 01:40:22,689-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.75.145:46166; Session ID of 2a09bb0d-a7eb-423f-988a-6c55d5e2bdc6
+[2021-04-19 01:40:25,693-serv           ] ERROR     [* BotHandler-Msg] Agent 2a09bb0d-a7eb-423f-988a-6c55d5e2bdc6: unable to set operating system
+[2021-04-19 01:40:25,694-serv           ] INFO      [* BotHandler-Msg] Agent 2a09bb0d-a7eb-423f-988a-6c55d5e2bdc6 operating system set: Error
+[2021-04-19 01:40:25,694-serv           ] INFO      [* BotHandler-Msg] Agent 2a09bb0d-a7eb-423f-988a-6c55d5e2bdc6 beacon started
+[2021-04-19 01:40:35,142-serv           ] INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-19 01:40:35,142-serv           ] WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-19 01:40:37,946-serv           ] INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-19 13:14:44,999-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-19 13:14:45,006-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 13:14:45,108-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-19 13:15:14,174-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 13:15:14,276-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-19 13:15:26,070-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 13:15:26,171-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-19 13:15:46,820-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-19 13:15:46,820-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-19 13:15:47,821-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-19 13:15:51,333-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-19 13:15:51,333-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-19 13:16:25,914-serv           ] INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-19 13:16:25,915-serv           ] INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-19 13:16:25,915-serv           ] INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-19 13:16:25,915-serv           ] INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-19 13:16:25,915-serv           ] INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-19 13:16:25,915-serv           ] INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-19 13:16:25,915-serv           ] INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-19 13:16:27,919-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-19 13:16:27,919-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-19 13:16:27,920-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-19 13:16:52,114-serv           ] INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-19 13:16:52,115-serv           ] INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-19 13:16:52,115-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.75.145:46178; Session ID of e92f4e06-c221-4be2-856c-e2f15d8de31e
+[2021-04-19 13:16:55,119-serv           ] ERROR     [* BotHandler-Msg] Agent e92f4e06-c221-4be2-856c-e2f15d8de31e: unable to set operating system
+[2021-04-19 13:16:55,120-serv           ] INFO      [* BotHandler-Msg] Agent e92f4e06-c221-4be2-856c-e2f15d8de31e operating system set: Error
+[2021-04-19 13:16:55,120-serv           ] INFO      [* BotHandler-Msg] Agent e92f4e06-c221-4be2-856c-e2f15d8de31e beacon started
+[2021-04-19 13:17:00,586-serv           ] INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-19 13:17:00,586-serv           ] WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-19 13:17:28,540-serv           ] INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-19 13:21:04,182-serv           ] INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-19 13:21:04,183-serv           ] WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-19 13:21:05,513-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-19 13:21:05,513-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 13:21:05,615-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-19 13:21:44,202-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 13:21:44,304-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-19 13:21:44,969-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 13:21:45,070-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-19 13:36:50,137-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-19 13:36:50,138-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-19 13:36:51,139-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-19 13:36:54,701-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-19 13:36:54,702-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-19 13:36:56,571-serv           ] WARNING   [* Server-Msg] Unable to process port entry
+[2021-04-19 13:36:56,572-serv           ] WARNING   [* Server-Msg] Error: invalid literal for int() with base 10: ''
+[2021-04-19 13:37:01,475-serv           ] INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-19 13:37:01,475-serv           ] INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-19 13:37:01,475-serv           ] INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-19 13:37:01,476-serv           ] INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-19 13:37:01,476-serv           ] INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-19 13:37:01,476-serv           ] INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-19 13:37:01,476-serv           ] INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-19 13:37:03,478-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-19 13:37:03,479-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-19 13:37:03,479-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-19 13:37:26,138-serv           ] INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-19 13:37:26,139-serv           ] INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-19 13:37:26,139-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.75.145:46180; Session ID of bb79e82f-f212-4795-a449-c4d97397384f
+[2021-04-19 13:37:29,140-serv           ] ERROR     [* BotHandler-Msg] Agent bb79e82f-f212-4795-a449-c4d97397384f: unable to set operating system
+[2021-04-19 13:37:29,141-serv           ] INFO      [* BotHandler-Msg] Agent bb79e82f-f212-4795-a449-c4d97397384f operating system set: Error
+[2021-04-19 13:37:29,141-serv           ] INFO      [* BotHandler-Msg] Agent bb79e82f-f212-4795-a449-c4d97397384f beacon started
+[2021-04-19 13:37:34,412-serv           ] INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-19 13:37:34,412-serv           ] WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-19 13:37:36,788-serv           ] INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-19 13:39:35,214-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-19 13:39:35,215-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 13:39:35,316-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-19 13:40:15,962-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-19 13:40:15,962-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-19 13:40:16,963-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-19 13:40:20,488-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-19 13:40:20,488-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-19 13:40:22,973-serv           ] INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-19 13:40:22,973-serv           ] INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-19 13:40:22,973-serv           ] INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-19 13:40:22,974-serv           ] INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-19 13:40:22,974-serv           ] INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-19 13:40:22,974-serv           ] INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-19 13:40:22,974-serv           ] INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-19 13:40:24,976-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-19 13:40:24,977-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-19 13:40:24,977-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-19 13:40:35,107-serv           ] INFO      [* Interpreter-Msg] Received command: "ls"
+[2021-04-19 13:40:35,107-serv           ] WARNING   [* Interpreter-Msg] Unable to process command. Retrying...
+[2021-04-19 13:40:39,479-serv           ] INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-19 13:40:46,320-serv           ] INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-19 13:40:46,320-serv           ] INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-19 13:40:46,320-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.75.145:46186; Session ID of 223398fb-4ff5-430d-8c7f-d8654b1f6ac8
+[2021-04-19 13:40:49,322-serv           ] ERROR     [* BotHandler-Msg] Agent 223398fb-4ff5-430d-8c7f-d8654b1f6ac8: unable to set operating system
+[2021-04-19 13:40:49,322-serv           ] INFO      [* BotHandler-Msg] Agent 223398fb-4ff5-430d-8c7f-d8654b1f6ac8 operating system set: Error
+[2021-04-19 13:40:49,322-serv           ] INFO      [* BotHandler-Msg] Agent 223398fb-4ff5-430d-8c7f-d8654b1f6ac8 beacon started
+[2021-04-19 13:40:55,466-serv           ] INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-19 13:40:55,467-serv           ] WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-19 13:40:58,637-serv           ] INFO      [* Interpreter-Msg] Received command: "list-agetns"
+[2021-04-19 13:40:58,637-serv           ] WARNING   [* Interpreter-Msg] Unable to process command. Retrying...
+[2021-04-19 13:41:02,191-serv           ] INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-19 13:41:49,821-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-19 13:41:49,822-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 13:41:49,922-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-19 13:42:34,776-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-19 13:42:34,776-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-19 13:42:35,777-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-19 13:42:38,143-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-19 13:42:38,143-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-19 13:42:41,445-serv           ] INFO      [* Server-Msg] TCP Listener port set to: 1337
+[2021-04-19 13:42:41,445-serv           ] INFO      [* Server-Msg] Creating TCP Listener Thread with address 0.0.0.0 and port 1337
+[2021-04-19 13:42:41,446-serv           ] INFO      [* Listener-Msg] Initializing TCP socket on tcp://0.0.0.0:1337
+[2021-04-19 13:42:41,446-serv           ] INFO      [* Listener-Msg] Binding tcp://0.0.0.0:1337 to socket
+[2021-04-19 13:42:41,446-serv           ] INFO      [* Listener-Msg] Listening for 1000 connections
+[2021-04-19 13:42:41,446-serv           ] INFO      [* Listener-Msg] TCP listener successfully initialized on tcp://0.0.0.0:1337
+[2021-04-19 13:42:41,446-serv           ] INFO      [* Listener-Msg] Initializing TCP connection record
+[2021-04-19 13:42:43,449-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-19 13:42:43,449-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-19 13:42:43,449-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-19 13:43:02,924-serv           ] INFO      [* Listener-Msg] Connection received from 192.168.75.145
+[2021-04-19 13:43:02,924-serv           ] INFO      [* Listener-Msg] Creating a new Handler thread for 192.168.75.145
+[2021-04-19 13:43:02,924-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.75.145:46190; Session ID of 639b0c53-c33b-4d3f-9e19-d1d159b1c878
+[2021-04-19 13:43:05,928-serv           ] INFO      [* BotHandler-Msg] Agent 639b0c53-c33b-4d3f-9e19-d1d159b1c878 operating system set: Linux
+[2021-04-19 13:43:05,928-serv           ] INFO      [* BotHandler-Msg] Agent 639b0c53-c33b-4d3f-9e19-d1d159b1c878 beacon started
+[2021-04-19 13:43:14,978-serv           ] INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-19 13:45:23,508-serv           ] INFO      [* Interpreter-Msg] Received command: "kill 639b0c53-c33b-4d3f-9e19-d1d159b1c878"
+[2021-04-19 13:45:23,509-serv           ] INFO      [* Interpreter-Msg:Kill] Agent 639b0c53-c33b-4d3f-9e19-d1d159b1c878 exists
+[2021-04-19 13:45:23,509-serv           ] INFO      [* Interpreter-Msg:Kill] Killing connection with agent 639b0c53-c33b-4d3f-9e19-d1d159b1c878
+[2021-04-19 13:45:23,509-serv           ] INFO      [* BotHandler-Msg] Killing connection for agent 639b0c53-c33b-4d3f-9e19-d1d159b1c878
+[2021-04-19 13:45:23,509-serv           ] INFO      [* BotHandler-Msg] Sent "kill" command to agent 639b0c53-c33b-4d3f-9e19-d1d159b1c878
+[2021-04-19 13:45:23,509-serv           ] INFO      [* Interpreter-Msg:Kill] Removing agent 639b0c53-c33b-4d3f-9e19-d1d159b1c878 from agent list
+[2021-04-19 13:45:23,509-serv           ] INFO      [* Interpreter-Msg:Kill] agent 639b0c53-c33b-4d3f-9e19-d1d159b1c878 was killed successfully
+[2021-04-19 13:52:34,264-serv           ] INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-19 13:52:34,265-serv           ] WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-19 13:52:36,471-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-19 13:52:36,471-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 13:52:36,472-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-19 13:53:12,213-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 13:53:12,214-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-19 13:53:12,504-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 13:53:12,505-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
