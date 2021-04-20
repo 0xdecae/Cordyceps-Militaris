@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 [2021-04-09 12:32:40,443-up             ] INFO      [* BotHandler-Msg] Agent 6dcbfcd1-fc21-45cd-9e08-940bfbc6ed94 beacon started
 [2021-04-09 12:34:46,336-up             ] INFO      [* BotHandler-Msg] Agent ca8541f2-3490-42e9-92f7-19a0221386ed beacon started
@@ -2383,3 +2384,15 @@
 [2021-04-19 13:52:09,791-up             ] INFO      [* BotHandler-Msg] Agent 639b0c53-c33b-4d3f-9e19-d1d159b1c878 - BEACON : DOWN
 [2021-04-19 13:52:32,835-up             ] INFO      [* BotHandler-Msg] Agent 639b0c53-c33b-4d3f-9e19-d1d159b1c878 - BEACON : DOWN
 [2021-04-19 13:53:09,887-up             ] INFO      [* BotHandler-Msg] Agent 639b0c53-c33b-4d3f-9e19-d1d159b1c878 - BEACON : DOWN
+=======
+[2021-04-19 17:24:53,779-up             ] INFO      [* BotHandler-Msg] Agent f08c2d2f-49f0-4b17-88c7-528f517672df beacon started
+[2021-04-19 17:30:51,916-up             ] INFO      [* BotHandler-Msg] Agent 374e4a85-4872-4113-81aa-eb1815400e9e beacon started
+[2021-04-19 17:32:49,321-up             ] INFO      [* BotHandler-Msg] Agent 4e24927d-de30-4221-a1b2-61dca8913b75 beacon started
+[2021-04-19 17:34:38,375-up             ] INFO      [* BotHandler-Msg] Agent 7bdb20ea-ffa8-46f0-95d7-645be3421516 beacon started
+[2021-04-19 17:35:47,838-up             ] INFO      [* BotHandler-Msg] Agent 035f3ea6-4da2-41ee-b6bd-36d30588214b beacon started
+[2021-04-19 17:39:07,224-up             ] INFO      [* BotHandler-Msg] Agent 252f103c-363f-4abc-94a0-55503109f494 beacon started
+[2021-04-19 17:42:30,823-up             ] INFO      [* BotHandler-Msg] Agent f4f564a9-66fc-4752-bc36-961a6eeaa786 beacon started
+[2021-04-19 17:51:33,267-up             ] INFO      [* BotHandler-Msg] Agent cad25683-7bd1-4bfe-8b89-b33a5e3fe1d9 beacon started
+[2021-04-19 17:54:08,629-up             ] INFO      [* BotHandler-Msg] Agent f001c265-7188-4f9a-8714-444ac62e31fc beacon started
+[2021-04-19 18:12:26,494-up             ] INFO      [* BotHandler-Msg] Agent fea1a053-82e0-4308-95b4-80b15db4a904 beacon started
+>>>>>>> de1439c728a05843cbe162373dee5771308e5c23

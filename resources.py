@@ -5,7 +5,7 @@ import secrets
 import base64
 
 from flask import request, Response
-from flask_restful import Resource
+from flask_restful import Resource, reqparse
 from database.db import initialize_db
 from database.models import Task, Result, TaskHistory
 
@@ -34,13 +34,14 @@ class Tasks(Resource):
             # Load the options provided for the task into an array for tracking in history
             task_options = []
             for key in json_obj[i].keys():
-                # Anything that comes after task_type and task_id is treated as an option
-                if (key != "task_type" and key != "task_id"):
+                # Anything that comes after task_type, task_id, and agent_id is treated as an option
+                if (key != "task_type" and key != "task_id" and key != "agent_id"):
                     task_options.append(key + ": " + json_obj[i][key])
             # Add to task history
             TaskHistory(
                 task_id=json_obj[i]['task_id'],
                 task_type=json_obj[i]['task_type'],
+                agent_id=json_obj[i]['agent_id'],
                 task_object=json.dumps(json_obj),
                 task_options=task_options,
                 task_results=""
@@ -84,7 +85,8 @@ class Results(Resource):
                 json_obj['dwell'] = "5.0"
                 json_obj['running'] = "true"
                 # Create new handler for connection
-                newConn = Handler(agent_id, self.loggers, "HTTP")
+                client_address = [json_obj['ip_address'], 5000]
+                newConn = Handler(agent_id, self.loggers, "HTTP", client_address)
                 newConn.start()
                 # Update agent list
                 self.agentList.append(newConn)
@@ -135,3 +137,10 @@ class History(Resource):
                 TaskHistory.objects(task_id=result["task_id"]).update_one(
                     set__task_results=result["task_results"])
         return Response(task_history, mimetype="application/json", status=200)
+
+class Files(Resource):
+    # Download file
+    def get(self):
+        #something
+    def post(self):
+        #something

@@ -29,6 +29,7 @@ class Listener_HTTP(threading.Thread):
         api.add_resource(resources.Tasks, '/tasks', endpoint='tasks')
         api.add_resource(resources.Results, '/results', resource_class_kwargs={'agentList': self.agentList, 'logger': self.loggers})
         api.add_resource(resources.History, '/history')
+        api.add_resource(resources.Files, '/files')
 
         # Disable Flask's default logger
         log = logging.getLogger('werkzeug')
