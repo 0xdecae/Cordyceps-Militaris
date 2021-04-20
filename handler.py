@@ -392,9 +392,6 @@ class Handler(threading.Thread):
             # Send data/command to RAT
             if self.transport_type == "TCP":
                 self.client.send(cmd_sent.encode('utf-8'))
-            elif self.transport_type == "HTTP":
-                request_payload = json.loads(cmd_sent)
-                task_obj = self.api_post_request("/tasks", request_payload)
         except Exception as ex:
             # Log this - print to screen if not a beacon
             if cmd_sent != self.beacon_probe:

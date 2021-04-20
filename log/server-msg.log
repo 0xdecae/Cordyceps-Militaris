@@ -1,0 +1,302 @@
+[2021-04-19 17:24:43,667-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-19 17:24:43,668-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-19 17:24:44,666-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-19 17:24:47,275-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-19 17:24:47,275-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-19 17:24:49,782-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-19 17:24:49,782-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-19 17:24:49,783-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-19 17:24:53,779-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.192.175:5000; Session ID of f08c2d2f-49f0-4b17-88c7-528f517672df
+[2021-04-19 17:24:53,779-serv           ] INFO      [* BotHandler-Msg] Agent f08c2d2f-49f0-4b17-88c7-528f517672df beacon started
+[2021-04-19 17:25:03,286-serv           ] INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-19 17:26:27,872-serv           ] INFO      [* Interpreter-Msg] Received command: "interact f08c2d2f-49f0-4b17-88c7-528f517672df"
+[2021-04-19 17:26:27,873-serv           ] INFO      [* Interpreter-Msg:Interaction] Initiating mode selection prompt
+[2021-04-19 17:26:30,379-serv           ] INFO      [* Interpreter-Msg:SingleMode] Entering single-mode, prompting for agent selection
+[2021-04-19 17:26:46,031-serv           ] INFO      [* Interpreter-Msg:SingleMode] Agent ID obtained: f08c2d2f-49f0-4b17-88c7-528f517672df
+[2021-04-19 17:26:46,031-serv           ] INFO      [* Interpreter-Msg:SingleMode] Stopping beacon for agent f08c2d2f-49f0-4b17-88c7-528f517672df while in single-mode
+[2021-04-19 17:26:46,354-serv           ] INFO      [* Interpreter-Msg:SingleMode] Initiating Single-Mode prompt
+[2021-04-19 17:26:58,416-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: whoami
+[2021-04-19 17:26:58,516-serv           ] WARNING   [* Interpreter-Msg] Error with sending command or receiving output
+[2021-04-19 17:26:58,516-serv           ] WARNING   [* Interpreter-Msg] Error: name 'transport_type' is not defined
+[2021-04-19 17:27:13,764-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: exut
+[2021-04-19 17:27:13,866-serv           ] WARNING   [* Interpreter-Msg] Error with sending command or receiving output
+[2021-04-19 17:27:13,866-serv           ] WARNING   [* Interpreter-Msg] Error: name 'transport_type' is not defined
+[2021-04-19 17:27:15,735-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: exit
+[2021-04-19 17:27:15,735-serv           ] INFO      [* Interpreter-Msg] Restarting beacon
+[2021-04-19 17:27:15,735-serv           ] INFO      [* Interpreter-Msg] Cleaning Batch list
+[2021-04-19 17:27:15,735-serv           ] INFO      [* Interpreter-Msg] Exiting Single-Mode... Returning to main-menu...
+[2021-04-19 17:27:23,002-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-19 17:27:23,003-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 17:27:54,358-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 17:30:42,735-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-19 17:30:42,736-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-19 17:30:43,734-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-19 17:30:47,565-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-19 17:30:47,565-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-19 17:30:50,131-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-19 17:30:50,132-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-19 17:30:50,132-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-19 17:30:51,916-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.192.175:5000; Session ID of 374e4a85-4872-4113-81aa-eb1815400e9e
+[2021-04-19 17:30:51,916-serv           ] INFO      [* BotHandler-Msg] Agent 374e4a85-4872-4113-81aa-eb1815400e9e beacon started
+[2021-04-19 17:31:02,711-serv           ] INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-19 17:31:02,711-serv           ] WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-19 17:31:05,091-serv           ] INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-19 17:31:09,477-serv           ] INFO      [* Interpreter-Msg] Received command: "interact"
+[2021-04-19 17:31:09,477-serv           ] INFO      [* Interpreter-Msg:Interaction] Initiating mode selection prompt
+[2021-04-19 17:31:11,103-serv           ] INFO      [* Interpreter-Msg:SingleMode] Entering single-mode, prompting for agent selection
+[2021-04-19 17:31:18,020-serv           ] INFO      [* Interpreter-Msg:SingleMode] Agent ID obtained: 374e4a85-4872-4113-81aa-eb1815400e9e
+[2021-04-19 17:31:18,021-serv           ] INFO      [* Interpreter-Msg:SingleMode] Stopping beacon for agent 374e4a85-4872-4113-81aa-eb1815400e9e while in single-mode
+[2021-04-19 17:31:18,329-serv           ] INFO      [* Interpreter-Msg:SingleMode] Initiating Single-Mode prompt
+[2021-04-19 17:31:26,176-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: whoami
+[2021-04-19 17:31:26,278-serv           ] WARNING   [* Interpreter-Msg] Error with sending command or receiving output
+[2021-04-19 17:31:26,278-serv           ] WARNING   [* Interpreter-Msg] Error: name 'transport_type' is not defined
+[2021-04-19 17:32:04,650-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: exit
+[2021-04-19 17:32:04,651-serv           ] INFO      [* Interpreter-Msg] Restarting beacon
+[2021-04-19 17:32:04,651-serv           ] INFO      [* Interpreter-Msg] Cleaning Batch list
+[2021-04-19 17:32:04,651-serv           ] INFO      [* Interpreter-Msg] Exiting Single-Mode... Returning to main-menu...
+[2021-04-19 17:32:05,832-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-19 17:32:05,833-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 17:32:13,472-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-19 17:32:35,386-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-19 17:32:35,386-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-19 17:32:36,387-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-19 17:32:39,946-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-19 17:32:39,946-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-19 17:32:43,119-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-19 17:32:43,119-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-19 17:32:43,119-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-19 17:32:49,321-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.192.175:5000; Session ID of 4e24927d-de30-4221-a1b2-61dca8913b75
+[2021-04-19 17:32:49,321-serv           ] INFO      [* BotHandler-Msg] Agent 4e24927d-de30-4221-a1b2-61dca8913b75 beacon started
+[2021-04-19 17:32:57,610-serv           ] INFO      [* Interpreter-Msg] Received command: "interact"
+[2021-04-19 17:32:57,611-serv           ] INFO      [* Interpreter-Msg:Interaction] Initiating mode selection prompt
+[2021-04-19 17:32:58,829-serv           ] INFO      [* Interpreter-Msg:SingleMode] Entering single-mode, prompting for agent selection
+[2021-04-19 17:33:05,739-serv           ] INFO      [* Interpreter-Msg:SingleMode] Agent ID obtained: 4e24927d-de30-4221-a1b2-61dca8913b75
+[2021-04-19 17:33:05,739-serv           ] INFO      [* Interpreter-Msg:SingleMode] Stopping beacon for agent 4e24927d-de30-4221-a1b2-61dca8913b75 while in single-mode
+[2021-04-19 17:33:06,044-serv           ] INFO      [* Interpreter-Msg:SingleMode] Initiating Single-Mode prompt
+[2021-04-19 17:33:10,366-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: whoami
+[2021-04-19 17:33:10,466-serv           ] WARNING   [* Interpreter-Msg] Error with sending command or receiving output
+[2021-04-19 17:33:10,466-serv           ] WARNING   [* Interpreter-Msg] Error: name 'json' is not defined
+[2021-04-19 17:33:32,382-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: exit
+[2021-04-19 17:33:32,382-serv           ] INFO      [* Interpreter-Msg] Restarting beacon
+[2021-04-19 17:33:32,382-serv           ] INFO      [* Interpreter-Msg] Cleaning Batch list
+[2021-04-19 17:33:32,383-serv           ] INFO      [* Interpreter-Msg] Exiting Single-Mode... Returning to main-menu...
+[2021-04-19 17:33:33,863-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-19 17:33:33,863-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 17:33:39,916-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-19 17:34:28,796-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-19 17:34:28,798-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-19 17:34:29,799-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-19 17:34:33,261-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-19 17:34:33,261-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-19 17:34:35,839-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-19 17:34:35,842-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-19 17:34:35,842-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-19 17:34:38,375-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.192.175:5000; Session ID of 7bdb20ea-ffa8-46f0-95d7-645be3421516
+[2021-04-19 17:34:38,375-serv           ] INFO      [* BotHandler-Msg] Agent 7bdb20ea-ffa8-46f0-95d7-645be3421516 beacon started
+[2021-04-19 17:34:43,705-serv           ] INFO      [* Interpreter-Msg] Received command: "interact"
+[2021-04-19 17:34:43,705-serv           ] INFO      [* Interpreter-Msg:Interaction] Initiating mode selection prompt
+[2021-04-19 17:34:44,816-serv           ] INFO      [* Interpreter-Msg:SingleMode] Entering single-mode, prompting for agent selection
+[2021-04-19 17:34:51,017-serv           ] INFO      [* Interpreter-Msg:SingleMode] Agent ID obtained: 7bdb20ea-ffa8-46f0-95d7-645be3421516
+[2021-04-19 17:34:51,017-serv           ] INFO      [* Interpreter-Msg:SingleMode] Stopping beacon for agent 7bdb20ea-ffa8-46f0-95d7-645be3421516 while in single-mode
+[2021-04-19 17:34:51,322-serv           ] INFO      [* Interpreter-Msg:SingleMode] Initiating Single-Mode prompt
+[2021-04-19 17:34:55,578-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: whoami
+[2021-04-19 17:34:55,679-serv           ] WARNING   [* Interpreter-Msg] Error with sending command or receiving output
+[2021-04-19 17:34:55,679-serv           ] WARNING   [* Interpreter-Msg] Error: name 'agent' is not defined
+[2021-04-19 17:35:21,275-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: exit
+[2021-04-19 17:35:21,275-serv           ] INFO      [* Interpreter-Msg] Restarting beacon
+[2021-04-19 17:35:21,275-serv           ] INFO      [* Interpreter-Msg] Cleaning Batch list
+[2021-04-19 17:35:21,275-serv           ] INFO      [* Interpreter-Msg] Exiting Single-Mode... Returning to main-menu...
+[2021-04-19 17:35:22,746-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-19 17:35:22,746-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 17:35:27,815-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-19 17:35:36,864-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-19 17:35:36,867-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-19 17:35:37,866-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-19 17:35:42,198-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-19 17:35:42,200-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-19 17:35:45,109-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-19 17:35:45,110-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-19 17:35:45,115-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-19 17:35:47,838-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.192.175:5000; Session ID of 035f3ea6-4da2-41ee-b6bd-36d30588214b
+[2021-04-19 17:35:47,838-serv           ] INFO      [* BotHandler-Msg] Agent 035f3ea6-4da2-41ee-b6bd-36d30588214b beacon started
+[2021-04-19 17:35:54,605-serv           ] INFO      [* Interpreter-Msg] Received command: "interact"
+[2021-04-19 17:35:54,605-serv           ] INFO      [* Interpreter-Msg:Interaction] Initiating mode selection prompt
+[2021-04-19 17:35:56,038-serv           ] INFO      [* Interpreter-Msg:SingleMode] Entering single-mode, prompting for agent selection
+[2021-04-19 17:36:04,157-serv           ] INFO      [* Interpreter-Msg:SingleMode] Agent ID obtained: 035f3ea6-4da2-41ee-b6bd-36d30588214b
+[2021-04-19 17:36:04,157-serv           ] INFO      [* Interpreter-Msg:SingleMode] Stopping beacon for agent 035f3ea6-4da2-41ee-b6bd-36d30588214b while in single-mode
+[2021-04-19 17:36:04,463-serv           ] INFO      [* Interpreter-Msg:SingleMode] Initiating Single-Mode prompt
+[2021-04-19 17:36:10,091-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: whoami
+[2021-04-19 17:36:15,155-serv           ] WARNING   [* Interpreter-Msg] Error with sending command or receiving output
+[2021-04-19 17:36:15,155-serv           ] WARNING   [* Interpreter-Msg] Error: unhashable type: 'list'
+[2021-04-19 17:37:13,637-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: exit
+[2021-04-19 17:37:13,637-serv           ] INFO      [* Interpreter-Msg] Restarting beacon
+[2021-04-19 17:37:13,637-serv           ] INFO      [* Interpreter-Msg] Cleaning Batch list
+[2021-04-19 17:37:13,637-serv           ] INFO      [* Interpreter-Msg] Exiting Single-Mode... Returning to main-menu...
+[2021-04-19 17:37:15,428-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-19 17:37:15,428-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 17:37:19,948-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-19 17:38:58,079-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-19 17:38:58,080-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-19 17:38:59,073-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-19 17:39:02,609-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-19 17:39:02,609-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-19 17:39:05,195-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-19 17:39:05,200-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-19 17:39:05,200-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-19 17:39:07,224-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.192.175:5000; Session ID of 252f103c-363f-4abc-94a0-55503109f494
+[2021-04-19 17:39:07,224-serv           ] INFO      [* BotHandler-Msg] Agent 252f103c-363f-4abc-94a0-55503109f494 beacon started
+[2021-04-19 17:39:15,686-serv           ] INFO      [* Interpreter-Msg] Received command: "interact"
+[2021-04-19 17:39:15,686-serv           ] INFO      [* Interpreter-Msg:Interaction] Initiating mode selection prompt
+[2021-04-19 17:39:16,795-serv           ] INFO      [* Interpreter-Msg:SingleMode] Entering single-mode, prompting for agent selection
+[2021-04-19 17:39:22,660-serv           ] INFO      [* Interpreter-Msg:SingleMode] Agent ID obtained: 252f103c-363f-4abc-94a0-55503109f494
+[2021-04-19 17:39:22,660-serv           ] INFO      [* Interpreter-Msg:SingleMode] Stopping beacon for agent 252f103c-363f-4abc-94a0-55503109f494 while in single-mode
+[2021-04-19 17:39:22,965-serv           ] INFO      [* Interpreter-Msg:SingleMode] Initiating Single-Mode prompt
+[2021-04-19 17:39:26,068-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: whoami
+[2021-04-19 17:40:13,321-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: hostname
+[2021-04-19 17:40:33,894-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: getpid
+[2021-04-19 17:41:57,791-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: quit
+[2021-04-19 17:41:57,791-serv           ] INFO      [* Interpreter-Msg] Restarting beacon
+[2021-04-19 17:41:57,791-serv           ] INFO      [* Interpreter-Msg] Cleaning Batch list
+[2021-04-19 17:41:57,791-serv           ] INFO      [* Interpreter-Msg] Exiting Single-Mode... Returning to main-menu...
+[2021-04-19 17:41:59,787-serv           ] INFO      [* Interpreter-Msg] Received command: "quit"
+[2021-04-19 17:41:59,790-serv           ] WARNING   [* Interpreter-Msg] Unable to process command. Retrying...
+[2021-04-19 17:42:02,263-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-19 17:42:02,263-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 17:42:05,852-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-19 17:42:16,067-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-19 17:42:16,069-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-19 17:42:17,069-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-19 17:42:20,777-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-19 17:42:20,777-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-19 17:42:23,319-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-19 17:42:23,321-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-19 17:42:23,322-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-19 17:42:30,823-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.192.175:5000; Session ID of f4f564a9-66fc-4752-bc36-961a6eeaa786
+[2021-04-19 17:42:30,823-serv           ] INFO      [* BotHandler-Msg] Agent f4f564a9-66fc-4752-bc36-961a6eeaa786 beacon started
+[2021-04-19 17:42:36,481-serv           ] INFO      [* Interpreter-Msg] Received command: "interact"
+[2021-04-19 17:42:36,481-serv           ] INFO      [* Interpreter-Msg:Interaction] Initiating mode selection prompt
+[2021-04-19 17:42:37,724-serv           ] INFO      [* Interpreter-Msg:SingleMode] Entering single-mode, prompting for agent selection
+[2021-04-19 17:42:42,690-serv           ] INFO      [* Interpreter-Msg:SingleMode] Agent ID obtained: f4f564a9-66fc-4752-bc36-961a6eeaa786
+[2021-04-19 17:42:42,690-serv           ] INFO      [* Interpreter-Msg:SingleMode] Stopping beacon for agent f4f564a9-66fc-4752-bc36-961a6eeaa786 while in single-mode
+[2021-04-19 17:42:42,994-serv           ] INFO      [* Interpreter-Msg:SingleMode] Initiating Single-Mode prompt
+[2021-04-19 17:42:46,573-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: whoami
+[2021-04-19 17:43:54,239-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: whoami
+[2021-04-19 17:44:07,887-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: whoami
+[2021-04-19 17:44:32,882-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: exit
+[2021-04-19 17:44:32,882-serv           ] INFO      [* Interpreter-Msg] Restarting beacon
+[2021-04-19 17:44:32,882-serv           ] INFO      [* Interpreter-Msg] Cleaning Batch list
+[2021-04-19 17:44:32,882-serv           ] INFO      [* Interpreter-Msg] Exiting Single-Mode... Returning to main-menu...
+[2021-04-19 17:44:47,612-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-19 17:44:47,612-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 17:44:47,762-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-19 17:51:25,780-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-19 17:51:25,781-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-19 17:51:26,779-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-19 17:51:29,390-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-19 17:51:29,390-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-19 17:51:31,921-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-19 17:51:31,922-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-19 17:51:31,926-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-19 17:51:33,266-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.192.175:5000; Session ID of cad25683-7bd1-4bfe-8b89-b33a5e3fe1d9
+[2021-04-19 17:51:33,266-serv           ] INFO      [* BotHandler-Msg] Agent cad25683-7bd1-4bfe-8b89-b33a5e3fe1d9 beacon started
+[2021-04-19 17:51:44,906-serv           ] INFO      [* Interpreter-Msg] Received command: "interact"
+[2021-04-19 17:51:44,907-serv           ] INFO      [* Interpreter-Msg:Interaction] Initiating mode selection prompt
+[2021-04-19 17:51:47,420-serv           ] INFO      [* Interpreter-Msg:SingleMode] Entering single-mode, prompting for agent selection
+[2021-04-19 17:51:54,700-serv           ] INFO      [* Interpreter-Msg:SingleMode] Agent ID obtained: cad25683-7bd1-4bfe-8b89-b33a5e3fe1d9
+[2021-04-19 17:51:54,701-serv           ] INFO      [* Interpreter-Msg:SingleMode] Stopping beacon for agent cad25683-7bd1-4bfe-8b89-b33a5e3fe1d9 while in single-mode
+[2021-04-19 17:51:55,005-serv           ] INFO      [* Interpreter-Msg:SingleMode] Initiating Single-Mode prompt
+[2021-04-19 17:52:12,851-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: whoami
+[2021-04-19 17:53:38,159-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: exit
+[2021-04-19 17:53:38,160-serv           ] INFO      [* Interpreter-Msg] Restarting beacon
+[2021-04-19 17:53:38,160-serv           ] INFO      [* Interpreter-Msg] Cleaning Batch list
+[2021-04-19 17:53:38,160-serv           ] INFO      [* Interpreter-Msg] Exiting Single-Mode... Returning to main-menu...
+[2021-04-19 17:53:40,103-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-19 17:53:40,103-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 17:53:44,008-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-19 17:53:58,088-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-19 17:53:58,089-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-19 17:53:59,084-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-19 17:54:02,228-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-19 17:54:02,228-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-19 17:54:04,655-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-19 17:54:04,657-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-19 17:54:04,657-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-19 17:54:08,629-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.192.175:5000; Session ID of f001c265-7188-4f9a-8714-444ac62e31fc
+[2021-04-19 17:54:08,629-serv           ] INFO      [* BotHandler-Msg] Agent f001c265-7188-4f9a-8714-444ac62e31fc beacon started
+[2021-04-19 17:54:24,850-serv           ] INFO      [* Interpreter-Msg] Received command: "interact"
+[2021-04-19 17:54:24,850-serv           ] INFO      [* Interpreter-Msg:Interaction] Initiating mode selection prompt
+[2021-04-19 17:54:26,184-serv           ] INFO      [* Interpreter-Msg:SingleMode] Entering single-mode, prompting for agent selection
+[2021-04-19 17:54:44,160-serv           ] INFO      [* Interpreter-Msg:SingleMode] Agent ID obtained: f001c265-7188-4f9a-8714-444ac62e31fc
+[2021-04-19 17:54:44,160-serv           ] INFO      [* Interpreter-Msg:SingleMode] Stopping beacon for agent f001c265-7188-4f9a-8714-444ac62e31fc while in single-mode
+[2021-04-19 17:54:44,475-serv           ] INFO      [* Interpreter-Msg:SingleMode] Initiating Single-Mode prompt
+[2021-04-19 17:54:49,375-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: whoami
+[2021-04-19 17:54:53,201-serv           ] WARNING   [* Interpreter-Msg] Error with sending command or receiving output
+[2021-04-19 17:54:53,201-serv           ] WARNING   [* Interpreter-Msg] Error: unsupported operand type(s) for +: 'dict' and 'str'
+[2021-04-19 17:55:22,243-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: exit
+[2021-04-19 17:55:22,243-serv           ] INFO      [* Interpreter-Msg] Restarting beacon
+[2021-04-19 17:55:22,244-serv           ] INFO      [* Interpreter-Msg] Cleaning Batch list
+[2021-04-19 17:55:22,244-serv           ] INFO      [* Interpreter-Msg] Exiting Single-Mode... Returning to main-menu...
+[2021-04-19 17:55:23,572-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-19 17:55:23,573-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 17:55:31,754-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-19 17:55:38,691-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-19 17:55:38,692-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-19 17:55:39,691-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-19 17:55:43,796-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-19 17:55:43,796-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-19 17:55:46,230-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-19 17:55:46,231-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-19 17:55:46,232-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-19 18:01:59,245-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-19 18:01:59,245-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 18:01:59,245-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-19 18:08:09,818-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-19 18:08:09,819-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-19 18:08:10,808-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-19 18:08:13,804-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-19 18:08:13,804-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-19 18:08:16,794-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-19 18:08:16,795-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-19 18:08:16,795-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-19 18:08:36,006-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-19 18:08:36,007-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 18:08:36,007-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-19 18:09:22,622-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-19 18:09:22,623-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-19 18:09:23,613-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-19 18:09:25,849-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-19 18:09:25,849-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-19 18:09:28,323-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-19 18:09:28,323-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-19 18:09:28,327-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-19 18:10:31,151-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-19 18:10:31,152-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 18:10:31,152-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents
+[2021-04-19 18:12:11,795-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-19 18:12:11,795-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-19 18:12:12,797-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-19 18:12:15,664-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-19 18:12:15,664-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-19 18:12:18,080-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-19 18:12:18,085-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-19 18:12:18,090-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-19 18:12:26,494-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.192.175:5000; Session ID of fea1a053-82e0-4308-95b4-80b15db4a904
+[2021-04-19 18:12:26,494-serv           ] INFO      [* BotHandler-Msg] Agent fea1a053-82e0-4308-95b4-80b15db4a904 beacon started
+[2021-04-19 18:12:33,139-serv           ] INFO      [* Interpreter-Msg] Received command: "interact"
+[2021-04-19 18:12:33,141-serv           ] INFO      [* Interpreter-Msg:Interaction] Initiating mode selection prompt
+[2021-04-19 18:12:34,902-serv           ] INFO      [* Interpreter-Msg:SingleMode] Entering single-mode, prompting for agent selection
+[2021-04-19 18:12:40,521-serv           ] INFO      [* Interpreter-Msg:SingleMode] Agent ID obtained: fea1a053-82e0-4308-95b4-80b15db4a904
+[2021-04-19 18:12:40,521-serv           ] INFO      [* Interpreter-Msg:SingleMode] Stopping beacon for agent fea1a053-82e0-4308-95b4-80b15db4a904 while in single-mode
+[2021-04-19 18:12:40,826-serv           ] INFO      [* Interpreter-Msg:SingleMode] Initiating Single-Mode prompt
+[2021-04-19 18:12:43,601-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: whoami
+[2021-04-19 18:15:15,015-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: pwd
+[2021-04-19 18:15:46,130-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: ping
+[2021-04-19 18:16:49,127-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: ping 127.0.0.1
+[2021-04-19 18:29:10,486-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: 
+[2021-04-19 18:29:21,417-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: exit
+[2021-04-19 18:29:21,417-serv           ] INFO      [* Interpreter-Msg] Restarting beacon
+[2021-04-19 18:29:21,417-serv           ] INFO      [* Interpreter-Msg] Cleaning Batch list
+[2021-04-19 18:29:21,417-serv           ] INFO      [* Interpreter-Msg] Exiting Single-Mode... Returning to main-menu...
+[2021-04-19 18:29:33,508-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-19 18:29:33,508-serv           ] INFO      [* Interpreter-Msg] Closing connection to all agents
+[2021-04-19 18:29:36,743-serv           ] INFO      [* Interpreter-Msg] "exit" command sent to all active agents

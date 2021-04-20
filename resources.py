@@ -5,7 +5,7 @@ import secrets
 import base64
 
 from flask import request, Response
-from flask_restful import Resource
+from flask_restful import Resource, reqparse
 from database.db import initialize_db
 from database.models import Task, Result, TaskHistory
 
@@ -137,3 +137,10 @@ class History(Resource):
                 TaskHistory.objects(task_id=result["task_id"]).update_one(
                     set__task_results=result["task_results"])
         return Response(task_history, mimetype="application/json", status=200)
+
+class Files(Resource):
+    # Download file
+    def get(self):
+        #something
+    def post(self):
+        #something
