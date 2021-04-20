@@ -8,8 +8,9 @@ from flask_restful import Api
 from database.db import initialize_db
 
 class Listener_HTTP(threading.Thread):
-    def __init__(self, loggers):
+    def __init__(self, agentList, loggers):
         threading.Thread.__init__(self)
+        self.agentList = agentList
         self.loggers = loggers
 
     def run(self):
@@ -26,8 +27,9 @@ class Listener_HTTP(threading.Thread):
 
         # Define the routes for each of our resources
         api.add_resource(resources.Tasks, '/tasks', endpoint='tasks')
-        api.add_resource(resources.Results, '/results', resource_class_kwargs={'logger': self.loggers})
+        api.add_resource(resources.Results, '/results', resource_class_kwargs={'agentList': self.agentList, 'logger': self.loggers})
         api.add_resource(resources.History, '/history')
+        api.add_resource(resources.Files, '/files')
 
         # Disable Flask's default logger
         log = logging.getLogger('werkzeug')

