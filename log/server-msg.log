@@ -264,3 +264,67 @@
 [2021-04-26 15:18:16,478-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
 [2021-04-26 15:18:16,478-serv           ] INFO      [* Interpreter-Msg:Exit] Closing connection to all agents
 [2021-04-26 15:18:16,579-serv           ] INFO      [* Interpreter-Msg:Exit] "exit" command sent to all active agents
+[2021-04-26 15:31:47,832-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-26 15:31:47,832-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-26 15:31:48,833-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-26 15:32:17,352-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-26 15:32:17,352-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-26 15:32:20,632-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-26 15:32:20,632-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-26 15:32:20,633-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-26 15:32:28,800-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-26 15:32:28,801-serv           ] INFO      [* Interpreter-Msg:Exit] Closing connection to all agents
+[2021-04-26 15:32:28,801-serv           ] INFO      [* Interpreter-Msg:Exit] "exit" command sent to all active agents
+[2021-04-26 15:37:07,289-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-26 15:37:07,289-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-26 15:37:08,291-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-26 15:37:10,416-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-26 15:37:10,417-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-26 15:37:13,520-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-26 15:37:13,521-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-26 15:37:13,521-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-26 15:37:23,824-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.75.154:5000; Session ID of 38ee0939-0003-4b50-bad2-496229a2d609
+[2021-04-26 15:37:23,824-serv           ] INFO      [* BotHandler-Msg] Agent 38ee0939-0003-4b50-bad2-496229a2d609 beacon started
+[2021-04-26 15:37:26,118-serv           ] INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-26 15:37:26,118-serv           ] WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-26 15:37:29,831-serv           ] INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-26 15:37:57,202-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.75.154:5000; Session ID of fd595485-04e0-407f-b2ec-99b3c5c8e5a9
+[2021-04-26 15:37:57,202-serv           ] INFO      [* BotHandler-Msg] Agent fd595485-04e0-407f-b2ec-99b3c5c8e5a9 beacon started
+[2021-04-26 15:38:04,001-serv           ] INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-26 15:38:04,002-serv           ] WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-26 15:38:29,285-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.75.154:5000; Session ID of fbddd08e-29c4-4dfa-9bfc-e868b3bd71c8
+[2021-04-26 15:38:29,285-serv           ] INFO      [* BotHandler-Msg] Agent fbddd08e-29c4-4dfa-9bfc-e868b3bd71c8 beacon started
+[2021-04-26 15:38:54,473-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-26 15:38:54,474-serv           ] INFO      [* Interpreter-Msg:Exit] Closing connection to all agents
+[2021-04-26 15:39:01,380-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.75.154:5000; Session ID of 8efbd243-efc3-4695-8b84-6601479d2b0d
+[2021-04-26 15:39:01,380-serv           ] INFO      [* BotHandler-Msg] Agent 8efbd243-efc3-4695-8b84-6601479d2b0d beacon started
+[2021-04-26 15:39:17,229-serv           ] INFO      [* Interpreter-Msg:Exit] Closing connection to all agents
+[2021-04-26 15:39:17,412-serv           ] INFO      [* Interpreter-Msg:Exit] Closing connection to all agents
+[2021-04-26 15:40:12,757-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-26 15:40:12,757-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-26 15:40:13,759-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-26 15:40:36,813-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-26 15:40:36,813-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-26 15:40:39,892-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-26 15:40:39,892-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-26 15:40:39,893-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-26 15:40:44,294-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.75.154:5000; Session ID of a44bfa90-c316-4e72-beaa-65213ece0c72
+[2021-04-26 15:40:44,294-serv           ] INFO      [* BotHandler-Msg] Agent a44bfa90-c316-4e72-beaa-65213ece0c72 beacon started
+[2021-04-26 15:40:46,302-serv           ] INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-26 15:40:46,302-serv           ] WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-26 15:40:48,955-serv           ] INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-26 15:41:17,543-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.75.154:5000; Session ID of 58111208-ec37-45fe-94b0-8de283f5b195
+[2021-04-26 15:41:17,543-serv           ] INFO      [* BotHandler-Msg] Agent 58111208-ec37-45fe-94b0-8de283f5b195 beacon started
+[2021-04-26 15:41:26,816-serv           ] INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-26 15:41:26,816-serv           ] WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-26 15:41:29,716-serv           ] INFO      [* Interpreter-Msg] Received command: "list-agents"
+[2021-04-26 15:41:49,606-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.75.154:5000; Session ID of 399c5ace-7927-47c8-9211-bbc37c6e4f90
+[2021-04-26 15:41:49,606-serv           ] INFO      [* BotHandler-Msg] Agent 399c5ace-7927-47c8-9211-bbc37c6e4f90 beacon started
+[2021-04-26 15:42:21,727-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.75.154:5000; Session ID of 1f6f35f7-86bc-46d9-93b0-fa414f2845de
+[2021-04-26 15:42:21,727-serv           ] INFO      [* BotHandler-Msg] Agent 1f6f35f7-86bc-46d9-93b0-fa414f2845de beacon started
+[2021-04-26 15:42:41,693-serv           ] INFO      [* Interpreter-Msg] Received command: ""
+[2021-04-26 15:42:41,694-serv           ] WARNING   [* Interpreter-Msg] Error: No command received
+[2021-04-26 15:42:42,942-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-26 15:42:42,943-serv           ] INFO      [* Interpreter-Msg:Exit] Closing connection to all agents
+[2021-04-26 15:42:48,879-serv           ] INFO      [* Interpreter-Msg:Exit] Closing connection to all agents
+[2021-04-26 15:42:48,990-serv           ] INFO      [* Interpreter-Msg:Exit] Closing connection to all agents
