@@ -1,0 +1,32 @@
+[2021-04-26 02:03:16,718-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-26 02:03:16,719-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-26 02:03:17,716-serv           ] INFO      [* Server-Msg] Address entry initiated
+[2021-04-26 02:03:21,684-serv           ] INFO      [* Server-Msg] Server address set to: 0.0.0.0
+[2021-04-26 02:03:21,684-serv           ] INFO      [* Server-Msg] Listener prompt initiated
+[2021-04-26 02:03:24,730-serv           ] INFO      [* Interpreter-Msg] Interpreter initialized and running
+[2021-04-26 02:03:24,730-serv           ] INFO      [* Server-Msg] Interpreter thread initialization complete
+[2021-04-26 02:03:24,731-serv           ] INFO      [* Interpreter-Msg] Help message printed
+[2021-04-26 02:03:28,896-serv           ] INFO      [* BotHandler-Msg] Agent handler object created for: 192.168.192.128:5000; Session ID of d01fa534-9db9-42dc-948a-ac547df3f130
+[2021-04-26 02:03:28,896-serv           ] INFO      [* BotHandler-Msg] Agent d01fa534-9db9-42dc-948a-ac547df3f130 beacon started
+[2021-04-26 02:03:48,975-serv           ] INFO      [* Interpreter-Msg] Received command: "interact"
+[2021-04-26 02:03:48,975-serv           ] INFO      [* Interpreter-Msg:Interaction] Initiating mode selection prompt
+[2021-04-26 02:03:50,396-serv           ] INFO      [* Interpreter-Msg:SingleMode] Entering single-mode, prompting for agent selection
+[2021-04-26 02:03:56,235-serv           ] INFO      [* Interpreter-Msg:SingleMode] Agent ID obtained: d01fa534-9db9-42dc-948a-ac547df3f130
+[2021-04-26 02:03:56,235-serv           ] INFO      [* Interpreter-Msg:SingleMode] Stopping beacon for agent d01fa534-9db9-42dc-948a-ac547df3f130 while in single-mode
+[2021-04-26 02:03:56,540-serv           ] INFO      [* Interpreter-Msg:SingleMode] Initiating Single-Mode prompt
+[2021-04-26 02:05:01,030-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: upload /home/kali/test.txt C:/Users/zathras/test.txt
+[2021-04-26 02:05:01,030-serv           ] INFO      [* BotHandler-Msg:Upload] Attempting to upload /home/kali/test.txt to remote file C:/Users/zathras/test.txt on agent d01fa534-9db9-42dc-948a-ac547df3f130
+[2021-04-26 02:05:01,030-serv           ] INFO      [* BotHandler-Msg:Upload] Upload of file /home/kali/test.txt to remote file C:/Users/zathras/test.txt initiated on agent d01fa534-9db9-42dc-948a-ac547df3f130
+[2021-04-26 02:05:01,030-serv           ] INFO      [* BotHandler-Msg:Upload] Attempting to send base64 encoded filedata of /home/kali/test.txt to remote file C:/Users/zathras/test.txt on agent d01fa534-9db9-42dc-948a-ac547df3f130
+[2021-04-26 02:05:07,014-serv           ] INFO      [* BotHandler-Msg:Upload] Upload of /home/kali/test.txt to remote file C:/Users/zathras/test.txt on agent d01fa534-9db9-42dc-948a-ac547df3f130 determined successful.
+[2021-04-26 02:05:07,019-serv           ] ERROR     [* Interpreter-Msg:Upload] Upload of /home/kali/test.txt to agent d01fa534-9db9-42dc-948a-ac547df3f130 successful
+[2021-04-26 02:09:06,626-serv           ] INFO      [* Interpreter-Msg] Single-Mode command received: exit
+[2021-04-26 02:09:06,626-serv           ] INFO      [* Interpreter-Msg] Restarting beacon
+[2021-04-26 02:09:06,626-serv           ] INFO      [* Interpreter-Msg] Cleaning Batch list
+[2021-04-26 02:09:06,626-serv           ] INFO      [* Interpreter-Msg] Exiting Single-Mode... Returning to main-menu...
+[2021-04-26 02:09:08,111-serv           ] INFO      [* Interpreter-Msg] Received command: "exit"
+[2021-04-26 02:09:08,111-serv           ] INFO      [* Interpreter-Msg:Exit] Closing connection to all agents
+[2021-04-26 02:09:12,192-serv           ] INFO      [* Interpreter-Msg:Exit] "exit" command sent to all active agents
+[2021-04-26 15:42:20,562-serv           ] INFO      [* Server-Msg] Logger initialization complete
+[2021-04-26 15:42:20,578-serv           ] INFO      [* Server-Msg] Initializing server...
+[2021-04-26 15:42:21,564-serv           ] INFO      [* Server-Msg] Address entry initiated
