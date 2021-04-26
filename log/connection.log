@@ -1,4 +1,0 @@
-[2021-04-26 02:03:28,895-conn           ] INFO      [* BotHandler-Msg] Agent 192.168.192.128:5000 connected with Session ID of d01fa534-9db9-42dc-948a-ac547df3f130
-[2021-04-26 02:03:28,896-conn           ] INFO      [* BotHandler-Msg] Agent d01fa534-9db9-42dc-948a-ac547df3f130 beacon started
-[2021-04-26 02:05:01,030-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"get-file","agent_id":"d01fa534-9db9-42dc-948a-ac547df3f130","filename":"/home/kali/test.txt","save_as":"C:/Users/zathras/test.txt"}] for agent d01fa534-9db9-42dc-948a-ac547df3f130 at 192.168.192.128
-[2021-04-26 02:09:08,214-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"d01fa534-9db9-42dc-948a-ac547df3f130"}] for agent d01fa534-9db9-42dc-948a-ac547df3f130 at 192.168.192.128

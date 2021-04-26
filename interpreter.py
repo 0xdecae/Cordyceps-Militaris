@@ -17,6 +17,9 @@ class Interpreter(threading.Thread):
         self.listeners = listeners
         self.loggers = loggers
 
+        self.moduleList = [[[]]]
+            # id[, name], type (evasion, exploit, enum, etc.), os, options[]
+
     def run(self):
         # Record init success
         print("[* Server-Msg] Interpreter thread initialization complete...")
@@ -98,7 +101,6 @@ class Interpreter(threading.Thread):
                         self.loggers[0].q_log('serv','error','[* Interpreter-Msg:Upload] Unable to upload file with Agent '+str(arg_id))
                         self.loggers[0].q_log('serv','error','[* Interpreter-Msg:Upload] Agent '+str(arg_id)+' does not exist')                         
                 
-
             # Kill an active connection - Kill agent process and removes the agent from the servers list
             # TODO: Add a self-destruction function to the agent code
             elif (cmd.startswith("kill")):
@@ -170,18 +172,18 @@ class Interpreter(threading.Thread):
                 else:
                     # Check if exists
                     agentFound = False
-                    # shell_agent = ''
-                    # shell_success = ''
+                    shell_agent = ''
+                    shell_success = ''
                     for agent in self.agentList:
                         if agent.getID() == arg_id:
                             agentFound = True
-                            # shell_agent = agent
+                            shell_agent = agent
                             self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Shell] Agent '+str(arg_id)+' exists')
 
                     if agentFound:
                         try:
                             agent.stopBeacon()
-                            # shell_success = self.shell(arg_id)
+                            shell_success = self.shell(arg_id)
                             agent.startBeacon()
                         except Exception as ex: 
                             print(f"[* Interpreter-Msg:Shell] Unable to initiate interaction with agent {arg_id}...")
@@ -220,7 +222,7 @@ class Interpreter(threading.Thread):
 
 #------------------------------------------------------------------------------------------------------------------------------
     def batchMode(self):
- 
+        
         batchList = []
 
         os.system("clear")
@@ -263,6 +265,9 @@ class Interpreter(threading.Thread):
                             self.loggers[0].q_log('serv','info','[* Interpreter-Msg:BatchMode] Stopping beacons for agents '+str(idlist)+' while in batch-mode')            
                             conn.stopBeacon()
                     bm_success = True
+
+
+
 
         time.sleep(0.3)
 
@@ -318,6 +323,7 @@ class Interpreter(threading.Thread):
                             else:
                                 print(f"[* Interpreter-Msg:Upload] Upload of {local_filename} to agent {agent.getID()} unsuccessful")
                                 self.loggers[0].q_log('serv','error','[* Interpreter-Msg:Upload] Upload of '+str(local_filename)+' to agent '+str(agent.getID())+' unsuccessful')
+
                 else:
                     try:
                         print(f"[+] Sending Command: {batch_cmd} to {str(len(batchList))} agents")
@@ -332,6 +338,8 @@ class Interpreter(threading.Thread):
                         self.loggers[0].q_log('serv','warning',('[* Interpreter-Msg:BatchMode] Error: ' + str(ex)))
 
         # RESET BEACON
+        for conn in batchList:                                     
+            conn.startBeacon()
         print(f"[* Interpreter-Msg:BatchMode] Exiting Batch-Mode... Returning to main-menu...")
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg:BatchMode] Exiting Batch-Mode... Returning to main-menu...')
 
@@ -498,6 +506,8 @@ class Interpreter(threading.Thread):
         print(f"[* Interpreter-Msg:Exit] Closing connection to {str(len(self.agentList))} agents")
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Exit] Closing connection to all agents')
 
+        http_set = False
+
         for agent in self.agentList:                                         
             time.sleep(0.1)
 
@@ -505,13 +515,14 @@ class Interpreter(threading.Thread):
                 if agent.execute("exit") == agent.getReply("exit"):
                     self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Exit] Successfully exited connection for agent '+str(agent.getID()))
             elif agent.getTT() == "HTTP":
+                http_set = True
                 agent.execute(f'[{{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"{str(agent.getID())}"}}]')
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Exit] "exit" command sent to all active agents')
 
         print("[* Interpreter-Msg:Exit] Exiting connections for all agents. Please wait...")
         time.sleep(3)
 
-        if agent.getTT() == "HTTP":
+        if http_set:
             print("[* Interpreter-Msg:Exit] Cleaning up database...")
             pymongo.MongoClient("mongodb://localhost:27017/")["skytree"]["result"].remove({})
             pymongo.MongoClient("mongodb://localhost:27017/")["skytree"]["task"].remove({})
@@ -582,7 +593,18 @@ class Interpreter(threading.Thread):
             print(f.read())
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg] History printed')
 #------------------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------------------------------------
+# MOD STUFFS
+#------------------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------------------------------------
     def listModules(self):
+        print("TODO")
+#------------------------------------------------------------------------------------------------------------------------------
+    def viewModule(self, module):
+        print("straight")
+        # print options, example values, desc, etc.
+#------------------------------------------------------------------------------------------------------------------------------
+    def loadModule(self, module, options):
         print("TODO")
 #------------------------------------------------------------------------------------------------------------------------------
 
