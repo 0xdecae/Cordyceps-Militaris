@@ -17,6 +17,9 @@ class Interpreter(threading.Thread):
         self.listeners = listeners
         self.loggers = loggers
 
+        self.moduleList = [[[]]]
+            # id[, name], type (evasion, exploit, enum, etc.), os, options[]
+
     def run(self):
         # Record init success
         print("[* Server-Msg] Interpreter thread initialization complete...")
@@ -98,7 +101,6 @@ class Interpreter(threading.Thread):
                         self.loggers[0].q_log('serv','error','[* Interpreter-Msg:Upload] Unable to upload file with Agent '+str(arg_id))
                         self.loggers[0].q_log('serv','error','[* Interpreter-Msg:Upload] Agent '+str(arg_id)+' does not exist')                         
                 
-
             # Kill an active connection - Kill agent process and removes the agent from the servers list
             # TODO: Add a self-destruction function to the agent code
             elif (cmd.startswith("kill")):
@@ -318,6 +320,7 @@ class Interpreter(threading.Thread):
                             else:
                                 print(f"[* Interpreter-Msg:Upload] Upload of {local_filename} to agent {agent.getID()} unsuccessful")
                                 self.loggers[0].q_log('serv','error','[* Interpreter-Msg:Upload] Upload of '+str(local_filename)+' to agent '+str(agent.getID())+' unsuccessful')
+
                 else:
                     try:
                         print(f"[+] Sending Command: {batch_cmd} to {str(len(batchList))} agents")
@@ -450,6 +453,8 @@ class Interpreter(threading.Thread):
                 elif (single_cmd.casefold().strip(" ") == "clear"):
                     os.system("clear")
                     self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Screen cleared')
+#------------------------------------------------------------------------------------------------------------------------------
+                # What in the flying fuck are you doing here in interpreter! Move this shit to Handler
                 elif (conn.getTT() == "HTTP" and single_cmd.casefold().strip(" ") == "ping"):
                     # JSON format the command to easily send command to agent
                     ret_val = json.loads(conn.execute(f'[{{"task_type":"ping","agent_id":"{str(conn.getID())}"}}]'))
@@ -582,7 +587,18 @@ class Interpreter(threading.Thread):
             print(f.read())
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg] History printed')
 #------------------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------------------------------------
+# MOD STUFFS
+#------------------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------------------------------------
     def listModules(self):
+        print("TODO")
+#------------------------------------------------------------------------------------------------------------------------------
+    def viewModule(self, module):
+        print("straight")
+        # print options, example values, desc, etc.
+#------------------------------------------------------------------------------------------------------------------------------
+    def loadModule(self, module, options):
         print("TODO")
 #------------------------------------------------------------------------------------------------------------------------------
 
