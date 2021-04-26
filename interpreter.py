@@ -451,9 +451,11 @@ class Interpreter(threading.Thread):
                     os.system("clear")
                     self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Screen cleared')
                 elif (conn.getTT() == "HTTP" and single_cmd.casefold().strip(" ") == "ping"):
+                    # JSON format the command to easily send command to agent
                     ret_val = json.loads(conn.execute(f'[{{"task_type":"ping","agent_id":"{str(conn.getID())}"}}]'))
+                    # Retrieve task_id key from results to print the returned content (The task_id is the key for contents in the current JSON formatting)
                     res_task_id = [key for key in ret_val.keys() if key != "agent_id" and key != "_id" and key != "result_id"]
-                    for id in res_task_id print(ret_val[res_task_id[0]]['contents'])
+                    print(ret_val[res_task_id[0]]['contents'])
                 elif (single_cmd.startswith("upload")):
                     try:
                         local_filename = str(single_cmd.split()[1])
@@ -478,9 +480,11 @@ class Interpreter(threading.Thread):
                         if conn.getTT() == "TCP" or conn.getTT() == "DNS":
                             print(conn.execute(single_cmd))
                         elif conn.getTT() == "HTTP":
+                            # JSON format the command to easily send command to agent
                             ret_val = json.loads(conn.execute(f'[{{"task_type":"execute","agent_id":"{str(conn.getID())}","command":"{single_cmd}"}}]'))
+                            # Retrieve task_id key from results to print the returned content (The task_id is the key for contents in the current JSON formatting)
                             res_task_id = [key for key in ret_val.keys() if key != "agent_id" and key != "_id" and key != "result_id"]
-                            for id in res_task_id print(ret_val[res_task_id[0]]['contents'])
+                            print(ret_val[res_task_id[0]]['contents'])
                     except Exception as ex:
                         print("[* Interpreter-Msg] Error with sending command or receiving output")
                         self.loggers[0].q_log('serv','warning','[* Interpreter-Msg] Error with sending command or receiving output')

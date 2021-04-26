@@ -4,8 +4,9 @@ import string
 import secrets
 import base64
 
-from flask import request, Response
-from flask_restful import Resource, reqparse
+from flask import request, Response, send_from_directory, abort
+from flask_restful import Resource
+#from werkzeug.utils import secure_filename
 from database.db import initialize_db
 from database.models import Task, Result, TaskHistory
 
@@ -141,6 +142,24 @@ class History(Resource):
 class Files(Resource):
     # Download file
     def get(self):
-        #something
+        body = request.get_json()
+        json_obj = json.loads(json.dumps(body))
+        try:
+            return send_from_directory(json_obj["path"], json_obj["filename"], as_attachment=True)
+        except FileNotFoundError:
+            abort(404)
+
+
+''' Implement upload if server is remote
+    # Upload file
     def post(self):
-        #something
+        if file:
+		filename = secure_filename(file.filename)
+		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+		resp = jsonify({'message' : 'File successfully uploaded'})
+		return Response()
+	else:
+		resp = jsonify({'message' : 'Allowed file types are txt, pdf, png, jpg, jpeg, gif'})
+		resp.status_code = 400
+		return resp
+'''

