@@ -503,6 +503,8 @@ class Interpreter(threading.Thread):
         print(f"[* Interpreter-Msg:Exit] Closing connection to {str(len(self.agentList))} agents")
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Exit] Closing connection to all agents')
 
+        http_set = False
+
         for agent in self.agentList:                                         
             time.sleep(0.1)
 
@@ -510,13 +512,14 @@ class Interpreter(threading.Thread):
                 if agent.execute("exit") == agent.getReply("exit"):
                     self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Exit] Successfully exited connection for agent '+str(agent.getID()))
             elif agent.getTT() == "HTTP":
+                http_set = True
                 agent.execute(f'[{{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"{str(agent.getID())}"}}]')
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Exit] "exit" command sent to all active agents')
 
         print("[* Interpreter-Msg:Exit] Exiting connections for all agents. Please wait...")
         time.sleep(3)
 
-        if agent.getTT() == "HTTP":
+        if http_set:
             print("[* Interpreter-Msg:Exit] Cleaning up database...")
             pymongo.MongoClient("mongodb://localhost:27017/")["skytree"]["result"].remove({})
             pymongo.MongoClient("mongodb://localhost:27017/")["skytree"]["task"].remove({})
