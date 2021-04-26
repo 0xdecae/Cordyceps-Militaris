@@ -26,6 +26,31 @@ exit
 exit
 >>>>>>> 2a0941608423bfcdb86307d25c124185e4ff4e35
 exit
+<<<<<<< HEAD
+
+list-agents
+exit
+list-agents
+
+list-agents
+exit
+
+list-agents
+
+exit
+
+list-agents
+exit
+ls
+list-agents
+
+list-agetns
+list-agents
+exit
+list-agents
+kill 639b0c53-c33b-4d3f-9e19-d1d159b1c878
+
+=======
 exit
 exit
 list-agents
@@ -70,6 +95,7 @@ exit
 exit
 exit
 interact
+>>>>>>> de1439c728a05843cbe162373dee5771308e5c23
 exit
 
 upload
