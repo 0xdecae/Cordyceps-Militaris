@@ -172,18 +172,18 @@ class Interpreter(threading.Thread):
                 else:
                     # Check if exists
                     agentFound = False
-                    # shell_agent = ''
-                    # shell_success = ''
+                    shell_agent = ''
+                    shell_success = ''
                     for agent in self.agentList:
                         if agent.getID() == arg_id:
                             agentFound = True
-                            # shell_agent = agent
+                            shell_agent = agent
                             self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Shell] Agent '+str(arg_id)+' exists')
 
                     if agentFound:
                         try:
                             agent.stopBeacon()
-                            # shell_success = self.shell(arg_id)
+                            shell_success = self.shell(arg_id)
                             agent.startBeacon()
                         except Exception as ex: 
                             print(f"[* Interpreter-Msg:Shell] Unable to initiate interaction with agent {arg_id}...")
@@ -222,7 +222,7 @@ class Interpreter(threading.Thread):
 
 #------------------------------------------------------------------------------------------------------------------------------
     def batchMode(self):
- 
+        
         batchList = []
 
         os.system("clear")
@@ -265,6 +265,9 @@ class Interpreter(threading.Thread):
                             self.loggers[0].q_log('serv','info','[* Interpreter-Msg:BatchMode] Stopping beacons for agents '+str(idlist)+' while in batch-mode')            
                             conn.stopBeacon()
                     bm_success = True
+
+
+
 
         time.sleep(0.3)
 
@@ -335,6 +338,8 @@ class Interpreter(threading.Thread):
                         self.loggers[0].q_log('serv','warning',('[* Interpreter-Msg:BatchMode] Error: ' + str(ex)))
 
         # RESET BEACON
+        for conn in batchList:                                     
+            conn.startBeacon()
         print(f"[* Interpreter-Msg:BatchMode] Exiting Batch-Mode... Returning to main-menu...")
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg:BatchMode] Exiting Batch-Mode... Returning to main-menu...')
 
@@ -453,8 +458,6 @@ class Interpreter(threading.Thread):
                 elif (single_cmd.casefold().strip(" ") == "clear"):
                     os.system("clear")
                     self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Screen cleared')
-#------------------------------------------------------------------------------------------------------------------------------
-                # What in the flying fuck are you doing here in interpreter! Move this shit to Handler
                 elif (conn.getTT() == "HTTP" and single_cmd.casefold().strip(" ") == "ping"):
                     # JSON format the command to easily send command to agent
                     ret_val = json.loads(conn.execute(f'[{{"task_type":"ping","agent_id":"{str(conn.getID())}"}}]'))
