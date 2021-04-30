@@ -1,0 +1,40 @@
+{
+    "modules" : [
+        {
+            "type"      : "enumeration",
+            "os"        : "windows",
+            "name"      : "winapi-enum",
+            "options"   : []
+        },
+        {
+            "type"      : "enumeration",
+            "os"        : "linux",
+            "name"      : "linux-enum",
+            "options"   : []
+        },
+        {
+            "type"      : "post-exploitation",
+            "os"        : "windows",
+            "name"      : "regkey-persistence",
+            "options"   : []
+        },
+        {
+            "type"      : "post-exploitation",
+            "os"        : "linux",
+            "name"      : "systemd-persistence",
+            "options"   : []
+        },
+        {
+            "type"      : "evasion",
+            "os"        : "linux",
+            "name"      : "log-deletion",
+            "options"   : []
+        },
+        {
+            "type"      : "evasion",
+            "os"        : "linux",
+            "name"      : "history-deletion",
+            "options"   : []
+        }
+    ]
+}

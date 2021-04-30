@@ -157,3 +157,22 @@ list-agents
 list-agents
 
 exit
+
+list-agents
+
+list-agents
+shell 4cdb014d-37e4-43ea-8b33-f75d7a01d084
+exit
+
+
+list-agents
+list-agents
+
+
+list-agents
+shell a061f544-cdb6-466c-a9e9-bfcaed5af310
+interact a061f544-cdb6-466c-a9e9-bfcaed5af310
+shell a061f544-cdb6-466c-a9e9-bfcaed5af310
+list-agents
+interact
+exit

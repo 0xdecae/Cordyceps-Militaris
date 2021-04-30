@@ -16,8 +16,12 @@ class Interpreter(threading.Thread):
         self.agentList = agentList
         self.listeners = listeners
         self.loggers = loggers
+        self.module_data = ''
+        self.canMod = self.modInit()
+           
 
-        self.moduleList = [[[]]]
+
+        # self.moduleList = [[[]]]
             # id[, name], type (evasion, exploit, enum, etc.), os, options[]
 
     def run(self):
@@ -219,7 +223,21 @@ class Interpreter(threading.Thread):
 
         ''')
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Help message printed')
+#------------------------------------------------------------------------------------------------------------------------------
+    def initMods(self)
+        try:
+            print(f"[* Interpreter-Msg:ModInit] Initializing module set")
+            self.loggers[0].q_log('serv','error','[* Interpreter-Msg:ModInit] Initializing module set')
 
+            with open('mod/modules.json', encoding='utf-8') as F:
+                self.module_data = json.loads(F.read())
+        except Exception as ex:
+            print(f"[* Interpreter-Msg:ModInit] Unable to initialize module set")
+            self.loggers[0].q_log('serv','error','[* Interpreter-Msg:ModInit] Unable to initialize module set')            
+            print(f"[* Interpreter-Msg:ModInit] Error: {ex}")
+            self.loggers[0].q_log('serv','error','[* Interpreter-Msg:ModInit] Error: '+str(ex))
+
+        return success
 #------------------------------------------------------------------------------------------------------------------------------
     def batchMode(self):
         
