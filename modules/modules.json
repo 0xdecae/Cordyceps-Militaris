@@ -4,36 +4,42 @@
             "type"      : "enumeration",
             "os"        : "windows",
             "name"      : "winapi-enum",
+            "desc"      : "Utilizes the WinAPI to enumerate useful and sensitive information from the target system",
             "options"   : []
         },
         {
             "type"      : "enumeration",
             "os"        : "linux",
             "name"      : "linux-enum",
+            "desc"      : "Utilizes basic techniques and commands to enumerate useful and sensitive information from the target",
             "options"   : []
         },
         {
             "type"      : "post-exploitation",
             "os"        : "windows",
             "name"      : "regkey-persistence",
+            "desc"      : "Creates a Windows Registry key to enable persistent execution of the agent upon startup of the target",
             "options"   : []
         },
         {
             "type"      : "post-exploitation",
             "os"        : "linux",
             "name"      : "systemd-persistence",
+            "desc"      : "Creates a SystemD service to enable persistent execution of the agent upon startup of the target",
             "options"   : []
         },
         {
             "type"      : "evasion",
             "os"        : "linux",
             "name"      : "log-deletion",
+            "desc"      : "Deletes all logs contained within /var/log directory on the target",
             "options"   : []
         },
         {
             "type"      : "evasion",
             "os"        : "linux",
             "name"      : "history-deletion",
+            "desc"      : "Deletes all .history and .bash_history logs on the target",
             "options"   : []
         }
     ]
