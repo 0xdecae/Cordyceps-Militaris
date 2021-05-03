@@ -1,9 +1,0 @@
-[2021-04-26 15:47:24,646-conn           ] INFO      [* BotHandler-Msg] Agent 192.168.192.175:5000 connected with Session ID of 0fc23c7e-b6c2-454b-be76-31586408faf9
-[2021-04-26 15:47:24,646-conn           ] INFO      [* BotHandler-Msg] Agent 0fc23c7e-b6c2-454b-be76-31586408faf9 beacon started
-[2021-04-26 15:48:04,166-conn           ] INFO      [* BotHandler-Msg] Killing connection for agent 0fc23c7e-b6c2-454b-be76-31586408faf9
-[2021-04-26 15:48:53,555-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"0fc23c7e-b6c2-454b-be76-31586408faf9"}] for agent 0fc23c7e-b6c2-454b-be76-31586408faf9 at 192.168.192.175
-[2021-04-26 15:50:04,866-conn           ] INFO      [* BotHandler-Msg] Agent 192.168.192.128:5000 connected with Session ID of 4fb2e938-5d6c-441d-a873-71840222dbc6
-[2021-04-26 15:50:04,866-conn           ] INFO      [* BotHandler-Msg] Agent 4fb2e938-5d6c-441d-a873-71840222dbc6 beacon started
-[2021-04-26 16:09:39,710-conn           ] INFO      [* BotHandler-Msg] Killing connection for agent 4fb2e938-5d6c-441d-a873-71840222dbc6
-[2021-04-26 16:09:39,711-conn           ] INFO      [* BotHandler-Msg:StdExec] Received command: [{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"4fb2e938-5d6c-441d-a873-71840222dbc6"}] for agent 4fb2e938-5d6c-441d-a873-71840222dbc6 at 192.168.192.128
-[2021-04-26 16:09:43,321-conn           ] INFO      [* BotHandler-Msg] Sent "kill" command to agent 4fb2e938-5d6c-441d-a873-71840222dbc6
