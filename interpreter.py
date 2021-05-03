@@ -16,8 +16,10 @@ class Interpreter(threading.Thread):
         self.agentList = agentList
         self.listeners = listeners
         self.loggers = loggers
+        self.module_data = ''
+        self.canMod = self.initMods()
 
-        self.moduleList = [[[]]]
+        # self.moduleList = [[[]]]
             # id[, name], type (evasion, exploit, enum, etc.), os, options[]
 
     def run(self):
@@ -35,7 +37,7 @@ class Interpreter(threading.Thread):
 
             # Log command
             self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Received command: "'+cmd+'"')            
-            self.log_history(cmd)
+            self.loghistory(cmd)
 
             # Command cases
 
@@ -219,8 +221,8 @@ class Interpreter(threading.Thread):
 
         ''')
         self.loggers[0].q_log('serv','info','[* Interpreter-Msg] Help message printed')
-
 #------------------------------------------------------------------------------------------------------------------------------
+
     def batchMode(self):
         
         batchList = []
@@ -584,7 +586,11 @@ class Interpreter(threading.Thread):
             print(f"[* Interpreter-Msg:Kill] Agent {id} was killed with errors...\n")
             self.loggers[0].q_log('serv','info','[* Interpreter-Msg:Kill] agent '+str(id)+' was killed unsuccessfully')
 #------------------------------------------------------------------------------------------------------------------------------
-    def log_history(self, cmd):
+    # def inithistory(self, cmd):
+    #     with open("log/.history", "a") as history:
+    #         history.write(cmd+'\n')
+#------------------------------------------------------------------------------------------------------------------------------
+    def loghistory(self, cmd):
         with open("log/.history", "a") as history:
             history.write(cmd+'\n')
 #------------------------------------------------------------------------------------------------------------------------------ 
@@ -607,4 +613,22 @@ class Interpreter(threading.Thread):
     def loadModule(self, module, options):
         print("TODO")
 #------------------------------------------------------------------------------------------------------------------------------
+    def initMods(self):
+        success = 'True'
+        try:
+            print(f"[* Interpreter-Msg:ModInit] Initializing module set")
+            self.loggers[0].q_log('serv','error','[* Interpreter-Msg:ModInit] Initializing module set')
 
+            # Load modules.json as a dictionary into the var
+            with open('mod/modules.json', encoding='utf-8') as F:
+                self.module_data = json.loads(F.read())
+
+        except Exception as ex:
+            print(f"[* Interpreter-Msg:ModInit] Unable to initialize module set")
+            self.loggers[0].q_log('serv','error','[* Interpreter-Msg:ModInit] Unable to initialize module set')            
+            print(f"[* Interpreter-Msg:ModInit] Error: {ex}")
+            self.loggers[0].q_log('serv','error','[* Interpreter-Msg:ModInit] Error: '+str(ex))
+            success = False
+
+        return success
+#------------------------------------------------------------------------------------------------------------------------------
