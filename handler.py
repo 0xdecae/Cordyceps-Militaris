@@ -169,7 +169,7 @@ class Handler(threading.Thread):
                 return_code = False
                 
         elif self.transport_type == "HTTP":
-            return_val = self.execute(f'[{{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"{str(agent.getID())}"}}]')
+            return_val = self.execute(f'[{{"task_type":"configure","running":"false","dwell":"1.0","agent_id":"{str(self.agent_id)}"}}]')
             print(return_val)
             if "success" in return_val:
                 return_code = True
